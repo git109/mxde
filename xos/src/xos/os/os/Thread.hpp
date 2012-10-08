@@ -25,26 +25,24 @@
 
 #if defined(WINDOWS) 
 // Windows 
+#include "xos/os/windows/crt/Thread.hpp"
 #include "xos/os/windows/Thread.hpp"
 #else // defined(WINDOWS) 
 // Unix 
+#include "xos/os/unix/crt/Thread.hpp"
 #include "xos/os/unix/Thread.hpp"
 #endif // defined(WINDOWS) 
 
 namespace xos {
 namespace os {
 
-typedef os::ThreadImplement ThreadImplement;
-typedef os::Thread ThreadExtend;
+typedef os::Thread Thread;
 
-class _EXPORT_CLASS Thread: virtual public ThreadImplement, public ThreadExtend {
-public:
-    typedef ThreadImplement Implements;
-    typedef ThreadExtend Extends;
+namespace crt {
 
-    Thread(Run& run): Extends(run) {}
-};
+typedef os::crt::Thread Thread;
 
+} // namespace crt
 } // namespace os 
 } // namespace xos 
 

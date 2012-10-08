@@ -21,6 +21,18 @@
 #include "xos/os/os/Thread.hpp"
 
 namespace xos {
+
+Thread* Thread::New(Run& run) {
+    Thread* t = new os::Thread(run);
+    return t;
+}
+void Thread::Delete(Thread* t) {
+    delete t;
+}
+
+} // namespace xos 
+
+namespace xos {
 namespace os {
 
 } // namespace os 

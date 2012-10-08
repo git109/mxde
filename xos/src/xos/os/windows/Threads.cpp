@@ -19,20 +19,9 @@
 ///   Date: 10/3/2012
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/windows/Threads.hpp"
+#include "xos/os/windows/crt/Thread.cpp"
 #include "xos/os/windows/Thread.cpp"
 #include "xos/os/Thread.cpp"
-
-namespace xos {
-
-Thread* Thread::New(Run& run) {
-    Thread* t = new windows::Thread(run);
-    return t;
-}
-void Thread::Delete(Thread* t) {
-    delete t;
-}
-
-} // namespace xos 
 
 namespace xos {
 namespace windows {

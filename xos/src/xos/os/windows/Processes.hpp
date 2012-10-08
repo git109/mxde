@@ -21,6 +21,7 @@
 #ifndef _XOS_OS_WINDOWS_PROCESSES_HPP
 #define _XOS_OS_WINDOWS_PROCESSES_HPP
 
+#include "xos/os/windows/crt/Process.hpp"
 #include "xos/os/windows/Process.hpp"
 
 namespace xos {

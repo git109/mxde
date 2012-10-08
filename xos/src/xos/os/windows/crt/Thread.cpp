@@ -13,36 +13,17 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Process.hpp
+///   File: Thread.cpp
 ///
 /// Author: $author$
-///   Date: 10/6/2012
+///   Date: 10/7/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_OS_OS_PROCESS_HPP
-#define _XOS_OS_OS_PROCESS_HPP
-
-#include "xos/os/os/Os.hpp"
-
-#if defined(WINDOWS) 
-// Windows 
-#include "xos/os/windows/crt/Process.hpp"
-#include "xos/os/windows/Process.hpp"
-#else // defined(WINDOWS) 
-// Unix 
-#include "xos/os/unix/Process.hpp"
-#endif // defined(WINDOWS) 
+#include "xos/os/windows/crt/Thread.hpp"
 
 namespace xos {
-namespace os {
-
-typedef os::Process Process;
-
+namespace windows {
 namespace crt {
 
-typedef os::crt::Process Process;
-
 } // namespace crt 
-} // namespace os 
+} // namespace windows 
 } // namespace xos 
-
-#endif // _XOS_OS_OS_PROCESS_HPP 

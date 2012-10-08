@@ -18,17 +18,10 @@
 /// Author: $author$
 ///   Date: 10/6/2012
 ///////////////////////////////////////////////////////////////////////
-#include "Process.hpp"
+#include "xos/os/windows/Process.hpp"
 
 namespace xos {
 namespace windows {
 
-
-
-
-} // namespace xos 
 } // namespace windows 
-
-
-        
-
+} // namespace xos 

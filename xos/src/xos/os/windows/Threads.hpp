@@ -21,6 +21,7 @@
 #ifndef _XOS_OS_WINDOWS_THREADS_HPP
 #define _XOS_OS_WINDOWS_THREADS_HPP
 
+#include "xos/os/windows/crt/Thread.hpp"
 #include "xos/os/windows/Thread.hpp"
 #include "xos/os/Thread.hpp"
 

@@ -19,6 +19,7 @@
 ///   Date: 10/6/2012
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/windows/Processes.hpp"
+#include "xos/os/windows/crt/Process.cpp"
 #include "xos/os/windows/Process.cpp"
 #include "xos/os/Process.cpp"
 

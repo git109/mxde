@@ -24,8 +24,8 @@
 #include "xos/base/Base.hpp"
 
 namespace xos {
-namespace windows {}
-namespace unix {}
+namespace windows { namespace crt {} }
+namespace unix {namespace crt {} }
 namespace os {
 
 #if defined(WINDOWS) 
