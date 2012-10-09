@@ -28,13 +28,12 @@ namespace windows {
 namespace crt {
 
 typedef xos::Thread ThreadImplement;
+typedef ThreadImplement::Status ThreadStatus;
 typedef Attached<uintptr_t, int, 0, ExportBase, ThreadImplement> ThreadAttached;
-typedef Opened<uintptr_t, int, 0, ThreadAttached, ThreadImplement> ThreadExtend;
+typedef handle::Joined<uintptr_t, ThreadStatus, ThreadAttached, ThreadImplement> ThreadJoined;
+typedef Opened<uintptr_t, int, 0, ThreadJoined, ThreadImplement> ThreadExtend;
 
-class _EXPORT_CLASS Thread
-: virtual public ThreadImplement,
-  public ThreadExtend
-{
+class _EXPORT_CLASS Thread: virtual public ThreadImplement, public ThreadExtend {
 public:
     typedef ThreadImplement Implements;
     typedef ThreadExtend Extends;
@@ -69,12 +68,21 @@ public:
         return isStarted;
     }
     virtual bool Close() {
-        if (!(Join())) {
-            XOS_LOG_ERROR("failed on Join()");
-            return false;
+        if ((Join())) {
+            HANDLE handle = 0;
+            if ((handle = (HANDLE)(Detach()))) {
+                XOS_LOG_TRACE("CloseHandle()...");
+                if (FALSE != (CloseHandle(handle))) {
+                    XOS_LOG_TRACE("...CloseHandle()");
+                    return true;
+                } else {
+                    XOS_LOG_ERROR("failed " << GetLastError() << " on CloseHandle()");
+                }
+            }
         }
-        return true;
+        return false;
     }
+
     virtual bool Join() {
         return (Success == (TimedJoin(INFINITE)));
     }
@@ -82,34 +90,7 @@ public:
         return TimedJoin(0);
     }
     virtual Status TimedJoin(mseconds_t waitMilliSeconds) {
-        Status status = Failed;
-        bool isOpen = false;
-        uintptr_t detached = 0;
-        DWORD result;
-        if ((detached = m_attachedTo)) {
-            XOS_LOG_TRACE("wait on WaitForSingleObject()...");
-            if (WAIT_OBJECT_0 == (result = WaitForSingleObject((HANDLE)(detached), (DWORD)(waitMilliSeconds)))) {
-                XOS_LOG_TRACE("...WAIT_OBJECT_0 on WaitForSingleObject()");
-                Detach(isOpen);
-                if ((CloseHandle((HANDLE)(detached)))) {
-                    status = Success;
-                } else {
-                    XOS_LOG_ERROR("failed on CloseHandle()");
-                }
-            } else {
-                switch(result) {
-                case WAIT_TIMEOUT:
-                    XOS_LOG_TRACE("...WAIT_TIMEOUT on WaitForSingleObject()");
-                    status = Busy;
-                    break;
-                case WAIT_ABANDONED:
-                    XOS_LOG_ERROR("...WAIT_ABANDONED on WaitForSingleObject()");
-                    status = Interrupted;
-                    break;
-                }
-            }
-        }
-        return status;
+        return Extends::TimedJoin(waitMilliSeconds); 
     }
 
 protected:

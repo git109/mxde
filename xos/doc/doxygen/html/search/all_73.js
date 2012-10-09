@@ -1,8 +1,8 @@
 var searchData=
 [
+  ['semaphore',['Semaphore',['../classxos_1_1os_1_1_semaphore.html',1,'xos::os']]],
   ['semaphore',['Semaphore',['../classxos_1_1windows_1_1_semaphore.html',1,'xos::windows']]],
   ['semaphore',['Semaphore',['../classxos_1_1_semaphore.html',1,'xos']]],
-  ['semaphore',['Semaphore',['../classxos_1_1os_1_1_semaphore.html',1,'xos::os']]],
   ['socket',['Socket',['../classxos_1_1network_1_1_socket.html',1,'xos::network']]],
   ['socket',['Socket',['../classxos_1_1network_1_1unix_1_1_socket.html',1,'xos::network::unix']]],
   ['socket',['Socket',['../classxos_1_1network_1_1windows_1_1local_1_1_socket.html',1,'xos::network::windows::local']]],

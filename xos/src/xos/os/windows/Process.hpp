@@ -21,6 +21,7 @@
 #ifndef _XOS_OS_WINDOWS_PROCESS_HPP
 #define _XOS_OS_WINDOWS_PROCESS_HPP
 
+#include "xos/os/windows/handle/Joined.hpp"
 #include "xos/os/Process.hpp"
 #include "xos/os/Logger.hpp"
 #include "xos/base/Created.hpp"
@@ -33,8 +34,10 @@ namespace xos {
 namespace windows {
 
 typedef xos::Process ProcessImplement;
+typedef ProcessImplement::Status ProcessStatus;
 typedef Attached<HANDLE, int, 0, ExportBase, ProcessImplement> ProcessAttached;
-typedef Created<HANDLE, int, 0, ProcessAttached, ProcessImplement> ProcessExtend;
+typedef handle::Joined<HANDLE, ProcessStatus, ProcessAttached, ProcessImplement> ProcessJoined;
+typedef Created<HANDLE, int, 0, ProcessJoined, ProcessImplement> ProcessExtend;
 
 class _EXPORT_CLASS Process: virtual public ProcessImplement, public ProcessExtend {
 public:
@@ -161,29 +164,7 @@ public:
         return TimedJoin(0); }
 
     virtual Status TimedJoin(mseconds_t waitMilliSeconds) {
-        HANDLE hProcess = 0;
-        if ((hProcess = (m_attachedTo))) {
-            DWORD dwResult = 0;
-            XOS_LOG_TRACE("wait on WaitForSingleObject()...");
-            if (WAIT_OBJECT_0 == (WaitForSingleObject(hProcess, (DWORD)(waitMilliSeconds)))) {
-                XOS_LOG_TRACE("...WAIT_OBJECT_0 on WaitForSingleObject()");
-                return Success;
-            } else {
-                switch(dwResult) {
-                case WAIT_TIMEOUT:
-                    XOS_LOG_DEBUG("...WAIT_TIMEOUT on WaitForSingleObject()");
-                    return Busy;
-                    break;
-                case WAIT_ABANDONED:
-                     XOS_LOG_ERROR("...WAIT_ABANDONED on WaitForSingleObject()");
-                     return Interrupted;
-                    break;
-                default:
-                    XOS_LOG_ERROR("...failed on WaitForSingleObject()");
-                }
-            }
-        }
-        return Failed; }
+        return Extends::TimedJoin(waitMilliSeconds); }
 
 protected:
     typedef Wrapped<PROCESS_INFORMATION> ProcessInformation;
