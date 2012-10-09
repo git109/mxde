@@ -24,34 +24,39 @@
 #include "xos/os/Process.hpp"
 #include "xos/os/Logger.hpp"
 #include "xos/base/Created.hpp"
+#include "xos/base/Wrapped.hpp"
+#include "xos/base/String.hpp"
+#include "xos/base/Array.hpp"
 #include <process.h>
 
 namespace xos {
 namespace windows {
 
 typedef xos::Process ProcessImplement;
-typedef Attached<intptr_t, int, 0, ExportBase, ProcessImplement> ProcessAttached;
-typedef Created<intptr_t, int, 0, ProcessAttached, ProcessImplement> ProcessExtend;
+typedef Attached<HANDLE, int, 0, ExportBase, ProcessImplement> ProcessAttached;
+typedef Created<HANDLE, int, 0, ProcessAttached, ProcessImplement> ProcessExtend;
 
 class _EXPORT_CLASS Process: virtual public ProcessImplement, public ProcessExtend {
 public:
     typedef ProcessImplement Implements;
     typedef ProcessExtend Extends;
 
-    Process(const char* path, char** argv, char** env, bool isDetached = false) {
+    Process(const char* path, char** argv, char** env, bool isDetached = false)
+    : m_thread(0) {
         if (!(Create(path, argv, env, isDetached))) {
             XOS_LOG_ERROR("failed on Create()");
             throw(Error(Error::Failed));
         }
     }
-    Process(const char* path, char** argv, bool isDetached = false) {
+    Process(const char* path, char** argv, bool isDetached = false)
+    : m_thread(0) {
         if (!(Create(path, argv, isDetached))) {
             XOS_LOG_ERROR("failed on Create()");
             throw(Error(Error::Failed));
         }
     }
-    Process(intptr_t detached, bool isCreated = false)
-    : Extends(detached, isCreated) {}
+    Process(HANDLE hProcess, HANDLE hThread, bool isCreated = false)
+    : Extends(hProcess, isCreated), m_thread(hThread) {}
     virtual ~Process() {
         if (!(Destroyed())) {
             XOS_LOG_ERROR("failed on Destroyed()");
@@ -59,50 +64,93 @@ public:
     }
 
     virtual bool Create(const char* path, char** argv, char** env, bool isDetached = false) {
+        StringT<tchar_t> ApplicationName(path);
+        CommandLine commandLine(argv);
+        LPCTSTR lpApplicationName = ApplicationName.c_str();
+        LPTSTR lpCommandLine = commandLine.str();
+        LPSECURITY_ATTRIBUTES lpProcessAttributes = 0;
+        LPSECURITY_ATTRIBUTES lpThreadAttributes = 0;
+        BOOL bInheritHandles = FALSE;
+        DWORD dwCreationFlags = (isDetached)?(DETACHED_PROCESS):(0);
+        LPVOID lpEnvironment = env;
+        LPTSTR lpCurrentDirectory = 0;
+        StartupInfo startup(0);
+        LPSTARTUPINFO lpStartupInfo = &startup.wrapped();
+        ProcessInformation process(0);
+        LPPROCESS_INFORMATION lpProcessInformation = &process.wrapped();
         bool isCreated = false;
-        intptr_t detached = 0;
-        int mode = (isDetached)?(_P_DETACH):(_P_NOWAIT);
+        HANDLE hProcess = 0;
+        HANDLE hThread = 0;
+
         if (!(Destroyed())) {
-            return false;
-        }
-        if ((isCreated = (0 != (detached = _spawnvpe(mode, path, argv, env))))) {
-            Attach(detached, isCreated  && !isDetached);
+            return false; }
+
+        XOS_LOG_TRACE("CreateProcess()...");
+        if ((isCreated = (FALSE != (CreateProcess
+            (lpApplicationName, lpCommandLine, 
+             lpProcessAttributes,lpThreadAttributes, bInheritHandles, dwCreationFlags,
+             lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation))))) {
+            hProcess = process.wrapped().hProcess;
+            hThread = process.wrapped().hThread;
+            Attach(hProcess, hThread, isCreated);
+            XOS_LOG_TRACE("...CreateProcess()");
             return true;
         } else {
-            XOS_LOG_ERROR("failed " << errno << " on _spawnvpe(..., \"" << path << "\", ...)");
+            XOS_LOG_ERROR("failed " << GetLastError() << " on CreateProcess(\"" << path << "\", ...)");
         }
         return false; }
     virtual bool Create(const char* path, char** argv, bool isDetached = false) {
-        bool isCreated = false;
-        intptr_t detached = 0;
-        int mode = (isDetached)?(_P_DETACH):(_P_NOWAIT);
-        if (!(Destroyed())) {
-            return false;
-        }
-        if ((isCreated = (0 != (detached = _spawnvp(mode, path, argv))))) {
-            Attach(detached, isCreated  && !isDetached);
-            return true;
-        } else {
-            XOS_LOG_ERROR("failed " << errno << " on _spawnvp(..., \"" << path << "\", ...)");
-        }
-        return false; }
+        return Create(path, argv, 0, isDetached); }
     virtual bool Destroy() {
         if ((Join())) {
-            return true;
+            HANDLE hProcess = 0;
+            HANDLE hThread = 0;
+            if ((hProcess = Detach(hThread))) {
+                if ((hThread)) {
+                    bool isTrue = false;
+                    XOS_LOG_TRACE("CloseHandle()...");
+                    if (!(isTrue = (FALSE != CloseHandle(hThread)))) {
+                        XOS_LOG_ERROR("failed " << GetLastError() << " on CloseHandle()");
+                    } else {
+                        XOS_LOG_TRACE("...CloseHandle()");
+                    }
+                    XOS_LOG_TRACE("CloseHandle()...");
+                    if (FALSE != (CloseHandle(hProcess))) {
+                        XOS_LOG_TRACE("...CloseHandle()");
+                        return isTrue;
+                    } else {
+                        XOS_LOG_ERROR("failed " << GetLastError() << " on CloseHandle()");
+                    }
+                }
+            }
         }
         return false; }
 
-    virtual bool Join() {
+    virtual HANDLE Attach(HANDLE hProcess, HANDLE hThread, bool isCreated = false) {
+        m_thread = hThread;
+        return Extends::Attach(hProcess, isCreated);
+    }
+    virtual HANDLE Detach() {
         bool isCreated = false;
-        intptr_t detached = 0;
-        if ((detached = Detach(isCreated))) {
-            intptr_t err = 0;
-            int result = 0;
-            if (detached == (err = _cwait(&result, detached, 0))) {
-                return true;
-            } else {
-                XOS_LOG_ERROR("failed " << errno << " on _cwait()");
-            }
+        return Detach(isCreated);
+    }
+    virtual HANDLE Detach(HANDLE& hThread) {
+        bool isCreated = false;
+        return Detach(hThread, isCreated);
+    }
+    virtual HANDLE Detach(bool& isCreated) {
+        HANDLE hThread = 0;
+        return Detach(hThread, isCreated);
+    }
+    virtual HANDLE Detach(HANDLE& hThread, bool& isCreated) {
+        hThread = m_thread;
+        m_thread = 0;
+        return Extends::Detach(isCreated);
+    }
+
+    virtual bool Join() {
+        if (Success == (TimedJoin(INFINITE))) {
+            return true;
         }
         return false; }
     virtual bool Separate() {
@@ -110,9 +158,59 @@ public:
         return true; }
 
     virtual Status TryJoin() {
-        return Invalid; }
+        return TimedJoin(0); }
+
     virtual Status TimedJoin(mseconds_t waitMilliSeconds) {
-        return Invalid; }
+        HANDLE hProcess = 0;
+        if ((hProcess = (m_attachedTo))) {
+            DWORD dwResult = 0;
+            XOS_LOG_TRACE("wait on WaitForSingleObject()...");
+            if (WAIT_OBJECT_0 == (WaitForSingleObject(hProcess, (DWORD)(waitMilliSeconds)))) {
+                XOS_LOG_TRACE("...WAIT_OBJECT_0 on WaitForSingleObject()");
+                return Success;
+            } else {
+                switch(dwResult) {
+                case WAIT_TIMEOUT:
+                    XOS_LOG_DEBUG("...WAIT_TIMEOUT on WaitForSingleObject()");
+                    return Busy;
+                    break;
+                case WAIT_ABANDONED:
+                     XOS_LOG_ERROR("...WAIT_ABANDONED on WaitForSingleObject()");
+                     return Interrupted;
+                    break;
+                default:
+                    XOS_LOG_ERROR("...failed on WaitForSingleObject()");
+                }
+            }
+        }
+        return Failed; }
+
+protected:
+    typedef Wrapped<PROCESS_INFORMATION> ProcessInformation;
+    typedef Wrapped<STARTUPINFO> StartupInfo;
+
+    class _EXPORT_CLASS CommandLine: public StringT<tchar_t> {
+    public:
+        CommandLine(char** argv) {
+            tchar_t null = 0;
+            const char* arg = 0;
+            if ((arg = *(argv++))) {
+                do {
+                    Append(arg);
+                    if ((arg = *(argv++))) {
+                        Append(" "); }
+                } while ((arg));
+            }
+            m_str.Append(c_str(), length());
+            m_str.Append(&null, 1);
+        }
+        inline tchar_t* str() const { 
+            return m_str.Elements(); }
+    protected:
+        Array<tchar_t> m_str;
+    };
+
+    HANDLE m_thread;
 };
 
 } // namespace windows 

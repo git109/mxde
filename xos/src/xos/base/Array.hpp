@@ -93,7 +93,7 @@ public:
             toLength = VDefaultSize;
 
         if ((toSize = (size_t)(toLength)) > m_elementsSize)
-        if (toLength > (SetSize(toSize)))
+        if (toLength > ((ssize_t)(SetSize(toSize))))
             return 0;
         
         m_elementsLength = toLength;
