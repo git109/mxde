@@ -53,6 +53,11 @@ public:
 
 protected:
     virtual ~Thread(){}
+
+    Run& NullRun() const {
+        static Run nullRun;
+        return nullRun;
+    }
 };
 
 } // namespace xos 

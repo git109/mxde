@@ -26,6 +26,7 @@
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Mutexes.hpp"
+#include "xos/os/unix/Mutexes.hpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Mutexes.hpp"

@@ -23,6 +23,7 @@
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Semaphores.cpp"
+#include "xos/os/unix/Semaphores.cpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Semaphores.cpp"

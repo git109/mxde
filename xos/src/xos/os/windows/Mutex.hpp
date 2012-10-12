@@ -27,7 +27,7 @@
 namespace xos {
 namespace windows {
 
-typedef Mutex MutexImplement;
+typedef xos::Mutex MutexImplement;
 typedef Attached<HANDLE, int, 0, ExportBase, MutexImplement> MutextAttached;
 typedef Created<HANDLE, int, 0, MutextAttached, MutexImplement> MutexExtend;
 

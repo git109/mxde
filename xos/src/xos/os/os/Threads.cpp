@@ -24,6 +24,7 @@
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Threads.cpp"
+#include "xos/os/unix/Threads.cpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Threads.cpp"

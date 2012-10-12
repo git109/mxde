@@ -26,6 +26,7 @@
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Semaphores.hpp"
+#include "xos/os/unix/Semaphores.hpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Semaphores.hpp"

@@ -103,100 +103,101 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00022"></a>00022 <span class="preprocessor"></span><span class="preprocessor">#define _XOS_OS_WINDOWS_CRT_THREAD_HPP</span>
 <a name="l00023"></a>00023 <span class="preprocessor"></span>
 <a name="l00024"></a>00024 <span class="preprocessor">#include &quot;xos/os/windows/Thread.hpp&quot;</span>
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">namespace </span>xos {
-<a name="l00027"></a>00027 <span class="keyword">namespace </span>windows {
-<a name="l00028"></a>00028 <span class="keyword">namespace </span>crt {
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="keyword">typedef</span> <a class="code" href="classxos_1_1_thread.html">xos::Thread</a> ThreadImplement;
-<a name="l00031"></a>00031 <span class="keyword">typedef</span> ThreadImplement::Status ThreadStatus;
-<a name="l00032"></a>00032 <span class="keyword">typedef</span> Attached&lt;uintptr_t, int, 0, ExportBase, ThreadImplement&gt; ThreadAttached;
-<a name="l00033"></a>00033 <span class="keyword">typedef</span> handle::Joined&lt;uintptr_t, ThreadStatus, ThreadAttached, ThreadImplement&gt; ThreadJoined;
-<a name="l00034"></a>00034 <span class="keyword">typedef</span> Opened&lt;uintptr_t, int, 0, ThreadJoined, ThreadImplement&gt; ThreadExtend;
-<a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">00036</a> <span class="keyword">class </span>_EXPORT_CLASS <a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>: <span class="keyword">virtual</span> <span class="keyword">public</span> <a class="code" href="classxos_1_1_thread.html">ThreadImplement</a>, <span class="keyword">public</span> <a class="code" href="classxos_1_1_opened.html">ThreadExtend</a> {
-<a name="l00037"></a>00037 <span class="keyword">public</span>:
-<a name="l00038"></a>00038     <span class="keyword">typedef</span> <a class="code" href="classxos_1_1_thread.html">ThreadImplement</a> Implements;
-<a name="l00039"></a>00039     <span class="keyword">typedef</span> <a class="code" href="classxos_1_1_opened.html">ThreadExtend</a> Extends;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041     <a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>(Run&amp; run): m_run(run) {
-<a name="l00042"></a>00042         <span class="keywordflow">if</span> (!(Start())) {
-<a name="l00043"></a>00043             XOS_LOG_ERROR(<span class="stringliteral">&quot;failed on Start()&quot;</span>);
-<a name="l00044"></a>00044             <span class="keywordflow">throw</span> (<a class="code" href="classxos_1_1_error.html">Error</a>(Error::Failed));
-<a name="l00045"></a>00045         }
-<a name="l00046"></a>00046     }
-<a name="l00047"></a>00047     <span class="keyword">virtual</span> ~<a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>() {
-<a name="l00048"></a>00048         <span class="keywordflow">if</span> ((m_isOpen)) {
-<a name="l00049"></a>00049             <span class="keywordflow">if</span> (!(Close())) {
-<a name="l00050"></a>00050                 XOS_LOG_ERROR(<span class="stringliteral">&quot;failed on Close()&quot;</span>);
-<a name="l00051"></a>00051             }
-<a name="l00052"></a>00052         }
-<a name="l00053"></a>00053     }
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Start() {
-<a name="l00056"></a>00056         <span class="keywordtype">bool</span> isStarted = <span class="keyword">false</span>;
-<a name="l00057"></a>00057         uintptr_t detached = 0;
-<a name="l00058"></a>00058         <span class="keywordtype">void</span>* security_attributes=0;
-<a name="l00059"></a>00059         <span class="keywordtype">unsigned</span> stack_size=0;
-<a name="l00060"></a>00060         <span class="keywordtype">unsigned</span> init_flag=0;
-<a name="l00061"></a>00061         <span class="keywordtype">unsigned</span> tid;
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063         <span class="keywordflow">if</span> ((isStarted = (0 != (detached = (_beginthreadex
-<a name="l00064"></a>00064             (security_attributes, stack_size, StartRoutine, 
-<a name="l00065"></a>00065              (<span class="keywordtype">void</span>*)(<span class="keyword">this</span>), init_flag, &amp;tid)))))) {
-<a name="l00066"></a>00066             Attach(detached, isStarted);
-<a name="l00067"></a>00067         }
-<a name="l00068"></a>00068         <span class="keywordflow">return</span> isStarted;
-<a name="l00069"></a>00069     }
-<a name="l00070"></a>00070     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Close() {
-<a name="l00071"></a>00071         <span class="keywordflow">if</span> ((Join())) {
-<a name="l00072"></a>00072             HANDLE handle = 0;
-<a name="l00073"></a>00073             <span class="keywordflow">if</span> ((handle = (HANDLE)(Detach()))) {
-<a name="l00074"></a>00074                 XOS_LOG_TRACE(<span class="stringliteral">&quot;CloseHandle()...&quot;</span>);
-<a name="l00075"></a>00075                 <span class="keywordflow">if</span> (FALSE != (CloseHandle(handle))) {
-<a name="l00076"></a>00076                     XOS_LOG_TRACE(<span class="stringliteral">&quot;...CloseHandle()&quot;</span>);
-<a name="l00077"></a>00077                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00078"></a>00078                 } <span class="keywordflow">else</span> {
-<a name="l00079"></a>00079                     XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; GetLastError() &lt;&lt; <span class="stringliteral">&quot; on CloseHandle()&quot;</span>);
-<a name="l00080"></a>00080                 }
-<a name="l00081"></a>00081             }
-<a name="l00082"></a>00082         }
-<a name="l00083"></a>00083         <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00084"></a>00084     }
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Join() {
-<a name="l00087"></a>00087         <span class="keywordflow">return</span> (Success == (TimedJoin(INFINITE)));
-<a name="l00088"></a>00088     }
-<a name="l00089"></a>00089     <span class="keyword">virtual</span> Status TryJoin() {
-<a name="l00090"></a>00090         <span class="keywordflow">return</span> TimedJoin(0);
-<a name="l00091"></a>00091     }
-<a name="l00092"></a>00092     <span class="keyword">virtual</span> Status TimedJoin(mseconds_t waitMilliSeconds) {
-<a name="l00093"></a>00093         <span class="keywordflow">return</span> Extends::TimedJoin(waitMilliSeconds); 
-<a name="l00094"></a>00094     }
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 <span class="keyword">protected</span>:
-<a name="l00097"></a>00097     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> __stdcall StartRoutine(<span class="keywordtype">void</span>* param) {
-<a name="l00098"></a>00098         <span class="keywordtype">unsigned</span> result = 0;
-<a name="l00099"></a>00099         <a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>* t = 0;
-<a name="l00100"></a>00100         XOS_LOG_TRACE(<span class="stringliteral">&quot;in...&quot;</span>);
-<a name="l00101"></a>00101         <span class="keywordflow">if</span> ((t = (<a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>*)(param))) {
-<a name="l00102"></a>00102             XOS_LOG_TRACE(<span class="stringliteral">&quot;t-&gt;m_run()...&quot;</span>);
-<a name="l00103"></a>00103             t-&gt;m_run();
-<a name="l00104"></a>00104             XOS_LOG_TRACE(<span class="stringliteral">&quot;...t-&gt;m_run()&quot;</span>);
-<a name="l00105"></a>00105         } <span class="keywordflow">else</span> {
-<a name="l00106"></a>00106             XOS_LOG_ERROR(<span class="stringliteral">&quot;void* param == 0&quot;</span>);
-<a name="l00107"></a>00107         }
-<a name="l00108"></a>00108         XOS_LOG_TRACE(<span class="stringliteral">&quot;...out&quot;</span>);
-<a name="l00109"></a>00109         <span class="keywordflow">return</span> result;
-<a name="l00110"></a>00110     }
-<a name="l00111"></a>00111     Run&amp; m_run;
-<a name="l00112"></a>00112 };
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114 } <span class="comment">// namespace crt </span>
-<a name="l00115"></a>00115 } <span class="comment">// namespace windows </span>
-<a name="l00116"></a>00116 } <span class="comment">// namespace xos </span>
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118 <span class="preprocessor">#endif // _XOS_OS_WINDOWS_CRT_THREAD_HPP </span>
+<a name="l00025"></a>00025 <span class="preprocessor">#include &lt;process.h&gt;</span>
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">namespace </span>xos {
+<a name="l00028"></a>00028 <span class="keyword">namespace </span>windows {
+<a name="l00029"></a>00029 <span class="keyword">namespace </span>crt {
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="keyword">typedef</span> <a class="code" href="classxos_1_1_thread.html">xos::Thread</a> ThreadImplement;
+<a name="l00032"></a>00032 <span class="keyword">typedef</span> ThreadImplement::Status ThreadStatus;
+<a name="l00033"></a>00033 <span class="keyword">typedef</span> Attached&lt;uintptr_t, int, 0, ExportBase, ThreadImplement&gt; ThreadAttached;
+<a name="l00034"></a>00034 <span class="keyword">typedef</span> handle::Joined&lt;uintptr_t, ThreadStatus, ThreadAttached, ThreadImplement&gt; ThreadJoined;
+<a name="l00035"></a>00035 <span class="keyword">typedef</span> Opened&lt;uintptr_t, int, 0, ThreadJoined, ThreadImplement&gt; ThreadExtend;
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">00037</a> <span class="keyword">class </span>_EXPORT_CLASS <a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>: <span class="keyword">virtual</span> <span class="keyword">public</span> <a class="code" href="classxos_1_1_thread.html">ThreadImplement</a>, <span class="keyword">public</span> <a class="code" href="classxos_1_1_opened.html">ThreadExtend</a> {
+<a name="l00038"></a>00038 <span class="keyword">public</span>:
+<a name="l00039"></a>00039     <span class="keyword">typedef</span> <a class="code" href="classxos_1_1_thread.html">ThreadImplement</a> Implements;
+<a name="l00040"></a>00040     <span class="keyword">typedef</span> <a class="code" href="classxos_1_1_opened.html">ThreadExtend</a> Extends;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042     <a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>(Run&amp; run): m_run(run) {
+<a name="l00043"></a>00043         <span class="keywordflow">if</span> (!(Start())) {
+<a name="l00044"></a>00044             XOS_LOG_ERROR(<span class="stringliteral">&quot;failed on Start()&quot;</span>);
+<a name="l00045"></a>00045             <span class="keywordflow">throw</span> (<a class="code" href="classxos_1_1_error.html">Error</a>(Error::Failed));
+<a name="l00046"></a>00046         }
+<a name="l00047"></a>00047     }
+<a name="l00048"></a>00048     <span class="keyword">virtual</span> ~<a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>() {
+<a name="l00049"></a>00049         <span class="keywordflow">if</span> ((m_isOpen)) {
+<a name="l00050"></a>00050             <span class="keywordflow">if</span> (!(Close())) {
+<a name="l00051"></a>00051                 XOS_LOG_ERROR(<span class="stringliteral">&quot;failed on Close()&quot;</span>);
+<a name="l00052"></a>00052             }
+<a name="l00053"></a>00053         }
+<a name="l00054"></a>00054     }
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Start() {
+<a name="l00057"></a>00057         <span class="keywordtype">bool</span> isStarted = <span class="keyword">false</span>;
+<a name="l00058"></a>00058         uintptr_t detached = 0;
+<a name="l00059"></a>00059         <span class="keywordtype">void</span>* security_attributes=0;
+<a name="l00060"></a>00060         <span class="keywordtype">unsigned</span> stack_size=0;
+<a name="l00061"></a>00061         <span class="keywordtype">unsigned</span> init_flag=0;
+<a name="l00062"></a>00062         <span class="keywordtype">unsigned</span> tid;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064         <span class="keywordflow">if</span> ((isStarted = (0 != (detached = (_beginthreadex
+<a name="l00065"></a>00065             (security_attributes, stack_size, StartRoutine, 
+<a name="l00066"></a>00066              (<span class="keywordtype">void</span>*)(<span class="keyword">this</span>), init_flag, &amp;tid)))))) {
+<a name="l00067"></a>00067             Attach(detached, isStarted);
+<a name="l00068"></a>00068         }
+<a name="l00069"></a>00069         <span class="keywordflow">return</span> isStarted;
+<a name="l00070"></a>00070     }
+<a name="l00071"></a>00071     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Close() {
+<a name="l00072"></a>00072         <span class="keywordflow">if</span> ((Join())) {
+<a name="l00073"></a>00073             HANDLE handle = 0;
+<a name="l00074"></a>00074             <span class="keywordflow">if</span> ((handle = (HANDLE)(Detach()))) {
+<a name="l00075"></a>00075                 XOS_LOG_TRACE(<span class="stringliteral">&quot;CloseHandle()...&quot;</span>);
+<a name="l00076"></a>00076                 <span class="keywordflow">if</span> (FALSE != (CloseHandle(handle))) {
+<a name="l00077"></a>00077                     XOS_LOG_TRACE(<span class="stringliteral">&quot;...CloseHandle()&quot;</span>);
+<a name="l00078"></a>00078                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00079"></a>00079                 } <span class="keywordflow">else</span> {
+<a name="l00080"></a>00080                     XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; GetLastError() &lt;&lt; <span class="stringliteral">&quot; on CloseHandle()&quot;</span>);
+<a name="l00081"></a>00081                 }
+<a name="l00082"></a>00082             }
+<a name="l00083"></a>00083         }
+<a name="l00084"></a>00084         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00085"></a>00085     }
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Join() {
+<a name="l00088"></a>00088         <span class="keywordflow">return</span> (Success == (TimedJoin(INFINITE)));
+<a name="l00089"></a>00089     }
+<a name="l00090"></a>00090     <span class="keyword">virtual</span> Status TryJoin() {
+<a name="l00091"></a>00091         <span class="keywordflow">return</span> TimedJoin(0);
+<a name="l00092"></a>00092     }
+<a name="l00093"></a>00093     <span class="keyword">virtual</span> Status TimedJoin(mseconds_t waitMilliSeconds) {
+<a name="l00094"></a>00094         <span class="keywordflow">return</span> Extends::TimedJoin(waitMilliSeconds); 
+<a name="l00095"></a>00095     }
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 <span class="keyword">protected</span>:
+<a name="l00098"></a>00098     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> __stdcall StartRoutine(<span class="keywordtype">void</span>* param) {
+<a name="l00099"></a>00099         <span class="keywordtype">unsigned</span> result = 0;
+<a name="l00100"></a>00100         <a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>* t = 0;
+<a name="l00101"></a>00101         XOS_LOG_TRACE(<span class="stringliteral">&quot;in...&quot;</span>);
+<a name="l00102"></a>00102         <span class="keywordflow">if</span> ((t = (<a class="code" href="classxos_1_1windows_1_1crt_1_1_thread.html">Thread</a>*)(param))) {
+<a name="l00103"></a>00103             XOS_LOG_TRACE(<span class="stringliteral">&quot;t-&gt;m_run()...&quot;</span>);
+<a name="l00104"></a>00104             t-&gt;m_run();
+<a name="l00105"></a>00105             XOS_LOG_TRACE(<span class="stringliteral">&quot;...t-&gt;m_run()&quot;</span>);
+<a name="l00106"></a>00106         } <span class="keywordflow">else</span> {
+<a name="l00107"></a>00107             XOS_LOG_ERROR(<span class="stringliteral">&quot;void* param == 0&quot;</span>);
+<a name="l00108"></a>00108         }
+<a name="l00109"></a>00109         XOS_LOG_TRACE(<span class="stringliteral">&quot;...out&quot;</span>);
+<a name="l00110"></a>00110         <span class="keywordflow">return</span> result;
+<a name="l00111"></a>00111     }
+<a name="l00112"></a>00112     Run&amp; m_run;
+<a name="l00113"></a>00113 };
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115 } <span class="comment">// namespace crt </span>
+<a name="l00116"></a>00116 } <span class="comment">// namespace windows </span>
+<a name="l00117"></a>00117 } <span class="comment">// namespace xos </span>
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 <span class="preprocessor">#endif // _XOS_OS_WINDOWS_CRT_THREAD_HPP </span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -215,7 +216,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 9 2012 06:43:01 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 12 2012 15:58:20 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

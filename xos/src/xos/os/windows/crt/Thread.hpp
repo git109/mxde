@@ -22,6 +22,7 @@
 #define _XOS_OS_WINDOWS_CRT_THREAD_HPP
 
 #include "xos/os/windows/Thread.hpp"
+#include <process.h>
 
 namespace xos {
 namespace windows {

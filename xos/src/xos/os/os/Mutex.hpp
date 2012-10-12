@@ -34,18 +34,7 @@
 namespace xos {
 namespace os {
 
-typedef os::MutexImplement MutexImplement;
-typedef os::Mutex MutexExtend;
-
-class _EXPORT_CLASS Mutex: virtual public MutexImplement, public MutexExtend {
-public:
-    typedef MutexImplement Implements;
-    typedef MutexExtend Extends;
-
-    Mutex() {}
-    virtual ~Mutex() {}
-};
-
+typedef os::Mutex Mutex;
 
 } // namespace xos 
 } // namespace os 

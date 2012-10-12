@@ -25,7 +25,6 @@
 #include "xos/os/Thread.hpp"
 #include "xos/os/Logger.hpp"
 #include "xos/base/Opened.hpp"
-#include <process.h>
 
 namespace xos {
 namespace windows {
@@ -56,14 +55,14 @@ public:
     virtual bool Start() {
         bool isStarted = false;
         HANDLE detached = 0;
-        void* security_attributes=0;
-        unsigned stack_size=0;
-        unsigned init_flag=0;
-        unsigned tid;
+        LPSECURITY_ATTRIBUTES lpSecurityAttributes = 0;
+        DWORD dwStackSize = 0;
+        DWORD dwCreationFlags = 0;
+        DWORD dwThreadId;
 
-        if ((isStarted = (0 != (detached = (HANDLE)(_beginthreadex
-            (security_attributes, stack_size, StartRoutine, 
-             (void*)(this), init_flag, &tid)))))) {
+        if ((isStarted = (0 != (detached = (HANDLE)(CreateThread
+            (lpSecurityAttributes, dwStackSize, StartRoutine, 
+             (LPVOID)(this), dwCreationFlags, &dwThreadId)))))) {
             Attach(detached, isStarted);
         }
         return isStarted;
@@ -94,16 +93,16 @@ public:
         return Extends::TimedJoin(waitMilliSeconds); }
 
 protected:
-    static unsigned __stdcall StartRoutine(void* param) {
-        unsigned result = 0;
+    static DWORD WINAPI StartRoutine(LPVOID lpParameter) {
+        DWORD result = 0;
         Thread* t = 0;
         XOS_LOG_TRACE("in...");
-        if ((t = (Thread*)(param))) {
+        if ((t = (Thread*)(lpParameter))) {
             XOS_LOG_TRACE("t->m_run()...");
             t->m_run();
             XOS_LOG_TRACE("...t->m_run()");
         } else {
-            XOS_LOG_ERROR("void* param == 0");
+            XOS_LOG_ERROR("LPVOID lpParameter == 0");
         }
         XOS_LOG_TRACE("...out");
         return result;
