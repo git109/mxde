@@ -18,17 +18,12 @@
 /// Author: $author$
 ///   Date: 10/11/2012
 ///////////////////////////////////////////////////////////////////////
-#include "Processes.hpp"
+#include "xos/os/unix/Processes.hpp"
+#include "xos/os/unix/crt/Process.cpp"
+#include "xos/os/unix/Process.cpp"
 
 namespace xos {
 namespace unix {
 
-
-
-
-} // namespace xos 
 } // namespace unix 
-
-
-        
-
+} // namespace xos 

@@ -19,11 +19,11 @@
 ///   Date: 10/6/2012
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/os/Semaphores.hpp"
+#include "xos/os/os/Semaphore.cpp"
 
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Semaphores.cpp"
-#include "xos/os/unix/Semaphores.cpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Semaphores.cpp"

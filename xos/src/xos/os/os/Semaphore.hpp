@@ -34,17 +34,7 @@
 namespace xos {
 namespace os {
 
-typedef os::SemaphoreImplement SemaphoreImplement;
-typedef os::Semaphore SemaphoreExtend;
-
-class _EXPORT_CLASS Semaphore: virtual public SemaphoreImplement, public SemaphoreExtend {
-public:
-    typedef SemaphoreImplement Implements;
-    typedef SemaphoreExtend Extends;
-
-    Semaphore(){}
-    virtual ~Semaphore(){}
-};
+typedef os::Semaphore Semaphore;
 
 } // namespace os 
 } // namespace xos 

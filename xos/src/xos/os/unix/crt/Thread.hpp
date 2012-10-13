@@ -21,17 +21,17 @@
 #ifndef _XOS_OS_UNIX_CRT_THREAD_HPP
 #define _XOS_OS_UNIX_CRT_THREAD_HPP
 
+#include "xos/os/unix/Thread.hpp"
+
 namespace xos {
 namespace unix {
 namespace crt {
 
+typedef unix::Thread Thread;
 
-
-
-} // namespace xos 
-} // namespace unix 
 } // namespace crt 
-
+} // namespace unix 
+} // namespace xos 
 
 #endif // _XOS_OS_UNIX_CRT_THREAD_HPP 
         

@@ -22,13 +22,14 @@
 #define _XOS_HELLO_HPP_
 
 #include "xos/os/Main.hpp"
-#include "xos/os/os/Mutex.hpp"
-#include "xos/os/os/Semaphore.hpp"
-#include "xos/os/os/Thread.hpp"
+#include "xos/os/os/Mutexes.hpp"
+#include "xos/os/os/Semaphores.hpp"
+#include "xos/os/os/Threads.hpp"
 #include "xos/os/os/Process.hpp"
 #include "xos/network/Sockets.hpp"
 #include "xos/base/Locker.hpp"
 #include <sstream>
+#include <deque>
 #include <queue>
 
 #define XOS_HELLO_2STRING_(value) #value
@@ -60,11 +61,15 @@ public:
 
     class _EXPORT_CLASS TcpConnections {
     public:
-        TcpConnections(network::Socket* s) {
+        TcpConnections(network::Socket* s): m_cleared(false) {
             Queue(s);
         }
-        TcpConnections(){}
+        TcpConnections(): m_cleared(false) {}
         virtual ~TcpConnections() {
+            void Clear();
+        }
+
+        void Clear() {
             Locker<Mutex> l(m_lock);
             while (0 < (m_queue.size())) {
                 network::Socket* c = 0;
@@ -74,27 +79,37 @@ public:
                 }
                 m_queue.pop();
             }
+            m_cleared = true;
+            m_signal.Continue();
         }
-
-        virtual void Queue(network::Socket* s) {
+        void Queue(network::Socket* s) {
             Locker<Mutex> l(m_lock);
             m_queue.push(s);
             XOS_LOG_TRACE("queued socket...");
             m_signal.Continue();
         }
-        virtual network::Socket* Dequeue() {
+        network::Socket* Dequeue() {
             network::Socket* s = 0;
+            XOS_LOG_TRACE("wait signal...");
             if ((m_signal.Wait())) {
                 Locker<Mutex> l(m_lock);
                 if (0 < (m_queue.size())) {
                     s = m_queue.front();
                     m_queue.pop();
                     XOS_LOG_TRACE("...dequeued socket");
+                } else {
+                    XOS_LOG_TRACE("...queue empty");
+                    if ((m_cleared)) {
+                        m_signal.Continue();
+                    }
                 }
+            } else {
+                XOS_LOG_TRACE("...failed on wait signal");
             }
             return s;
         }
     protected:
+        bool m_cleared;
         os::Mutex m_lock;
         os::Semaphore m_signal;
         std::queue<network::Socket*> m_queue;
@@ -103,34 +118,79 @@ public:
     class _EXPORT_CLASS ServiceTcp: public Thread::Run {
     public:
         ServiceTcp
-        (TcpConnections& connections)
-        : m_connections(connections),
+        (TcpConnections& cn, network::Socket& s, bool isRepeated = false)
+        : m_cn(cn),
+          m_s(s),
+          m_isRepeated(isRepeated),
           m_recvdBye(false), 
           m_bye(XOS_HELLO_DEFAULT_BYE) {
         }
+        bool SetRecvdBye(bool recvdBye = true) { 
+            if ((m_recvdBye = recvdBye)) {
+                m_s.Close();
+                m_cn.Clear();
+            }
+            return m_recvdBye; }
         bool RecvdBye() const { return m_recvdBye; }
+        bool IsRepeated() const { return m_isRepeated; }
         virtual void operator()() {
             network::Socket* c = 0;
-            XOS_LOG_TRACE("dequeue socket...");
-            if ((c = m_connections.Dequeue())) {
-                ssize_t count = 0;
-                XOS_LOG_TRACE("...dequeued socket");
-                if (0 < (count = c->Recv(m_buf, sizeof(m_buf)-1, 0))) {
-                    m_buf[count] = 0;
-                    printf("--->\n%s\n<---\n", m_buf);
-                    if (m_recvdBye = (m_buf == (strstr(m_buf, m_bye.c_str())))) {
-                        XOS_LOG_INFO("...received \"" << m_bye << "\"");
+            bool recvdBye = false;
+            char buf[4096];
+
+            do {
+                XOS_LOG_TRACE("dequeue socket...");
+                if ((c = m_cn.Dequeue())) {
+                    ssize_t count = 0;
+                    XOS_LOG_TRACE("...dequeued socket");
+                    if (0 < (count = c->Recv(buf, sizeof(buf)-1, 0))) {
+                        buf[count] = 0;
+                        printf("--->\n%s\n<---\n", buf);
+                        if (recvdBye = (buf == (strstr(buf, m_bye.c_str())))) {
+                            XOS_LOG_INFO("...received \"" << m_bye << "\"");
+                            SetRecvdBye();
+                        }
                     }
+                    c->Shutdown();
+                    network::Socket::Delete(c);
+                } else {
+                    XOS_LOG_TRACE("...failed on dequeue socket");
                 }
-                c->Shutdown();
-                network::Socket::Delete(c);
-            }
+            } while (IsRepeated() && !RecvdBye());
         }
     protected:
-        TcpConnections& m_connections;
+        TcpConnections& m_cn;
+        network::Socket& m_s;
+        bool m_isRepeated;
         bool m_recvdBye;
         std::string m_bye;
-        char m_buf[4096];
+    };
+
+    class _EXPORT_CLASS AcceptTcp: public Thread::Run {
+    public:
+        AcceptTcp
+        (TcpConnections& cn, ServiceTcp& service,
+         network::Endpoint& ep, network::Socket& s)
+        : m_cn(cn), m_service(service), m_ep(ep), m_s(s) {
+        }
+        virtual void operator()() {
+            network::Socket* c = 0;
+            do {
+                XOS_LOG_TRACE("accept socket...");
+                if ((c = m_s.Accept(m_ep.SocketAddress(), &m_ep.SocketAddressLen()))) {
+                    XOS_LOG_TRACE("...accepted socket");
+                    m_cn.Queue(c);
+                } else {
+                    XOS_LOG_TRACE("...failed on accept socket");
+                    break;
+                }
+            } while (!(m_service.RecvdBye()));
+        }
+    protected:
+        TcpConnections& m_cn;
+        ServiceTcp& m_service;
+        network::Endpoint& m_ep;
+        network::Socket& m_s;
     };
 
     Hello()
@@ -220,17 +280,71 @@ public:
         if (s = (network::Socket::New(ep->GetFamily(), network::ip::tcp::Transport::Type, network::ip::tcp::Transport::Protocol))) {
             if ((s->Bind(ep->SocketAddress(), ep->SocketAddressLen()))) {
                 if ((s->Listen())) {
-                    network::Socket* c = 0;
-                    while ((c = s->Accept(ep->SocketAddress(), &ep->SocketAddressLen()))) {
-                        TcpConnections cn(c);
-                        ServiceTcp service(cn);
-                        if ((m_threadsNo)) {
-                            os::Thread t(service);
-                        } else {
-                            service();
+                    if (0 < (m_threadsNo)) {
+                        //
+                        // Threaded service
+                        //
+                        TcpConnections cn;
+                        ServiceTcp service(cn, *s, true);
+                        AcceptTcp accept(cn, service, *ep, *s);
+                        std::deque<os::Thread*> tq;
+                        os::Thread* ct;
+
+                        //
+                        // Start service threads
+                        //
+                        for (int tNo = 0; tNo < m_threadsNo; tNo++) {
+                            os::Thread* t = 0;
+                            if ((t = new os::Thread(service))) {
+                                tq.push_back(t);
+                            } else {
+                                service.SetRecvdBye();
+                                //
+                                // Join service threads already created
+                                //
+                                while (0 < (tq.size())) {
+                                    if ((t = tq.back())) {
+                                        tq.pop_back();
+                                        t->Join();
+                                        delete t;
+                                    }
+                                }
+                                break;
+                            }
                         }
-                        if ((service.RecvdBye())) {
-                            break;
+                        //
+                        // Start connection thread
+                        //
+                        if ((ct = new os::Thread(accept))) {
+                            //
+                            // Join connection thread
+                            //
+                            ct->Join();
+                            delete ct;
+                        }
+                        //
+                        // Join service threads
+                        //
+                        while (0 < (tq.size())) {
+                            os::Thread* t = 0;
+                            if ((t = tq.back())) {
+                                tq.pop_back();
+                                t->Join();
+                                delete t;
+                            }
+                        }
+                    } else {
+                        //
+                        // Non threaded service
+                        //
+                        network::Socket* c = 0;
+                        while ((c = s->Accept(ep->SocketAddress(), &ep->SocketAddressLen()))) {
+                            TcpConnections cn(c);
+                            ServiceTcp service(cn, *s);
+                            service();
+                            if ((service.RecvdBye())) {
+                                break;
+                            }
                         }
                     }
                 }

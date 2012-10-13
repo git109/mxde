@@ -21,12 +21,11 @@
 #ifndef _XOS_OS_OS_SEMAPHORES_HPP
 #define _XOS_OS_OS_SEMAPHORES_HPP
 
-#include "xos/os/os/Os.hpp"
+#include "xos/os/os/Semaphore.hpp"
 
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Semaphores.hpp"
-#include "xos/os/unix/Semaphores.hpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Semaphores.hpp"

@@ -72,6 +72,12 @@
 
 #define PLATFORM_EXPORT
 #define PLATFORM_IMPORT
+
+#if defined(unix)
+#define PLATFORM_unix unix
+#undef unix
+#endif // 
+
 // ...
 // Unix
 //

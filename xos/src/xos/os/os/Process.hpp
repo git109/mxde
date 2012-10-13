@@ -29,6 +29,7 @@
 #include "xos/os/windows/Process.hpp"
 #else // defined(WINDOWS) 
 // Unix 
+#include "xos/os/unix/crt/Process.hpp"
 #include "xos/os/unix/Process.hpp"
 #endif // defined(WINDOWS) 
 

@@ -20,6 +20,7 @@
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/unix/Threads.hpp"
 #include "xos/os/unix/Thread.cpp"
+#include "xos/os/unix/crt/Thread.cpp"
 
 namespace xos {
 namespace unix {

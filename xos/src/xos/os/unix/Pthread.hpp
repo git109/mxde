@@ -24,6 +24,7 @@
 #include "xos/base/Base.hpp"
 #include <pthread.h>
 #include <time.h>
+#include <errno.h>
 
 #if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
 #define PTHREAD_MUTEX_HAS_TIMEDLOCK

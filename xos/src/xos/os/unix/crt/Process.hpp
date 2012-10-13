@@ -21,18 +21,16 @@
 #ifndef _XOS_OS_UNIX_CRT_PROCESS_HPP
 #define _XOS_OS_UNIX_CRT_PROCESS_HPP
 
+#include "xos/os/unix/Process.hpp"
+
 namespace xos {
 namespace unix {
 namespace crt {
 
+typedef unix::Process Process;
 
-
-
-} // namespace xos 
-} // namespace unix 
 } // namespace crt 
-
+} // namespace unix 
+} // namespace xos 
 
 #endif // _XOS_OS_UNIX_CRT_PROCESS_HPP 
-        
-

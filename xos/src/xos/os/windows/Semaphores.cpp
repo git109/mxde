@@ -20,7 +20,6 @@
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/windows/Semaphores.hpp"
 #include "xos/os/windows/Semaphore.cpp"
-#include "xos/os/Semaphore.cpp"
 
 namespace xos {
 namespace os {

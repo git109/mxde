@@ -21,12 +21,11 @@
 #ifndef _XOS_OS_OS_PROCESSES_HPP
 #define _XOS_OS_OS_PROCESSES_HPP
 
-#include "xos/os/os/Os.hpp"
+#include "xos/os/os/Process.hpp"
 
 #if defined(WINDOWS) 
 // Windows 
 #include "xos/os/windows/Processes.hpp"
-#include "xos/os/windows/Process.hpp"
 #else // defined(WINDOWS) 
 // Unix 
 #include "xos/os/unix/Processes.hpp"

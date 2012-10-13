@@ -18,17 +18,10 @@
 /// Author: $author$
 ///   Date: 10/6/2012
 ///////////////////////////////////////////////////////////////////////
-#include "Semaphore.hpp"
+#include "xos/os/os/Semaphore.hpp"
 
 namespace xos {
 namespace os {
 
-
-
-
 } // namespace xos 
 } // namespace os 
-
-
-        
-

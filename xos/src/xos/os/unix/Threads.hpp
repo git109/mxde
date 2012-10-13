@@ -21,6 +21,7 @@
 #ifndef _XOS_OS_UNIX_THREADS_HPP
 #define _XOS_OS_UNIX_THREADS_HPP
 
+#include "xos/os/unix/crt/Thread.hpp"
 #include "xos/os/unix/Thread.hpp"
 
 namespace xos {

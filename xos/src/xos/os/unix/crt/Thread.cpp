@@ -18,19 +18,12 @@
 /// Author: $author$
 ///   Date: 10/11/2012
 ///////////////////////////////////////////////////////////////////////
-#include "Thread.hpp"
+#include "xos/os/unix/crt/Thread.hpp"
 
 namespace xos {
 namespace unix {
 namespace crt {
 
-
-
-
-} // namespace xos 
-} // namespace unix 
 } // namespace crt 
-
-
-        
-
+} // namespace unix 
+} // namespace xos 

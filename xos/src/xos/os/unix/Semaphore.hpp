@@ -30,6 +30,9 @@
 #define SEM_HAS_TIMEDWAIT
 #endif // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
 
+#define SEMAPHORE_PROCESS_PRIVATE 0
+#define SEMAPHORE_PROCESS_SHARED  1
+
 namespace xos {
 namespace unix {
 
