@@ -5,6 +5,6 @@ var searchData=
   ['message',['Message',['../classxos_1_1_logger_1_1_message.html',1,'xos::Logger']]],
   ['messagequeue',['MessageQueue',['../classxos_1_1ipc_1_1unix_1_1_message_queue.html',1,'xos::ipc::unix']]],
   ['mutex',['Mutex',['../classxos_1_1unix_1_1_mutex.html',1,'xos::unix']]],
-  ['mutex',['Mutex',['../classxos_1_1windows_1_1_mutex.html',1,'xos::windows']]],
-  ['mutex',['Mutex',['../classxos_1_1_mutex.html',1,'xos']]]
+  ['mutex',['Mutex',['../classxos_1_1_mutex.html',1,'xos']]],
+  ['mutex',['Mutex',['../classxos_1_1windows_1_1_mutex.html',1,'xos::windows']]]
 ];

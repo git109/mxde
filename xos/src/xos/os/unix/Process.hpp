@@ -77,9 +77,13 @@ public:
                     int err = 0;
                     XOS_LOG_TRACE("chlid process...");
                     if ((env)) {
+#if defined(MACOSX)
+                        XOS_LOG_ERROR("execvpe not implemented on OS");
+#else // defined(MACOSX)
                         if ((err = execvpe(path, argv, env))) {
                             XOS_LOG_ERROR("failed " << errno << "on execvpe(\"" << path << "\",...)");
                         }
+#endif // defined(MACOSX)
                     } else {
                         if ((err = execvp(path, argv))) {
                             XOS_LOG_ERROR("failed " << errno << "on execvpe(\"" << path << "\",...)");

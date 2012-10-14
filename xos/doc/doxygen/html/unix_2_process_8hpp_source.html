@@ -158,77 +158,81 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00077"></a>00077                     <span class="keywordtype">int</span> err = 0;
 <a name="l00078"></a>00078                     XOS_LOG_TRACE(<span class="stringliteral">&quot;chlid process...&quot;</span>);
 <a name="l00079"></a>00079                     <span class="keywordflow">if</span> ((env)) {
-<a name="l00080"></a>00080                         <span class="keywordflow">if</span> ((err = execvpe(path, argv, env))) {
-<a name="l00081"></a>00081                             XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot;on execvpe(\&quot;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;\&quot;,...)&quot;</span>);
-<a name="l00082"></a>00082                         }
-<a name="l00083"></a>00083                     } <span class="keywordflow">else</span> {
-<a name="l00084"></a>00084                         <span class="keywordflow">if</span> ((err = execvp(path, argv))) {
-<a name="l00085"></a>00085                             XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot;on execvpe(\&quot;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;\&quot;,...)&quot;</span>);
-<a name="l00086"></a>00086                         }
-<a name="l00087"></a>00087                     }
-<a name="l00088"></a>00088                     XOS_LOG_TRACE(<span class="stringliteral">&quot;...chlid process&quot;</span>);
-<a name="l00089"></a>00089                     exit(err);
-<a name="l00090"></a>00090                 } <span class="keywordflow">else</span> {
-<a name="l00091"></a>00091                     XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot;on vfork()&quot;</span>);
-<a name="l00092"></a>00092                 }
-<a name="l00093"></a>00093             }
-<a name="l00094"></a>00094         }
-<a name="l00095"></a>00095         <span class="keywordflow">return</span> <span class="keyword">false</span>; 
-<a name="l00096"></a>00096     }
-<a name="l00097"></a>00097     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Create(<span class="keyword">const</span> <span class="keywordtype">char</span>* path, <span class="keywordtype">char</span>** argv, <span class="keywordtype">bool</span> isDetached = <span class="keyword">false</span>) {
-<a name="l00098"></a>00098         <span class="keywordflow">return</span> Create(path, argv, 0, isDetached); 
-<a name="l00099"></a>00099     }
-<a name="l00100"></a>00100     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Destroy() {
-<a name="l00101"></a>00101         <span class="keywordflow">if</span> ((Join())) {
-<a name="l00102"></a>00102             Detach();
-<a name="l00103"></a>00103         }
-<a name="l00104"></a>00104         <span class="keywordflow">return</span> <span class="keyword">false</span>; 
-<a name="l00105"></a>00105     }
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Join() {
-<a name="l00108"></a>00108         pid_t pid = (pid_t)(-1);
-<a name="l00109"></a>00109         <span class="keywordflow">if</span> (0 &lt; (pid = m_attachedTo)) {
-<a name="l00110"></a>00110             <span class="keywordtype">int</span> options = 0;
-<a name="l00111"></a>00111             <span class="keywordtype">int</span> status = 0;
-<a name="l00112"></a>00112             XOS_LOG_TRACE(<span class="stringliteral">&quot;wait on waitpid()...&quot;</span>);
-<a name="l00113"></a>00113             <span class="keywordflow">if</span> (!(pid != waitpid(pid, &amp;status, options))) {
-<a name="l00114"></a>00114                 XOS_LOG_TRACE(<span class="stringliteral">&quot;...waited on waitpid()&quot;</span>);
-<a name="l00115"></a>00115                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00116"></a>00116             } <span class="keywordflow">else</span> {
-<a name="l00117"></a>00117                 XOS_LOG_ERROR(<span class="stringliteral">&quot;...failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot; on waitpid()&quot;</span>);
-<a name="l00118"></a>00118             }
-<a name="l00119"></a>00119         }
-<a name="l00120"></a>00120         <span class="keywordflow">return</span> <span class="keyword">false</span>; 
-<a name="l00121"></a>00121     }
-<a name="l00122"></a>00122     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Separate() {
-<a name="l00123"></a>00123         Detach();
-<a name="l00124"></a>00124         <span class="keywordflow">return</span> <span class="keyword">true</span>; 
+<a name="l00080"></a>00080 <span class="preprocessor">#if defined(MACOSX)</span>
+<a name="l00081"></a>00081 <span class="preprocessor"></span>                        XOS_LOG_ERROR(<span class="stringliteral">&quot;execvpe not implemented on OS&quot;</span>);
+<a name="l00082"></a>00082 <span class="preprocessor">#else // defined(MACOSX)</span>
+<a name="l00083"></a>00083 <span class="preprocessor"></span>                        <span class="keywordflow">if</span> ((err = execvpe(path, argv, env))) {
+<a name="l00084"></a>00084                             XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot;on execvpe(\&quot;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;\&quot;,...)&quot;</span>);
+<a name="l00085"></a>00085                         }
+<a name="l00086"></a>00086 <span class="preprocessor">#endif // defined(MACOSX)</span>
+<a name="l00087"></a>00087 <span class="preprocessor"></span>                    } <span class="keywordflow">else</span> {
+<a name="l00088"></a>00088                         <span class="keywordflow">if</span> ((err = execvp(path, argv))) {
+<a name="l00089"></a>00089                             XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot;on execvpe(\&quot;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;\&quot;,...)&quot;</span>);
+<a name="l00090"></a>00090                         }
+<a name="l00091"></a>00091                     }
+<a name="l00092"></a>00092                     XOS_LOG_TRACE(<span class="stringliteral">&quot;...chlid process&quot;</span>);
+<a name="l00093"></a>00093                     exit(err);
+<a name="l00094"></a>00094                 } <span class="keywordflow">else</span> {
+<a name="l00095"></a>00095                     XOS_LOG_ERROR(<span class="stringliteral">&quot;failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot;on vfork()&quot;</span>);
+<a name="l00096"></a>00096                 }
+<a name="l00097"></a>00097             }
+<a name="l00098"></a>00098         }
+<a name="l00099"></a>00099         <span class="keywordflow">return</span> <span class="keyword">false</span>; 
+<a name="l00100"></a>00100     }
+<a name="l00101"></a>00101     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Create(<span class="keyword">const</span> <span class="keywordtype">char</span>* path, <span class="keywordtype">char</span>** argv, <span class="keywordtype">bool</span> isDetached = <span class="keyword">false</span>) {
+<a name="l00102"></a>00102         <span class="keywordflow">return</span> Create(path, argv, 0, isDetached); 
+<a name="l00103"></a>00103     }
+<a name="l00104"></a>00104     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Destroy() {
+<a name="l00105"></a>00105         <span class="keywordflow">if</span> ((Join())) {
+<a name="l00106"></a>00106             Detach();
+<a name="l00107"></a>00107         }
+<a name="l00108"></a>00108         <span class="keywordflow">return</span> <span class="keyword">false</span>; 
+<a name="l00109"></a>00109     }
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Join() {
+<a name="l00112"></a>00112         pid_t pid = (pid_t)(-1);
+<a name="l00113"></a>00113         <span class="keywordflow">if</span> (0 &lt; (pid = m_attachedTo)) {
+<a name="l00114"></a>00114             <span class="keywordtype">int</span> options = 0;
+<a name="l00115"></a>00115             <span class="keywordtype">int</span> status = 0;
+<a name="l00116"></a>00116             XOS_LOG_TRACE(<span class="stringliteral">&quot;wait on waitpid()...&quot;</span>);
+<a name="l00117"></a>00117             <span class="keywordflow">if</span> (!(pid != waitpid(pid, &amp;status, options))) {
+<a name="l00118"></a>00118                 XOS_LOG_TRACE(<span class="stringliteral">&quot;...waited on waitpid()&quot;</span>);
+<a name="l00119"></a>00119                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00120"></a>00120             } <span class="keywordflow">else</span> {
+<a name="l00121"></a>00121                 XOS_LOG_ERROR(<span class="stringliteral">&quot;...failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot; on waitpid()&quot;</span>);
+<a name="l00122"></a>00122             }
+<a name="l00123"></a>00123         }
+<a name="l00124"></a>00124         <span class="keywordflow">return</span> <span class="keyword">false</span>; 
 <a name="l00125"></a>00125     }
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127     <span class="keyword">virtual</span> Status TryJoin() {
-<a name="l00128"></a>00128         pid_t pid = (pid_t)(-1);
-<a name="l00129"></a>00129         <span class="keywordflow">if</span> (0 &lt; (pid = m_attachedTo)) {
-<a name="l00130"></a>00130             <span class="keywordtype">int</span> options = WNOHANG;
-<a name="l00131"></a>00131             <span class="keywordtype">int</span> status = 0;
-<a name="l00132"></a>00132             XOS_LOG_TRACE(<span class="stringliteral">&quot;wait on waitpid()...&quot;</span>);
-<a name="l00133"></a>00133             <span class="keywordflow">if</span> (!(pid != waitpid(pid, &amp;status, options))) {
-<a name="l00134"></a>00134                 XOS_LOG_TRACE(<span class="stringliteral">&quot;...waited on waitpid()&quot;</span>);
-<a name="l00135"></a>00135                 <span class="keywordflow">return</span> Success;
-<a name="l00136"></a>00136             } <span class="keywordflow">else</span> {
-<a name="l00137"></a>00137                 XOS_LOG_ERROR(<span class="stringliteral">&quot;...failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot; on waitpid()&quot;</span>);
-<a name="l00138"></a>00138             }
-<a name="l00139"></a>00139         }
-<a name="l00140"></a>00140         <span class="keywordflow">return</span> Failed; 
-<a name="l00141"></a>00141     }
-<a name="l00142"></a>00142     <span class="keyword">virtual</span> Status TimedJoin(mseconds_t waitMilliSeconds) {
-<a name="l00143"></a>00143         <span class="keywordflow">return</span> Invalid; 
-<a name="l00144"></a>00144     }
-<a name="l00145"></a>00145 };
-<a name="l00146"></a>00146 
-<a name="l00147"></a>00147 } <span class="comment">// namespace unix </span>
-<a name="l00148"></a>00148 } <span class="comment">// namespace xos </span>
-<a name="l00149"></a>00149 
-<a name="l00150"></a>00150 <span class="preprocessor">#endif // _XOS_OS_UNIX_PROCESS_HPP </span>
+<a name="l00126"></a>00126     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Separate() {
+<a name="l00127"></a>00127         Detach();
+<a name="l00128"></a>00128         <span class="keywordflow">return</span> <span class="keyword">true</span>; 
+<a name="l00129"></a>00129     }
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131     <span class="keyword">virtual</span> Status TryJoin() {
+<a name="l00132"></a>00132         pid_t pid = (pid_t)(-1);
+<a name="l00133"></a>00133         <span class="keywordflow">if</span> (0 &lt; (pid = m_attachedTo)) {
+<a name="l00134"></a>00134             <span class="keywordtype">int</span> options = WNOHANG;
+<a name="l00135"></a>00135             <span class="keywordtype">int</span> status = 0;
+<a name="l00136"></a>00136             XOS_LOG_TRACE(<span class="stringliteral">&quot;wait on waitpid()...&quot;</span>);
+<a name="l00137"></a>00137             <span class="keywordflow">if</span> (!(pid != waitpid(pid, &amp;status, options))) {
+<a name="l00138"></a>00138                 XOS_LOG_TRACE(<span class="stringliteral">&quot;...waited on waitpid()&quot;</span>);
+<a name="l00139"></a>00139                 <span class="keywordflow">return</span> Success;
+<a name="l00140"></a>00140             } <span class="keywordflow">else</span> {
+<a name="l00141"></a>00141                 XOS_LOG_ERROR(<span class="stringliteral">&quot;...failed &quot;</span> &lt;&lt; errno &lt;&lt; <span class="stringliteral">&quot; on waitpid()&quot;</span>);
+<a name="l00142"></a>00142             }
+<a name="l00143"></a>00143         }
+<a name="l00144"></a>00144         <span class="keywordflow">return</span> Failed; 
+<a name="l00145"></a>00145     }
+<a name="l00146"></a>00146     <span class="keyword">virtual</span> Status TimedJoin(mseconds_t waitMilliSeconds) {
+<a name="l00147"></a>00147         <span class="keywordflow">return</span> Invalid; 
+<a name="l00148"></a>00148     }
+<a name="l00149"></a>00149 };
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151 } <span class="comment">// namespace unix </span>
+<a name="l00152"></a>00152 } <span class="comment">// namespace xos </span>
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 <span class="preprocessor">#endif // _XOS_OS_UNIX_PROCESS_HPP </span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -247,7 +251,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 13 2012 13:19:27 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 14 2012 12:41:34 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

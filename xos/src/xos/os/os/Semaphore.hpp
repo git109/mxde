@@ -28,13 +28,21 @@
 #include "xos/os/windows/Semaphore.hpp"
 #else // defined(WINDOWS) 
 // Unix 
+#if defined(MACOSX)
+#include "xos/os/macosx/Semaphore.hpp"
+#else // defined(MACOSX)
 #include "xos/os/unix/Semaphore.hpp"
+#endif // defined(MACOSX)
 #endif // defined(WINDOWS) 
 
 namespace xos {
 namespace os {
 
+#if defined(MACOSX)
+typedef macosx::Semaphore Semaphore;
+#else // defined(MACOSX)
 typedef os::Semaphore Semaphore;
+#endif // defined(MACOSX)
 
 } // namespace os 
 } // namespace xos 

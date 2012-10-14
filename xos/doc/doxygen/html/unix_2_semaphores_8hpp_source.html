@@ -102,15 +102,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00021"></a>00021 <span class="comment"></span><span class="preprocessor">#ifndef _XOS_OS_UNIX_SEMAPHORES_HPP</span>
 <a name="l00022"></a>00022 <span class="preprocessor"></span><span class="preprocessor">#define _XOS_OS_UNIX_SEMAPHORES_HPP</span>
 <a name="l00023"></a>00023 <span class="preprocessor"></span>
-<a name="l00024"></a>00024 <span class="preprocessor">#include &quot;xos/os/unix/Semaphore.hpp&quot;</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#include &quot;xos/base/Base.hpp&quot;</span>
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">namespace </span>xos {
-<a name="l00027"></a>00027 <span class="keyword">namespace </span>unix {
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 } <span class="comment">// namespace unix </span>
-<a name="l00030"></a>00030 } <span class="comment">// namespace xos </span>
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#endif // _XOS_OS_UNIX_SEMAPHORES_HPP </span>
+<a name="l00026"></a>00026 <span class="preprocessor">#if defined(MACOSX)</span>
+<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#include &quot;xos/os/macosx/Semaphore.hpp&quot;</span>
+<a name="l00028"></a>00028 <span class="preprocessor">#else // defined(MACOSX)</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#include &quot;xos/os/unix/Semaphore.hpp&quot;</span>
+<a name="l00030"></a>00030 <span class="preprocessor">#endif // defined(MACOSX)</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span>
+<a name="l00032"></a>00032 <span class="keyword">namespace </span>xos {
+<a name="l00033"></a>00033 <span class="keyword">namespace </span>unix {
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 } <span class="comment">// namespace unix </span>
+<a name="l00036"></a>00036 } <span class="comment">// namespace xos </span>
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="preprocessor">#endif // _XOS_OS_UNIX_SEMAPHORES_HPP </span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -129,7 +135,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 13 2012 13:19:27 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 14 2012 12:41:34 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

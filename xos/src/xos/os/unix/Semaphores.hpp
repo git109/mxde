@@ -21,7 +21,13 @@
 #ifndef _XOS_OS_UNIX_SEMAPHORES_HPP
 #define _XOS_OS_UNIX_SEMAPHORES_HPP
 
+#include "xos/base/Base.hpp"
+
+#if defined(MACOSX)
+#include "xos/os/macosx/Semaphore.hpp"
+#else // defined(MACOSX)
 #include "xos/os/unix/Semaphore.hpp"
+#endif // defined(MACOSX)
 
 namespace xos {
 namespace unix {

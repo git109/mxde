@@ -19,7 +19,11 @@
 ///   Date: 10/10/2012
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/unix/Semaphores.hpp"
+#if defined(MACOSX)
+#include "xos/os/macosx/Semaphore.cpp"
+#else // defined(MACOSX)
 #include "xos/os/unix/Semaphore.cpp"
+#endif // defined(MACOSX)
 
 namespace xos {
 namespace unix {

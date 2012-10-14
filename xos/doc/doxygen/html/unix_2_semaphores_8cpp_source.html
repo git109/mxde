@@ -100,13 +100,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00019"></a>00019 <span class="comment"></span><span class="comment">///   Date: 10/10/2012</span>
 <a name="l00020"></a>00020 <span class="comment"></span><span class="comment">///////////////////////////////////////////////////////////////////////</span>
 <a name="l00021"></a>00021 <span class="comment"></span><span class="preprocessor">#include &quot;xos/os/unix/Semaphores.hpp&quot;</span>
-<a name="l00022"></a>00022 <span class="preprocessor">#include &quot;xos/os/unix/Semaphore.cpp&quot;</span>
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">namespace </span>xos {
-<a name="l00025"></a>00025 <span class="keyword">namespace </span>unix {
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 } <span class="comment">// namespace unix </span>
-<a name="l00028"></a>00028 } <span class="comment">// namespace xos </span>
+<a name="l00022"></a>00022 <span class="preprocessor">#if defined(MACOSX)</span>
+<a name="l00023"></a>00023 <span class="preprocessor"></span><span class="preprocessor">#include &quot;xos/os/macosx/Semaphore.cpp&quot;</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#else // defined(MACOSX)</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#include &quot;xos/os/unix/Semaphore.cpp&quot;</span>
+<a name="l00026"></a>00026 <span class="preprocessor">#endif // defined(MACOSX)</span>
+<a name="l00027"></a>00027 <span class="preprocessor"></span>
+<a name="l00028"></a>00028 <span class="keyword">namespace </span>xos {
+<a name="l00029"></a>00029 <span class="keyword">namespace </span>unix {
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 } <span class="comment">// namespace unix </span>
+<a name="l00032"></a>00032 } <span class="comment">// namespace xos </span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -125,7 +129,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 13 2012 13:19:27 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 14 2012 12:41:34 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

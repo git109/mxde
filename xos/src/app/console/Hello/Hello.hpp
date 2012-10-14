@@ -61,10 +61,10 @@ public:
 
     class _EXPORT_CLASS TcpConnections {
     public:
-        TcpConnections(network::Socket* s): m_cleared(false) {
-            Queue(s);
+        TcpConnections(network::Socket& s, network::Socket* c): m_s(s), m_cleared(false) {
+            Queue(c);
         }
-        TcpConnections(): m_cleared(false) {}
+        TcpConnections(network::Socket& s): m_s(s), m_cleared(false) {}
         virtual ~TcpConnections() {
             void Clear();
         }
@@ -81,20 +81,22 @@ public:
             }
             m_cleared = true;
             m_signal.Continue();
+            m_s.Shutdown();
+            m_s.Close();
         }
-        void Queue(network::Socket* s) {
+        void Queue(network::Socket* c) {
             Locker<Mutex> l(m_lock);
-            m_queue.push(s);
+            m_queue.push(c);
             XOS_LOG_TRACE("queued socket...");
             m_signal.Continue();
         }
         network::Socket* Dequeue() {
-            network::Socket* s = 0;
+            network::Socket* c = 0;
             XOS_LOG_TRACE("wait signal...");
             if ((m_signal.Wait())) {
                 Locker<Mutex> l(m_lock);
                 if (0 < (m_queue.size())) {
-                    s = m_queue.front();
+                    c = m_queue.front();
                     m_queue.pop();
                     XOS_LOG_TRACE("...dequeued socket");
                 } else {
@@ -106,9 +108,10 @@ public:
             } else {
                 XOS_LOG_TRACE("...failed on wait signal");
             }
-            return s;
+            return c;
         }
     protected:
+        network::Socket& m_s;
         bool m_cleared;
         os::Mutex m_lock;
         os::Semaphore m_signal;
@@ -127,7 +130,6 @@ public:
         }
         bool SetRecvdBye(bool recvdBye = true) { 
             if ((m_recvdBye = recvdBye)) {
-                m_s.Close();
                 m_cn.Clear();
             }
             return m_recvdBye; }
@@ -284,7 +286,7 @@ public:
                         //
                         // Threaded service
                         //
-                        TcpConnections cn;
+                        TcpConnections cn(*s);
                         ServiceTcp service(cn, *s, true);
                         AcceptTcp accept(cn, service, *ep, *s);
                         std::deque<os::Thread*> tq;
@@ -339,7 +341,7 @@ public:
                         //
                         network::Socket* c = 0;
                         while ((c = s->Accept(ep->SocketAddress(), &ep->SocketAddressLen()))) {
-                            TcpConnections cn(c);
+                            TcpConnections cn(*s, c);
                             ServiceTcp service(cn, *s);
                             service();
                             if ((service.RecvdBye())) {
