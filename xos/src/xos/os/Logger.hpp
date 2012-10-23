@@ -34,6 +34,11 @@
 //
 #endif // defined(LOG4CXX)
 
+#if defined(None)
+#define LOGGER_None None
+#undef None
+#endif // defined(None)
+
 namespace xos {
 
 typedef InterfaceBase LoggerImplement;
@@ -212,5 +217,10 @@ if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
 #define XOS_LOG_DEBUG(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Debug, message)
 #define XOS_LOG_TRACE(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Trace, message)
 #endif // defined(LOG4CXX)
+
+#if defined(LOGGER_None)
+#define None LOGGER_None
+#undef LOGGER_None
+#endif // defined(None)
 
 #endif // _XOS_LOGGER_HPP_ 

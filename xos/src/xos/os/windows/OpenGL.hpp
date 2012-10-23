@@ -13,46 +13,29 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Transport.hpp
+///   File: OpenGL.hpp
 ///
 /// Author: $author$
-///   Date: 9/22/2012
+///   Date: 10/19/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NETWORK_IP_TRANSPORT_HPP_
-#define _XOS_NETWORK_IP_TRANSPORT_HPP_
+#ifndef _XOS_OS_WINDOWS_OPENGL_HPP
+#define _XOS_OS_WINDOWS_OPENGL_HPP
 
-#include "xos/network/Transport.hpp"
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include "xos/base/Base.hpp"
+
+#ifndef _XOS_PLATFORM_GL_GL_HPP
+#include <gl/gl.h>
+#define GL_BGR GL_BGR_EXT
+#define GL_BGRA GL_BGRA_EXT
+#endif // _XOS_PLATFORM_GL_GL_HPP 
+#ifndef _XOS_PLATFORM_GL_GLU_HPP
+#include <gl/glu.h>
+#endif // _XOS_PLATFORM_GL_GLU_HPP 
 
 namespace xos {
-namespace network {
-namespace ip {
+namespace windows {
 
-typedef network::TransportImplement TransportImplement;
-typedef network::Transport TransportExtend;
-
-class _EXPORT_CLASS Transport: virtual public TransportImplement, public TransportExtend {
-public:
-    typedef TransportImplement Implements;
-    typedef TransportExtend Extends;
-
-    enum { Protocol = IPPROTO_RAW };
-
-    Transport(){}
-    virtual ~Transport(){}
-
-    virtual int GetProtocol() const {
-        return Protocol;
-    }
-};
-
-} // namespace ip 
-} // namespace network 
+} // namespace windows 
 } // namespace xos 
 
-#endif // _XOS_NETWORK_IP_TRANSPORT_HPP_ 
-        
-
+#endif // _XOS_OS_WINDOWS_OPENGL_HPP 

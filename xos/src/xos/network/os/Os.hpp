@@ -13,46 +13,32 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Transport.hpp
+///   File: Os.hpp
 ///
 /// Author: $author$
-///   Date: 9/22/2012
+///   Date: 10/17/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NETWORK_IP_TRANSPORT_HPP_
-#define _XOS_NETWORK_IP_TRANSPORT_HPP_
+#ifndef _XOS_NETWORK_OS_OS_HPP
+#define _XOS_NETWORK_OS_OS_HPP
 
-#include "xos/network/Transport.hpp"
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include "xos/base/Base.hpp"
 
 namespace xos {
 namespace network {
-namespace ip {
+namespace windows { }
+namespace unix { }
+namespace os {
 
-typedef network::TransportImplement TransportImplement;
-typedef network::Transport TransportExtend;
+#if defined(WINDOWS) 
+// Windows
+namespace os = windows;
+#else // defined(WINDOWS) 
+// Unix 
+namespace os = unix;
+#endif // defined(WINDOWS) 
 
-class _EXPORT_CLASS Transport: virtual public TransportImplement, public TransportExtend {
-public:
-    typedef TransportImplement Implements;
-    typedef TransportExtend Extends;
-
-    enum { Protocol = IPPROTO_RAW };
-
-    Transport(){}
-    virtual ~Transport(){}
-
-    virtual int GetProtocol() const {
-        return Protocol;
-    }
-};
-
-} // namespace ip 
+} // namespace os 
 } // namespace network 
 } // namespace xos 
 
-#endif // _XOS_NETWORK_IP_TRANSPORT_HPP_ 
-        
-
+#endif // _XOS_NETWORK_OS_OS_HPP 

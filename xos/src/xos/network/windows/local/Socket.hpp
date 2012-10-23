@@ -128,6 +128,16 @@ public:
         ssize_t count = -1; 
         return count; }
 
+    virtual bool SetDelayOpt(bool isOn = true) {
+        return false; }
+    virtual bool SetNoDelayOpt(bool isOn = true) {
+        return false; }
+    virtual bool SetLingerOpt(bool isOn = true, int lingerSeconds = -1) {
+        return false; }
+    virtual bool SetDontLingerOpt(bool isOn = true, int lingerSeconds = 0) {
+        return false; }
+    virtual bool SetOpt(int level, int name, const void* value, socklen_t length) {
+        return false; }
 protected:
     std::string m_bound;
     os::windows::NamedPipe m_pipe;

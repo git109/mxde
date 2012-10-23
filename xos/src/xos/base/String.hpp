@@ -37,6 +37,7 @@ public:
     String(const String& copy): Extends(copy){}
     String(const Extends& copy): Extends(copy){}
     String(const char* chars): Extends(chars){}
+    String(const char* chars, size_t length): Extends(chars, length){}
     String(){}
     virtual ~String(){}
 

@@ -13,46 +13,33 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Transport.hpp
+///   File: Socket.hpp
 ///
 /// Author: $author$
-///   Date: 9/22/2012
+///   Date: 10/17/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NETWORK_IP_TRANSPORT_HPP_
-#define _XOS_NETWORK_IP_TRANSPORT_HPP_
+#ifndef _XOS_NETWORK_OS_SOCKET_HPP
+#define _XOS_NETWORK_OS_SOCKET_HPP
 
-#include "xos/network/Transport.hpp"
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include "xos/network/os/Os.hpp"
+
+#if defined(WINDOWS) 
+// Windows
+#include "xos/network/windows/Socket.hpp"
+#else // defined(WINDOWS) 
+// Unix 
+#include "xos/network/unix/Socket.hpp"
+#endif // defined(WINDOWS) 
+
 
 namespace xos {
 namespace network {
-namespace ip {
+namespace os {
 
-typedef network::TransportImplement TransportImplement;
-typedef network::Transport TransportExtend;
+typedef xos::network::os::os::Socket Socket;
 
-class _EXPORT_CLASS Transport: virtual public TransportImplement, public TransportExtend {
-public:
-    typedef TransportImplement Implements;
-    typedef TransportExtend Extends;
-
-    enum { Protocol = IPPROTO_RAW };
-
-    Transport(){}
-    virtual ~Transport(){}
-
-    virtual int GetProtocol() const {
-        return Protocol;
-    }
-};
-
-} // namespace ip 
+} // namespace os 
 } // namespace network 
 } // namespace xos 
 
-#endif // _XOS_NETWORK_IP_TRANSPORT_HPP_ 
-        
-
+#endif // _XOS_NETWORK_OS_SOCKET_HPP 

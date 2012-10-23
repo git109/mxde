@@ -50,9 +50,10 @@
 
 namespace xos {
 
+typedef MainImplement HelloImplement;
 typedef Main HelloExtend;
 
-class Hello: public HelloExtend {
+class _EXPORT_CLASS Hello: virtual public HelloImplement, public HelloExtend {
 public:
     typedef HelloExtend Extends;
     typedef Hello Derives;
@@ -128,7 +129,7 @@ public:
           m_recvdBye(false), 
           m_bye(XOS_HELLO_DEFAULT_BYE) {
         }
-        bool SetRecvdBye(bool recvdBye = true) { 
+        virtual bool SetRecvdBye(bool recvdBye = true) { 
             if ((m_recvdBye = recvdBye)) {
                 m_cn.Clear();
             }

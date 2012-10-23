@@ -24,6 +24,8 @@
 #include "xos/network/Endpoint.hpp"
 #include <sys/socket.h>
 
+#define DEFAULT_SOCKET_LINGER_SECONDS 10
+
 namespace xos {
 namespace network {
 
@@ -59,6 +61,12 @@ public:
 
     virtual ssize_t SendMsg(const struct msghdr* msg, int flags) = 0;
     virtual ssize_t RecvMsg(struct msghdr* msg, int flags) = 0;
+
+    virtual bool SetDelayOpt(bool isOn = true) = 0;
+    virtual bool SetNoDelayOpt(bool isOn = true) = 0;
+    virtual bool SetLingerOpt(bool isOn = true, int lingerSeconds = -1) = 0;
+    virtual bool SetDontLingerOpt(bool isOn = true, int lingerSeconds = 0) = 0;
+    virtual bool SetOpt(int level, int name, const void* value, socklen_t length) = 0;
 
 protected:
     virtual ~Socket(){}

@@ -13,46 +13,19 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Transport.hpp
+///   File: OpenGL.cpp
 ///
 /// Author: $author$
-///   Date: 9/22/2012
+///   Date: 10/22/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NETWORK_IP_TRANSPORT_HPP_
-#define _XOS_NETWORK_IP_TRANSPORT_HPP_
+#include "xos/os/unix/OpenGL.hpp"
 
-#include "xos/network/Transport.hpp"
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include<GL/glx.h>
+#include<X11/X.h>
+#include<X11/Xlib.h>
 
 namespace xos {
-namespace network {
-namespace ip {
+namespace unix {
 
-typedef network::TransportImplement TransportImplement;
-typedef network::Transport TransportExtend;
-
-class _EXPORT_CLASS Transport: virtual public TransportImplement, public TransportExtend {
-public:
-    typedef TransportImplement Implements;
-    typedef TransportExtend Extends;
-
-    enum { Protocol = IPPROTO_RAW };
-
-    Transport(){}
-    virtual ~Transport(){}
-
-    virtual int GetProtocol() const {
-        return Protocol;
-    }
-};
-
-} // namespace ip 
-} // namespace network 
+} // namespace unix 
 } // namespace xos 
-
-#endif // _XOS_NETWORK_IP_TRANSPORT_HPP_ 
-        
-

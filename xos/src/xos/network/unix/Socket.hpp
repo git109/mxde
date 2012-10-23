@@ -21,13 +21,15 @@
 #ifndef _XOS_NETWORK_UNIX_SOCKET_HPP
 #define _XOS_NETWORK_UNIX_SOCKET_HPP
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <errno.h>
 #include "xos/network/Socket.hpp"
 #include "xos/base/Opened.hpp"
 #include "xos/os/Logger.hpp"
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <netdb.h>
+#include <errno.h>
 
 namespace xos {
 namespace network {
@@ -57,6 +59,19 @@ public:
         }
     }
 
+    virtual bool Open(int domain, int type, int protocol) {
+        bool isOpen = false;
+        socket_fd_t detached = 0;
+        if ((Closed())) {
+            if ((isOpen = (-1 != (detached = socket(domain, type, protocol))))) {
+                Attach(detached, isOpen);
+                return true;
+            } else {
+                XOS_LOG_ERROR("failed " << errno << " on socket()");
+            }
+        }
+        return false;
+    }
     virtual bool Close() { 
         bool isOpen = false;
         socket_fd_t detached = 0;
@@ -202,6 +217,49 @@ public:
             }
         }
         return count; }
+
+    virtual bool SetDelayOpt(bool isOn = true) {
+        int delay = (isOn)?(0):(1);
+        return SetOpt(IPPROTO_TCP, TCP_NODELAY, &delay, sizeof(delay));
+    }
+    virtual bool SetNoDelayOpt(bool isOn = true) {
+        int delay = (isOn)?(1):(0);
+        return SetOpt(IPPROTO_TCP, TCP_NODELAY, &delay, sizeof(delay));
+    }
+
+    virtual bool SetLingerOpt(bool isOn = true, int lingerSeconds = -1) {
+        struct linger linger;
+
+        if (0 > lingerSeconds)
+            lingerSeconds = DEFAULT_SOCKET_LINGER_SECONDS;
+
+        linger.l_onoff = (isOn)?(1):(0);
+        linger.l_linger = lingerSeconds;
+        return SetOpt(SOL_SOCKET, SO_LINGER, &linger, sizeof(linger));
+    }
+    virtual bool SetDontLingerOpt(bool isOn = true, int lingerSeconds = 0) {
+        struct linger linger;
+
+        if (0 > lingerSeconds)
+            lingerSeconds = DEFAULT_SOCKET_LINGER_SECONDS;
+
+        linger.l_onoff = (isOn)?(0):(1);
+        linger.l_linger = lingerSeconds;
+        return SetOpt(SOL_SOCKET, SO_LINGER, &linger, sizeof(linger));
+    }
+
+    virtual bool SetOpt(int level, int name, const void* value, socklen_t length) {
+        AttachedT detached;
+        if (Unattached  != (detached = m_attachedTo)) {
+            int err;
+            if (!(err = setsockopt(detached, level, name, (char*)(value), length))) {
+                return true;
+            } else  {
+                XOS_LOG_ERROR("failed " << errno << " on setsockopt()");
+            }
+        }
+        return false;
+    }
 };
 
 } // namespace unix 
