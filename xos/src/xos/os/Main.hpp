@@ -25,19 +25,29 @@
 #include "xos/os/StreamLogger.hpp"
 #include <getopt.h>
 
+#define XOS_MAIN_2STRING_(id) "" #id ""
+#define XOS_MAIN_2STRING(id) XOS_MAIN_2STRING_(id)
+
 #define XOS_MAIN_OPTIONS_CHARS "l:h"
 #define XOS_MAIN_OPTIONS_OPTIONS \
-            {"logging-level", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'l'},\
-            {"help", MAIN_OPT_ARGUMENT_NONE, 0, 'h'},
+            {"logging-level", XOS_MAIN_OPT_ARGUMENT_REQUIRED, 0, 'l'},\
+            {"help", XOS_MAIN_OPT_ARGUMENT_NONE, 0, 'h'},
+
+enum
+{
+    XOS_MAIN_OPT_ARGUMENT_NONE     = 0,
+    XOS_MAIN_OPT_ARGUMENT_REQUIRED = 1,
+    XOS_MAIN_OPT_ARGUMENT_OPTIONAL = 2
+};
 
 namespace xos {
 
 typedef int MainOptArgument;
 enum
 {
-    MAIN_OPT_ARGUMENT_NONE     = 0,
-    MAIN_OPT_ARGUMENT_REQUIRED = 1,
-    MAIN_OPT_ARGUMENT_OPTIONAL = 2
+    MAIN_OPT_ARGUMENT_NONE     = XOS_MAIN_OPT_ARGUMENT_NONE,
+    MAIN_OPT_ARGUMENT_REQUIRED = XOS_MAIN_OPT_ARGUMENT_REQUIRED,
+    MAIN_OPT_ARGUMENT_OPTIONAL = XOS_MAIN_OPT_ARGUMENT_OPTIONAL
 };
 
 typedef MainBaseImplement MainImplement;
@@ -90,14 +100,20 @@ public:
     (int argc, char**argv, char**env)
     {
         int err = 0;
-        const char* optstring = 0;
+        const char* arg = 0;
+        const char** args = 0;
+        const char* argstring = Arguments(args);
         const struct option* longopts = 0;
+        const char* optstring = Options(longopts);
 
-        OutFormatted("Usage: %s [options]\n", argv[0]);
+        OutFormatted
+        ("Usage: %s%s%s%s\n", argv[0], 
+         (optstring)?(" [options]"):(""),
+         (argstring)?(" "):(""), (argstring)?(argstring):(""));
 
-        if ((optstring = Options(longopts)) && (longopts))
+        if ((optstring) && (longopts))
         {
-            OutFormatted("Options:\n");
+            OutFormatted("\nOptions:\n");
 
             while ((longopts->name))
             {
@@ -113,6 +129,16 @@ public:
                  longopts->val, longopts->name,
                  optargSeparator, optarg, optusageSeparator, optusage);
                 longopts++;
+            }
+        }        
+        if ((argstring) && (args))
+        {
+            OutFormatted("\nArguments:\n");
+
+            while ((arg = (*args)))
+            {
+                OutFormatted(" %s\n", arg);
+                args++;
             }
         }        
         SetDidUsage(true);
@@ -146,68 +172,74 @@ public:
         }
         return err;
     }
-    virtual int OnLoggingOption
+    static int OnLoggingOption
     (int optval, const char* optarg,
      const char* optname, int optind,
      int argc, char**argv, char**env)
     {
-        int err = 0;
-        char c;
-
+        int err = 1;
         switch(optval)
         {
         case 'l':
-            if ((optarg))
-            if ((c = optarg[0]))
-            if (!(optarg[1]))
-            {
-                err = 0;
-                switch(c)
-                {
-                case 'a':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ALL);
-                    break;
- 
-                case '0':
-                case 'n':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_NONE);
-                    break;
- 
-                case '1':
-                case 'f':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_FATAL);
-                    break;
- 
-                case '2':
-                case 'e':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR);
-                    break;
- 
-                case '3':
-                case 'w':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_WARN);
-                    break;
- 
-                case '4':
-                case 'i':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_INFO);
-                    break;
- 
-                case '5':
-                case 'd':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_DEBUG);
-                    break;
- 
-                case '6':
-                case 't':
-                    XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_TRACE);
-                    break;
- 
-                default:
-                    err = 1;
-                }
-            }
+            err = OnLoggingLevel(optarg);
             break;
+        }
+        return err;
+    }
+    static int OnLoggingLevel(const char* optarg)
+    {
+        int err = 1;
+        char c;
+
+        if ((optarg))
+        if ((c = optarg[0]))
+        if (!(optarg[1]))
+        {
+            err = 0;
+            switch(c)
+            {
+            case 'a':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ALL);
+                break;
+ 
+            case '0':
+            case 'n':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_NONE);
+                break;
+ 
+            case '1':
+            case 'f':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_FATAL);
+                break;
+ 
+            case '2':
+            case 'e':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR);
+                break;
+ 
+            case '3':
+            case 'w':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_WARN);
+                break;
+ 
+            case '4':
+            case 'i':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_INFO);
+                break;
+ 
+            case '5':
+            case 'd':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_DEBUG);
+                break;
+ 
+            case '6':
+            case 't':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_TRACE);
+                break;
+ 
+            default:
+                err = 1;
+            }
         }
         return err;
     }
@@ -268,6 +300,10 @@ public:
             {0, 0, 0, 0}};
         longopts = optstruct;
         return chars;
+    }
+    virtual const char* Arguments(const char**& args) {
+        args = 0;
+        return 0;
     }
 };
 

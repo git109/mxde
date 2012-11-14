@@ -260,6 +260,7 @@ typedef PCBYTE* PPCBYTE;
 typedef PBYTE* PPBYTE;
 
 typedef useconds_t mseconds_t;
+typedef mseconds_t seconds_t;
 // ...
 // Generic
 //

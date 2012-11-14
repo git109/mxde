@@ -13,22 +13,45 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Platform.hpp
+///   File: Platform_api.hpp
 ///
 /// Author: $author$
-///   Date: 7/26/2012
+///   Date: 11/1/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_PLATFORM_HPP
-#define _XOS_PLATFORM_HPP
+#ifndef _XOS_BASE_PLATFORM_API_HPP
+#define _XOS_BASE_PLATFORM_API_HPP
 
 #include "xos/base/Platform_build.hpp"
-#include "xos/base/Platform_compiler.hpp"
-#include "xos/base/Platform_includes.hpp"
-#include "xos/base/Platform_defines.hpp"
-#include "xos/base/Platform_types.hpp"
-#include "xos/base/Platform_api.hpp"
+
+#if defined(WINDOWS) 
+// Windows 
+// ...
+#if !defined(UNIX_API) 
+// Windows API 
+#if !defined(WINDOWS_API) 
+#define WINDOWS_API
+#endif // !defined(WINDOWS_API) 
+#else // !defined(UNIX_API) 
+// Otherwise 
+#endif // !defined(UNIX_API) 
+// ...
+// Windows 
+#else // defined(WINDOWS) 
+// Unix 
+// ...
+#if !defined(WINDOWS_API) 
+// Unix API 
+#if !defined(UNIX_API) 
+#define UNIX_API
+#endif // !defined(UNIX_API) 
+#else // !defined(WINDOWS_API) 
+// Otherwise 
+#endif // !defined(WINDOWS_API) 
+// ...
+// Unix 
+#endif // defined(WINDOWS) 
 
 namespace xos {
-} // namespace xos
+} // namespace xos 
 
-#endif // _XOS_PLATFORM_HPP 
+#endif // _XOS_BASE_PLATFORM_API_HPP 

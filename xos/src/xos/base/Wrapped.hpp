@@ -36,6 +36,7 @@ class _EXPORT_CLASS Wrapped: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
+    typedef TWrapped WrappedT;
 
     Wrapped(TWrapped& wrapped, TInitialized initialized): m_wrapped(wrapped) {
         memset(&m_wrapped, initialized, sizeof(TWrapped));
@@ -44,13 +45,27 @@ public:
         memset(&m_wrapped, initialized, sizeof(TWrapped));
     }
     Wrapped(TWrapped& wrapped): m_wrapped(wrapped) {}
+    Wrapped(const Wrapped& copy): m_wrapped(m_wrappedDefault) {
+        memcpy(&m_wrapped, &copy.m_wrapped, sizeof(TWrapped));
+    }
     Wrapped(): m_wrapped(m_wrappedDefault) {}
     virtual ~Wrapped() {}
 
+    virtual Wrapped& operator = (const Wrapped& copy) {
+        memcpy(&m_wrapped, &copy.m_wrapped, sizeof(TWrapped));
+        return *this;
+    }
+
+    inline Wrapped& wrapper() const {
+        return (Wrapped&)(*this);
+    }
     inline TWrapped& wrapped() const {
-        return (TWrapped&)(m_wrapped); }
+        return (TWrapped&)(m_wrapped); 
+    }
     inline operator TWrapped& () const {
-        return (TWrapped&)(m_wrapped); }
+        return (TWrapped&)(m_wrapped); 
+    }
+
 protected:
     TWrapped m_wrappedDefault;
     TWrapped& m_wrapped;

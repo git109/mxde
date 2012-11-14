@@ -13,22 +13,33 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Platform.hpp
+///   File: Entry.cpp
 ///
 /// Author: $author$
-///   Date: 7/26/2012
+///   Date: 10/31/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_PLATFORM_HPP
-#define _XOS_PLATFORM_HPP
+#include "xos/fs/os/Entry.hpp"
+#include "xos/fs/Entry.cpp"
 
-#include "xos/base/Platform_build.hpp"
-#include "xos/base/Platform_compiler.hpp"
-#include "xos/base/Platform_includes.hpp"
-#include "xos/base/Platform_defines.hpp"
-#include "xos/base/Platform_types.hpp"
-#include "xos/base/Platform_api.hpp"
+#if defined(WINDOWS) 
+// Windows 
+#include "xos/fs/windows/Entry.cpp"
+#else // defined(WINDOWS) 
+// Unix 
+#include "xos/fs/unix/Entry.cpp"
+#endif // defined(WINDOWS) 
 
 namespace xos {
-} // namespace xos
+namespace fs {
+namespace os {
 
-#endif // _XOS_PLATFORM_HPP 
+} // namespace os 
+} // namespace fs 
+} // namespace xos 
+
+
+
+
+
+        
+

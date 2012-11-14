@@ -66,6 +66,7 @@ public:
             All   = (Next - 1)
         };
         Level(Enable enable = None): m_enable(enable){}
+        Level(const Level& copy): m_enable(copy.m_enable){}
         inline Level& operator = (Enable enable){
             m_enable = enable;
             return *this;
@@ -133,13 +134,21 @@ public:
         }
     };
 
+    virtual ~Logger() {}
+
     virtual bool Init() = 0;
     virtual bool Fini() = 0;
 
     virtual void Log
-   (const Level& level, const Message& message, const Location& location) = 0; 
+    (const Level& level, const Message& message, const Location& location) = 0; 
+
+    virtual void Log
+    (const Level& level, const Location& location, const Message& message) = 0; 
+    virtual void LogFormatted
+    (const Level& level, const Location& location, const char* format, ...) = 0; 
 
     virtual void EnableFor(const Level& level) = 0;
+    virtual Level EnabledFor() const = 0;
     virtual bool IsEnabledFor(const Level& level) const = 0;
 
     static Logger* GetDefault();
@@ -179,10 +188,17 @@ if ((logger)) {\
     ::xos::Logger::Level loggerLevel(level);\
    logger->EnableFor(loggerLevel); } }
 
+#define XOS_GET_LOGGER_LEVEL(logger) \
+    ((logger)?(logger->EnabledFor()):(::xos::Logger::Level(::xos::Logger::Levels::None)))
+
 #define XOS_LOG(logger, level, message) { \
 if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
    ::xos::Logger::Message oss_; \
    logger->Log(level, oss_ << message, XOS_LOGGER_LOCATION); } }
+
+#define XOS_LOGF(logger, level, format, ...) { \
+if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
+   logger->LogFormatted(level, XOS_LOGGER_LOCATION, format, ##__VA_ARGS__); } }
 
 #if defined(LOG4CXX)
 // Use log4cxx logging
@@ -199,7 +215,9 @@ if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
 #define XOS_LOGGER_INIT() XOS_INIT_LOGGER(XOS_DEFAULT_LOGGER)
 #define XOS_LOGGER_FINI() XOS_FINI_LOGGER(XOS_DEFAULT_LOGGER)
 
-#define  XOS_SET_LOGGING_LEVEL(level)  XOS_SET_LOGGER_LEVEL(XOS_DEFAULT_LOGGER, level)
+#define XOS_SET_LOGGING_LEVEL(level)  XOS_SET_LOGGER_LEVEL(XOS_DEFAULT_LOGGER, level)
+#define XOS_GET_LOGGING_LEVEL(level)  (level = XOS_GET_LOGGER_LEVEL(XOS_DEFAULT_LOGGER))
+#define XOS_LOGGING_LEVELS ::xos::Logger::Level::Enable
 
 #define XOS_LOGGING_LEVELS_ALL ::xos::Logger::Levels::All
 #define XOS_LOGGING_LEVELS_NONE ::xos::Logger::Levels::None
@@ -216,6 +234,13 @@ if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
 #define XOS_LOG_INFO(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Info, message)
 #define XOS_LOG_DEBUG(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Debug, message)
 #define XOS_LOG_TRACE(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Trace, message)
+
+#define XOS_LOG_FATALF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Fatal, message, ##__VA_ARGS__)
+#define XOS_LOG_ERRORF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Error, message, ##__VA_ARGS__)
+#define XOS_LOG_WARNF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Warn, message, ##__VA_ARGS__)
+#define XOS_LOG_INFOF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Info, message, ##__VA_ARGS__)
+#define XOS_LOG_DEBUGF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Debug, message, ##__VA_ARGS__)
+#define XOS_LOG_TRACEF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Trace, message, ##__VA_ARGS__)
 #endif // defined(LOG4CXX)
 
 #if defined(LOGGER_None)

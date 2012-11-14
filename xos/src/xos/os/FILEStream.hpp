@@ -59,6 +59,16 @@ public:
         }
         return count;
     }
+    virtual ssize_t WriteFormattedV(const char* format, va_list va) {
+        ssize_t count = -Error::Failed;
+        if ((m_attachedTo)){
+            if (0 > (count = vfprintf(m_attachedTo, format, va))) {
+                XOS_LOG_ERROR("failed on vfprintf()");
+                count = -Error::Failed;
+            }
+        }
+        return count;
+    }
 
     virtual ssize_t Fill(){ return 0; }
     virtual ssize_t Flush(){

@@ -81,8 +81,56 @@ public:
     {
         ssize_t count = 0;
         if ((format))
-        count = vprintf(format, va);
+        count = vfprintf(StdOut(), format, va);
         return count;
+    }
+
+    virtual ssize_t ErrFormatted
+    (const char* format, ...)
+    {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        if ((format))
+        count = ErrFormattedV(format, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t ErrFormattedV
+    (const char* format, va_list va)
+    {
+        ssize_t count = 0;
+        if ((format))
+        count = vfprintf(StdErr(), format, va);
+        return count;
+    }
+
+    virtual ssize_t InFormatted
+    (const char* format, ...)
+    {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        if ((format))
+        count = InFormattedV(format, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t InFormattedV
+    (const char* format, va_list va)
+    {
+        ssize_t count = 0;
+        return count;
+    }
+
+    virtual FILE* StdOut() const {
+        return stdout;
+    }
+    virtual FILE* StdErr() const {
+        return stderr;
+    }
+    virtual FILE* StdIn() const {
+        return stdin;
     }
 };
 

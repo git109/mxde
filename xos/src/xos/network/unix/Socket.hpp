@@ -37,8 +37,8 @@ namespace unix {
 
 typedef int socket_fd_t;
 typedef network::Socket SocketImplement;
-typedef Attached<socket_fd_t, int, 0, ExportBase, SocketImplement> SocketAttached;
-typedef Opened<socket_fd_t, int, 0, SocketAttached, SocketImplement> SocketExtend;
+typedef Attached<socket_fd_t, int, -1, ExportBase, SocketImplement> SocketAttached;
+typedef Opened<socket_fd_t, int, -1, SocketAttached, SocketImplement> SocketExtend;
 
 class _EXPORT_CLASS Socket
 : virtual public SocketImplement,
@@ -48,7 +48,7 @@ public:
     typedef SocketImplement Implements;
     typedef SocketExtend Extends;
 
-    Socket(socket_fd_t detached = 0, bool isOpen = false)
+    Socket(socket_fd_t detached = Unattached, bool isOpen = false)
     : Extends(detached, isOpen) {
     }
     virtual ~Socket() {
@@ -133,9 +133,10 @@ public:
     virtual network::Socket* Accept(struct sockaddr* addr, socklen_t* addrlen) { 
         network::Socket* s = 0; 
         if (Unattached  != (m_attachedTo)) {
-            socket_fd_t detached = 0;
+            socket_fd_t detached = Unattached;
             bool isOpen = false;
             if ((isOpen = (Unattached != (detached = accept(m_attachedTo, addr, addrlen))))) {
+                XOS_LOG_TRACE("...accepted " << detached);
                 s = new Socket(detached, isOpen);
             } else {
                 XOS_LOG_ERROR("failed " << errno << " on accept()");

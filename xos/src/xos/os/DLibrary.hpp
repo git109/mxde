@@ -13,22 +13,18 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Platform.hpp
+///   File: DLibrary.hpp
 ///
 /// Author: $author$
-///   Date: 7/26/2012
+///   Date: 10/24/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_PLATFORM_HPP
-#define _XOS_PLATFORM_HPP
+#ifndef _XOS_OS_DLIBRARY_HPP
+#define _XOS_OS_DLIBRARY_HPP
 
-#include "xos/base/Platform_build.hpp"
-#include "xos/base/Platform_compiler.hpp"
-#include "xos/base/Platform_includes.hpp"
-#include "xos/base/Platform_defines.hpp"
-#include "xos/base/Platform_types.hpp"
-#include "xos/base/Platform_api.hpp"
+#include "xos/base/Base.hpp"
 
 namespace xos {
-} // namespace xos
 
-#endif // _XOS_PLATFORM_HPP 
+} // namespace xos 
+
+#endif // _XOS_OS_DLIBRARY_HPP 

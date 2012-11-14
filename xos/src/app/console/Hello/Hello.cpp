@@ -18,7 +18,7 @@
 /// Author: $author$
 ///   Date: Aug 18, 2012
 ///////////////////////////////////////////////////////////////////////
-#include "Hello.hpp"
+#include "app/console/Hello/Hello.hpp"
 #include "xos/os/Main_main.cpp"
 
 namespace xos {

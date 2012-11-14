@@ -61,7 +61,23 @@ protected:
     static const EndT End = (EndT)(VEnd);
 };
 
-typedef StreamBase<void> Stream;
+typedef StreamBase<void> StreamExtend;
+class EXPORT_CLASS Stream: public StreamExtend {
+public:
+    virtual ssize_t WriteFormatted(const char* format, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        count = WriteFormattedV(format, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t WriteFormattedV(const char* format, va_list va) {
+        ssize_t count = 0;
+        return count;
+    }
+};
+
 typedef StreamBase<char> CharStream;
 typedef StreamBase<wchar_t> WCharStream;
 typedef StreamBase<tchar_t> TCharStream;

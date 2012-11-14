@@ -51,17 +51,31 @@ class EXPORT_CLASS StreamLogger
     virtual bool Fini(){ return true; }
     virtual void Log
     (const Level& level, const Message& message, const Location& location){
+        Log(level, location, message);
+    }
+    virtual void Log
+    (const Level& level, const Location& location, const Message& message){
         Stream* s = 0;
         if ((IsEnabledFor(level)) && (s = m_attachedTo)){
             Locker<Stream> locker(*s);
-            s->Write(location.getFileName().c_str());
-            s->Write("[");
-            s->Write(location.getLineNumber().c_str());
-            s->Write("]");
-            s->Write(" ");
-            s->Write(location.getFunctionName().c_str());
-            s->Write(" ");
+            Log(s, location);
             s->Write(message.c_str());
+            s->Write("\n");
+            s->Flush();
+        }
+    }
+    virtual void LogFormatted
+    (const Level& level, const Location& location, const char* format, ...){
+        Stream* s = 0;
+        if ((IsEnabledFor(level)) && (s = m_attachedTo)){
+            Locker<Stream> locker(*s);
+            Log(s, location);
+            if ((format)) {
+                va_list va;
+                va_start(va, format);
+                s->WriteFormattedV(format, va);
+                va_end(va);
+            }
             s->Write("\n");
             s->Flush();
         }
@@ -69,11 +83,26 @@ class EXPORT_CLASS StreamLogger
     virtual void EnableFor(const Level& level) {
         m_levelEnabled = level;
     }
+    virtual Level EnabledFor() const {
+        return m_levelEnabled;
+    }
     virtual bool IsEnabledFor(const Level& level) const {
         Level::Enable enabled = m_levelEnabled;
         Level::Enable enable = level;
         bool isTrue = ((enabled & enable) == enable);
         return isTrue;
+    }
+protected:
+    virtual void Log(Stream* s, const Location& location){
+        if ((s)) {
+            s->Write(location.getFileName().c_str());
+            s->Write("[");
+            s->Write(location.getLineNumber().c_str());
+            s->Write("]");
+            s->Write(" ");
+            s->Write(location.getFunctionName().c_str());
+            s->Write(" ");
+        }
     }
 protected:
     Level m_levelEnabled;

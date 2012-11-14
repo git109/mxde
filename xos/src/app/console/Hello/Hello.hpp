@@ -48,6 +48,20 @@
 #define XOS_HELLO_DEFAULT_TRANSPORT "t"
 #define XOS_HELLO_DEFAULT_FAMILY "4"
 
+#define XOS_HELLO_OPTIONS_CHARS "m:c:s:r:wat:o:p:f:" XOS_MAIN_OPTIONS_CHARS
+#define XOS_HELLO_OPTIONS_OPTIONS \
+            {"message", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'm'},\
+            {"client", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'c'},\
+            {"server", MAIN_OPT_ARGUMENT_REQUIRED, 0, 's'},\
+            {"start", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'r'},\
+            {"wait", MAIN_OPT_ARGUMENT_NONE, 0, 'w'},\
+            {"native", MAIN_OPT_ARGUMENT_NONE, 0, 'a'},\
+            {"threads", MAIN_OPT_ARGUMENT_REQUIRED, 0, 't'},\
+            {"host", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'o'},\
+            {"port", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'p'},\
+            {"address-family", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'f'},\
+            XOS_MAIN_OPTIONS_OPTIONS
+
 namespace xos {
 
 typedef MainImplement HelloImplement;
@@ -81,9 +95,9 @@ public:
                 m_queue.pop();
             }
             m_cleared = true;
-            m_signal.Continue();
             m_s.Shutdown();
             m_s.Close();
+            m_signal.Continue();
         }
         void Queue(network::Socket* c) {
             Locker<Mutex> l(m_lock);
@@ -134,13 +148,15 @@ public:
                 m_cn.Clear();
             }
             return m_recvdBye; }
-        bool RecvdBye() const { return m_recvdBye; }
-        bool IsRepeated() const { return m_isRepeated; }
+        virtual bool RecvdBye() const { return m_recvdBye; }
+        virtual void OnRecvdBye() {}
+        virtual bool IsRepeated() const { return m_isRepeated; }
         virtual void operator()() {
             network::Socket* c = 0;
             bool recvdBye = false;
             char buf[4096];
 
+            XOS_LOG_DEBUG("in...");
             do {
                 XOS_LOG_TRACE("dequeue socket...");
                 if ((c = m_cn.Dequeue())) {
@@ -152,6 +168,7 @@ public:
                         if (recvdBye = (buf == (strstr(buf, m_bye.c_str())))) {
                             XOS_LOG_INFO("...received \"" << m_bye << "\"");
                             SetRecvdBye();
+                            OnRecvdBye();
                         }
                     }
                     c->Shutdown();
@@ -160,6 +177,7 @@ public:
                     XOS_LOG_TRACE("...failed on dequeue socket");
                 }
             } while (IsRepeated() && !RecvdBye());
+            XOS_LOG_DEBUG("...out");
         }
     protected:
         TcpConnections& m_cn;
@@ -178,6 +196,7 @@ public:
         }
         virtual void operator()() {
             network::Socket* c = 0;
+            XOS_LOG_DEBUG("in...");
             do {
                 XOS_LOG_TRACE("accept socket...");
                 if ((c = m_s.Accept(m_ep.SocketAddress(), &m_ep.SocketAddressLen()))) {
@@ -188,6 +207,7 @@ public:
                     break;
                 }
             } while (!(m_service.RecvdBye()));
+            XOS_LOG_DEBUG("...out");
         }
     protected:
         TcpConnections& m_cn;
@@ -476,7 +496,7 @@ public:
         case 'w':
             m_waitIsTrue = true;
             break;
-        case 'n':
+        case 'a':
             m_processIsNative = true;
             break;
         case 'm':
@@ -499,7 +519,7 @@ public:
                 m_port.assign(optarg);
             }
             break;
-        case 'a':
+        case 'f':
             switch(tolower(optarg[0])) {
             case '4':
                 m_family.assign("4");
@@ -542,7 +562,7 @@ public:
         case 'w':
             chars = "Wait Process";
             break;
-        case 'n':
+        case 'a':
             chars = "Native Process";
             break;
         case 't':
@@ -557,7 +577,7 @@ public:
             optarg = "number";
             chars = "Port Number";
             break;
-        case 'a':
+        case 'f':
             optarg = "{(4)ipv4 | (6)ipv6 | (l)local}";
             chars = "Address Family";
             break;
@@ -570,22 +590,19 @@ public:
     (const struct option*& longopts)
     {
         int err = 0;
-        static const char* chars = "m:c:s:r:wnt:o:p:a:" XOS_MAIN_OPTIONS_CHARS;
+        static const char* chars = XOS_HELLO_OPTIONS_CHARS;
         static struct option optstruct[]= {
-            {"message", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'm'},
-            {"client", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'c'},
-            {"server", MAIN_OPT_ARGUMENT_REQUIRED, 0, 's'},
-            {"start", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'r'},
-            {"wait", MAIN_OPT_ARGUMENT_NONE, 0, 'w'},
-            {"native", MAIN_OPT_ARGUMENT_NONE, 0, 'n'},
-            {"threads", MAIN_OPT_ARGUMENT_REQUIRED, 0, 't'},
-            {"host", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'o'},
-            {"port", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'p'},
-            {"address-family", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'a'},
-            XOS_MAIN_OPTIONS_OPTIONS
+            XOS_HELLO_OPTIONS_OPTIONS
             {0, 0, 0, 0}};
         longopts = optstruct;
         return chars;
+    }
+    virtual const char* Arguments(const char**& args) {
+        static const char* arg[] = {
+            "[name] Hello Name",
+            0};
+        args = arg;
+        return "[name]";
     }
 
 protected:

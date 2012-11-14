@@ -13,22 +13,22 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Platform.hpp
+///   File: PathParserEvents.cpp
 ///
 /// Author: $author$
-///   Date: 7/26/2012
+///   Date: 10/28/2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_PLATFORM_HPP
-#define _XOS_PLATFORM_HPP
-
-#include "xos/base/Platform_build.hpp"
-#include "xos/base/Platform_compiler.hpp"
-#include "xos/base/Platform_includes.hpp"
-#include "xos/base/Platform_defines.hpp"
-#include "xos/base/Platform_types.hpp"
-#include "xos/base/Platform_api.hpp"
+#include "xos/fs/PathParserEvents.hpp"
 
 namespace xos {
-} // namespace xos
+namespace fs {
 
-#endif // _XOS_PLATFORM_HPP 
+} // namespace fs 
+} // namespace xos 
+
+
+
+
+
+        
+

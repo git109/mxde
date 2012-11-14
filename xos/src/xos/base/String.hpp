@@ -27,23 +27,6 @@
 namespace xos {
 
 typedef InterfaceBase StringImplement;
-typedef std::string StringExtend;
-
-class EXPORT_CLASS String: virtual public StringImplement, public StringExtend {
-public:
-    typedef StringImplement Implements;
-    typedef StringExtend Extends;
-
-    String(const String& copy): Extends(copy){}
-    String(const Extends& copy): Extends(copy){}
-    String(const char* chars): Extends(chars){}
-    String(const char* chars, size_t length): Extends(chars, length){}
-    String(){}
-    virtual ~String(){}
-
-    String& operator << (const Extends& str){ append(str); return *this; }
-    String& operator << (const char* chars){ append(chars); return *this; }
-};
 
 template 
 <typename TChar, 
@@ -55,9 +38,15 @@ public:
     typedef TImplement Implements;
     typedef TExtend Extends;
 
-    StringT(const String& copy): Extends(copy){}
+    StringT(const StringT& copy): Extends(copy){}
     StringT(const Extends& copy): Extends(copy){}
+    StringT(const char* chars, size_t length){
+        Append(chars);
+    }
     StringT(const char* chars){
+        Append(chars);
+    }
+    StringT(const wchar_t* chars, size_t length){
         Append(chars);
     }
     StringT(const wchar_t* chars){
@@ -66,19 +55,52 @@ public:
     StringT(){}
     virtual ~StringT(){}
 
+    StringT& Assign(const Extends& string) {
+        this->clear();
+        Append(string);
+        return *this; }
+    StringT& Assign(const char* chars, size_t length) {
+        this->clear();
+        Append(chars, length);
+        return *this; }
     StringT& Assign(const char* chars) {
         this->clear();
         Append(chars);
+        return *this; }
+    StringT& Assign(const wchar_t* chars, size_t length) {
+        this->clear();
+        Append(chars, length);
         return *this; }
     StringT& Assign(const wchar_t* chars) {
         this->clear();
         Append(chars);
         return *this; }
 
+    StringT& Append(const Extends& string) {
+        this->append(string);
+        return *this; }
+    StringT& Append(const char* chars, size_t length) {
+        if ((chars)) {
+            TChar c;
+            while (0 < (length--)) {
+                c = (TChar)(*chars++);
+                this->append(&c, 1);
+            }
+        }
+        return *this; }
     StringT& Append(const char* chars) {
         if ((chars)) {
             TChar c;
             while ((c = (TChar)(*chars++))) {
+                this->append(&c, 1);
+            }
+        }
+        return *this; }
+    StringT& Append(const wchar_t* chars, size_t length) {
+        if ((chars)) {
+            TChar c;
+            while (0 < (length--)) {
+                c = (TChar)(*chars++);
                 this->append(&c, 1);
             }
         }
@@ -92,10 +114,31 @@ public:
         }
         return *this; }
 
+    size_t Clear() {
+        size_t count = this->length();
+        this->clear();
+        return count;
+    }
+
+    const TChar* Chars(size_t& length) const {
+        length = this->length();
+        return this->c_str();
+    }
+    const TChar* Chars() const {
+        return this->c_str();
+    }
+    size_t Length() const  {
+        return this->length();
+    }
+
     StringT& operator << (const Extends& str){ this->append(str); return *this; }
     StringT& operator << (const char* chars){ Append(chars); return *this; }
     StringT& operator << (const wchar_t* chars){ Append(chars); return *this; }
 };
+
+typedef StringT<char> String;
+typedef StringT<wchar_t> WString;
+typedef StringT<tchar_t> TString;
 
 } // namespace xos
 
