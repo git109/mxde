@@ -139,11 +139,11 @@ typedef TUnattached&#160;</td><td class="memItemRight" valign="bottom"><b>Unatta
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac50dca1f5689f357651a42a746e0454c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac50dca1f5689f357651a42a746e0454c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Logger</b> (<a class="el" href="classxos_1_1_stream_base.html">Stream</a> *attachedTo=0, Level::Enable levelEnabled=XOS_STREAMLOGGER_LEVELS_ENABLED)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Logger</b> (<a class="el" href="classxos_1_1_stream.html">Stream</a> *attachedTo=0, Level::Enable levelEnabled=XOS_STREAMLOGGER_LEVELS_ENABLED)</td></tr>
 <tr class="separator:ac50dca1f5689f357651a42a746e0454c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classxos_1_1_stream_logger"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classxos_1_1_stream_logger')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classxos_1_1_stream_logger.html">xos::StreamLogger</a></td></tr>
 <tr class="memitem:aab7893f364ec9adb9c7c140c473d2c12 inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab7893f364ec9adb9c7c140c473d2c12"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>StreamLogger</b> (<a class="el" href="classxos_1_1_stream_base.html">Stream</a> *attachedTo=0, Level::Enable levelEnabled=XOS_STREAMLOGGER_LEVELS_ENABLED)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>StreamLogger</b> (<a class="el" href="classxos_1_1_stream.html">Stream</a> *attachedTo=0, Level::Enable levelEnabled=XOS_STREAMLOGGER_LEVELS_ENABLED)</td></tr>
 <tr class="separator:aab7893f364ec9adb9c7c140c473d2c12 inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca85af716d3c2ec48ba0e48627801980 inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca85af716d3c2ec48ba0e48627801980"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</td></tr>
@@ -152,24 +152,23 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Fini</b> ()</td></tr>
 <tr class="separator:a86e10bad29c8754391b5bf1fb85acce1 inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bb2675a510f511058230ff0a9eb4a17 inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bb2675a510f511058230ff0a9eb4a17"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (const Level &amp;level, const <a class="el" href="classxos_1_1_logger_1_1_message.html">Message</a> &amp;message, const <a class="el" href="classxos_1_1_logger_1_1_location.html">Location</a> &amp;location)</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level, const <a class="el" href="classxos_1_1_logger_1_1_message.html">Message</a> &amp;message, const <a class="el" href="classxos_1_1_logger_1_1_location.html">Location</a> &amp;location)</td></tr>
 <tr class="separator:a4bb2675a510f511058230ff0a9eb4a17 inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb978d02167b41ee6371a08cd1ca808b inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb978d02167b41ee6371a08cd1ca808b"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level, const <a class="el" href="classxos_1_1_logger_1_1_location.html">Location</a> &amp;location, const <a class="el" href="classxos_1_1_logger_1_1_message.html">Message</a> &amp;message)</td></tr>
+<tr class="separator:afb978d02167b41ee6371a08cd1ca808b inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a566b2b26368c5e3ca6602b2b9c84cdbe inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a566b2b26368c5e3ca6602b2b9c84cdbe"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>LogFormatted</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level, const <a class="el" href="classxos_1_1_logger_1_1_location.html">Location</a> &amp;location, const char *format,...)</td></tr>
+<tr class="separator:a566b2b26368c5e3ca6602b2b9c84cdbe inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb7911e35676c5327c4a6e85118eb082 inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb7911e35676c5327c4a6e85118eb082"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>EnableFor</b> (const Level &amp;level)</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>EnableFor</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level)</td></tr>
 <tr class="separator:aeb7911e35676c5327c4a6e85118eb082 inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16f17ecdf73f8a139b1bd977a88f160f inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16f17ecdf73f8a139b1bd977a88f160f"></a>
+virtual <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a>&#160;</td><td class="memItemRight" valign="bottom"><b>EnabledFor</b> () const </td></tr>
+<tr class="separator:a16f17ecdf73f8a139b1bd977a88f160f inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe2a153229267cd6fccc885ebb7aecc8 inherit pub_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe2a153229267cd6fccc885ebb7aecc8"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEnabledFor</b> (const Level &amp;level) const </td></tr>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEnabledFor</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level) const </td></tr>
 <tr class="separator:abe2a153229267cd6fccc885ebb7aecc8 inherit pub_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classxos_1_1_logger"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classxos_1_1_logger')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classxos_1_1_logger.html">xos::Logger</a></td></tr>
-<tr class="memitem:aeab68b37ceaa463679c083d72ebbc898 inherit pub_methods_classxos_1_1_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeab68b37ceaa463679c083d72ebbc898"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level, const <a class="el" href="classxos_1_1_logger_1_1_message.html">Message</a> &amp;message, const <a class="el" href="classxos_1_1_logger_1_1_location.html">Location</a> &amp;location)=0</td></tr>
-<tr class="separator:aeab68b37ceaa463679c083d72ebbc898 inherit pub_methods_classxos_1_1_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1fb2932ffe7783108fd44b0e16a281c inherit pub_methods_classxos_1_1_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1fb2932ffe7783108fd44b0e16a281c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>EnableFor</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level)=0</td></tr>
-<tr class="separator:ae1fb2932ffe7783108fd44b0e16a281c inherit pub_methods_classxos_1_1_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74fb8813527ac1e4efc53c4987f3aad6 inherit pub_methods_classxos_1_1_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74fb8813527ac1e4efc53c4987f3aad6"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEnabledFor</b> (const <a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a> &amp;level) const =0</td></tr>
-<tr class="separator:a74fb8813527ac1e4efc53c4987f3aad6 inherit pub_methods_classxos_1_1_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classxos_1_1_attached"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classxos_1_1_attached')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classxos_1_1_attached.html">xos::Attached&lt; TAttached, TUnattached, VUnattached, TExtend, TImplement &gt;</a></td></tr>
 <tr class="memitem:a111d3c60e4aee04cc37665e2069a1e02 inherit pub_methods_classxos_1_1_attached"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a111d3c60e4aee04cc37665e2069a1e02"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Attached</b> (AttachedT attachedTo=((AttachedT)(Unattached)))</td></tr>
@@ -191,7 +190,7 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:af78ec75cd1211be0945a4cbfbbef1368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classxos_1_1_stream_logger"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classxos_1_1_stream_logger')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classxos_1_1_stream_logger.html">xos::StreamLogger</a></td></tr>
 <tr class="memitem:a3f3feadf50fb8ffebeb79d01a986b612 inherit pro_attribs_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f3feadf50fb8ffebeb79d01a986b612"></a>
-Level&#160;</td><td class="memItemRight" valign="bottom"><b>m_levelEnabled</b></td></tr>
+<a class="el" href="classxos_1_1_logger_1_1_level.html">Level</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_levelEnabled</b></td></tr>
 <tr class="separator:a3f3feadf50fb8ffebeb79d01a986b612 inherit pro_attribs_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classxos_1_1_attached"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classxos_1_1_attached')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classxos_1_1_attached.html">xos::Attached&lt; TAttached, TUnattached, VUnattached, TExtend, TImplement &gt;</a></td></tr>
 <tr class="memitem:adca37540468e09e5761a7c2b44ccaccc inherit pro_attribs_classxos_1_1_attached"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adca37540468e09e5761a7c2b44ccaccc"></a>
@@ -208,6 +207,10 @@ static <a class="el" href="classxos_1_1_logger.html">Logger</a> *&#160;</td><td 
 <tr class="memitem:a5a477bc82549c70070ccebb6da455441 inherit pub_static_attribs_classxos_1_1_attached"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5a477bc82549c70070ccebb6da455441"></a>
 static const UnattachedT&#160;</td><td class="memItemRight" valign="bottom"><b>Unattached</b> =VUnattached</td></tr>
 <tr class="separator:a5a477bc82549c70070ccebb6da455441 inherit pub_static_attribs_classxos_1_1_attached"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classxos_1_1_stream_logger"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classxos_1_1_stream_logger')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classxos_1_1_stream_logger.html">xos::StreamLogger</a></td></tr>
+<tr class="memitem:a305575bea28765851103e89f053362f7 inherit pro_methods_classxos_1_1_stream_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a305575bea28765851103e89f053362f7"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (<a class="el" href="classxos_1_1_stream.html">Stream</a> *s, const <a class="el" href="classxos_1_1_logger_1_1_location.html">Location</a> &amp;location)</td></tr>
+<tr class="separator:a305575bea28765851103e89f053362f7 inherit pro_methods_classxos_1_1_stream_logger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_methods_classxos_1_1_logger"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classxos_1_1_logger')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classxos_1_1_logger.html">xos::Logger</a></td></tr>
 <tr class="memitem:af95e8738c2a85cdc8b30b63417740b9a inherit pro_static_methods_classxos_1_1_logger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af95e8738c2a85cdc8b30b63417740b9a"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDefault</b> (<a class="el" href="classxos_1_1_logger.html">Logger</a> *logger)</td></tr>
@@ -215,14 +218,14 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDefault</b>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_main_8hpp_source.html#l00051">51</a> of file <a class="el" href="_main_8hpp_source.html">Main.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_main_8hpp_source.html#l00061">61</a> of file <a class="el" href="_main_8hpp_source.html">Main.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_main_8hpp_source.html">Main.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 23 2012 15:18:03 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 14 2012 09:22:13 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

@@ -78,7 +78,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2d1d57da7cb05c6ac53aa1c1dace8336.html">src</a></li><li class="navelem"><a class="el" href="dir_91695b98bf18cd4d3190f8ca4bc3c07c.html">xos</a></li><li class="navelem"><a class="el" href="dir_19c67df54b9fc713a2065c9308b92ed0.html">base</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_cefb4e95fc896554d1f0763d5cfdfcd4.html">src</a></li><li class="navelem"><a class="el" href="dir_e3bd2d41a9c3a84a91e26be6283bc7c5.html">xos</a></li><li class="navelem"><a class="el" href="dir_cc2d7a161c930e91e83568aef34cb319.html">base</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -149,18 +149,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> EndT End = (EndT)(VEnd);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;void&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">Stream</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;char&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">CharStream</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;wchar_t&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">WCharStream</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;tchar_t&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">TCharStream</a>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace xos</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif // _XOS_STREAM_HPP_ </span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;void&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">StreamExtend</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="classxos_1_1_stream.html">   65</a></span>&#160;<span class="keyword">class </span>EXPORT_CLASS <a class="code" href="classxos_1_1_stream.html">Stream</a>: <span class="keyword">public</span> <a class="code" href="classxos_1_1_stream_base.html">StreamExtend</a> {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> ssize_t WriteFormatted(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ssize_t count = 0;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        va_list va;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        va_start(va, format);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        count = WriteFormattedV(format, va);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        va_end(va);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> count;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> ssize_t WriteFormattedV(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, va_list va) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        ssize_t count = 0;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">return</span> count;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;char&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">CharStream</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;wchar_t&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">WCharStream</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">typedef</span> <a class="code" href="classxos_1_1_stream_base.html">StreamBase&lt;tchar_t&gt;</a> <a class="code" href="classxos_1_1_stream_base.html">TCharStream</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace xos</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif // _XOS_STREAM_HPP_ </span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 23 2012 15:18:02 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 14 2012 09:22:12 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

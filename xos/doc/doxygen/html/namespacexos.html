@@ -122,7 +122,7 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxos_1_1_stream_base.html">StreamBase</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxos_1_1_string.html">String</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxos_1_1_stream.html">Stream</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxos_1_1_string_t.html">StringT</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,9 +177,9 @@ typedef <a class="el" href="classxos_1_1_attached.html">Attached</a><br class="t
 &lt; <a class="el" href="classxos_1_1_locked_interface.html">LockedInterface</a> *, int, <br class="typebreak"/>
 0, <a class="el" href="classxos_1_1_export_base.html">ExportBase</a>, <a class="el" href="classxos_1_1_locked_interface.html">LockedInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>LockedAttachedExtend</b></td></tr>
 <tr class="separator:ad08c4c2fd8b37de359681472fdff6951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee6a269a35537a0d4e81ed9ea956a23d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee6a269a35537a0d4e81ed9ea956a23d"></a>
-typedef <a class="el" href="classxos_1_1_stream_base.html">StreamBase</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Stream</b></td></tr>
-<tr class="separator:aee6a269a35537a0d4e81ed9ea956a23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85de8a292424960006054991584b6709"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85de8a292424960006054991584b6709"></a>
+typedef <a class="el" href="classxos_1_1_stream_base.html">StreamBase</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>StreamExtend</b></td></tr>
+<tr class="separator:a85de8a292424960006054991584b6709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73b0d8080fe80bf9ead3551248c9ac8d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73b0d8080fe80bf9ead3551248c9ac8d"></a>
 typedef <a class="el" href="classxos_1_1_stream_base.html">StreamBase</a>&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CharStream</b></td></tr>
 <tr class="separator:a73b0d8080fe80bf9ead3551248c9ac8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,14 +192,20 @@ typedef <a class="el" href="classxos_1_1_stream_base.html">StreamBase</a>&lt; tc
 <tr class="memitem:ab68556e8873e770b318c1504fee9425b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab68556e8873e770b318c1504fee9425b"></a>
 typedef <a class="el" href="classxos_1_1_interface_base.html">InterfaceBase</a>&#160;</td><td class="memItemRight" valign="bottom"><b>StringImplement</b></td></tr>
 <tr class="separator:ab68556e8873e770b318c1504fee9425b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94daeb7acd692777835492440d36a578"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94daeb7acd692777835492440d36a578"></a>
-typedef std::string&#160;</td><td class="memItemRight" valign="bottom"><b>StringExtend</b></td></tr>
-<tr class="separator:a94daeb7acd692777835492440d36a578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a17696e4777d25554c17657f1ce746"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3a17696e4777d25554c17657f1ce746"></a>
+typedef <a class="el" href="classxos_1_1_string_t.html">StringT</a>&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>String</b></td></tr>
+<tr class="separator:ac3a17696e4777d25554c17657f1ce746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0254610e8af0db0e1ffa0b21e4b99538"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0254610e8af0db0e1ffa0b21e4b99538"></a>
+typedef <a class="el" href="classxos_1_1_string_t.html">StringT</a>&lt; wchar_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>WString</b></td></tr>
+<tr class="separator:a0254610e8af0db0e1ffa0b21e4b99538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba5d89a8b1d5579eec47be44b65675e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ba5d89a8b1d5579eec47be44b65675e"></a>
+typedef <a class="el" href="classxos_1_1_string_t.html">StringT</a>&lt; tchar_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TString</b></td></tr>
+<tr class="separator:a2ba5d89a8b1d5579eec47be44b65675e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dd5425a891953bdcd8f24fba9e81116"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7dd5425a891953bdcd8f24fba9e81116"></a>
 typedef <a class="el" href="classxos_1_1_interface_base.html">InterfaceBase</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaitInterfaceImplement</b></td></tr>
 <tr class="separator:a7dd5425a891953bdcd8f24fba9e81116"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af487e148bb03d747f68a2d9a7abaedbd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af487e148bb03d747f68a2d9a7abaedbd"></a>
-typedef <a class="el" href="classxos_1_1_stream_base.html">Stream</a>&#160;</td><td class="memItemRight" valign="bottom"><b>FILEStreamImplement</b></td></tr>
+typedef <a class="el" href="classxos_1_1_stream.html">Stream</a>&#160;</td><td class="memItemRight" valign="bottom"><b>FILEStreamImplement</b></td></tr>
 <tr class="separator:af487e148bb03d747f68a2d9a7abaedbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa834fadc327dac726b192bcc127d726c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa834fadc327dac726b192bcc127d726c"></a>
 typedef <a class="el" href="classxos_1_1_attached.html">Attached</a>&lt; FILE *, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>FILEStreamExtend</b></td></tr>
@@ -235,7 +241,7 @@ typedef <a class="el" href="classxos_1_1_acquired_interface.html">AcquiredInterf
 typedef <a class="el" href="classxos_1_1_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><b>StreamLoggerImplement</b></td></tr>
 <tr class="separator:ac756b78de9f8f3f998399302bfff869b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af57a7003a9c2f8599972e7d26fc2bbf1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af57a7003a9c2f8599972e7d26fc2bbf1"></a>
-typedef <a class="el" href="classxos_1_1_attached.html">Attached</a>&lt; <a class="el" href="classxos_1_1_stream_base.html">Stream</a> <br class="typebreak"/>
+typedef <a class="el" href="classxos_1_1_attached.html">Attached</a>&lt; <a class="el" href="classxos_1_1_stream.html">Stream</a> <br class="typebreak"/>
 *, int, 0 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>StreamLoggerExtend</b></td></tr>
 <tr class="separator:af57a7003a9c2f8599972e7d26fc2bbf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacc51614565eca94ef9ba9028ebc39c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aacc51614565eca94ef9ba9028ebc39c8"></a>
@@ -244,11 +250,11 @@ typedef <a class="el" href="classxos_1_1_wait_interface.html">WaitInterface</a>&
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:acb1507fd336d73e18b885c7bc9ee7116"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>MAIN_OPT_ARGUMENT_NONE</b> = 0, 
-<b>MAIN_OPT_ARGUMENT_REQUIRED</b> = 1, 
-<b>MAIN_OPT_ARGUMENT_OPTIONAL</b> = 2
+<tr class="memitem:a5e4a20dd435730c8e1550611d421d47d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>MAIN_OPT_ARGUMENT_NONE</b> = XOS_MAIN_OPT_ARGUMENT_NONE, 
+<b>MAIN_OPT_ARGUMENT_REQUIRED</b> = XOS_MAIN_OPT_ARGUMENT_REQUIRED, 
+<b>MAIN_OPT_ARGUMENT_OPTIONAL</b> = XOS_MAIN_OPT_ARGUMENT_OPTIONAL
  }</td></tr>
-<tr class="separator:acb1507fd336d73e18b885c7bc9ee7116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a5e4a20dd435730c8e1550611d421d47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -411,6 +417,102 @@ class EXPORT_CLASS&#160;</td><td class="memItemRight" valign="bottom"><b>LoggerI
 <p>Author: $author$ Date: 10/8/2012</p>
 <p>Copyright (c) 1988-2012 $organization$</p>
 <p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Directory.cpp</p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Directory.hpp</p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Entry.cpp</p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Entry.hpp</p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_entry_times_8cpp_source.html">EntryTimes.cpp</a></p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_entry_times_8hpp_source.html">EntryTimes.hpp</a></p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_file_8cpp_source.html">File.cpp</a></p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_file_8hpp_source.html">File.hpp</a></p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Entry.cpp</p>
+<p>Author: $author$ Date: 10/31/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Entry.hpp</p>
+<p>Author: $author$ Date: 10/31/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Os.cpp</p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Os.hpp</p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_8cpp_source.html">Path.cpp</a></p>
+<p>Author: $author$ Date: 10/28/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_directory_8cpp_source.html">PathDirectory.cpp</a></p>
+<p>Author: $author$ Date: 10/29/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_directory_appender_8cpp_source.html">PathDirectoryAppender.cpp</a></p>
+<p>Author: $author$ Date: 10/29/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_directory_appender_8hpp_source.html">PathDirectoryAppender.hpp</a></p>
+<p>Author: $author$ Date: 10/29/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_parser_8cpp_source.html">PathParser.cpp</a></p>
+<p>Author: $author$ Date: 10/28/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_parser_8hpp_source.html">PathParser.hpp</a></p>
+<p>Author: $author$ Date: 10/28/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_parser_events_8cpp_source.html">PathParserEvents.cpp</a></p>
+<p>Author: $author$ Date: 10/28/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_path_parser_events_8hpp_source.html">PathParserEvents.hpp</a></p>
+<p>Author: $author$ Date: 10/28/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_time_8cpp_source.html">Time.cpp</a></p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: <a class="el" href="_time_8hpp_source.html">Time.hpp</a></p>
+<p>Author: $author$ Date: 10/27/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Directory.cpp</p>
+<p>Author: $author$ Date: 11/1/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: Directory.hpp</p>
+<p>Author: $author$ Date: 11/1/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
 <p>File: <a class="el" href="_display_8cpp_source.html">Display.cpp</a></p>
 <p>Author: $author$ Date: Aug 5, 2012</p>
 <p>Copyright (c) 1988-2012 $organization$</p>
@@ -495,10 +597,6 @@ class EXPORT_CLASS&#160;</td><td class="memItemRight" valign="bottom"><b>LoggerI
 <p>Author: $author$ Date: 10/17/2012</p>
 <p>Copyright (c) 1988-2012 $organization$</p>
 <p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
-<p>File: Socket.hpp</p>
-<p>Author: $author$ Date: 10/17/2012</p>
-<p>Copyright (c) 1988-2012 $organization$</p>
-<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
 <p>File: Socket.cpp</p>
 <p>Author: $author$ Date: 9/26/2012</p>
 <p>Copyright (c) 1988-2012 $organization$</p>
@@ -553,6 +651,14 @@ class EXPORT_CLASS&#160;</td><td class="memItemRight" valign="bottom"><b>LoggerI
 <p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
 <p>File: Socket.hpp</p>
 <p>Author: $author$ Date: 9/26/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: DLibrary.cpp</p>
+<p>Author: $author$ Date: 10/24/2012</p>
+<p>Copyright (c) 1988-2012 $organization$</p>
+<p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+<p>File: DLibrary.hpp</p>
+<p>Author: $author$ Date: 10/24/2012</p>
 <p>Copyright (c) 1988-2012 $organization$</p>
 <p>This software is provided by the author and contributors ``as is'' and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
 <p>File: <a class="el" href="_f_i_l_e_stream_8cpp_source.html">FILEStream.cpp</a></p>
@@ -804,7 +910,7 @@ class EXPORT_CLASS&#160;</td><td class="memItemRight" valign="bottom"><b>LoggerI
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 23 2012 15:18:03 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 14 2012 09:22:12 for Xos Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>
