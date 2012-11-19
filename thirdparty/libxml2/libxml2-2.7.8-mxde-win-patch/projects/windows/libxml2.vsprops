@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="libxml2"
+	>
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../../../.."
+	/>
+    
+    <UserMacro
+		Name="SOURCE_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+
+    <UserMacro
+		Name="SOURCE_BUILD"
+		Value="$(SOURCE_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="LIBXML2_GROUP"
+		Value="libxml2"
+	/>
+    <UserMacro
+		Name="LIBXML2_NAME"
+		Value="libxml2"
+	/>
+    <UserMacro
+		Name="LIBXML2_VERSION"
+		Value="2.7.8"
+	/>
+    <UserMacro
+		Name="LIBXML2_DIR"
+		Value="$(LIBXML2_GROUP)/$(LIBXML2_NAME)-$(LIBXML2_VERSION)"
+	/>
+    <UserMacro
+		Name="LIBXML2_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(LIBXML2_DIR)"
+	/>
+    <UserMacro
+		Name="LIBXML2_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(LIBXML2_DIR)"
+	/>
+
+    <UserMacro
+		Name="LIBXML2_BUILD"
+		Value="$(LIBXML2_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="LIBXML2_OBJ"
+		Value="$(LIBXML2_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="LIBXML2_LIB"
+		Value="$(LIBXML2_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="LIBXML2_BIN"
+		Value="$(LIBXML2_BUILD)/bin"
+	/>
+
+    <UserMacro
+		Name="LIBXML2_DEFINES"
+		Value="HAVE_WIN32_THREADS"
+	/>
+
+    <UserMacro
+		Name="LIBXML2_INCLUDE_DIRS"
+		Value="$(LIBXML2_SOURCE_DIR)/include/libxml;$(LIBXML2_SOURCE_DIR)/include"
+	/>
+    <UserMacro
+		Name="LIBXML2_LIB_DIRS"
+		Value="$(LIBXML2_LIB)"
+	/>
+    <UserMacro
+		Name="LIBXML2_LIBS"
+		Value="wsock32.lib"
+	/>
+	
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="BUILD_DIR"
+		Value="$(LIBXML2_BUILD)"
+	/>
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(LIBXML2_OBJ)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(LIBXML2_LIB)"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(LIBXML2_BIN)"
+	/>
+
+    <UserMacro
+		Name="DEFINES"
+		Value="$(LIBXML2_DEFINES)"
+	/>
+
+    <UserMacro
+		Name="INCLUDE_DIRS"
+		Value="$(LIBXML2_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIB_DIRS"
+		Value="$(LIBXML2_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBS"
+		Value="$(LIBXML2_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

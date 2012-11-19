@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="xerces"
+	>
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../../../../.."
+	/>
+    
+    <UserMacro
+		Name="SOURCE_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+    
+    <UserMacro
+		Name="SOURCE_BUILD"
+		Value="$(SOURCE_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="XERCES_GROUP"
+		Value="xerces"
+	/>
+    <UserMacro
+		Name="XERCES_NAME"
+		Value="xerces"
+	/>
+    <UserMacro
+		Name="XERCES_VERSION"
+		Value="c-src_2_8_0"
+	/>
+    <UserMacro
+		Name="XERCES_DIR"
+		Value="$(XERCES_GROUP)/$(XERCES_NAME)-$(XERCES_VERSION)"
+	/>
+    <UserMacro
+		Name="XERCES_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(XERCES_DIR)"
+	/>
+    <UserMacro
+		Name="XERCES_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(XERCES_DIR)"
+	/>
+    <UserMacro
+		Name="XERCES_ROOT_DIR"
+		Value="../../../../.."
+	/>
+
+    <UserMacro
+		Name="XERCES_BUILD"
+		Value="$(XERCES_ROOT_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="XERCES_OBJ"
+		Value="$(XERCES_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="XERCES_LIB"
+		Value="$(XERCES_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="XERCES_BIN"
+		Value="$(XERCES_BUILD)/bin"
+	/>
+	
+    <UserMacro
+		Name="XERCES_DEFINES"
+		Value=""
+	/>
+
+    <UserMacro
+		Name="XERCES_INCLUDE_DIRS"
+		Value="$(XERCES_SOURCE_DIR)/src/xercesc;$(XERCES_SOURCE_DIR)/src"
+	/>
+    <UserMacro
+		Name="XERCES_LIB_DIRS"
+		Value="$(XERCES_LIB)"
+	/>
+    <UserMacro
+		Name="XERCES_LIBS"
+		Value="ws2_32.lib advapi32.lib"
+	/>
+    <UserMacro
+		Name="XERCES_LIBRARY"
+		Value="xerces-c_2_8.lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEBUG_LIBRARY"
+		Value="xerces-c_2_8D.lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_LIBS"
+		Value="ws2_32.lib $(XERCES_LIBRARY)"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DEBUG_LIBS"
+		Value="ws2_32.lib $(XERCES_DEBUG_LIBRARY)"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_LIBRARY"
+		Value="xerces-depdom_2_8.lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DEBUG_LIBRARY"
+		Value="xerces-depdom_2_8D.lib"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="BUILD_DIR"
+		Value="$(XERCES_BUILD)"
+	/>
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(XERCES_OBJ)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(XERCES_LIB)"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(XERCES_BIN)"
+	/>
+
+    <UserMacro
+		Name="DEFINES"
+		Value="$(XERCES_DEFINES)"
+	/>
+
+    <UserMacro
+		Name="INCLUDE_DIRS"
+		Value="$(XERCES_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIB_DIRS"
+		Value="$(XERCES_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBS"
+		Value="$(XERCES_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

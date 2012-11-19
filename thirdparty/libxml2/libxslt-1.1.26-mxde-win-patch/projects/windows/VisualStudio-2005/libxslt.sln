@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxslt", "libxslt\libxslt.vcproj", "{62709805-F68E-4340-8BA8-BF369790D9A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{CACC58ED-B12B-4965-BB62-6DB61E4AC906}"
+	ProjectSection(SolutionItems) = preProject
+		..\libxslt.vsprops = ..\libxslt.vsprops
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libexslt", "libexslt\libexslt.vcproj", "{E17676FE-D438-41BD-A12B-A106023F601D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{62709805-F68E-4340-8BA8-BF369790D9A8} = {62709805-F68E-4340-8BA8-BF369790D9A8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xsltproc", "xsltproc\xsltproc.vcproj", "{D44E7791-CE5B-4934-8BBC-6519B2E98A68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{62709805-F68E-4340-8BA8-BF369790D9A8} = {62709805-F68E-4340-8BA8-BF369790D9A8}
+		{E17676FE-D438-41BD-A12B-A106023F601D} = {E17676FE-D438-41BD-A12B-A106023F601D}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{00ADDCC7-6DF6-49CC-86AB-5A032358A615}"
+	ProjectSection(SolutionItems) = preProject
+		libxslt.vsprops = libxslt.vsprops
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62709805-F68E-4340-8BA8-BF369790D9A8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62709805-F68E-4340-8BA8-BF369790D9A8}.Debug|Win32.Build.0 = Debug|Win32
+		{62709805-F68E-4340-8BA8-BF369790D9A8}.Release|Win32.ActiveCfg = Release|Win32
+		{62709805-F68E-4340-8BA8-BF369790D9A8}.Release|Win32.Build.0 = Release|Win32
+		{E17676FE-D438-41BD-A12B-A106023F601D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E17676FE-D438-41BD-A12B-A106023F601D}.Debug|Win32.Build.0 = Debug|Win32
+		{E17676FE-D438-41BD-A12B-A106023F601D}.Release|Win32.ActiveCfg = Release|Win32
+		{E17676FE-D438-41BD-A12B-A106023F601D}.Release|Win32.Build.0 = Release|Win32
+		{D44E7791-CE5B-4934-8BBC-6519B2E98A68}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D44E7791-CE5B-4934-8BBC-6519B2E98A68}.Debug|Win32.Build.0 = Debug|Win32
+		{D44E7791-CE5B-4934-8BBC-6519B2E98A68}.Release|Win32.ActiveCfg = Release|Win32
+		{D44E7791-CE5B-4934-8BBC-6519B2E98A68}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{00ADDCC7-6DF6-49CC-86AB-5A032358A615} = {CACC58ED-B12B-4965-BB62-6DB61E4AC906}
+	EndGlobalSection
+EndGlobal

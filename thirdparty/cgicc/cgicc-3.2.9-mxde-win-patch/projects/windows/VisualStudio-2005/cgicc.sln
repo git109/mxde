@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcgicc", "libcgicc\libcgicc.vcproj", "{0AEA366B-14B6-44E5-8BCF-636A63EE8C78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{29DEE0EC-8948-4344-B98E-5B79ABA476A2}"
+	ProjectSection(SolutionItems) = preProject
+		cgicc-local.vsprops = cgicc-local.vsprops
+		..\cgicc.vsprops = ..\cgicc.vsprops
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AEA366B-14B6-44E5-8BCF-636A63EE8C78}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0AEA366B-14B6-44E5-8BCF-636A63EE8C78}.Debug|Win32.Build.0 = Debug|Win32
+		{0AEA366B-14B6-44E5-8BCF-636A63EE8C78}.Release|Win32.ActiveCfg = Release|Win32
+		{0AEA366B-14B6-44E5-8BCF-636A63EE8C78}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

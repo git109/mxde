@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="cgicc">
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../../../.."
+	/>
+    <UserMacro
+		Name="SOURCE_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+    <UserMacro
+		Name="SOURCE_BUILD"
+		Value="$(SOURCE_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="CGICC_GROUP"
+		Value="cgicc"
+	/>
+    <UserMacro
+		Name="CGICC_NAME"
+		Value="cgicc"
+	/>
+    <UserMacro
+		Name="CGICC_VERSION"
+		Value="3.2.9"
+	/>
+    <UserMacro
+		Name="CGICC_DIR"
+		Value="$(CGICC_GROUP)/$(CGICC_NAME)-$(CGICC_VERSION)"
+	/>
+    <UserMacro
+		Name="CGICC_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(CGICC_DIR)"
+	/>
+    <UserMacro
+		Name="CGICC_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(CGICC_DIR)"
+	/>
+	
+    <!--===============================================-->
+
+    <UserMacro
+		Name="CGICC_BUILD"
+		Value="$(CGICC_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="CGICC_OBJ"
+		Value="$(CGICC_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="CGICC_LIB"
+		Value="$(CGICC_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="CGICC_BIN"
+		Value="$(CGICC_BUILD)/bin"
+	/>
+	
+    <UserMacro
+		Name="CGICC_INCLUDE_DIRS"
+		Value="$(CGICC_SOURCE_DIR)/cgicc;$(CGICC_SOURCE_DIR)"
+	/>
+    <UserMacro
+		Name="CGICC_LIB_DIRS"
+		Value="$(CGICC_LIB)"
+	/>
+    <UserMacro
+		Name="CGICC_LIBS"
+		Value="cgicc.lib"
+	/>
+	
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="BUILD_DIR"
+		Value="$(CGICC_BUILD)"
+	/>
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(CGICC_OBJ)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(CGICC_LIB)"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(CGICC_BIN)"
+	/>
+
+    <UserMacro
+		Name="INCLUDE_DIRS"
+		Value="$(CGICC_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIB_DIRS"
+		Value="$(CGICC_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBS"
+		Value="$(CGICC_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxml2", "libxml2\libxml2.vcproj", "{C42960F9-BAA5-42C8-BF45-424D5049CA2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bake Files", "Bake Files", "{37F38990-C003-4AFF-84A7-DBDCC62C992D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\bakefile\Bakefiles.bkgen = ..\..\..\bakefile\Bakefiles.bkgen
+		..\..\..\bakefile\libxml2.bkl = ..\..\..\bakefile\libxml2.bkl
+		..\..\..\bakefile\Readme.txt = ..\..\..\bakefile\Readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{8AB4A367-C73E-49CE-8D5D-F25C7A70FF07}"
+	ProjectSection(SolutionItems) = preProject
+		..\libxml2.vsprops = ..\libxml2.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{671F4409-1022-415D-B819-025DEB38D021}"
+	ProjectSection(SolutionItems) = preProject
+		libxml2.vsprops = libxml2.vsprops
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C42960F9-BAA5-42C8-BF45-424D5049CA2E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C42960F9-BAA5-42C8-BF45-424D5049CA2E}.Debug|Win32.Build.0 = Debug|Win32
+		{C42960F9-BAA5-42C8-BF45-424D5049CA2E}.Release|Win32.ActiveCfg = Release|Win32
+		{C42960F9-BAA5-42C8-BF45-424D5049CA2E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{671F4409-1022-415D-B819-025DEB38D021} = {8AB4A367-C73E-49CE-8D5D-F25C7A70FF07}
+	EndGlobalSection
+EndGlobal

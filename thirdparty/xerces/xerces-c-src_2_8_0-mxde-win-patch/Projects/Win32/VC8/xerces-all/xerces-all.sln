@@ -1,0 +1,74 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XercesLib", "XercesLib\XercesLib.vcproj", "{152CE948-F659-4206-A50A-1D2B9658EF96}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XercesDeprecatedDOMLib", "XercesLib\XercesDeprecatedDOMLib.vcproj", "{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{152CE948-F659-4206-A50A-1D2B9658EF96} = {152CE948-F659-4206-A50A-1D2B9658EF96}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{A888F259-8501-4CC3-B1E5-C13D0081DF26}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\xerces.vsprops = ..\..\xerces.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{B16A368B-D1DA-4650-BA37-6F2DA3392116}"
+	ProjectSection(SolutionItems) = preProject
+		..\xerces.vsprops = ..\xerces.vsprops
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+		Static Debug|Win32 = Static Debug|Win32
+		Static Debug|x64 = Static Debug|x64
+		Static Release|Win32 = Static Release|Win32
+		Static Release|x64 = Static Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Debug|Win32.ActiveCfg = Debug|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Debug|Win32.Build.0 = Debug|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Debug|x64.ActiveCfg = Debug|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Debug|x64.Build.0 = Debug|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Release|Win32.ActiveCfg = Release|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Release|Win32.Build.0 = Release|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Release|x64.ActiveCfg = Release|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Release|x64.Build.0 = Release|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Debug|Win32.ActiveCfg = Static Debug|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Debug|Win32.Build.0 = Static Debug|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Debug|x64.ActiveCfg = Static Debug|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Debug|x64.Build.0 = Static Debug|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Release|Win32.ActiveCfg = Static Release|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Release|Win32.Build.0 = Static Release|Win32
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Release|x64.ActiveCfg = Static Release|x64
+		{152CE948-F659-4206-A50A-1D2B9658EF96}.Static Release|x64.Build.0 = Static Release|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Debug|Win32.Build.0 = Debug|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Debug|x64.ActiveCfg = Debug|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Debug|x64.Build.0 = Debug|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Release|Win32.ActiveCfg = Release|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Release|Win32.Build.0 = Release|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Release|x64.ActiveCfg = Release|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Release|x64.Build.0 = Release|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Debug|Win32.ActiveCfg = Static Debug|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Debug|Win32.Build.0 = Static Debug|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Debug|x64.ActiveCfg = Static Debug|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Debug|x64.Build.0 = Static Debug|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Release|Win32.ActiveCfg = Static Release|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Release|Win32.Build.0 = Static Release|Win32
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Release|x64.ActiveCfg = Static Release|x64
+		{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}.Static Release|x64.Build.0 = Static Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B16A368B-D1DA-4650-BA37-6F2DA3392116} = {A888F259-8501-4CC3-B1E5-C13D0081DF26}
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+EndGlobal

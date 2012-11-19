@@ -1,0 +1,65 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AllInOne", "AllInOne\AllInOne.vcproj", "{30AC50F1-1D6C-474C-9792-E0537EFA63CA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D} = {A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XalanExe", "XalanExe\XalanExe.vcproj", "{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA} = {30AC50F1-1D6C-474C-9792-E0537EFA63CA}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{9532120D-55D8-4787-8995-B4082A73A067}"
+	ProjectSection(SolutionItems) = preProject
+		..\Xalan.vsprops = ..\Xalan.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{8CB6CC9D-3A3F-4C5B-BCC0-149525026ADD}"
+	ProjectSection(SolutionItems) = preProject
+		Xalan.vsprops = Xalan.vsprops
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Messages", "Messages\Messages.vcproj", "{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MessageCreator", "MessageCreator\MessageCreator.vcproj", "{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release with symbols|Win32 = Release with symbols|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA}.Debug|Win32.Build.0 = Debug|Win32
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA}.Release with symbols|Win32.ActiveCfg = Release with symbols|Win32
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA}.Release with symbols|Win32.Build.0 = Release with symbols|Win32
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA}.Release|Win32.ActiveCfg = Release|Win32
+		{30AC50F1-1D6C-474C-9792-E0537EFA63CA}.Release|Win32.Build.0 = Release|Win32
+		{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}.Debug|Win32.Build.0 = Debug|Win32
+		{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}.Release with symbols|Win32.ActiveCfg = Release with symbols|Win32
+		{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}.Release with symbols|Win32.Build.0 = Release with symbols|Win32
+		{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}.Release|Win32.ActiveCfg = Release|Win32
+		{865E1333-C4FD-4F6D-AD22-BD93BFF0EF4B}.Release|Win32.Build.0 = Release|Win32
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}.Debug|Win32.Build.0 = Debug|Win32
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}.Release with symbols|Win32.ActiveCfg = Release|Win32
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}.Release with symbols|Win32.Build.0 = Release|Win32
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}.Release|Win32.ActiveCfg = Release|Win32
+		{A2BEAE5D-6332-40DB-BA97-1FBADA0ADE7D}.Release|Win32.Build.0 = Release|Win32
+		{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}.Debug|Win32.Build.0 = Debug|Win32
+		{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}.Release with symbols|Win32.ActiveCfg = Release|Win32
+		{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}.Release with symbols|Win32.Build.0 = Release|Win32
+		{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}.Release|Win32.ActiveCfg = Release|Win32
+		{1A867EB7-C3A8-4FF5-964F-5D7DA47EA9A9}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8CB6CC9D-3A3F-4C5B-BCC0-149525026ADD} = {9532120D-55D8-4787-8995-B4082A73A067}
+	EndGlobalSection
+EndGlobal
