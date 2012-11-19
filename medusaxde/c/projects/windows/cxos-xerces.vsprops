@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="cXos-Xerces">
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="XERCES_GROUP"
+		Value="mxde/thirdparty/xerces"
+	/>
+    <UserMacro
+		Name="XERCES_NAME"
+		Value="xerces"
+	/>
+    <UserMacro
+		Name="XERCES_VERSION"
+		Value="c-src_2_8_0"
+	/>
+
+    <UserMacro
+		Name="XERCES_DIR"
+		Value="$(XERCES_GROUP)/$(XERCES_NAME)-$(XERCES_VERSION)"
+	/>
+    <UserMacro
+		Name="XERCES_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(XERCES_DIR)"
+	/>
+    <UserMacro
+		Name="XERCES_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(XERCES_DIR)"
+	/>
+
+    <UserMacro
+		Name="XERCES_BUILD"
+		Value="$(XERCES_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="XERCES_OBJ"
+		Value="$(XERCES_BUILD)/obj"
+	/>
+    <UserMacro
+		Name="XERCES_LIB"
+		Value="$(XERCES_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="XERCES_BIN"
+		Value="$(XERCES_BUILD)/bin"
+	/>
+	
+    <UserMacro
+		Name="XERCES_INCLUDE_DIRS"
+		Value="$(XERCES_SOURCE_DIR)/src/xercesc;$(XERCES_SOURCE_DIR)/src"
+	/>
+    <UserMacro
+		Name="XERCES_LIB_DIRS"
+		Value="$(XERCES_LIB)"
+	/>
+    <UserMacro
+		Name="XERCES_DEFINES"
+		Value=""
+	/>
+
+    <UserMacro
+		Name="XERCES_LIBS"
+		Value="ws2_32.lib advapi32.lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEBUG_LIBS"
+		Value="$(XERCES_LIBS)"
+	/>
+
+    <UserMacro
+		Name="XERCES_LIBRARY_BASE"
+		Value="xerces-c_2_8"
+	/>
+    <UserMacro
+		Name="XERCES_DEBUG_LIBRARY_BASE"
+		Value="$(XERCES_LIBRARY_BASE)D"
+	/>
+    <UserMacro
+		Name="XERCES_LIBRARY"
+		Value="$(XERCES_LIBRARY_BASE).lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEBUG_LIBRARY"
+		Value="$(XERCES_DEBUG_LIBRARY_BASE).lib"
+	/>
+    <UserMacro
+		Name="XERCES_DLIBRARY"
+		Value="$(XERCES_LIBRARY_BASE).dll"
+	/>
+    <UserMacro
+		Name="XERCES_DEBUG_DLIBRARY"
+		Value="$(XERCES_DEBUG_LIBRARY_BASE).dll"
+	/>
+
+    <UserMacro
+		Name="XERCES_DEPDOM_LIBS"
+		Value="ws2_32.lib $(XERCES_LIBRARY)"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DEBUG_LIBS"
+		Value="ws2_32.lib $(XERCES_DEBUG_LIBRARY)"
+	/>
+
+    <UserMacro
+		Name="XERCES_DEPDOM_LIBRARY_BASE"
+		Value="xerces-depdom_2_8"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DEBUG_LIBRARY_BASE"
+		Value="$(XERCES_DEPDOM_LIBRARY_BASE)D"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_LIBRARY"
+		Value="$(XERCES_DEPDOM_LIBRARY_BASE).lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DEBUG_LIBRARY"
+		Value="$(XERCES_DEPDOM_DEBUG_LIBRARY_BASE).lib"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DLIBRARY"
+		Value="$(XERCES_DEPDOM_LIBRARY_BASE).dll"
+	/>
+    <UserMacro
+		Name="XERCES_DEPDOM_DEBUG_DLIBRARY"
+		Value="$(XERCES_DEPDOM_DEBUG_LIBRARY_BASE).dll"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="CXOS_CXERCES_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cthirdparty/cxml/cxerces;$(XERCES_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="CXOS_CXERCES_LIB_DIRS"
+		Value="$(XERCES_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="CXOS_CXERCES_DEFINES"
+		Value="$(XERCES_DEFINES)"
+	/>
+    <UserMacro
+		Name="CXOS_CXERCES_LIBS"
+		Value="$(XERCES_LIBRARY)"
+	/>
+    <UserMacro
+		Name="CXOS_CXERCES_DEBUG_LIBS"
+		Value="$(XERCES_DEBUG_LIBRARY)"
+	/>
+
+</VisualStudioPropertySheet>

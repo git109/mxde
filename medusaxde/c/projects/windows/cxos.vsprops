@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="cXos">
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../../../../.."
+	/>
+    <UserMacro
+		Name="SOURCE_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+    <UserMacro
+		Name="SOURCE_BUILD"
+		Value="$(SOURCE_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="CXOS_ROOT_DIR"
+		Value="../../../.."
+	/>
+    <UserMacro
+		Name="CXOS_SOURCE_DIR"
+		Value="$(CXOS_ROOT_DIR)/src"
+	/>
+    <UserMacro
+		Name="CXOS_BUILD_DIR"
+		Value="$(CXOS_ROOT_DIR)/build"
+	/>
+    <UserMacro
+		Name="CXOS_BUILD"
+		Value="$(CXOS_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="CXOS_OBJ"
+		Value="$(CXOS_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="CXOS_LIB"
+		Value="$(CXOS_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="CXOS_BIN"
+		Value="$(CXOS_BUILD)/bin"
+	/>
+
+    <UserMacro
+		Name="CXOS_CPLATORM_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cplatform"
+	/>
+    <UserMacro
+		Name="CXOS_CBASE_INCLUDE_DIRS"
+		Value="$(CXOS_CPLATORM_INCLUDE_DIRS);$(CXOS_SOURCE_DIR)/clib/cbase;$(CXOS_SOURCE_DIR)/clib"
+	/>
+    <UserMacro
+		Name="CXOS_WINDOWS_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cos/windows/getopt;$(CXOS_SOURCE_DIR)/clib/cos/windows"
+	/>
+    <UserMacro
+		Name="CXOS_UNIX_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cos/unix"
+	/>
+    <UserMacro
+		Name="CXOS_CTHREAD_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cos/cthread/cwinthread;$(CXOS_SOURCE_DIR)/clib/cos/cthread/cpthread;$(CXOS_SOURCE_DIR)/clib/cos/cthread"
+	/>
+    <UserMacro
+		Name="CXOS_CFS_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cos/cfs/cwinfs;$(CXOS_SOURCE_DIR)/clib/cos/cfs"
+	/>
+    <UserMacro
+		Name="CXOS_COS_INCLUDE_DIRS"
+		Value="$(CXOS_WINDOWS_INCLUDE_DIRS);$(CXOS_UNIX_INCLUDE_DIRS);$(CXOS_CTHREAD_INCLUDE_DIRS);$(CXOS_CFS_INCLUDE_DIRS);$(CXOS_SOURCE_DIR)/clib/cos;$(CXOS_CBASE_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="CXOS_CXTTP_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cxttp/chttp;$(CXOS_SOURCE_DIR)/clib/cxttp"
+	/>
+    <UserMacro
+		Name="CXOS_CCGI_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cxttp/chttp/ccgi;$(CXOS_CXTTP_INCLUDE_DIRS);$(CXOS_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="CXOS_CXML_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cxml;$(CXOS_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="CXOS_CXSLT_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cxml/cxslt;$(CXOS_CXML_INCLUDE_DIRS)"
+	/>
+
+    <UserMacro
+		Name="CXOS_CSERVLET_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cservlet/cxttp/chttp;$(CXOS_SOURCE_DIR)/clib/cservlet/cxttp;$(CXOS_SOURCE_DIR)/clib/cservlet;$(CXOS_CXTTP_INCLUDE_DIRS)"
+	/>
+
+    <UserMacro
+		Name="CXOS_INCLUDE_DIRS"
+		Value="$(CXOS_COS_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="CXOS_LIB_DIRS"
+		Value="$(CXOS_LIB)"
+	/>
+    <UserMacro
+		Name="CXOS_LIBS"
+		Value=""
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(CXOS_OBJ)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(CXOS_LIB)"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(CXOS_BIN)"
+	/>
+
+    <UserMacro
+		Name="INCLUDE_DIRS"
+		Value="$(CXOS_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIB_DIRS"
+		Value="$(CXOS_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBS"
+		Value="$(CXOS_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>
