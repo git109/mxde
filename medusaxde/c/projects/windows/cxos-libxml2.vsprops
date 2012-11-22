@@ -9,7 +9,7 @@
 
     <UserMacro
 		Name="LIBXML2_GROUP"
-		Value="mxde/thirdparty/libxml2"
+		Value="libxml2"
 	/>
     <UserMacro
 		Name="LIBXML2_NAME"
@@ -25,11 +25,11 @@
 	/>
     <UserMacro
 		Name="LIBXML2_SOURCE_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(LIBXML2_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(LIBXML2_DIR)"
 	/>
     <UserMacro
 		Name="LIBXML2_BUILD_DIR"
-		Value="$(SOURCE_BUILD_DIR)/$(LIBXML2_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(LIBXML2_DIR)"
 	/>
 
     <UserMacro
@@ -87,11 +87,11 @@
 	/>
     <UserMacro
 		Name="LIBXSLT_SOURCE_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(LIBXSLT_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(LIBXSLT_DIR)"
 	/>
     <UserMacro
 		Name="LIBXSLT_BUILD_DIR"
-		Value="$(SOURCE_BUILD_DIR)/$(LIBXSLT_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(LIBXSLT_DIR)"
 	/>
 
     <UserMacro

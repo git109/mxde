@@ -9,7 +9,7 @@
 
     <UserMacro
 		Name="XALAN_GROUP"
-		Value="mxde/thirdparty/xerces"
+		Value="xerces"
 	/>
     <UserMacro
 		Name="XALAN_NAME"
@@ -26,11 +26,11 @@
 	/>
     <UserMacro
 		Name="XALAN_SOURCE_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(XALAN_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(XALAN_DIR)"
 	/>
     <UserMacro
 		Name="XALAN_BUILD_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(XALAN_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(XALAN_DIR)"
 	/>
 
     <UserMacro

@@ -49,4 +49,11 @@ CCGIENV_EXPORT const char* c_cgi_env_name[e_COUNT_CGI_ENV] =
     c_CGI_ENV_NAME_SCRIPT_NAME
 };
 
+CCGIENV_EXPORT const char* c_cgi_env_get_name(eCgiEnv env)
+{
+    if ((e_FIRST_CGI_ENV <= env) && (e_LAST_CGI_ENV >= env))
+        return c_cgi_env_name[env-e_FIRST_CGI_ENV];
+    return 0;
+}
+
 #undef CCGIENV_EXPORT

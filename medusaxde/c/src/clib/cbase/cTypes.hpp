@@ -68,6 +68,96 @@ public:
 #endif // !defined(CTYPEST_MEMBERS_ONLY) 
 
     ///////////////////////////////////////////////////////////////////////
+    //  Function: ToInt
+    //
+    //    Author: $author$
+    //      Date: 11/21/2012
+    ///////////////////////////////////////////////////////////////////////
+    CTYPEST_MEMBERS_virtual int ToInt
+    (const tWhat* what,
+     ssize_t length=-1, 
+     tEndWhat endWhat=vEndWhat) CTYPEST_MEMBERS_const
+#if defined(CTYPEST_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CTYPEST_MEMBER_FUNCS_INTERFACE) 
+    {
+        int value = 0;
+#if !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT)
+#else // !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT) 
+        return value;
+    }
+#endif // defined(CTYPEST_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: ToUInt
+    //
+    //    Author: $author$
+    //      Date: 11/21/2012
+    ///////////////////////////////////////////////////////////////////////
+    CTYPEST_MEMBERS_virtual int ToUInt
+    (const tWhat* what,
+     ssize_t length=-1, 
+     tEndWhat endWhat=vEndWhat) CTYPEST_MEMBERS_const
+#if defined(CTYPEST_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CTYPEST_MEMBER_FUNCS_INTERFACE) 
+    {
+        unsigned int value = 0;
+#if !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT)
+        int d;
+        tWhat c;
+
+        if (what)
+        if (0 > length)
+        {
+            while ((c = (*what++)) != endWhat)
+            {
+                if (0 > (d = DToInt(c)))
+                    break;
+                value *= 10;
+                value += d;
+            }
+        }
+        else
+        {
+            for (; 0 < length; --length)
+            {
+                if (0 > (d = DToInt(c = (*what++))))
+                    break;
+                value *= 10;
+                value += d;
+            }
+        }
+#else // !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT) 
+        return value;
+    }
+#endif // defined(CTYPEST_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: DToInt
+    //
+    //    Author: $author$
+    //      Date: 11/21/2012
+    ///////////////////////////////////////////////////////////////////////
+    CTYPEST_MEMBERS_virtual int DToInt
+    (tWhat d, 
+     tWhat d0=(tWhat)('0'), 
+     tWhat d9=(tWhat)('9')) CTYPEST_MEMBERS_const
+#if defined(CTYPEST_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CTYPEST_MEMBER_FUNCS_INTERFACE) 
+    {
+        int value = 0;
+#if !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT)
+        if ((d >= d0) && (d <= d9))
+            value = d - d0;
+#else // !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CTYPEST_MEMBER_FUNCS_IMPLEMENT) 
+        return value;
+    }
+#endif // defined(CTYPEST_MEMBER_FUNCS_INTERFACE) 
+
+    ///////////////////////////////////////////////////////////////////////
     //  Function: FindFirst
     //
     //    Author: $author$

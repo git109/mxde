@@ -9,7 +9,7 @@
 
     <UserMacro
 		Name="CGICC_GROUP"
-		Value="mxde/thirdparty/cgicc"
+		Value="cgicc"
 	/>
     <UserMacro
 		Name="CGICC_NAME"
@@ -25,11 +25,11 @@
 	/>
     <UserMacro
 		Name="CGICC_SOURCE_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(CGICC_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(CGICC_DIR)"
 	/>
     <UserMacro
 		Name="CGICC_BUILD_DIR"
-		Value="$(SOURCE_BUILD_DIR)/$(CGICC_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(CGICC_DIR)"
 	/>
 
     <UserMacro

@@ -21,6 +21,18 @@
 	/>
 
     <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_ROOT_DIR"
+		Value="../../../../../.."
+	/>
+
+    <UserMacro
+		Name="THIRDPARTY_DIR"
+		Value="$(MXDE_ROOT_DIR)/thirdparty"
+	/>
+
+    <!--===============================================-->
     
     <UserMacro
 		Name="CXOS_ROOT_DIR"

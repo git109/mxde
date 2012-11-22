@@ -251,6 +251,26 @@ public:
         return count;
     }
 #endif // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: In
+    //
+    //    Author: $author$
+    //      Date: 11/20/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t In
+    (char_t* chars, size_t size)
+#if defined(CMAINT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_FAILED;
+#if !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT)
+        count = m_in.Read(chars, size);
+#else // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
 
     ///////////////////////////////////////////////////////////////////////
     //  Function: OutFormatted
@@ -297,6 +317,26 @@ public:
         return count;
     }
 #endif // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: Out
+    //
+    //    Author: $author$
+    //      Date: 11/20/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Out
+    (const char_t* chars, ssize_t length = -1)
+#if defined(CMAINT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_FAILED;
+#if !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT)
+        count = m_out.Write(chars, length);
+#else // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
 
     ///////////////////////////////////////////////////////////////////////
     //  Function: ErrFormatted
@@ -338,6 +378,26 @@ public:
         ssize_t count = -e_ERROR_FAILED;
 #if !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT)
         count = m_err.WriteFormattedV(format, va);
+#else // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: Err
+    //
+    //    Author: $author$
+    //      Date: 11/20/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Err
+    (const char_t* chars, ssize_t length = -1)
+#if defined(CMAINT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CMAINT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_FAILED;
+#if !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT)
+        count = m_err.Write(chars, length);
 #else // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
 #endif // !defined(CMAINT_MEMBER_FUNCS_IMPLEMENT) 
         return count;

@@ -27,6 +27,7 @@
 #include "cCharFileInterface.hpp"
 #include "cFile.hpp"
 #include "cDebug.hpp"
+#include "cplatform_fcntl.h"
 
 #if defined(c_NAMESPACE)
 namespace c_NAMESPACE {
@@ -221,6 +222,36 @@ public:
 #else // !defined(CCHARFILET_MEMBER_FUNCS_IMPLEMENT) 
 #endif // !defined(CCHARFILET_MEMBER_FUNCS_IMPLEMENT) 
         return count;
+    }
+#endif // defined(CCHARFILET_MEMBER_FUNCS_INTERFACE) 
+
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: SetBinaryMode
+    //
+    //    Author: $author$
+    //      Date: 11/21/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool SetBinaryMode(bool toOn=true)
+#if defined(CCHARFILET_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCHARFILET_MEMBER_FUNCS_INTERFACE) 
+    {
+        bool isTrue = false;
+#if !defined(CCHARFILET_MEMBER_FUNCS_IMPLEMENT)
+        FILE* attached;
+        if ((attached = CTHIS Attached())) {
+#if defined(WINDOWS)
+            int result;
+            if (0 <= (result = _setmode
+                (_fileno(attached), (toOn)?(_O_BINARY):(_O_TEXT))))
+                isTrue = true;
+#else //  defined(WINDOWS)
+            isTrue = true;
+#endif // defined(WINDOWS)
+        }
+#else // !defined(CCHARFILET_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCHARFILET_MEMBER_FUNCS_IMPLEMENT) 
+        return isTrue;
     }
 #endif // defined(CCHARFILET_MEMBER_FUNCS_INTERFACE) 
 

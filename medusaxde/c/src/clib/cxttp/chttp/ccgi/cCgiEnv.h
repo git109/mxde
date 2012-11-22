@@ -101,6 +101,8 @@ extern "C" {
 
 extern CCGIENV_EXPORT const char* c_cgi_env_name[e_COUNT_CGI_ENV];
 
+extern CCGIENV_EXPORT const char* c_cgi_env_get_name(eCgiEnv env);
+
 #if defined(__cplusplus)
 }
 #endif /* defined(__cplusplus) */

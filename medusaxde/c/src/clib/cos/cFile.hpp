@@ -25,6 +25,7 @@
 
 #if !defined(CFILET_MEMBERS_ONLY)
 #include "cFileInterface.hpp"
+#include "cplatform_stat.h"
 #include "cStream.hpp"
 #include "cString.hpp"
 #include "cDebug.hpp"
@@ -168,8 +169,9 @@ public:
         eError error = e_ERROR_FAILED;
 #if !defined(CFILET_MEMBER_FUNCS_IMPLEMENT)
         FILE* detached;
-        if ((error = Closed(onlyClosed)))
-            return error;
+        eError error2;
+        if ((error2 = Closed(onlyClosed)))
+            return error2;
         if ((fileName) && (fileMode))
         if ((detached = fopen(fileName, fileMode)))
         {
@@ -447,6 +449,30 @@ public:
     }
 #endif // defined(CFILET_MEMBER_FUNCS_INTERFACE) 
 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetSize
+    //
+    //    Author: $author$
+    //      Date: 11/22/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t GetSize()
+#if defined(CFILET_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CFILET_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_FAILED;
+#if !defined(CFILET_MEMBER_FUNCS_IMPLEMENT)
+        FILE* attached;
+        struct stat st;
+        int err;
+        if ((attached = Attached()))
+        if (!(err = fstat(fileno(attached), &st)))
+            count = st.st_size;
+#else // !defined(CFILET_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CFILET_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CFILET_MEMBER_FUNCS_INTERFACE) 
 #if !defined(CFILET_MEMBERS_ONLY)
 };
 #undef CDB_CLASS

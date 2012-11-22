@@ -9,7 +9,7 @@
     
     <UserMacro
 		Name="XERCES_GROUP"
-		Value="mxde/thirdparty/xerces"
+		Value="xerces"
 	/>
     <UserMacro
 		Name="XERCES_NAME"
@@ -26,11 +26,11 @@
 	/>
     <UserMacro
 		Name="XERCES_SOURCE_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(XERCES_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(XERCES_DIR)"
 	/>
     <UserMacro
 		Name="XERCES_BUILD_DIR"
-		Value="$(SOURCE_ROOT_DIR)/$(XERCES_DIR)"
+		Value="$(THIRDPARTY_DIR)/$(XERCES_DIR)"
 	/>
 
     <UserMacro
