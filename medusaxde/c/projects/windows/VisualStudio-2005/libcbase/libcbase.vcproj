@@ -222,6 +222,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\src\clib\cbase\cStringStream.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\src\clib\cbase\cStringStreamInterface.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\src\clib\cbase\cStringWriter.cpp"
 					>
 				</File>

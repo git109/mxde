@@ -68,8 +68,7 @@ public:
     cCgiEnv()
     {
         for (eCgiEnv e=e_FIRST_CGI_ENV; e<=e_LAST_CGI_ENV; e++)
-            m_nameChars[e-e_FIRST_CGI_ENV] 
-            = (m_valueChars[e-e_FIRST_CGI_ENV] = 0);
+            m_nameChars[e-e_FIRST_CGI_ENV] = (m_valueChars[e-e_FIRST_CGI_ENV] = 0);
     }
     ///////////////////////////////////////////////////////////////////////
     //  Destructor: ~cCgiEnv
@@ -101,12 +100,14 @@ public:
 #if !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT)
         eError error2;
         ssize_t count;
+        const char* nameChars;
 
         for (eCgiEnv e=e_FIRST_CGI_ENV; e<=e_LAST_CGI_ENV; e++)
         {
             m_nameChars[e-e_FIRST_CGI_ENV] = 0;
+            if ((nameChars = GetEnvName(e)))
             if (0 > (count = m_name[e-e_FIRST_CGI_ENV].Assign
-                (m_nameChars[e-e_FIRST_CGI_ENV] = c_cgi_env_name[e-e_FIRST_CGI_ENV])))
+                (m_nameChars[e-e_FIRST_CGI_ENV] = nameChars)))
             if (!error)
                 error = (eError)(-count);
         }
@@ -245,8 +246,7 @@ public:
     //    Author: $author$
     //      Date: 6/24/2011
     ///////////////////////////////////////////////////////////////////////
-    virtual const char* Get
-    (eCgiEnv e) const
+    virtual const char* Get(eCgiEnv e) const
 #if defined(CCGIENV_MEMBER_FUNCS_INTERFACE)
     = 0;
 #else // defined(CCGIENV_MEMBER_FUNCS_INTERFACE) 
@@ -267,8 +267,7 @@ public:
     //    Author: $author$
     //      Date: 6/24/2011
     ///////////////////////////////////////////////////////////////////////
-    virtual const char* GetName
-    (eCgiEnv e) const
+    virtual const char* GetName(eCgiEnv e) const
 #if defined(CCGIENV_MEMBER_FUNCS_INTERFACE)
     = 0;
 #else // defined(CCGIENV_MEMBER_FUNCS_INTERFACE) 
@@ -399,8 +398,7 @@ public:
         const char* chars = 0;
 #if !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT)
         const char* nameChars;
-        if ((e >= e_FIRST_CGI_ENV) && (e <= e_LAST_CGI_ENV))
-        if ((nameChars = m_nameChars[e-e_FIRST_CGI_ENV]))
+        if ((nameChars = GetEnvName(e)))
         if ((toChars))
         if (0 <= (length))
         {
@@ -423,8 +421,7 @@ public:
     //    Author: $author$
     //      Date: 7/23/2011
     ///////////////////////////////////////////////////////////////////////
-    virtual const char* GetEnv
-    (eCgiEnv e) const
+    virtual const char* GetEnv(eCgiEnv e) const
 #if defined(CCGIENV_MEMBER_FUNCS_INTERFACE)
     = 0;
 #else // defined(CCGIENV_MEMBER_FUNCS_INTERFACE) 
@@ -432,9 +429,28 @@ public:
         const char* chars = 0;
 #if !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT)
         const char* nameChars;
-        if ((e >= e_FIRST_CGI_ENV) && (e <= e_LAST_CGI_ENV))
-        if ((nameChars = m_nameChars[e-e_FIRST_CGI_ENV]))
+        if ((nameChars = GetEnvName(e)))
             chars = getenv(nameChars);
+#else // !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT) 
+        return chars;
+    }
+#endif // defined(CCGIENV_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetEnvName
+    //
+    //    Author: $author$
+    //      Date: 11/23/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual const char* GetEnvName(eCgiEnv e) const
+#if defined(CCGIENV_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGIENV_MEMBER_FUNCS_INTERFACE) 
+    {
+        const char* chars = 0;
+#if !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT)
+        if ((e >= e_FIRST_CGI_ENV) && (e <= e_LAST_CGI_ENV))
+            chars = c_cgi_env_name[e-e_FIRST_CGI_ENV];
 #else // !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT) 
 #endif // !defined(CCGIENV_MEMBER_FUNCS_IMPLEMENT) 
         return chars;

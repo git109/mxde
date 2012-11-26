@@ -32,7 +32,6 @@ namespace c_NAMESPACE {
 //   Date: 6/5/2011
 ///////////////////////////////////////////////////////////////////////
 
-
 #if defined(c_NAMESPACE)
 }
 #endif // defined(c_NAMESPACE) 

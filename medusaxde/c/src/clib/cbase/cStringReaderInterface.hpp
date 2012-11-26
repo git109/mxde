@@ -62,7 +62,7 @@ public:
 //
 #define CSTRINGREADERT_MEMBERS_ONLY
 #define CSTRINGREADERT_MEMBER_FUNCS_INTERFACE
-//#include "cStringReader.hpp"
+#include "cStringReader.hpp"
 #undef CSTRINGREADERT_MEMBER_FUNCS_INTERFACE
 #undef CSTRINGREADERT_MEMBERS_ONLY
 };
@@ -106,7 +106,7 @@ public:
 //
 #define CSTRINGREADERT_MEMBERS_ONLY
 #define CSTRINGREADERT_MEMBER_FUNCS_IMPLEMENT
-//#include "cStringReader.hpp"
+#include "cStringReader.hpp"
 #undef CSTRINGREADERT_MEMBER_FUNCS_IMPLEMENT
 #undef CSTRINGREADERT_MEMBERS_ONLY
 };

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-// Copyright (c) 1988-2011 $organization$
+// Copyright (c) 1988-2012 $organization$
 //
 // This software is provided by the author and contributors ``as is'' 
 // and any express or implied warranties, including, but not limited to, 
@@ -13,42 +13,22 @@
 // or otherwise) arising in any way out of the use of this software, 
 // even if advised of the possibility of such damage.
 //
-//   File: cCgiccCgiInterface_TheMain.cpp
+//   File: cCgiCgiMainCgiInterface_TheMain.hpp
 //
 // Author: $author$
-//   Date: 7/26/2011
+//   Date: 11/23/2012
 ///////////////////////////////////////////////////////////////////////
-#include "cCgiccCgiMain.hpp"
-#include "cDebug.hpp"
+#ifndef _CCGICGIMAINCGIINTERFACE_THEMAIN_HPP
+#define _CCGICGIMAINCGIINTERFACE_THEMAIN_HPP
 
 #if defined(c_NAMESPACE)
 namespace c_NAMESPACE {
 #endif // defined(c_NAMESPACE) 
 
-///////////////////////////////////////////////////////////////////////
-//  Function: cCgiInterface::TheMain
-//
-//    Author: $author$
-//      Date: 7/26/2011
-//
-// cCgiInterface entry point to cCgicc implementation cCgiInterface
-///////////////////////////////////////////////////////////////////////
-int cCgiInterface::TheMain
-(int argc, char** argv, char** env)
-{
-    int err = 0;
-    eError error;
-
-    if (!(error = c_DEBUG_INIT_LEVELS(e_DEBUG_LEVELS_ERROR)))
-    {
-        cCgiccCgiMain cgiccMain;
-
-        err = cgiccMain.Main(argc, argv, env);
-        c_DEBUG_FINISH();
-    }
-    return err;
-}
-
 #if defined(c_NAMESPACE)
 }
 #endif // defined(c_NAMESPACE) 
+
+#endif // _CCGICGIMAINCGIINTERFACE_THEMAIN_HPP 
+        
+

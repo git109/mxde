@@ -92,6 +92,45 @@ public:
 #endif // !defined(CHTTPFORMFIELDS_MEMBERS_ONLY) 
 
     ///////////////////////////////////////////////////////////////////////
+    //  Function: Init
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual eError Init()
+#if defined(CHTTPFORMFIELDS_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CHTTPFORMFIELDS_MEMBER_FUNCS_INTERFACE) 
+    {
+        eError error = e_ERROR_NONE;
+#if !defined(CHTTPFORMFIELDS_MEMBER_FUNCS_IMPLEMENT)
+        m_formFields.ClearItems();
+#else // !defined(CHTTPFORMFIELDS_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CHTTPFORMFIELDS_MEMBER_FUNCS_IMPLEMENT) 
+        return error;
+    }
+#endif // defined(CHTTPFORMFIELDS_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: Finish
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual eError Finish()
+#if defined(CHTTPFORMFIELDS_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CHTTPFORMFIELDS_MEMBER_FUNCS_INTERFACE) 
+    {
+        eError error = e_ERROR_NONE;
+#if !defined(CHTTPFORMFIELDS_MEMBER_FUNCS_IMPLEMENT)
+        m_formFields.ClearItems();
+#else // !defined(CHTTPFORMFIELDS_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CHTTPFORMFIELDS_MEMBER_FUNCS_IMPLEMENT) 
+        return error;
+    }
+#endif // defined(CHTTPFORMFIELDS_MEMBER_FUNCS_INTERFACE) 
+
+    ///////////////////////////////////////////////////////////////////////
     //  Function: Add
     //
     //    Author: $author$

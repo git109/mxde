@@ -99,6 +99,78 @@ public:
     }
 #endif // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
     ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentType
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentType() const
+#if defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT)
+#else // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentTypeText
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentTypeText() const
+#if defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT)
+#else // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentTypeHtml
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentTypeHtml() const
+#if defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT)
+#else // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentTypeXml
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentTypeXml() const
+#if defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT)
+#else // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGICONTENTSTREAM_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGICONTENTSTREAM_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
     //  Function: Write
     //
     //    Author: $author$

@@ -23,40 +23,7 @@
 #ifndef _CHTTPREQUESTMETHOD_H
 #define _CHTTPREQUESTMETHOD_H
 
-/**
- **********************************************************************
- *    Enum: eHttpRequestMethod
- *
- *  Author: $author$
- *    Date: 10/27/2011
- **********************************************************************
- */
-typedef int eHttpRequestMethod;
-enum
-{
-    e_HTTP_REQUEST_METHOD_NONE = 0,
-    e_FIRST_HTTP_REQUEST_METHOD = 1,
-
-    e_HTTP_REQUEST_METHOD_GET = e_FIRST_HTTP_REQUEST_METHOD,
-    e_HTTP_REQUEST_METHOD_POST,
-    e_HTTP_REQUEST_METHOD_PUT,
-    e_HTTP_REQUEST_METHOD_DELETE,
-    e_HTTP_REQUEST_METHOD_TRACE,
-    e_HTTP_REQUEST_METHOD_HEAD,
-    e_HTTP_REQUEST_METHOD_OPTIONS,
-
-    e_NEXT_HTTP_REQUEST_METHOD,
-    e_LAST_HTTP_REQUEST_METHOD = e_NEXT_HTTP_REQUEST_METHOD-1,
-    e_COUNT_HTTP_REQUEST_METHOD = e_LAST_HTTP_REQUEST_METHOD-e_FIRST_HTTP_REQUEST_METHOD+1,
-};
-
-#define c_HTTP_REQUEST_METHOD_NAME_GET     "GET"
-#define c_HTTP_REQUEST_METHOD_NAME_POST    "POST"
-#define c_HTTP_REQUEST_METHOD_NAME_PUT     "PUT"
-#define c_HTTP_REQUEST_METHOD_NAME_DELETE  "DELETE"
-#define c_HTTP_REQUEST_METHOD_NAME_TRACE   "TRACE"
-#define c_HTTP_REQUEST_METHOD_NAME_HEAD    "HEAD"
-#define c_HTTP_REQUEST_METHOD_NAME_OPTIONS "OPTIONS"
+#include "cHttp.h"
 
 #if defined(__cplusplus)
 extern "C" {

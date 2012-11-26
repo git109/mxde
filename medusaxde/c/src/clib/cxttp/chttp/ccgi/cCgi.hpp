@@ -1206,6 +1206,106 @@ public:
     }
 #endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
     ///////////////////////////////////////////////////////////////////////
+    //  Function: OutputContentL
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutputContentL
+    (const char* chars, ...)
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = 0;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        va_list va;
+        va_start(va, chars);
+        count = OutputContentV(chars, va);
+        va_end(va);
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: OutputContentV
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutputContentV
+    (const char* chars, va_list va)
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = 0;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        ssize_t count2;
+
+        if (0 > (count = OutputContent(chars)))
+            return count;
+
+        if (0 > (count2 = VOutputContent(va)))
+            return count2;
+
+        count += count2;
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: VOutputContent
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t VOutputContent
+    (va_list va, ssize_t vaLength = -1)
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = 0;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        ssize_t count2;
+        const char* chars;
+        
+        if (0 > vaLength)
+        {
+            while (0 != (chars = va_arg(va, const char*)))
+            {
+                if (0 > (count2 = OutputContent(chars)))
+                {
+                    count = count2;
+                    break;
+                }
+                count += count2;
+            }
+        }
+        else 
+        {
+            while (0 < vaLength--)
+            {
+                if (0 != (chars = va_arg(va, const char*)))
+                if (0 > (count2 = OutputContent(chars)))
+                    count = count2;
+                else
+                {
+                    count += count2;
+                    continue;
+                }
+                break;
+            }
+        }
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
     //  Function: OutputContent
     //
     //    Author: $author$
@@ -1246,6 +1346,86 @@ public:
 #else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
 #endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
         return count;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentType
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentType() const
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_contentOutput))
+            type = m_contentOutput->GetContentType();
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentTypeText
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentTypeText() const
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_contentOutput))
+            type = m_contentOutput->GetContentTypeText();
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentTypeHtml
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentTypeHtml() const
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_contentOutput))
+            type = m_contentOutput->GetContentTypeHtml();
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
+    }
+#endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentTypeXml
+    //
+    //    Author: $author$
+    //      Date: 11/25/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentTypeXml() const
+#if defined(CCGI_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
+    {
+        cString type;
+#if !defined(CCGI_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_contentOutput))
+            type = m_contentOutput->GetContentTypeXml();
+#else // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CCGI_MEMBER_FUNCS_IMPLEMENT) 
+        return type;
     }
 #endif // defined(CCGI_MEMBER_FUNCS_INTERFACE) 
 

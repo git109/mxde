@@ -184,6 +184,10 @@
 				RelativePath="..\..\..\..\src\clib\cxttp\cXttp.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\..\src\clib\cxttp\cXttpUrlEncodedCharStream.cpp"
+				>
+			</File>
 			<Filter
 				Name="chttp"
 				>
@@ -224,6 +228,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\src\clib\cxttp\chttp\cHttpFormFieldsCharStream.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\src\clib\cxttp\chttp\cHttpFormFieldsCharStreamEvents.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\src\clib\cxttp\chttp\cHttpFormFieldsInterface.cpp"
 					>
 				</File>
@@ -237,6 +249,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\src\clib\cxttp\chttp\cHttpRequestMethod.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\src\clib\cxttp\chttp\cHttpUrlEncodedCharStream.cpp"
 					>
 				</File>
 				<Filter
@@ -256,6 +272,14 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\src\clib\cxttp\chttp\ccgi\cCgiEnv.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\src\clib\cxttp\chttp\ccgi\cCgiEnvCharStream.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\src\clib\cxttp\chttp\ccgi\cCgiEnvCharStreamEvents.cpp"
 						>
 					</File>
 					<File

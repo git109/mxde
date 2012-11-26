@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="clibxsltcgi"
-	ProjectGUID="{7E25FC14-EE1A-4BA9-BF15-F2F89047CCE7}"
-	RootNamespace="clibxsltcgi"
+	Name="ccgi"
+	ProjectGUID="{553EFB19-4152-4C57-8026-4373BE9DF066}"
+	RootNamespace="ccgi"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(CXOS_CCGI_INCLUDE_DIRS);$(CXOS_CXSLT_INCLUDE_DIRS)"
+				AdditionalIncludeDirectories="$(CXOS_CCGI_INCLUDE_DIRS)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -119,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(CXOS_CCGI_INCLUDE_DIRS);$(CXOS_CXSLT_INCLUDE_DIRS)"
+				AdditionalIncludeDirectories="$(CXOS_CCGI_INCLUDE_DIRS)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -139,7 +138,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -185,7 +183,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\capp\ccgi\cxsltcgi\cXsltCgi.cpp"
+				RelativePath="..\..\..\..\src\capp\ccgi\ccgicgi\cCgiCgi.cpp"
 				>
 			</File>
 		</Filter>

@@ -38,6 +38,7 @@
 #define BODY_ ((GetContentType()==GetContentTypeHtml())?"<body>":"")
 #define _BODY ((GetContentType()==GetContentTypeHtml())?"</body>":"")
 #define BR ((GetContentType()==GetContentTypeHtml())?"<br>\n":"\n")
+#define LF "\n"
 #define H1_ ((GetContentType()==GetContentTypeHtml())?"<h1>\n":"")
 #define _H1 ((GetContentType()==GetContentTypeHtml())?"</h1>\n":"\n\n")
 #define B_ ((GetContentType()==GetContentTypeHtml())?"<b>":"")

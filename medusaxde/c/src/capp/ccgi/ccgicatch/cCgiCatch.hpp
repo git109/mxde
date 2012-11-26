@@ -25,11 +25,6 @@
 
 #define CCGICATCH_DEFAULT_CGI_NAME "ccgicatch"
 
-#define CCGICATCH_DEFAULT_STDARG_FILENAME "ccgistdarg.txt"
-#define CCGICATCH_DEFAULT_STDENV_FILENAME "ccgistdenv.txt"
-#define CCGICATCH_DEFAULT_STDIN_FILENAME "ccgistdin.txt"
-#define CCGICATCH_DEFAULT_STDOUT_FILENAME "ccgistdout.txt"
-
 #define CCGICATCH_DEFAULT_STDARG_ARGVNAME "argv"
 #define CCGICATCH_DEFAULT_STDENV_ENVNAME "env"
 #define CCGICATCH_DEFAULT_STDIN_STDINNAME "stdin"
@@ -61,11 +56,6 @@ public:
     typedef cCgiMainImplement cImplements;
     typedef cCgiMain cExtends;
 
-    const char* m_stdArgFileNameChars;
-    const char* m_stdEnvFileNameChars;
-    const char* m_stdInFileNameChars;
-    const char* m_stdOutFileNameChars;
-
     const char* m_stdArgArgvNameChars;
     const char* m_stdEnvEnvNameChars;
     const char* m_stdInStdInNameChars;
@@ -83,23 +73,26 @@ public:
     cCgiCatch
     (const char* cgiNameChars = CCGICATCH_DEFAULT_CGI_NAME,
      const char* contentTypeChars = CCGICATCH_DEFAULT_CONTENT_TYPENAME,
+
      const char* stdArgArgvNameChars = CCGICATCH_DEFAULT_STDARG_ARGVNAME,
-     const char* stdArgFileNameChars = CCGICATCH_DEFAULT_STDARG_FILENAME,
      const char* stdEnvEnvNameChars = CCGICATCH_DEFAULT_STDENV_ENVNAME,
-     const char* stdEnvFileNameChars = CCGICATCH_DEFAULT_STDENV_FILENAME,
      const char* stdInStdInNameChars = CCGICATCH_DEFAULT_STDIN_STDINNAME,
-     const char* stdInFileNameChars = CCGICATCH_DEFAULT_STDIN_FILENAME,
      const char* stdOutStdOutNameChars = CCGICATCH_DEFAULT_STDOUT_STDOUTNAME,
+
+     const char* stdArgFileNameChars = CCGICATCH_DEFAULT_STDARG_FILENAME,
+     const char* stdEnvFileNameChars = CCGICATCH_DEFAULT_STDENV_FILENAME,
+     const char* stdInFileNameChars = CCGICATCH_DEFAULT_STDIN_FILENAME,
      const char* stdOutFileNameChars = CCGICATCH_DEFAULT_STDOUT_FILENAME)
-    : cExtends(cgiNameChars, contentTypeChars),
-      m_stdArgFileNameChars(stdArgFileNameChars),
-      m_stdEnvFileNameChars(stdEnvFileNameChars),
-      m_stdInFileNameChars(stdInFileNameChars),
-      m_stdOutFileNameChars(stdOutFileNameChars),
+    : cExtends
+      (cgiNameChars, contentTypeChars, 
+       stdArgFileNameChars, stdEnvFileNameChars,
+       stdInFileNameChars, stdOutFileNameChars),
+
       m_stdArgArgvNameChars(stdArgArgvNameChars),
       m_stdEnvEnvNameChars(stdEnvEnvNameChars),
       m_stdInStdInNameChars(stdInStdInNameChars),
       m_stdOutStdOutNameChars(stdInStdInNameChars),
+
       m_contentLength(0)
     {
     }
@@ -111,6 +104,81 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ~cCgiCatch()
     {
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: RunCgi
+    //
+    //    Author: $author$
+    //      Date: 11/20/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual int RunCgi
+    (int argc, char** argv, char** env)
+    {
+        char nullChar = 0;
+        int err = 0;
+        int arg;
+        eCgiEnv e;
+        int unequal;
+        ssize_t length;
+        const char* chars;
+        const char* name;
+        const char* value;
+        cString string;
+
+        // Output the cgi name.
+        //
+        OutputContentL(HTML_, BODY_, H1_, m_cgiNameChars, _H1, 0);
+
+        // Output the standard argments passed to main.
+        //
+        OutputContentL
+        (B_, "Arguments", " (file is ", _B,"\"",
+         m_stdArgFileNameChars, "\"", B_, ")", _B, UL_, BR, 0);
+
+        for (arg=0; arg<argc; arg++)
+        {
+            string.Assign(arg);
+            chars = string.Chars();
+            OutputContentL
+            (B_, m_stdArgArgvNameChars, "[", chars?chars:&nullChar, "] = \"",
+             _B, argv[arg], B_, "\"", _B, BR, 0);
+        }
+        OutputContentL(_UL, BR, 0);
+        
+        // Output the CGI environment variables passed to main.
+        //
+        OutputContentL
+        (B_, "Environment", " (file is ", _B,"\"",
+         m_stdEnvFileNameChars, "\"", B_, ")", _B, UL_, BR, 0);
+
+        for (e=e_FIRST_CGI_ENV; e<=e_LAST_CGI_ENV; e++)
+        {
+            if (!(value = GetCgiEnvValue(e)))
+                value = &nullChar;
+                
+            if ((name = GetCgiEnvName(e)))
+            OutputContentL
+            (B_, name, " = \"", _B, value, B_, "\"", _B, BR, 0);
+        }
+        OutputContentL(_UL, BR, 0);
+
+        // Output the content (stdin) passed to main.
+        //
+        if ((value = GetCgiEnvValue(e_CGI_ENV_REQUEST_METHOD)))
+        if ((name = GetRequestMethodName(e_HTTP_REQUEST_METHOD_POST)))
+        if (!(unequal = cChars::Compare(name, value)))
+        if ((value = GetCgiEnvValue(e_CGI_ENV_CONTENT_LENGTH)))
+        if ((name = GetCgiEnvName(e_CGI_ENV_CONTENT_LENGTH)))
+        if (0 <= (m_contentLength = (cChars::ToUInt(value))))
+        {
+            OutputContentL
+            (B_, m_stdInStdInNameChars, " (file is \"",
+             _B, m_stdInFileNameChars, B_, "\")", _B, BR, 0);
+        }
+
+        OutputContentL(_HTML, _BODY, 0);
+        return err;
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -205,7 +273,6 @@ public:
         if ((value = GetCgiEnvValue(e_CGI_ENV_CONTENT_LENGTH)))
         if ((name = GetCgiEnvName(e_CGI_ENV_CONTENT_LENGTH)))
         if (0 <= (m_contentLength = (cChars::ToUInt(value))))
-        if ((m_stdIn.SetBinaryMode()))
         {
             OutputContentL
             (B_, m_stdInStdInNameChars, " (file is \"",
@@ -213,6 +280,7 @@ public:
 
             // Write the content (stdin) passed to main to a file.
             //
+            if ((m_stdIn.SetBinaryMode()))
             if ((SafeOpenFileToWrite(file, m_stdInFileNameChars, name)))
             {
                 file.WriteFormatted("%s=%s\n", name, value);
