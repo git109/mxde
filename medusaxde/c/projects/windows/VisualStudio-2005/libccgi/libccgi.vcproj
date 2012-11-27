@@ -179,11 +179,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\..\..\..\..\..\..\..\source\mxde\medusaxde\c\src\clib\cxttp\chttp\ccgi\cCgiCgiMain.cpp"
+				RelativePath="..\..\..\..\src\clib\cxttp\chttp\ccgi\cCgiCgiMain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\..\..\..\..\source\mxde\medusaxde\c\src\clib\cxttp\chttp\ccgi\cCgiCgiMainCgiInterface_TheMain.cpp"
+				RelativePath="..\..\..\..\src\clib\cxttp\chttp\ccgi\cCgiCgiMainCgiInterface_TheMain.cpp"
 				>
 			</File>
 			<File
