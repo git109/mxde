@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2011 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: medusaxde-footer.xml                                           -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 2/12/2011                                                      -->
+<!--========================================================================-->
+<medusaxde:footer
+ xmlns:medusaxde="Medusa-Xos-Development-Environment"
+ xmlns:mxde="Medusa-Xos-Development-Environment"
+ xmlns:xde="Medusa-Xos-Development-Environment"
+ xmlns="Medusa-Xos-Development-Environment">
+
+    <size width="" height="24"/>
+    <color bgcolor="#cccccc"/>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- fonts                                                                  -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <fonts>
+        <font hover="off" face="arial" size="2" color="black"/>
+        <font hover="on" face="arial" size="2" color="red"/>
+    </fonts>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="medusaxde" 
+     location="/medusaxde/xsl/medusaxde.xsl">
+        <text>Medusaxde</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <footer-item is_separator="yes"/>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="for_medusaxde" 
+     is_location_query_and="yes"
+     is_location_query_and_tab="no"
+     is_location_query_and_menu="no"
+     is_location_query_and_author="yes"
+     is_location_query_and_using="yes"
+     is_location_query_and_border="no"
+     location_query="for=medusaxde&amp;tab=create" 
+     location="medusaxde.xsl">
+        <text>Medusaxde</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="for_none"
+     is_location_query_and="yes"
+     is_location_query_and_tab="no"
+     is_location_query_and_menu="no"
+     is_location_query_and_author="yes"
+     is_location_query_and_using="yes"
+     is_location_query_and_border="no"
+     location_query="for=&amp;tab=create"
+     location="medusaxde.xsl">
+        <text>None</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <footer-item is_separator="yes"/>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="using_cxx" 
+     is_location_query_and="yes"
+     is_location_query_and_author="yes"
+     is_location_query_and_for="yes"
+     is_location_query_and_border="no"
+     location="medusaxde.xsl?using=cxx">
+        <text>C++</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="using_objc" 
+     is_location_query_and="yes"
+     is_location_query_and_author="yes"
+     is_location_query_and_for="yes"
+     is_location_query_and_border="no"
+     location="medusaxde.xsl?using=objc">
+        <text>Objective-C++</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="using_xsl" 
+     is_location_query_and="yes"
+     is_location_query_and_author="yes"
+     is_location_query_and_for="yes"
+     is_location_query_and_border="no"
+     location="medusaxde.xsl?using=xsl">
+        <text>XSLT</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="using_none" 
+     is_location_query_and="yes"
+     is_location_query_and_author="yes"
+     is_location_query_and_for="yes"
+     is_location_query_and_border="no"
+     location="medusaxde.xsl?using=">
+        <text>None</text>
+    </footer-item>
+
+</medusaxde:footer>

@@ -1,0 +1,108 @@
+<pre class="brush: cpp">#common.pri
+INCLUDEPATH += . ..
+WARNINGS = -wall
+UI_DIR = ../uics
+MOC_DIR = ../mocs
+OBJECTS_DIR = ../objs
+RCC_DIR = ../rccs</pre><br />
+MainProject.pro<br />
+<pre class="brush: cpp">#Main Project Net.pro
+TEMPLATE = subdirs
+CONFIG += ordered
+SUBDIRS += NetAssistent \
+           NeuralNetwork \
+           MainWindow \
+#           TestLibrary \</pre><br />
+NetAssisten.pro<br />
+<pre class="brush: cpp">#NetAssisten.pro
+!include(../common.pri)&#123;
+    error("No se pudo encontrar common.pri")
+&#125; else &#123;
+    message("common.pri cargado satisfactoriamente")
+&#125;
+
+!contains(QT, core)&#123;
+    QT += core
+&#125;
+!contains(QT, gui)&#123;
+    QT += gui
+&#125;
+
+TARGET = NetAssistent
+TEMPLATE = lib
+
+!contains(CONFIG, staticlib)&#123;
+    CONFIG += staticlib
+&#125;
+
+DESTDIR = ../Libs
+SOURCES  += netassistent.cpp \
+            listmodel.cpp \
+            listboxdelegate.cpp \
+HEADERS  += netassistent.h \
+            listmodel.h \
+     listboxdelegate.h
+FORMS    += netassistent.ui
+TRANSLATIONS += netassistent_la.ts</pre><br />
+NeuralNetwork.pro<br />
+<pre class="brush: cpp">#NeuralNetwork.pro
+!include(../common.pri)&#123;
+    error("No se pudo encontrar common.pri")
+&#125; else &#123;
+    message("common.pri cargado satisfactoriamente")
+&#125;
+
+QT       -= core gui
+TARGET = NeuralNetwork
+TEMPLATE = lib
+CONFIG += staticlib
+DESTDIR = ../Libs
+SOURCES += \
+    ruleneuron.cpp \
+    classneuron.cpp \
+    fuzzyset.cpp \
+    universe.cpp \
+    network.cpp \
+    files.cpp
+
+HEADERS += \
+    ruleneuron.h \
+    classneuron.h \
+    fuzzyset.h \
+    universe.h \
+    network.h \
+    files.h</pre><br />
+And finaly MainWindow.pro<br />
+<pre class="brush: cpp">#MainWindow.pro
+!include(../common.pri)&#123;
+    error("No se pudo encontrar common.pri")
+&#125; else &#123;
+    message("common.pri cargado satisfactoriamente")
+&#125;
+
+!contains(QT, core)&#123;
+    QT += core
+&#125;
+
+!contains(QT, gui)&#123;
+    QT += gui
+&#125;
+
+contains(CONFIG, console)&#123;
+    CONFIG -= console
+&#125;
+
+!contains(CONFIG, app_bundle)&#123;
+    CONFIG += app_bundle
+&#125;
+
+TARGET = MainWindow
+TEMPLATE = app
+DESTDIR = ../Aplication
+SOURCES += main.cpp \
+           mainwindow.cpp \
+
+HEADERS += mainwindow.h \
+LIBS += -L../Libs -lNetAssistent
+RESOURCES += resource.qrc</pre>
+        

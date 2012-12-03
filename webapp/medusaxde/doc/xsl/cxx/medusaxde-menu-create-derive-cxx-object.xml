@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2011 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: medusaxde-menu-create-derive-cxx-object.xml                    -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 2/19/2011                                                      -->
+<!--========================================================================-->
+<!--========================================================================-->
+<!--                                                                        -->
+<!-- menu-section                                                           -->
+<!--                                                                        -->
+<!--========================================================================-->
+<medusaxde:menu-section
+ xmlns:medusaxde="Medusa-Xos-Development-Environment"
+ xmlns:mxde="Medusa-Xos-Development-Environment"
+ xmlns:xde="Medusa-Xos-Development-Environment"
+ xmlns="Medusa-Xos-Development-Environment"
+ id="derive_cxx_object"
+ using="cxx" or_not_using="yes">
+
+    <text>Derive C++ Object</text>
+    <!--==========================================================-->
+    <!-- menu-item                                                -->
+    <!--==========================================================-->
+    <menu-item id="object"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     is_location_query_and_form="yes" 
+     location_path="/medusade/mxde/xsl/cxx/"
+     location_query="document_file=../mxde.xml" 
+     location="mxde-derive-cxx-object-class.xsl">
+        <text>C++ Object</text>
+    </menu-item>
+    <!--==========================================================-->
+    <menu-item is_separator_item="yes"/>
+    <!--==========================================================-->
+    <!-- menu-item                                                -->
+    <!--==========================================================-->
+    <menu-item id="object_interface"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     is_location_query_and_form="yes" 
+     location_path="/medusade/mxde/xsl/cxx/"
+     location_query="document_file=../mxde.xml" 
+     location="mxde-derive-cxx-object-interface.xsl">
+        <text>C++ Object interface</text>
+    </menu-item>
+    <!--==========================================================-->
+    <!-- menu-item                                                -->
+    <!--==========================================================-->
+    <menu-item id="object_implement"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     is_location_query_and_form="yes" 
+     location_path="/medusade/mxde/xsl/cxx/"
+     location_query="document_file=../mxde.xml" 
+     location="mxde-derive-cxx-object-implement.xsl">
+        <text>C++ Object implement</text>
+    </menu-item>
+    <!--==========================================================-->
+    <!-- menu-item                                                -->
+    <!--==========================================================-->
+    <menu-item id="object_instance"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     is_location_query_and_form="yes" 
+     location_path="/medusade/mxde/xsl/cxx/"
+     location_query="document_file=../mxde.xml" 
+     location="mxde-derive-cxx-object-instance.xsl">
+        <text>C++ Object instance</text>
+    </menu-item>
+</medusaxde:menu-section>

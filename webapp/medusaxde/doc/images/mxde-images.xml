@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2009 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: mxde-images.xml                                                -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 4/8/2009                                                       -->
+<!--========================================================================-->
+<group>
+
+<tab
+ file="mxde-tab-top.gif"
+ fgcolor="ffffff" bgcolor="dddddd" edgecolor="aaaaaa"
+ x="0" y="0" width="100" height="26" edge="2"
+ lborder="0" rborder="0" tborder="2" bborder="2"
+ radius="10" state="top"/>
+
+<tab
+ file="mxde-tab.gif"
+ fgcolor="ffffdd" bgcolor="dddddd" edgecolor="aaaaaa"
+ x="100" y="0" width="100" height="26" edge="2"
+ lborder="0" rborder="0" tborder="2" bborder="2"
+ radius="10" state="bottom"/>
+
+<filled-circle-quadrant
+ file="mxde-menu-left.gif"
+ fgcolor="666699" bgcolor="dddddd"
+ quadrant="6" x="0" y="26" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-menu-right.gif"
+ fgcolor="666699" bgcolor="dddddd"
+ quadrant="4" x="13" y="26" radius="13"/>
+
+
+<filled-circle-quadrant
+ file="mxde-menu-top-left.gif"
+ fgcolor="666699" bgcolor="dddddd"
+ quadrant="3" x="26" y="26" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-menu-top-right.gif"
+ fgcolor="666699" bgcolor="dddddd"
+ quadrant="0" x="39" y="26" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-menu-bottom-left.gif"
+ fgcolor="666699" bgcolor="dddddd"
+ quadrant="2" x="26" y="39" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-menu-bottom-right.gif"
+ fgcolor="666699" bgcolor="dddddd"
+ quadrant="1" x="39" y="39" radius="13"/>
+
+
+<canvas
+ file="mxde-menu-right.gif"
+ bgcolor="666699" fgcolor="dddddd"
+ x="52" y="26" width="13" height="13"/>
+
+<canvas
+ file="mxde-menu-item.gif"
+ bgcolor="666699" fgcolor="dddddd"
+ x="0" y="51" width="2" height="25"/>
+
+
+<filled-circle-quadrant
+ file="mxde-form-top-left.gif"
+ fgcolor="666699" bgcolor="ffffff"
+ quadrant="3" x="13" y="52" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-form-top-right.gif"
+ fgcolor="666699" bgcolor="ffffff"
+ quadrant="0" x="26" y="52" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-form-bottom-left.gif"
+ fgcolor="666699" bgcolor="ffffff"
+ quadrant="2" x="13" y="65" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-form-bottom-right.gif"
+ fgcolor="666699" bgcolor="ffffff"
+ quadrant="1" x="26" y="65" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-top-left.gif"
+ bgcolor="666699" fgcolor="dddddd"
+ quadrant="3" x="39" y="52" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-top-right.gif"
+ bgcolor="666699" fgcolor="dddddd"
+ quadrant="0" x="52" y="52" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-bottom-left.gif"
+ bgcolor="666699" fgcolor="dddddd"
+ quadrant="2" x="39" y="65" radius="13"/>
+
+
+<filled-circle-quadrant
+ file="mxde-item-bottom-right.gif"
+ bgcolor="666699" fgcolor="dddddd"
+ quadrant="1" x="52" y="65" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-top-left.gif"
+ bgcolor="666699" fgcolor="ffffff"
+ quadrant="3" x="65" y="52" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-top-right.gif"
+ bgcolor="666699" fgcolor="ffffff"
+ quadrant="0" x="78" y="52" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-bottom-left.gif"
+ bgcolor="666699" fgcolor="ffffff"
+ quadrant="2" x="65" y="65" radius="13"/>
+
+<filled-circle-quadrant
+ file="mxde-item-bottom-right.gif"
+ bgcolor="666699" fgcolor="ffffff"
+ quadrant="1" x="78" y="65" radius="13"/>
+
+</group>

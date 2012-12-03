@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2011 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: medusaxde-folders.xml                                          -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 2/12/2011                                                      -->
+<!--========================================================================-->
+<medusaxde:folders
+ xmlns:medusaxde="Medusa-Xos-Development-Environment"
+ xmlns:mxde="Medusa-Xos-Development-Environment"
+ xmlns:xde="Medusa-Xos-Development-Environment"
+ xmlns="Medusa-Xos-Development-Environment">
+
+    <size margin="10"/>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- fonts                                                                  -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <fonts>
+        <font hover="off" color="black"/>
+        <font hover="on" color="red"/>
+        <font id="brand" face="arial" size="6" color="black"/>
+        <font id="product" face="arial" size="4" color="black"/>
+        <font id="version" face="arial" size="3" color="black"/>
+        <font id="for" face="arial" size="3" color="black"/>
+        <font id="what" face="arial" size="4" color="black"/>
+    </fonts>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- images                                                                 -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <images>
+        <image 
+         id="background"
+         text_valign="top_center" 
+         width="475" height="345" 
+         location="../images/medusa2-background.gif"/>
+    </images>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- text                                                                   -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <text>
+        <brand
+         target="medusade"
+         href="medusaxde.xsl" 
+         xxhref="/medusade/mxde/html/medusade-index.html"
+         xhref="http://$organization$  ">Medusa</brand>
+        <product>Xos Development Environment</product>
+        <version>Version 1.4</version>
+    </text>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- forms                                                                   -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <forms>
+        <!--========================================================================-->
+        <!-- colors                                                                 -->
+        <!--========================================================================-->
+        <colors>
+            <color id="fgcolor">black</color>
+            <color id="bgcolor">#dddddd</color>
+            <color id="header_fgcolor">#666699</color>
+            <color id="header_bgcolor">white</color>
+            <color id="section_fgcolor">white</color>
+            <color id="section_bgcolor">#666699</color>
+            <color id="subsection_fgcolor">black</color>
+            <color id="subsection_bgcolor">#bbbbbb</color>
+            <color id="separator_section_fgcolor">black</color>
+            <color id="separator_section_bgcolor">#bbbbbb</color>
+        </colors>
+
+        <!--========================================================================-->
+        <!-- fonts                                                                  -->
+        <!--========================================================================-->
+        <fonts>
+            <font id="" face="arial" size="2" color="fgcolor"/>
+            <font id="header" face="arial" size="4" color="section_bgcolor"/>
+            <font id="section" face="arial" size="3" color="section_fgcolor"/>
+            <font id="subsection" face="arial" size="2" color="subsection_fgcolor"/>
+            <font id="separator_section" face="arial" size="2" color="separator_section_fgcolor"/>
+        </fonts>
+
+        <!--========================================================================-->
+        <!-- images                                                                 -->
+        <!--========================================================================-->
+        <images>
+            <image id="top_left" width="13" height="13" location="/medusaxde/images/mxde-folder-top-left.gif"/>
+            <image id="bottom_left" width="13" height="13" location="/medusaxde/images/mxde-folder-bottom-left.gif"/>
+            <image id="top_right" width="13" height="13" location="/medusaxde/images/mxde-folder-top-right.gif"/>
+            <image id="bottom_right" width="13" height="13" location="/medusaxde/images/mxde-folder-bottom-right.gif"/>
+        </images>
+    </forms>
+</medusaxde:folders>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2011 $author$                                       -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: medusaxde-menu-create-t.xml                                    -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 2/19/2011                                                      -->
+<!--========================================================================-->
+<!--========================================================================-->
+<!--                                                                        -->
+<!-- menu-section                                                           -->
+<!--                                                                        -->
+<!--========================================================================-->
+<medusaxde:menu-section
+ xmlns:medusaxde="Medusa-Xos-Development-Environment"
+ xmlns:mxde="Medusa-Xos-Development-Environment"
+ xmlns:xde="Medusa-Xos-Development-Environment"
+ xmlns="Medusa-Xos-Development-Environment"
+ id="create_t"
+ using="t" or_not_using="yes">
+    <using yes="xsl"/>
+
+    <xde:text>Create T</xde:text>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_template"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-file.xsl">
+        <xde:text>File</xde:text>
+    </menu-item>
+    <!--==========================================================-->
+    <xde:menu-item is_separator="yes"/>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_if"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-if.xsl">
+        <xde:text>%if()%</xde:text>
+    </menu-item>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_else"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-else.xsl">
+        <xde:text>%else()%</xde:text>
+    </menu-item>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_case"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-case.xsl">
+        <xde:text>%case()%</xde:text>
+    </menu-item>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_switch"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-switch.xsl">
+        <xde:text>%switch()%</xde:text>
+    </menu-item>
+    <!--==========================================================-->
+    <xde:menu-item is_separator="yes"/>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_with"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-with.xsl">
+        <xde:text>%with()%</xde:text>
+    </menu-item>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_parse"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-parse.xsl">
+        <xde:text>%parse()%</xde:text>
+    </menu-item>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="t_parameters"
+         is_location_query_and="yes" 
+         is_location_query_and_for="yes" 
+         is_location_query_and_using="yes" 
+         location_path="/medusaxde/xsl/t/"
+         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location="medusaxde-create-t-parameters.xsl">
+        <xde:text>%parameters()%</xde:text>
+    </menu-item>
+    <!--==========================================================-->
+    <xde:menu-item is_separator="yes"/>
+</medusaxde:menu-section>

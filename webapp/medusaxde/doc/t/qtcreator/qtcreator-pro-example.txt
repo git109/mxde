@@ -1,0 +1,16 @@
+#common.pri 
+INCLUDEPATH += . .. 
+WARNINGS = -wall 
+UI_DIR = ../uics 
+MOC_DIR = ../mocs 
+OBJECTS_DIR = ../objs 
+RCC_DIR = ../rccs 
+
+
+#Main Project Net.pro 
+TEMPLATE = subdirs 
+CONFIG += ordered 
+SUBDIRS += NetAssistent \            
+NeuralNetwork \            
+MainWindow \ 
+#           TestLibrary \ 

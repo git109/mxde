@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2011 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: medusaxde-menu-create-medusaxde.xml                            -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 4/3/2011                                                       -->
+<!--========================================================================-->
+<medusaxde:menu-section
+ xmlns:medusaxde="Medusa-Xos-Development-Environment"
+ xmlns:mxde="Medusa-Xos-Development-Environment"
+ xmlns:xde="Medusa-Xos-Development-Environment"
+ xmlns="Medusa-Xos-Development-Environment"
+ id="medusaxde">
+    <text>Create MedusaXDE</text>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="Form parameters"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-form-parameters.xsl">
+        <text>Form parameters</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="form"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-form.xsl">
+        <text>Form</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item is_separator_item="yes">
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="menu_item"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-menu-item.xsl">
+        <text>Menu Item</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="menu_section"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-menu-section.xsl">
+        <text>Menu Section</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="menu"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-menu.xsl">
+        <text>Menu</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="menus"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-menus.xsl">
+        <text>Menus</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item is_separator_item="yes">
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="tab"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-tab.xsl">
+        <text>Tab</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item id="tabs"
+     is_location_query_and="yes" 
+     is_location_query_and_for="yes" 
+     is_location_query_and_using="yes" 
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1" 
+     location="medusaxde-create-medusaxde-tabs.xsl">
+        <text>Tabs</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item is_separator="yes">
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item
+     id="footer_item"
+     is_location_query_and="yes"
+     is_location_query_and_for="yes"
+     is_location_query_and_using="yes"
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1"
+     location="medusaxde-create-medusaxde-footer-item.xsl">
+        <text>Footer Item</text>
+    </menu-item>
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-item                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-item
+     id="footer"
+     is_location_query_and="yes"
+     is_location_query_and_for="yes"
+     is_location_query_and_using="yes"
+     location_path="/medusaxde/xsl/medusaxde/"
+     location_query="document_file=../medusaxde.xml&amp;form=1"
+     location="medusaxde-create-medusaxde-footer.xsl">
+        <text>Footer</text>
+    </menu-item>
+</medusaxde:menu-section>

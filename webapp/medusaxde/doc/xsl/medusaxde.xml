@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2011 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: medusaxde.xml                                                  -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 2/12/2011                                                      -->
+<!--========================================================================-->
+<!DOCTYPE medusaxde [
+    <!ENTITY for SYSTEM "medusaxde-for.xml">
+    <!ENTITY using SYSTEM "medusaxde-using.xml">
+    <!ENTITY header SYSTEM "medusaxde-header.xml">
+    <!ENTITY tabs SYSTEM "medusaxde-tabs.xml">
+    <!ENTITY menus SYSTEM "medusaxde-menus.xml">
+    <!ENTITY folders SYSTEM "medusaxde-folders.xml">
+    <!ENTITY footer SYSTEM "medusaxde-footer.xml">
+    <!ENTITY head SYSTEM "medusaxde-head.xml">
+    <!ENTITY body SYSTEM "medusaxde-body.xml">
+    <!ENTITY frames SYSTEM "medusaxde-frames.xml">
+
+    <!ENTITY menu-create SYSTEM "medusaxde-menu-create.xml">
+    <!ENTITY menu-project SYSTEM "medusaxde-menu-project.xml">
+    <!ENTITY menu-tools SYSTEM "medusaxde-menu-tools.xml">
+    <!ENTITY menu-source SYSTEM "medusaxde-menu-source.xml">
+    <!ENTITY menu-documents SYSTEM "medusaxde-menu-documents.xml">
+    <!ENTITY menu-help SYSTEM "medusaxde-menu-help.xml">
+
+    <!ENTITY menu-create-objcxx-class SYSTEM "cxx/medusaxde-menu-create-objcxx-class.xml">
+    <!ENTITY menu-create-cxx-class SYSTEM "cxx/medusaxde-menu-create-cxx-class.xml">
+    <!ENTITY menu-create-cxx-object SYSTEM "cxx/medusaxde-menu-create-cxx-object.xml">
+    <!ENTITY menu-create-cxx-cwhat SYSTEM "cxx/medusaxde-menu-create-cxx-cwhat.xml">
+    <!ENTITY menu-create-cxx-cwin SYSTEM "cxx/medusaxde-menu-create-cxx-cwin.xml">
+    <!ENTITY menu-create-cxx-cx11 SYSTEM "cxx/medusaxde-menu-create-cxx-cx11.xml">
+    <!ENTITY menu-create-xsl SYSTEM "xsl/medusaxde-menu-create-xsl.xml">
+    <!ENTITY menu-create-xml SYSTEM "xml/medusaxde-menu-create-xml.xml">
+    <!ENTITY menu-create-t SYSTEM "t/medusaxde-menu-create-t.xml">
+    <!ENTITY menu-create-medusaxde SYSTEM "medusaxde-menu-create-medusaxde.xml">
+]>
+<medusaxde:medusaxde
+ xmlns:medusaxde="Medusa-Xos-Development-Environment"
+ xmlns:mxde="Medusa-Xos-Development-Environment"
+ xmlns:xde="Medusa-Xos-Development-Environment"
+ xmlns="Medusa-Xos-Development-Environment">
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for                                                                    -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &for;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- using                                                                  -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &using;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- header                                                                 -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &header;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- tabs                                                                   -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &tabs;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menus                                                                  -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &menus;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- folders                                                                -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &folders;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer                                                                 -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &footer;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- head                                                                   -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &head;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- body                                                                   -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &body;
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- frames                                                                 -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    &frames;
+</medusaxde:medusaxde>
