@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="mxde"
+	>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="SOURCE_DIR"
+		Value="../../../../../.."
+	/>
+    <UserMacro
+		Name="BUILD_DIR"
+		Value="$(SOURCE_DIR)/build"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="BUILD"
+		Value="$(BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(BUILD)/lib"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(BUILD)/bin"
+	/>
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(BUILD)/obj/$(ProjectName)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="ZLIB_GROUP"
+		Value="thirdparty/libc/zlib"
+	/>
+    <UserMacro
+		Name="ZLIB_NAME"
+		Value="zlib"
+	/>
+    <UserMacro
+		Name="ZLIB_VERSION"
+		Value="1.2.5"
+	/>
+    <UserMacro
+		Name="ZLIB_DIR"
+		Value="$(ZLIB_GROUP)/$(ZLIB_NAME)-$(ZLIB_VERSION)"
+	/>
+    <UserMacro
+		Name="ZLIB_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(ZLIB_DIR)"
+	/>
+    <UserMacro
+		Name="ZLIB_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(ZLIB_DIR)"
+	/>
+
+    <UserMacro
+		Name="ZLIB_BUILD"
+		Value="$(ZLIB_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="ZLIB_LIB"
+		Value="$(ZLIB_BUILD)/lib"
+	/>
+
+    <UserMacro
+		Name="ZLIB_INCLUDE_DIRS"
+		Value="$(ZLIB_SOURCE_DIR)"
+	/>
+    <UserMacro
+		Name="ZLIB_LIB_DIRS"
+		Value="$(ZLIB_LIB)"
+	/>
+    <UserMacro
+		Name="ZLIB_INCLUDES"
+		Value="$(ZLIB_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="ZLIB_LIBS"
+		Value="$(ZLIB_NAME).lib"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="LIBJPEG_GROUP"
+		Value="thirdparty/libc/libjpeg"
+	/>
+    <UserMacro
+		Name="LIBJPEG_NAME"
+		Value="jpeg"
+	/>
+    <UserMacro
+		Name="LIBJPEG_VERSION"
+		Value="6b"
+	/>
+    <UserMacro
+		Name="LIBJPEG_DIR"
+		Value="$(LIBJPEG_GROUP)/$(LIBJPEG_NAME)-$(LIBJPEG_VERSION)"
+	/>
+    <UserMacro
+		Name="LIBJPEG_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(LIBJPEG_DIR)"
+	/>
+    <UserMacro
+		Name="LIBJPEG_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(LIBJPEG_DIR)"
+	/>
+
+    <UserMacro
+		Name="LIBJPEG_BUILD"
+		Value="$(LIBJPEG_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="LIBJPEG_LIB"
+		Value="$(LIBJPEG_BUILD)/lib"
+	/>
+
+    <UserMacro
+		Name="LIBJPEG_INCLUDE_DIRS"
+		Value="$(LIBJPEG_SOURCE_DIR);$(ZLIB_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBJPEG_LIB_DIRS"
+		Value="$(LIBJPEG_LIB);$(ZLIB_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBJPEG_LIBS"
+		Value="libjpeg.lib $(ZLIB_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="LIBPNG_GROUP"
+		Value="thirdparty/libc/libpng"
+	/>
+    <UserMacro
+		Name="LIBPNG_NAME"
+		Value="libpng"
+	/>
+    <UserMacro
+		Name="LIBPNG_VERSION"
+		Value="1.2.36"
+	/>
+    <UserMacro
+		Name="LIBPNG_DIR"
+		Value="$(LIBPNG_GROUP)/$(LIBPNG_NAME)-$(LIBPNG_VERSION)"
+	/>
+    <UserMacro
+		Name="LIBPNG_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(LIBPNG_DIR)"
+	/>
+    <UserMacro
+		Name="LIBPNG_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(LIBPNG_DIR)"
+	/>
+
+    <UserMacro
+		Name="LIBPNG_BUILD"
+		Value="$(LIBPNG_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="LIBPNG_LIB"
+		Value="$(LIBPNG_BUILD)/lib"
+	/>
+
+    <UserMacro
+		Name="LIBPNG_INCLUDE_DIRS"
+		Value="$(LIBPNG_SOURCE_DIR);$(ZLIB_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBPNG_LIB_DIRS"
+		Value="$(LIBPNG_LIB);$(ZLIB_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBPNG_INCLUDES"
+		Value="$(LIBPNG_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBPNG_LIBS"
+		Value="libpng.lib $(ZLIB_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="LIBTIFF_GROUP"
+		Value="thirdparty/libc/libtiff"
+	/>
+    <UserMacro
+		Name="LIBTIFF_NAME"
+		Value="tiff"
+	/>
+    <UserMacro
+		Name="LIBTIFF_VERSION"
+		Value="3.8.2"
+	/>
+    <UserMacro
+		Name="LIBTIFF_DIR"
+		Value="$(LIBTIFF_GROUP)/$(LIBTIFF_NAME)-$(LIBTIFF_VERSION)"
+	/>
+    <UserMacro
+		Name="LIBTIFF_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(LIBTIFF_DIR)"
+	/>
+    <UserMacro
+		Name="LIBTIFF_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(LIBTIFF_DIR)"
+	/>
+
+    <UserMacro
+		Name="LIBTIFF_BUILD"
+		Value="$(LIBTIFF_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="LIBTIFF_LIB"
+		Value="$(LIBTIFF_BUILD)/lib"
+	/>
+
+    <UserMacro
+		Name="LIBTIFF_INCLUDE_DIRS"
+		Value="$(LIBTIFF_SOURCE_DIR)/libtiff;$(LIBJPEG_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBTIFF_LIB_DIRS"
+		Value="$(LIBTIFF_LIB);$(LIBJPEG_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBTIFF_LIBS"
+		Value="libtiff.lib $(LIBJPEG_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_DIR"
+		Value="../../../../.."
+	/>
+	<UserMacro
+		Name="MXDE_BUILD_DIR"
+		Value="$(MXDE_DIR)/c/build"
+	/>
+
+    <UserMacro
+		Name="MXDE_BUILD"
+		Value="$(MXDE_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="MXDE_BIN"
+		Value="$(MXDE_BUILD)/bin"
+	/>
+    <UserMacro
+		Name="MXDE_LIB"
+		Value="$(MXDE_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="MXDE_OBJ"
+		Value="$(MXDE_BUILD)/obj/$(ProjectName)"
+	/>
+
+	<UserMacro
+		Name="MXDE_C_SRC"
+		Value="$(MXDE_DIR)/c/src"
+	/>
+	<UserMacro
+		Name="MXDE_CLIB"
+		Value="$(MXDE_C_SRC)/clib"
+	/>
+    <UserMacro
+		Name="MXDE_CAPP"
+		Value="$(MXDE_C_SRC)/capp"
+	/>
+    <UserMacro
+		Name="MXDE_CLIB_NEW"
+		Value="$(MXDE_CLIB)/new"
+	/>
+
+    <UserMacro
+		Name="MXDE_CWIN_INCLUDES"
+		Value="$(MXDE_CLIB)/cwin/cwinpng;$(MXDE_CLIB)/cwin/cwingif;$(MXDE_CLIB)/cwin/cwintiff;$(MXDE_CLIB)/cwin/cwinjpeg;$(MXDE_CLIB)/cwin/cwinbitmap;$(MXDE_CLIB)/cwin/cwincontrol;$(MXDE_CLIB)/cwin/cwinwindow;$(MXDE_CLIB)/cwin/cwinwindowclass;$(MXDE_CLIB)/cwin/cwinmain;$(MXDE_CLIB)/cwin/cwingdi;$(MXDE_CLIB)/cwin"
+	/>
+    
+    <UserMacro
+		Name="MXDE_CLIBPNG_INCLUDES"
+		Value="$(MXDE_CLIB)/clibpng;$(LIBPNG_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBPNG_LIB_DIRS"
+		Value="$(LIBPNG_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBPNG_LIBS"
+		Value="$(LIBPNG_LIBS)"
+	/>
+
+    <UserMacro
+		Name="MXDE_CLIBTIFF_INCLUDES"
+		Value="$(MXDE_CLIB)/clibtiff;$(LIBTIFF_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBTIFF_LIB_DIRS"
+		Value="$(LIBTIFF_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBTIFF_LIBS"
+		Value="$(LIBTIFF_LIBS)"
+	/>
+
+    <UserMacro
+		Name="MXDE_CIMAGE_INCLUDES"
+		Value="$(MXDE_CLIB)/cimage/cwin;$(MXDE_CLIB)/cimage/cx11;$(MXDE_CLIB)/cimage;$(MXDE_CLIBPNG_INCLUDES)"
+	/>
+    <UserMacro
+		Name="MXDE_CCRYPTO_INCLUDES"
+		Value="$(MXDE_CLIB)/ccrypto"
+	/>
+    <UserMacro
+		Name="MXDE_CT_INCLUDES"
+		Value="$(MXDE_CLIB)/ct"
+	/>
+    <UserMacro
+		Name="MXDE_CCGI_INCLUDES"
+		Value="$(MXDE_CLIB)/cxttp/chttp/ccgi;$(MXDE_CLIB)/cxttp/chttp;$(MXDE_CLIB)/cxttp"
+	/>
+    <UserMacro
+		Name="MXDE_CNET_INCLUDES"
+		Value="$(MXDE_CLIB)/cnet"
+	/>
+    <UserMacro
+		Name="MXDE_COS_INCLUDES"
+		Value="$(MXDE_CLIB)/cos/windows/getopt;$(MXDE_CLIB)/cos/windows;$(MXDE_CLIB)/cos/cplatform;$(MXDE_CLIB)/cos"
+	/>
+    <UserMacro
+		Name="MXDE_NEW_COS_INCLUDES"
+		Value="$(MXDE_CLIB_NEW)/cos/windows/getopt;$(MXDE_CLIB_NEW)/cos/windows;$(MXDE_CLIB_NEW)/cos/cplatform;$(MXDE_CLIB_NEW)/cos;$(MXDE_CLIB_NEW)"
+	/>
+
+    <UserMacro
+		Name="MXDE_C_INCLUDES"
+		Value="$(MXDE_CCGI_INCLUDES);$(MXDE_CNET_INCLUDES);$(MXDE_COS_INCLUDES);$(MXDE_CLIB)/cbase"
+	/>
+    <UserMacro
+		Name="MXDE_CWINHASH_INCLUDES"
+		Value="$(MXDE_CAPP)/cwin/cwinhash;$(MXDE_CIMAGE_INCLUDES);$(MXDE_CCRYPTO_INCLUDES);$(MXDE_CWIN_INCLUDES);$(MXDE_C_INCLUDES)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>
