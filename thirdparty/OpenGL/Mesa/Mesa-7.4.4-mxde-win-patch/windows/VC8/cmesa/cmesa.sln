@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{A41B809C-2200-4F09-BB42-2173E1C65A5E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\mesa.vsprops = ..\..\mesa.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{40B42C2D-EDA5-40B4-AFAF-E5CBC57D2CB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cwinglut", "cwinglut", "{251A5899-0905-438B-867B-047F70FEFA74}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cwinglteapot", "cwinglteapot\cwinglteapot.vcproj", "{9FEFFC99-A875-4A26-8599-8994F47E09B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Static CRT|Win32 = Debug Static CRT|Win32
+		Debug|Win32 = Debug|Win32
+		Release Static CRT|Win32 = Release Static CRT|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Debug Static CRT|Win32.ActiveCfg = Debug|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Debug Static CRT|Win32.Build.0 = Debug|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Debug|Win32.Build.0 = Debug|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Release Static CRT|Win32.ActiveCfg = Release|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Release Static CRT|Win32.Build.0 = Release|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Release|Win32.ActiveCfg = Release|Win32
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{251A5899-0905-438B-867B-047F70FEFA74} = {40B42C2D-EDA5-40B4-AFAF-E5CBC57D2CB9}
+		{9FEFFC99-A875-4A26-8599-8994F47E09B3} = {251A5899-0905-438B-867B-047F70FEFA74}
+	EndGlobalSection
+EndGlobal

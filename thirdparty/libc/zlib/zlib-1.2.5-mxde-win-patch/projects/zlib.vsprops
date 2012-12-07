@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="zlib"
+	>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../.."
+	/>
+
+    <UserMacro
+		Name="SOURCE_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="ZLIB_GROUP"
+		Value="zlib"
+	/>
+    <UserMacro
+		Name="ZLIB_NAME"
+		Value="zlib"
+	/>
+    <UserMacro
+		Name="ZLIB_VERSION"
+		Value="1.2.5"
+	/>
+    <UserMacro
+		Name="ZLIB_DIR"
+		Value="$(ZLIB_GROUP)/$(ZLIB_NAME)-$(ZLIB_VERSION)"
+	/>
+    <UserMacro
+		Name="ZLIB_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(ZLIB_DIR)"
+	/>
+    <UserMacro
+		Name="ZLIB_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(ZLIB_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="ZLIB_BUILD"
+		Value="$(ZLIB_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="ZLIB_OBJ"
+		Value="$(ZLIB_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="ZLIB_LIB"
+		Value="$(ZLIB_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="ZLIB_BIN"
+		Value="$(ZLIB_BUILD)/bin"
+	/>
+
+    <UserMacro
+		Name="ZLIB_INCLUDE_DIRS"
+		Value="$(ZLIB_SOURCE_DIR)"
+	/>
+    <UserMacro
+		Name="ZLIB_LIB_DIRS"
+		Value="$(ZLIB_LIB)"
+	/>
+    <UserMacro
+		Name="ZLIB_LIBS"
+		Value="zlib.lib"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="BUILD_DIR"
+		Value="$(ZLIB_BUILD)"
+	/>
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(ZLIB_OBJ)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(ZLIB_LIB)"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(ZLIB_BIN)"
+	/>
+
+    <UserMacro
+		Name="INCLUDE_DIRS"
+		Value="$(ZLIB_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIB_DIRS"
+		Value="$(ZLIB_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBS"
+		Value="$(ZLIB_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

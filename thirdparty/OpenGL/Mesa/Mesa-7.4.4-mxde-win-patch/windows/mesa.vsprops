@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="mesa"
+	>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../../../../../.."
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_GROUP_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+    <UserMacro
+		Name="MXDE_NAME"
+		Value="mxde"
+	/>
+    <UserMacro
+		Name="MXDE_DIR"
+		Value="$(MXDE_GROUP_DIR)/$(MXDE_NAME)"
+	/>
+
+    <UserMacro
+		Name="MXDE_BUILD"
+		Value="$(MXDE_DIR)/c/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="MXDE_OBJ"
+		Value="$(MXDE_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="MXDE_LIB"
+		Value="$(MXDE_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="MXDE_BIN"
+		Value="$(MXDE_BUILD)/bin"
+	/>
+
+    <UserMacro
+		Name="MXDE_SOURCE"
+		Value="$(MXDE_DIR)/c/src"
+	/>
+    <UserMacro
+		Name="MXDE_CLIB"
+		Value="$(MXDE_SOURCE)/clib"
+	/>
+
+    <UserMacro
+		Name="MXDE_COS_INCLUDE_DIRS"
+		Value="$(MXDE_CLIB)/cos/windows/getopt;$(MXDE_CLIB)/cos/windows;$(MXDE_CLIB)/cos/cplatform;$(MXDE_CLIB)/cos;$(MXDE_CLIB)/cbase;$(MXDE_CLIB)"
+	/>
+    <UserMacro
+		Name="MXDE_CWIN_INCLUDE_DIRS"
+		Value="$(MXDE_CLIB)/cwin/cwinpng;$(MXDE_CLIB)/cwin/cwingif;$(MXDE_CLIB)/cwin/cwintiff;$(MXDE_CLIB)/cwin/cwinjpeg;$(MXDE_CLIB)/cwin/cwinbitmap;$(MXDE_CLIB)/cwin/cwincontrol;$(MXDE_CLIB)/cwin/cwinwindow;$(MXDE_CLIB)/cwin/cwinwindowclass;$(MXDE_CLIB)/cwin/cwinmain;$(MXDE_CLIB)/cwin/cwingdi;$(MXDE_CLIB)/cwin;$(MXDE_COS_INCLUDE_DIRS)"
+	/>
+
+    <UserMacro
+		Name="MXDE_INCLUDE_DIRS"
+		Value="$(MXDE_CWIN_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_LIB_DIRS"
+		Value="$(MXDE_LIB)"
+	/>
+    <UserMacro
+		Name="MXDE_COS_LIBS"
+		Value="libcos.lib libcdebug.lib libcbase.lib"
+	/>
+    <UserMacro
+		Name="MXDE_CWIN_LIBS"
+		Value="libcwin.lib $(MXDE_COS_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="OPENGL_GROUP_DIR"
+		Value="../../../../../.."
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MESA_BUILD_DIR"
+		Value="../../../../build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="MESA_BUILD_LIB"
+		Value="$(MESA_BUILD_DIR)/lib"
+	/>
+    <UserMacro
+		Name="MESA_BUILD_BIN"
+		Value="$(MESA_BUILD_DIR)/bin"
+	/>
+    <UserMacro
+		Name="MESA_BUILD_OBJ"
+		Value="$(MESA_BUILD_DIR)/obj/$(ProjectName)"
+	/>
+
+    <UserMacro
+		Name="MESA_INCLUDE_DIRS"
+		Value="../../../../include"
+	/>
+    <UserMacro
+		Name="MESA_GDI_INCLUDE_DIRS"
+		Value="../../../../include,../../../../src/mesa,../../../../src/mesa/main,../../../../src/mesa/glapi,../../../../src/mesa/swrast,../../../../src/mesa/shader"
+	/>
+    <UserMacro
+		Name="MESA_GLU_INCLUDE_DIRS"
+		Value="../../../../include;../../../../src/glu/sgi/include;../../../../src/glu/sgi/libnurbs/interface;../../../../src/glu/sgi/libnurbs/internals;../../../../src/glu/sgi/libnurbs/nurbtess"
+	/>
+    <UserMacro
+		Name="MESA_MESA_INCLUDE_DIRS"
+		Value="../../../../include,../../../../src/mesa,../../../../src/mesa/glapi,../../../../src/mesa/main,../../../../src/mesa/shader,../../../../src/mesa/shader/slang,../../../../src/mesa/shader/grammar"
+	/>
+    <UserMacro
+		Name="MESA_OSMESA_INCLUDE_DIRS"
+		Value="../../../../include,../../../../src/mesa,../../../../src/mesa/main,../../../../src/mesa/glapi,../../../../src/mesa/swrast,../../../../src/mesa/shader"
+	/>
+    <UserMacro
+		Name="MESA_LIB_DIRS"
+		Value="$(MESA_BUILD_LIB)"
+	/>
+    <UserMacro
+		Name="MESA_LIBS"
+		Value="mesagl32.lib mesaglu32.lib"
+	/>
+
+    <UserMacro
+		Name="MESAGLUT_INCLUDE_DIRS"
+		Value="$(MESA_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MESAGLUT_LIB_DIRS"
+		Value="$(MESA_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="MESAGLUT_LIBS"
+		Value="mesaglut32.lib"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="FREEGLUT_GROUP"
+		Value="FreeGLUT"
+	/>
+    <UserMacro
+		Name="FREEGLUT_NAME"
+		Value="freeglut"
+	/>
+    <UserMacro
+		Name="FREEGLUT_VERSION"
+		Value="2.6.0"
+	/>
+    <UserMacro
+		Name="FREEGLUT_GROUP_DIR"
+		Value="$(OPENGL_GROUP_DIR)/$(FREEGLUT_GROUP)"
+	/>
+    <UserMacro
+		Name="FREEGLUT_DIR"
+		Value="$(FREEGLUT_GROUP_DIR)/$(FREEGLUT_NAME)-$(FREEGLUT_VERSION)"
+	/>
+    <UserMacro
+		Name="FREEGLUT_INCLUDE_DIRS"
+		Value="$(FREEGLUT_DIR)/include"
+	/>
+    <UserMacro
+		Name="FREEGLUT_LIB_DIRS"
+		Value="$(MESA_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="FREEGLUT_LIBS"
+		Value="freeglut.lib"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="GLUT_INCLUDE_DIRS"
+		Value="$(MESAGLUT_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="GLUT_LIB_DIRS"
+		Value="$(MESAGLUT_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="GLUT_LIBS"
+		Value="$(MESAGLUT_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="BUILD_DIR"
+		Value="$(MESA_BUILD_DIR)"
+	/>
+    <UserMacro
+		Name="BUILD_OBJ"
+		Value="$(MESA_BUILD_OBJ)"
+	/>
+    <UserMacro
+		Name="BUILD_LIB"
+		Value="$(MESA_BUILD_LIB)"
+	/>
+    <UserMacro
+		Name="BUILD_BIN"
+		Value="$(MESA_BUILD_BIN)"
+	/>
+
+    <UserMacro
+		Name="DEFINES"
+		Value="GLUT_NO_LIB_PRAGMA"
+	/>
+    <UserMacro
+		Name="INCLUDE_DIRS"
+		Value="$(GLUT_INCLUDE_DIRS);$(MESA_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="LIB_DIRS"
+		Value="$(GLUT_LIB_DIRS);$(MESA_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="LIBS"
+		Value="$(GLUT_LIBS) $(MESA_LIBS)"
+	/>
+
+    <!--===============================================-->
+    
+</VisualStudioPropertySheet>
