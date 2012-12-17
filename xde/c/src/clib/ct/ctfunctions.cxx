@@ -87,6 +87,8 @@ public:
 
         //result.Write("parameters...");
 
+        namedLength = 0;
+
         if (!(arg1 = arglist.GetFirstItem()))
             named = 0;
         else
@@ -3130,3 +3132,141 @@ public:
   ("padd","padd(string,...,padding,padlen)"),
   g_cPaddTFunction2
   ("strpad","strpad(string,...,padding,padlen)");
+
+/**
+ **********************************************************************
+ *  Class: cReplaceTFunction
+ *
+ * Author: $author$
+ *   Date: 12/16/2012
+ **********************************************************************
+ */
+class cReplaceTFunction
+: public cTFunction
+{
+public:
+    typedef cTFunction cExtends;
+
+    /**
+     **********************************************************************
+     * Constructor: cReplaceTFunction
+     *
+     *      Author: $author$
+     *        Date: 12/16/2012
+     **********************************************************************
+     */
+    cReplaceTFunction(const char* name, const char* description)
+    : cExtends(name, description)
+    {
+        static cTFunctionParameter parameter[] = {
+            {"from", "find from"},
+            {"to", "replace with to"},
+            {"string,...", "in string(s)"},
+            {0,0}};
+        m_parameters = (sizeof(parameter)/sizeof(cTFunctionParameter))-1;
+        m_parameter = parameter;
+    }
+    /**
+     **********************************************************************
+     * Function: Expand
+     *
+     *   Author: $author$
+     *     Date: 12/16/2012
+     **********************************************************************
+     */
+    virtual eError Expand
+    (cCharStreamInterface &result, cTInterface &t, 
+     const cTFunctionArgumentList& arglist) const
+    {
+        cTFunctionArgument *from,*to,*arg;
+        const char *fromChars,*toChars,*chars;
+        TLENGTH fromLength,toLength,length;
+
+        if ((from = arglist.GetFirstItem()))
+        if ((fromChars = from->GetBuffer(fromLength)))
+        if ((to = from->GetNextItem()))
+        if ((toChars = to->GetBuffer(toLength)))
+        if ((0 < fromLength) && (fromLength == toLength))
+        if ((arg = to->GetNextItem()))
+        {
+            const char* found;
+            int i;
+            do
+            {
+                if ((chars = arg->GetBuffer(length)))
+                if (0 < length)
+                for (i = 0; i < length; i++)
+                {
+                    if ((found = strchr(fromChars, chars[i])))
+                        result.Write(toChars+(found-fromChars), 1);
+                    else result.Write(chars+i, 1);
+                }
+            }
+            while((arg = arg->GetNextItem()));
+        }
+        return e_ERROR_NONE;
+    }
+} g_cReplaceTFunction("replace","replace(from,to,string,...)");
+
+/**
+ **********************************************************************
+ *  Class: cGetenvTFunction
+ *
+ * Author: $author$
+ *   Date: 12/16/2012
+ **********************************************************************
+ */
+class cGetenvTFunction
+: public cTFunction
+{
+public:
+    typedef cTFunction cExtends;
+
+    /**
+     **********************************************************************
+     * Constructor: cGetenvTFunction
+     *
+     *      Author: $author$
+     *        Date: 12/16/2012
+     **********************************************************************
+     */
+    cGetenvTFunction(const char* name, const char* description)
+    : cExtends(name, description)
+    {
+        static cTFunctionParameter parameter[] = {
+            {"string,...", "environment variable name(s)"},
+            {0,0}};
+        m_parameters = (sizeof(parameter)/sizeof(cTFunctionParameter))-1;
+        m_parameter = parameter;
+    }
+    /**
+     **********************************************************************
+     * Function: Expand
+     *
+     *   Author: $author$
+     *     Date: 12/16/2012
+     **********************************************************************
+     */
+    virtual eError Expand
+    (cCharStreamInterface &result, cTInterface &t, 
+     const cTFunctionArgumentList& arglist) const
+    {
+        cTFunctionArgument *arg;
+        const char* chars;
+        TLENGTH length;
+
+        if ((arg = arglist.GetFirstItem()))
+        {
+            do
+            {
+                if ((chars = arg->GetBuffer(length)))
+                if (0 < length)
+                if ((chars = getenv(chars)))
+                if ((chars[0]))
+                    result.Write(chars);
+            }
+            while((arg = arg->GetNextItem()));
+        }
+        return e_ERROR_NONE;
+    }
+} g_cGetenvTFunction("getenv", "getenv(string,...)");
