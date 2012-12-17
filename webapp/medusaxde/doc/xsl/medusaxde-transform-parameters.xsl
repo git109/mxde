@@ -39,15 +39,11 @@
 <!--========================================================================-->
 <xsl:variable name="xde_template_paths_tree">
     <path></path>
-    <path>c:/source/mxde/doc/t</path>
-    <path>c:/source/mxde/doc/xsl</path>
-    <path>c:/source/xde/doc/t</path>
-    <path>c:/source/xde/doc/xsl</path>
+    <path>c:/source/mxde/webapp/medusaxde/doc/t</path>
+    <path>c:/source/mxde/webapp/medusaxde/doc/xsl</path>
     <path></path>
-    <path>/home/jboyd/mxde/doc/t</path>
-    <path>/home/jboyd/mxde/doc/xsl</path>
-    <path>/home/jboyd/xde/doc/t</path>
-    <path>/home/jboyd/xde/doc/xsl</path>
+    <path>/home/mxde/source/mxde/webapp/medusaxde/doc/t</path>
+    <path>/home/mxde/source/mxde/webapp/medusaxde/doc/xsl</path>
 </xsl:variable>
 <xsl:variable name="xde_template_paths" 
  select="exsl:node-set($xde_template_paths_tree)"/>

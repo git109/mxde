@@ -1,5 +1,5 @@
 %########################################################################
-%# Copyright (c) 1988-2010 $organization$  
+%# Copyright (c) 1988-2012 $organization$
 %#
 %# This software is provided by the author and contributors ``as is'' 
 %# and any express or implied warranties, including, but not limited to, 
@@ -13,21 +13,12 @@
 %# or otherwise) arising in any way out of the use of this software, 
 %# even if advised of the possibility of such damage.
 %#
-%#   File: mxde-httpd-conf-action.t
+%#   File: mxde-objc-c.t
 %#
-%# Author: $author$     
-%#   Date: 7/27/2010
+%# Author: $author$
+%#   Date: 12/12/2012
 %########################################################################
 %with(%
-%action_type,%(%else-then(%left(%action%,=)%,%(%action%)%)%)%,%
-%action_target,%(%else-then(%right(%action%,=)%,%()%)%)%,%
-%action_types,%(%else-then(%parse(%action_type%,%(,)%,,%( )%)%,%(%action_type%)%)%)%,%
 %%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)% Action %action_types% %do(%right_separator%)%%
-%%do(%end_separator%)%%
-%%parse(%action_type%,%(,)%,,,,%(%
-%%kk_%Action%_kk% %action_type% %action_target%%exe%
-%
-%)%,action_type)%%
+%%include(%filepath%/mxde-objc-cxx.t)%%
 %)%)%

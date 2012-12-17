@@ -69,6 +69,9 @@
         <xsl:with-param name="is_param_" select="'no'"/>
         <xsl:with-param name="is_param_separator" select="'yes'"/>
         <xsl:with-param name="is_param_class" select="'yes'"/>
+        <xsl:with-param name="is_param_class_extends" select="'no'"/>
+        <xsl:with-param name="is_param_class_implements" select="'no'"/>
+        <xsl:with-param name="is_param_class_derives" select="'no'"/>
         <xsl:with-param name="is_param_class_object" select="'no'"/>
         <xsl:with-param name="class" select="$default_cxx_form_class"/>
         <xsl:with-param name="is_param_class_members_only_ifdefs_hidden" select="$default_cxx_form_class_members_only"/>

@@ -63,6 +63,7 @@
     <xsl:param name="is_param_class_prefix" select="$is_param_class"/>
     <xsl:param name="is_param_class_bases_prefix" select="$is_param_class"/>
     <xsl:param name="is_param_class_object" select="$is_param_class"/>
+    <xsl:param name="is_param_class_object_hidden" select="'no'"/>
     <xsl:param name="is_param_class_template" select="$is_param_class"/>
     <xsl:param name="is_param_class_template_parameters" select="$is_param_class_template"/>
     <xsl:param name="is_param_class_access" select="$is_param_class"/>
@@ -134,7 +135,7 @@
 
     <xsl:param name="class_namespace_text" select="''"/>
     <xsl:param name="class_namespace_text_before" select="'namespace'"/>
-    <xsl:param name="class_namespace_text_after" select="''"/>
+    <xsl:param name="class_namespace_text_after" select="'{'"/>
     <xsl:param name="class_namespace_param" select="'class_namespace'"/>
     <xsl:param name="class_namespace" select="''"/>
 
@@ -443,6 +444,12 @@
             <xsl:with-param name="text_after" select="$class_object_text_after"/>
             <xsl:with-param name="name" select="$class_object_param"/>
             <xsl:with-param name="option" select="$class_object_option"/>
+            <xsl:with-param name="value" select="$class_object"/>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_object_hidden)) or ('yes' = $is_param_class_object_hidden)">
+        <xsl:call-template name="hidden">
+            <xsl:with-param name="name" select="$class_object_param"/>
             <xsl:with-param name="value" select="$class_object"/>
         </xsl:call-template>
     </xsl:if>

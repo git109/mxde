@@ -88,11 +88,17 @@
     <xsl:param name="is_param_enum_item_after" select="$is_param_enum"/>
     <xsl:param name="is_param_function_separator" select="$is_param_"/>
     <xsl:param name="is_param_function" select="$is_param_"/>
+    <xsl:param name="is_param_function_comment" select="$is_param_function"/>
     <xsl:param name="is_param_function_type" select="$is_param_function"/>
     <xsl:param name="is_param_function_name" select="$is_param_function"/>
     <xsl:param name="is_param_function_return" select="$is_param_function"/>
     <xsl:param name="is_param_function_param" select="$is_param_function"/>
     <xsl:param name="is_param_function_body" select="$is_param_function"/>
+    <xsl:param name="is_param_function_main" select="$is_param_"/>
+    <xsl:param name="is_param_function_main_comment" select="$is_param_function_main"/>
+    <xsl:param name="is_param_function_main_return" select="$is_param_function_main"/>
+    <xsl:param name="is_param_function_main_param" select="$is_param_function_main"/>
+    <xsl:param name="is_param_function_main_body" select="$is_param_function_main"/>
 
     <xsl:param name="section_text" select="'C++ Parameters'"/>
 
@@ -224,7 +230,7 @@
 
     <xsl:param name="namespace_text" select="''"/>
     <xsl:param name="namespace_text_before" select="'namespace'"/>
-    <xsl:param name="namespace_text_after" select="''"/>
+    <xsl:param name="namespace_text_after" select="'{'"/>
     <xsl:param name="namespace_param" select="'namespace'"/>
     <xsl:param name="namespace" select="''"/>
 
@@ -258,6 +264,12 @@
     <xsl:param name="enum_item_after_param" select="'enum_item_after'"/>
     <xsl:param name="enum_item_after" select="''"/>
 
+    <xsl:param name="function_comment_text" select="''"/>
+    <xsl:param name="function_comment_text_before" select="'//...'"/>
+    <xsl:param name="function_comment_text_after" select="''"/>
+    <xsl:param name="function_comment_param" select="'function_comment'"/>
+    <xsl:param name="function_comment" select="'yes'"/>
+
     <xsl:param name="function_return_text" select="'Function'"/>
     <xsl:param name="function_return_text_before" select="'return'"/>
     <xsl:param name="function_return_text_after" select="';'"/>
@@ -287,6 +299,36 @@
     <xsl:param name="function_body_text_after" select="'}'"/>
     <xsl:param name="function_body_param" select="'function_body_param'"/>
     <xsl:param name="function_body" select="''"/>
+
+    <xsl:param name="function_main_comment_text" select="''"/>
+    <xsl:param name="function_main_comment_text_before" select="'//...'"/>
+    <xsl:param name="function_main_comment_text_after" select="''"/>
+    <xsl:param name="function_main_comment_param" select="'function_main_comment'"/>
+    <xsl:param name="function_main_comment" select="'yes'"/>
+
+    <xsl:param name="function_main_return_text" select="''"/>
+    <xsl:param name="function_main_return_text_before" select="''"/>
+    <xsl:param name="function_main_return_text_after" select="''"/>
+    <xsl:param name="function_main_return_param" select="'function_main_return'"/>
+    <xsl:param name="function_main_return" select="'int err=0'"/>
+
+    <xsl:param name="function_main_text" select="''"/>
+    <xsl:param name="function_main_text_before" select="'main'"/>
+    <xsl:param name="function_main_text_after" select="''"/>
+    <xsl:param name="function_main_form_param" select="'function_main'"/>
+    <xsl:param name="function_main" select="'no'"/>
+
+    <xsl:param name="function_main_param_text" select="''"/>
+    <xsl:param name="function_main_param_text_before" select="'('"/>
+    <xsl:param name="function_main_param_text_after" select="')'"/>
+    <xsl:param name="function_main_param_param" select="'function_main_param'"/>
+    <xsl:param name="function_main_param" select="'int argc,char** argv,char** env'"/>
+
+    <xsl:param name="function_main_body_text" select="''"/>
+    <xsl:param name="function_main_body_text_before" select="'{'"/>
+    <xsl:param name="function_main_body_text_after" select="'}'"/>
+    <xsl:param name="function_main_body_param" select="'function_main_body'"/>
+    <xsl:param name="function_main_body" select="''"/>
 
     <!--========================================================================-->
     <!-- Template Body                                                          -->
@@ -564,6 +606,16 @@
         </xsl:call-template>
     </xsl:if>
 
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_comment)) or ('yes' = $is_param_function_comment)">
+        <xsl:call-template name="yesno_row">
+            <xsl:with-param name="text" select="$function_comment_text"/>
+            <xsl:with-param name="text_before" select="$function_comment_text_before"/>
+            <xsl:with-param name="text_after" select="$function_comment_text_after"/>
+            <xsl:with-param name="name" select="$function_comment_param"/>
+            <xsl:with-param name="value" select="$function_comment"/>
+        </xsl:call-template>
+    </xsl:if>
+    
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_return)) or ('yes' = $is_param_function_return)">
         <xsl:call-template name="input_row">
             <xsl:with-param name="text" select="$function_return_text"/>
@@ -607,6 +659,53 @@
             <xsl:with-param name="text_after" select="$function_body_text_after"/>
             <xsl:with-param name="name" select="$function_body_param"/>
             <xsl:with-param name="value" select="$function_body"/>
+        </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_main_comment)) or ('yes' = $is_param_function_main_comment)">
+        <xsl:call-template name="yesno_row">
+            <xsl:with-param name="text" select="$function_main_comment_text"/>
+            <xsl:with-param name="text_before" select="$function_main_comment_text_before"/>
+            <xsl:with-param name="text_after" select="$function_main_comment_text_after"/>
+            <xsl:with-param name="name" select="$function_main_comment_param"/>
+            <xsl:with-param name="value" select="$function_main_comment"/>
+        </xsl:call-template>
+    </xsl:if>
+    
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_main_return)) or ('yes' = $is_param_function_main_return)">
+        <xsl:call-template name="input_row">
+            <xsl:with-param name="text" select="$function_main_return_text"/>
+            <xsl:with-param name="text_before" select="$function_main_return_text_before"/>
+            <xsl:with-param name="text_after" select="$function_main_return_text_after"/>
+            <xsl:with-param name="name" select="$function_main_return_param"/>
+            <xsl:with-param name="value" select="$function_main_return"/>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_main)) or ('yes' = $is_param_function_main)">
+        <xsl:call-template name="yesno_row">
+            <xsl:with-param name="text" select="$function_main_text"/>
+            <xsl:with-param name="text_before" select="$function_main_text_before"/>
+            <xsl:with-param name="text_after" select="$function_main_text_after"/>
+            <xsl:with-param name="name" select="$function_main_form_param"/>
+            <xsl:with-param name="value" select="$function_main"/>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_main_param)) or ('yes' = $is_param_function_main_param)">
+        <xsl:call-template name="input_row">
+            <xsl:with-param name="text" select="$function_main_param_text"/>
+            <xsl:with-param name="text_before" select="$function_main_param_text_before"/>
+            <xsl:with-param name="text_after" select="$function_main_param_text_after"/>
+            <xsl:with-param name="name" select="$function_main_param_param"/>
+            <xsl:with-param name="value" select="$function_main_param"/>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_function_main_body)) or ('yes' = $is_param_function_main_body)">
+        <xsl:call-template name="input_row">
+            <xsl:with-param name="text" select="$function_main_body_text"/>
+            <xsl:with-param name="text_before" select="$function_main_body_text_before"/>
+            <xsl:with-param name="text_after" select="$function_main_body_text_after"/>
+            <xsl:with-param name="name" select="$function_main_body_param"/>
+            <xsl:with-param name="value" select="$function_main_body"/>
         </xsl:call-template>
     </xsl:if>
 

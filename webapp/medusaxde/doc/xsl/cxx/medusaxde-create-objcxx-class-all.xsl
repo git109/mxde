@@ -60,11 +60,16 @@
         <xsl:with-param name="is_param_file_case_is" select="'no'"/>
         <xsl:with-param name="is_param_file_name_is" select="'no'"/>
     </xsl:call-template>
-    <xsl:call-template name="cxx_form_fields">
+    <xsl:call-template name="objcxx_file_form_fields">
         <xsl:with-param name="is_param_" select="'no'"/>
         <xsl:with-param name="is_param_begin_separator" select="'yes'"/>
+        <xsl:with-param name="is_param_module" select="'yes'"/>
+    </xsl:call-template>
+    <xsl:call-template name="cxx_form_fields">
+        <xsl:with-param name="is_param_" select="'no'"/>
         <xsl:with-param name="is_param_include" select="'yes'"/>
         <xsl:with-param name="is_param_include_system" select="'yes'"/>
+        <xsl:with-param name="is_param_namespace" select="'yes'"/>
     </xsl:call-template>
     <xsl:call-template name="objcxx_file_form_fields">
         <xsl:with-param name="is_param_" select="'no'"/>
@@ -74,6 +79,17 @@
     </xsl:call-template>
     <xsl:call-template name="objcxx_class_form_fields">
         <xsl:with-param name="is_param_" select="''"/>
+        <xsl:with-param name="class" select="$default_objcxx_form_class"/>
+        <xsl:with-param name="class_type" select="$default_objcxx_form_class_type"/>
+        <xsl:with-param name="class_implements" select="$default_objcxx_form_class_implements"/>
+        <xsl:with-param name="class_extends" select="$default_objcxx_form_class_extends"/>
+        <xsl:with-param name="class_constructor" select="$default_objcxx_form_class_constructor"/>
+        <xsl:with-param name="class_destructor" select="$default_objcxx_form_class_destructor"/>
+    </xsl:call-template>
+    <xsl:call-template name="cxx_form_fields">
+        <xsl:with-param name="is_param_" select="'no'"/>
+        <xsl:with-param name="is_param_function_separator" select="'yes'"/>
+        <xsl:with-param name="is_param_function_main" select="'yes'"/>
     </xsl:call-template>
     <xsl:call-template name="cxx_form_fields">
         <xsl:with-param name="is_param_" select="'no'"/>

@@ -19,8 +19,8 @@
 %#   Date: 7/27/2010
 %########################################################################
 %with(%
-%addtype_name,%(%else-then(%left(%addtype%,:)%,%(%addtype%)%)%)%,%
-%addtype_pattern,%(%else-then(%right(%addtype%,:)%,%()%)%)%,%
+%addtype_name,%(%else-then(%left(%addtype%,=)%,%(%addtype%)%)%)%,%
+%addtype_pattern,%(%else-then(%right(%addtype%,=)%,%()%)%)%,%
 %%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)% AddType %addtype_name% %do(%right_separator%)%%

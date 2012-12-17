@@ -54,21 +54,24 @@
     <!-- Template Parameters                                                    -->
     <!--========================================================================-->
     <xsl:param name="is_param_" select="''"/>
-    <xsl:param name="is_param_section" select="''"/>
+    <xsl:param name="is_param_section" select="$is_param_"/>
     <xsl:param name="is_param_begin_separator" select="'no'"/>
     <xsl:param name="is_param_end_separator" select="'no'"/>
-    <xsl:param name="is_param_class_comment" select="''"/>
+    <xsl:param name="is_param_class_comment" select="$is_param_"/>
     <xsl:param name="is_param_class_type" select="$is_param_"/>
     <xsl:param name="is_param_class" select="$is_param_"/>
     <xsl:param name="is_param_extends" select="$is_param_"/>
     <xsl:param name="is_param_implements" select="$is_param_"/>
     <xsl:param name="is_param_class_init_separator" select="$is_param_"/>
+    <xsl:param name="is_param_class_init_comment" select="$is_param_class_comment"/>
     <xsl:param name="is_param_class_init" select="$is_param_"/>
     <xsl:param name="is_param_class_init_parameters" select="$is_param_"/>
     <xsl:param name="is_param_class_init_body" select="$is_param_"/>
+    <xsl:param name="is_param_class_dealloc_comment" select="$is_param_class_comment"/>
     <xsl:param name="is_param_class_dealloc" select="$is_param_"/>
     <xsl:param name="is_param_class_dealloc_body" select="$is_param_"/>
     <xsl:param name="is_param_class_function_separator" select="$is_param_"/>
+    <xsl:param name="is_param_class_function_comment" select="$is_param_class_comment"/>
     <xsl:param name="is_param_class_function_type" select="$is_param_"/>
     <xsl:param name="is_param_class_function" select="$is_param_"/>
     <xsl:param name="is_param_class_function_return" select="$is_param_"/>
@@ -109,6 +112,12 @@
     <xsl:param name="implements_param" select="'implements'"/>
     <xsl:param name="implements" select="''"/>
 
+    <xsl:param name="class_init_comment_text" select="''"/>
+    <xsl:param name="class_init_comment_text_before" select="'//...'"/>
+    <xsl:param name="class_init_comment_text_after" select="''"/>
+    <xsl:param name="class_init_comment_param" select="'class_init_comment'"/>
+    <xsl:param name="class_init_comment" select="'yes'"/>
+
     <xsl:param name="class_init_text" select="''"/>
     <xsl:param name="class_init_text_before" select="'-(id)init'"/>
     <xsl:param name="class_init_text_after" select="''"/>
@@ -127,6 +136,12 @@
     <xsl:param name="class_init_body_param" select="'class_init_body'"/>
     <xsl:param name="class_init_body" select="''"/>
 
+    <xsl:param name="class_dealloc_comment_text" select="''"/>
+    <xsl:param name="class_dealloc_comment_text_before" select="'//...'"/>
+    <xsl:param name="class_dealloc_comment_text_after" select="''"/>
+    <xsl:param name="class_dealloc_comment_param" select="'class_dealloc_comment'"/>
+    <xsl:param name="class_dealloc_comment" select="'yes'"/>
+
     <xsl:param name="class_dealloc_text" select="''"/>
     <xsl:param name="class_dealloc_text_before" select="'-(void)dealloc'"/>
     <xsl:param name="class_dealloc_text_after" select="''"/>
@@ -138,6 +153,12 @@
     <xsl:param name="class_dealloc_body_text_after" select="'}'"/>
     <xsl:param name="class_dealloc_body_param" select="'class_dealloc_body'"/>
     <xsl:param name="class_dealloc_body" select="''"/>
+
+    <xsl:param name="class_function_comment_text" select="''"/>
+    <xsl:param name="class_function_comment_text_before" select="'//...'"/>
+    <xsl:param name="class_function_comment_text_after" select="''"/>
+    <xsl:param name="class_function_comment_param" select="'class_function_comment'"/>
+    <xsl:param name="class_function_comment" select="'yes'"/>
 
     <xsl:param name="class_function_type_text" select="''"/>
     <xsl:param name="class_function_type_text_before" select="''"/>
@@ -243,6 +264,16 @@
         </xsl:call-template>
     </xsl:if>
 
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_init_comment)) or ('yes' = $is_param_class_init_comment)">
+        <xsl:call-template name="yesno_row">
+            <xsl:with-param name="text" select="$class_init_comment_text"/>
+            <xsl:with-param name="text_before" select="$class_init_comment_text_before"/>
+            <xsl:with-param name="text_after" select="$class_init_comment_text_after"/>
+            <xsl:with-param name="name" select="$class_init_comment_param"/>
+            <xsl:with-param name="value" select="$class_init_comment"/>
+        </xsl:call-template>
+    </xsl:if>
+    
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_init)) or ('yes' = $is_param_class_init)">
         <xsl:call-template name="yesno_row">
             <xsl:with-param name="text" select="$class_init_text"/>
@@ -271,6 +302,16 @@
         </xsl:call-template>
     </xsl:if>
 
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_dealloc_comment)) or ('yes' = $is_param_class_dealloc_comment)">
+        <xsl:call-template name="yesno_row">
+            <xsl:with-param name="text" select="$class_dealloc_comment_text"/>
+            <xsl:with-param name="text_before" select="$class_dealloc_comment_text_before"/>
+            <xsl:with-param name="text_after" select="$class_dealloc_comment_text_after"/>
+            <xsl:with-param name="name" select="$class_dealloc_comment_param"/>
+            <xsl:with-param name="value" select="$class_dealloc_comment"/>
+        </xsl:call-template>
+    </xsl:if>
+    
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_dealloc)) or ('yes' = $is_param_class_dealloc)">
         <xsl:call-template name="yesno_row">
             <xsl:with-param name="text" select="$class_dealloc_text"/>
@@ -295,6 +336,16 @@
         </xsl:call-template>
     </xsl:if>
 
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_function_comment)) or ('yes' = $is_param_class_function_comment)">
+        <xsl:call-template name="yesno_row">
+            <xsl:with-param name="text" select="$class_function_comment_text"/>
+            <xsl:with-param name="text_before" select="$class_function_comment_text_before"/>
+            <xsl:with-param name="text_after" select="$class_function_comment_text_after"/>
+            <xsl:with-param name="name" select="$class_function_comment_param"/>
+            <xsl:with-param name="value" select="$class_function_comment"/>
+        </xsl:call-template>
+    </xsl:if>
+    
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_function_type)) or ('yes' = $is_param_class_function_type)">
         <xsl:call-template name="radios_row">
             <xsl:with-param name="text" select="$class_function_type_text"/>

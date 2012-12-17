@@ -19,6 +19,7 @@
 %#   Date: 1/17/2012
 %########################################################################
 %with(%
+%no_default_cxx_include,%(yes)%,%
 %filepath,%(%else-then(%filepath%,%(%filepath(%input%)%)%)%)%,%
 %hxx_cxx_includefile,%(%else(%hxx_cxx_fileinclude%,%(%filepath%/mxde-hxx-cxx-objcxx.t)%)%)%,%
 %%(%

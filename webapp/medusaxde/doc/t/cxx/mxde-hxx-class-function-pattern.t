@@ -23,6 +23,8 @@
 %%if(%equal(doundo,%class_function_pattern%)%%equal(createdestroy,%class_function_pattern%)%,%(%
 %%if(%class_function_Do%,%(%
 %%with(%
+%class_function_return,%(%class_function_do_return%)%,%
+%class_function_parameters,%(%class_function_do_parameters%)%,%
 %Class_function_name,%(%Class_function_prefix%%class_function_Do%%Class_function_name%%Class_function_suffix%)%,%
 %%(%
 %%include(%filepath%/mxde-hxx-class-function.t)%%
@@ -41,6 +43,8 @@
 %%if(%equal(setget,%class_function_pattern%)%,%(%
 %%if(%class_function_Do%,%(%
 %%with(%
+%class_function_return,%(%class_function_do_return%)%,%
+%class_function_parameters,%(%class_function_do_parameters%)%,%
 %Class_function_name,%(%Class_function_prefix%%class_function_Do%%Class_function_name%%Class_function_suffix%)%,%
 %%(%
 %%include(%filepath%/mxde-hxx-class-function.t)%%

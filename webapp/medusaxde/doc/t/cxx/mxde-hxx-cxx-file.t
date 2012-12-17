@@ -31,25 +31,44 @@
 %%if(%file_hxx%,%(%
 %%include(%filepath%/mxde-%if-then(%style%,%(-)%)%hxx-file-ifdef-begin.t)%%
 %%parse(%include_system%,;,,,,%(%
-%%_#include_% %lt%%include%%gt%
+%%_#include_% %ii_%%lt%%include%%gt%%_ii%
 %
 %)%,include)%%
 %%parse(%include%,;,,,,%(%
-%%_#include_% "%include%"
+%%_#include_% %ii_%"%include%"%_ii%
 %
 %)%,include)%%
 %%parse(%import_system%,;,,,,%(%
-%%_#import_% %lt%%import%%gt%
+%%_#import_% %ii_%%lt%%import%%gt%%_ii%
 %
 %)%,import)%%
 %%parse(%import%,;,,,,%(%
-%%_#import_% "%import%"
+%%_#import_% %ii_%"%import%"%_ii%
 %
 %)%,import)%%
 %)%)%%
 %%if(%file_cxx%,%(%
-%%_#include_% "%File_base%.%file_hxx_extension%"
+%%if(%no_default_cxx_include%,%(%
+%%parse(%include_system%,;,,,,%(%
+%%_#include_% %ii_%%lt%%include%%gt%%_ii%
 %
+%)%,include)%%
+%%parse(%include%,;,,,,%(%
+%%_#include_% %ii_%"%include%"%_ii%
+%
+%)%,include)%%
+%%parse(%import_system%,;,,,,%(%
+%%_#import_% %ii_%%lt%%import%%gt%%_ii%
+%
+%)%,import)%%
+%%parse(%import%,;,,,,%(%
+%%_#import_% %ii_%"%import%"%_ii%
+%
+%)%,import)%%
+%)%,%(%
+%%_#include_% %ii_%"%File_base%.%file_hxx_extension%"%_ii%
+%
+%)%)%%
 %)%)%%
 %%include(%derived_fileinclude%%hxx_cxx_fileinclude%)%%
 %%

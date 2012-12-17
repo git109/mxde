@@ -20,8 +20,11 @@
 %########################################################################
 %with(%
 %objc_class_function_type,%(%if(%equal(class,%class_function%)%,%(+)%,%(-)%)%)%,%
+%class_protocol,%(%else-then(%class_protocol%,%(%equal(protocol,%class_type%)%)%)%)%,%
+%class_interface,%(%else-then(%class_interface%,%(%equal(interface,%class_type%)%)%)%)%,%
+%class_implementation,%(%else-then(%class_implementation%,%(%equal(implementation,%class_type%)%)%)%)%,%
 %%(%
 %%parse(%class%,;,,,,%(%
-%%include(%filepath%/mxde-objc-%file_type%-class.t)%%
+%%include(%filepath%/mxde-objc-%file_type%.t)%%
 %)%,class)%%
 %)%)%

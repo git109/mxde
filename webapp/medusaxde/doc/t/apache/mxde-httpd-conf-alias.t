@@ -19,8 +19,8 @@
 %#   Date: 7/27/2010
 %########################################################################
 %with(%
-%alias_dir,%(%else-then(%right-of-left(%alias%,:)%,%()%)%)%,%
-%alias,%(%else-then(%left(%alias%,:)%,%(%alias%)%)%)%,%
+%alias_dir,%(%else-then(%right-of-left(%alias%,=)%,%()%)%)%,%
+%alias,%(%else-then(%left(%alias%,=)%,%(%alias%)%)%)%,%
 %alias_names,%(%else-then(%parse(%alias%,%(,)%,,%( )%)%,%(%alias%)%)%)%,%
 %%(%
 %%do(%begin_separator%)%%

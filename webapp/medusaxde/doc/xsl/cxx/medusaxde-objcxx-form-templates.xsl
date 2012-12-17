@@ -56,8 +56,15 @@
     <xsl:param name="is_param_" select="''"/>
     <xsl:param name="is_param_begin_separator" select="'no'"/>
     <xsl:param name="is_param_end_separator" select="'no'"/>
+    <xsl:param name="is_param_module" select="$is_param_"/>
     <xsl:param name="is_param_import" select="$is_param_"/>
     <xsl:param name="is_param_import_system" select="$is_param_"/>
+
+    <xsl:param name="module_text" select="''"/>
+    <xsl:param name="module_text_before" select="'#ifndef _'"/>
+    <xsl:param name="module_text_after" select="'_?_?'"/>
+    <xsl:param name="module_param" select="'module'"/>
+    <xsl:param name="module" select="''"/>
 
     <xsl:param name="import_text" select="''"/>
     <xsl:param name="import_text_before" select="'#import &quot;'"/>
@@ -80,6 +87,16 @@
     <!--========================================================================-->
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_begin_separator)) or ('yes' = $is_param_begin_separator)">
         <xsl:call-template name="separator_section_row">
+        </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_module)) or ('yes' = $is_param_module)">
+        <xsl:call-template name="input_row">
+            <xsl:with-param name="text" select="$module_text"/>
+            <xsl:with-param name="text_before" select="$module_text_before"/>
+            <xsl:with-param name="text_after" select="$module_text_after"/>
+            <xsl:with-param name="name" select="$module_param"/>
+            <xsl:with-param name="value" select="$module"/>
         </xsl:call-template>
     </xsl:if>
 

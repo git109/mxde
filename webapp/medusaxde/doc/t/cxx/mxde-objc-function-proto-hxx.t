@@ -1,5 +1,5 @@
 %########################################################################
-%# Copyright (c) 1988-2010 $organization$  
+%# Copyright (c) 1988-2012 $organization$
 %#
 %# This software is provided by the author and contributors ``as is'' 
 %# and any express or implied warranties, including, but not limited to, 
@@ -13,21 +13,35 @@
 %# or otherwise) arising in any way out of the use of this software, 
 %# even if advised of the possibility of such damage.
 %#
-%#   File: mxde-httpd-conf-action.t
+%#   File: mxde-objc-function-proto-hxx.t
 %#
-%# Author: $author$     
-%#   Date: 7/27/2010
+%# Author: $author$
+%#   Date: 12/12/2012
 %########################################################################
 %with(%
-%action_type,%(%else-then(%left(%action%,=)%,%(%action%)%)%)%,%
-%action_target,%(%else-then(%right(%action%,=)%,%()%)%)%,%
-%action_types,%(%else-then(%parse(%action_type%,%(,)%,,%( )%)%,%(%action_type%)%)%)%,%
 %%(%
+%%else-no(%class_function_comment%,%(%
 %%do(%begin_separator%)%%
-%%do(%left_separator%)% Action %action_types% %do(%right_separator%)%%
-%%do(%end_separator%)%%
-%%parse(%action_type%,%(,)%,,,,%(%
-%%kk_%Action%_kk% %action_type% %action_target%%exe%
-%
-%)%,action_type)%%
+%%do(%left_separator%)% Function: %f_name%
+%do(%left_separator%)%
+%do(%left_separator%)%   Author: %author%
+%do(%left_separator%)%     Date: %date%
+%do(%end_separator%)%%
+%)%)%%
+%%indent%%f_type%%f_return%%f_name%%
+%%if(%Class_function_parameters%,%(%
+%%with(%
+%first_parameter,%(yes)%,%
+%parameters,%(%else-then(%left(%Class_function_parameters%,;)%,%(%Class_function_parameters%)%)%)%,%
+%%(%
+%%if(%parameters%,%(:)%)%%
+%%include(%filepath%/mxde-objc-parameters-hxx.t)%%
+%)%)%%
+%%with(%
+%parameters,%(%right-of-left(%Class_function_parameters%,;)%)%,%
+%%(%
+%%if(%parameters%,%( )%)%%
+%%include(%filepath%/mxde-objc-parameters-hxx.t)%%
+%)%)%%
+%)%)%%
 %)%)%

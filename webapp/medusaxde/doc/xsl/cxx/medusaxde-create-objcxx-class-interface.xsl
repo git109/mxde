@@ -42,6 +42,7 @@
 <xsl:param name="default_xde_form_title_what_what_what" select="' @interface'"/>
 <xsl:param name="default_xde_form_title_what_what_what_what" select="''"/>
 <xsl:param name="default_objcxx_form_class" select="'c'"/>
+<xsl:param name="default_objcxx_form_class_type" select="'interface'"/>
 <xsl:param name="default_objcxx_form_class_implements" select="''"/>
 <xsl:param name="default_objcxx_form_class_extends" select="''"/>
 <xsl:param name="default_objcxx_form_class_constructor" select="''"/>
