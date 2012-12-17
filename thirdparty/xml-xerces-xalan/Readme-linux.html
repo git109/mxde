@@ -1,0 +1,17 @@
+<html><body>
+<pre>
+#
+# To build xerces and xalan for linux:
+#
+mkdir $(HOME)/source/xml-xerces-xalan # Then move tars and makefile to $(HOME)/source/xml-xerces-xalan
+cd $(HOME)/source/xml-xerces-xalan
+make extract-xerces
+make config-xerces
+make build-xerces
+make install-xerces # Goes to $(HOME)/build/xml-xerces-xalan/linux/c/lib
+make extract-xalan
+make config-xalan
+make build-xalan
+make install-xalan # Goes to $(HOME)/build/xml-xerces-xalan/linux/c/lib
+</pre>
+</body></html>
