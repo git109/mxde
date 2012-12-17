@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--========================================================================-->
-<!-- Copyright (c) 1988-2009 medusa@medusade.org                            -->
+<!-- Copyright (c) 1988-2009 $organization$                                 -->
 <!--                                                                        -->
 <!-- This software is provided by the author and contributors ``as is''     -->
 <!-- and any express or implied warranties, including, but not limited to,  -->
@@ -16,7 +16,7 @@
 <!--                                                                        -->
 <!--   File: x11-events.xml                                                 -->
 <!--                                                                        -->
-<!-- Author: medusa@medusade.org                                            -->
+<!-- Author: $author$                                                       -->
 <!--   Date: 7/6/2009                                                       -->
 <!--========================================================================-->
 <x11-events>
