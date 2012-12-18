@@ -1,0 +1,297 @@
+########################################################################
+# Copyright (c) 1988-2011 $organization$
+#
+# This software is provided by the author and contributors ``as is'' 
+# and any express or implied warranties, including, but not limited to, 
+# the implied warranties of merchantability and fitness for a particular 
+# purpose are disclaimed. In no event shall the author or contributors 
+# be liable for any direct, indirect, incidental, special, exemplary, 
+# or consequential damages (including, but not limited to, procurement 
+# of substitute goods or services; loss of use, data, or profits; or 
+# business interruption) however caused and on any theory of liability, 
+# whether in contract, strict liability, or tort (including negligence 
+# or otherwise) arising in any way out of the use of this software, 
+# even if advised of the possibility of such damage.
+#
+#   File: Makefile.libxml2
+#
+# Author: $author$
+#   Date: 7/1/2011
+#
+# Thirdpary Makefile for libxml2
+########################################################################
+
+########################################################################
+#
+# libxml2 defs
+#
+########################################################################
+LIBXML2_VERSION_MAJOR = 2
+LIBXML2_VERSION_MINOR = 7
+LIBXML2_VERSION_RELEASE = 8
+
+LIBXML2_VERSION_SEPARATOR = .
+LIBXML2_VERSION_MAJOR_SEPARATOR = $(LIBXML2_VERSION_SEPARATOR)
+LIBXML2_VERSION_MINOR_SEPARATOR = $(LIBXML2_VERSION_SEPARATOR)
+
+LIBXML2_VERSION_SHORT = $(LIBXML2_VERSION_MAJOR)$(LIBXML2_VERSION_MINOR)$(LIBXML2_VERSION_RELEASE)
+LIBXML2_VERSION = $(LIBXML2_VERSION_MAJOR)$(LIBXML2_VERSION_MAJOR_SEPARATOR)$(LIBXML2_VERSION_MINOR)$(LIBXML2_VERSION_MINOR_SEPARATOR)$(LIBXML2_VERSION_RELEASE)
+
+LIBXML2_NAME_SEPARATOR = -
+LIBXML2_NAME_BASE = libxml2
+LIBXML2_NAME = $(LIBXML2_NAME_BASE)$(LIBXML2_NAME_SEPARATOR)$(LIBXML2_VERSION)
+LIBXML2_INSTALL_NAME_SEPARATOR = -
+LIBXML2_INSTALL_NAME = $(LIBXML2_NAME_BASE)$(LIBXML2_INSTALL_NAME_SEPARATOR)$(LIBXML2_VERSION)
+LIBXML2_ARCHIVED = tar
+LIBXML2_COMPRESSED = gz
+
+LIBXML2_BUILD = $(HOME)/build
+LIBXML2_PREFIX = $(LIBXML2_BUILD)/$(LIBXML2_INSTALL_NAME)
+LIBXML2_EXEC_PREFIX = $(LIBXML2_PREFIX)
+LIBXML2_CONF_PREFIX = $(LIBXML2_PREFIX)
+LIBXML2_DOCS_PREFIX = $(LIBXML2_PREFIX)
+LIBXML2_LINK_NAME = $(LIBXML2_BUILD)/$(LIBXML2_NAME_BASE)
+LIBXML2_DIR = $(LIBXML2_NAME)
+LIBXML2_EXTRACT_DIR = $(LIBXML2_NAME)
+LIBXML2_TGZ_PREFIX = 
+LIBXML2_TGZ = $(LIBXML2_NAME)$(LIBXML2_TGZ_PREFIX).$(LIBXML2_ARCHIVED).$(LIBXML2_COMPRESSED)
+LIBXML2_PATCH_TGZ_PREFIX = $(LIBXML2_NAME_SEPARATOR)patch
+LIBXML2_PATCH_TGZ = $(LIBXML2_NAME)$(LIBXML2_PATCH_TGZ_PREFIX).$(LIBXML2_ARCHIVED).$(LIBXML2_COMPRESSED)
+LIBXML2_DOCS_TGZ_PREFIX = $(LIBXML2_NAME_SEPARATOR)docs
+LIBXML2_DOCS_TGZ = $(LIBXML2_NAME)$(LIBXML2_DOCS_TGZ_PREFIX).$(LIBXML2_ARCHIVED).$(LIBXML2_COMPRESSED)
+
+ifeq ($(LIBXML2_ARCHIVED),tar)
+ifeq ($(LIBXML2_COMPRESSED),gz)
+LIBXML2_TAR_UNCOMPRESS = z
+LIBXML2_TAR_COMPRESS = z
+else
+ifeq ($(LIBXML2_COMPRESSED),bz2)
+LIBXML2_TAR_UNCOMPRESS = j
+LIBXML2_TAR_COMPRESS = j
+else
+endif
+endif
+LIBXML2_LIST = tar -tv$(LIBXML2_TAR_UNCOMPRESS)f
+LIBXML2_EXTRACT = tar -x$(LIBXML2_TAR_UNCOMPRESS)f
+LIBXML2_ARCHIVE = tar -cv$(LIBXML2_TAR_COMPRESS)f
+else
+LIBXML2_LIST = echo unable to list
+LIBXML2_EXTRACT = echo unable to extract
+LIBXML2_ARCHIVE = echo unable to archive
+endif
+
+LIBXML2_MKDIR = mkdir -p
+LIBXML2_REMOVE = rm -r -f
+
+LIBXML2_MAKE_DIR = $(LIBXML2_DIR)
+LIBXML2_MAKE_PUSHD = pushd $(LIBXML2_MAKE_DIR)
+LIBXML2_MAKE = make
+
+LIBXML2_CONFIGURE_PUSHD = pushd $(LIBXML2_MAKE_DIR)
+LIBXML2_CONFIGURE = ./configure --prefix=$(LIBXML2_PREFIX) --exec_prefix=$(LIBXML2_EXEC_PREFIX)
+LIBXML2_HELP = ./configure --help
+
+LIBXML2_LIST_TGZ = $(LIBXML2_LIST) $(LIBXML2_TGZ)
+LIBXML2_EXTRACT_TGZ = $(LIBXML2_EXTRACT) $(LIBXML2_TGZ)
+LIBXML2_TOUCH_EXTRACT = touch $(LIBXML2_DIR)
+LIBXML2_REMOVE_DIR = $(LIBXML2_REMOVE) $(LIBXML2_DIR)
+
+LIBXML2_LIST_PATCH = $(LIBXML2_LIST)
+LIBXML2_EXTRACT_PATCH = $(LIBXML2_EXTRACT)
+LIBXML2_LIST_PATCH_TGZ = $(LIBXML2_LIST_PATCH) $(LIBXML2_PATCH_TGZ)
+LIBXML2_EXTRACT_PATCH_TGZ = $(LIBXML2_EXTRACT_PATCH) $(LIBXML2_PATCH_TGZ)
+
+LIBXML2_LIST_DOCS = $(LIBXML2_LIST)
+LIBXML2_EXTRACT_DOCS = $(LIBXML2_EXTRACT)
+LIBXML2_LIST_DOCS_TGZ = $(LIBXML2_LIST_DOCS) $(LIBXML2_DOCS_TGZ)
+LIBXML2_EXTRACT_DOCS_TGZ = $(LIBXML2_EXTRACT_DOCS) $(LIBXML2_DOCS_TGZ) -C$(LIBXML2_DOCS_PREFIX)
+
+########################################################################
+#
+# libxml2 rules
+#
+########################################################################
+
+#
+# Test libxml2
+#
+test-libxml2:
+	@($(LIBXML2_MAKE_PUSHD);\
+	  (($(LIBXML2_MAKE) test) || (exit 1));\
+	  popd)
+
+#
+# Install libxml2
+#
+install-libxml2: configed-$(LIBXML2_DIR)
+	@(echo Installing $(LIBXML2_DIR)...;\
+	  $(LIBXML2_MAKE_PUSHD);\
+	  (($(LIBXML2_MAKE) install) || (exit 1)) && \
+	  ((touch $(MAKEDIR)/configed-$(LIBXML2_DIR)) || (exit 1));\
+	  popd)
+	  
+#
+# Build libxml2
+#
+build-libxml2: configed-$(LIBXML2_DIR)
+	@(echo Building $(LIBXML2_DIR)...;\
+	  $(LIBXML2_MAKE_PUSHD);\
+	  (($(LIBXML2_MAKE)) || (exit 1)) && \
+	  ((touch $(MAKEDIR)/configed-$(LIBXML2_DIR)) || (exit 1));\
+	  popd)
+	  
+#
+# Clean libxml2
+#
+clean-libxml2: configed-$(LIBXML2_DIR)
+	@(echo Cleaning $(LIBXML2_DIR)...;\
+	  $(LIBXML2_MAKE_PUSHD);\
+	  (($(LIBXML2_MAKE) clean) || (exit 1)) && \
+	  ((touch $(MAKEDIR)/configed-$(LIBXML2_DIR)) || (exit 1));\
+	  popd)
+	  
+#
+# Config libxml2
+#
+config-libxml2: unconfig-libxml2 configed-$(LIBXML2_DIR)
+
+unconfig-libxml2:
+	@(rm -f configed-$(LIBXML2_DIR))
+
+configed-$(LIBXML2_DIR): $(LIBXML2_DIR)
+	@(echo Configing $(LIBXML2_DIR)...;\
+	  $(LIBXML2_CONFIGURE_PUSHD);\
+	  (($(LIBXML2_CONFIGURE)) || (exit 1)) && \
+	  ((touch $(LIBXML2_DIR)) || (exit 1)) && \
+	  ((touch $(MAKEDIR)/configed-$(LIBXML2_DIR)) || (exit 1));\
+	  popd)
+
+#
+# Help libxml2
+#
+help-libxml2:
+	@($(LIBXML2_CONFIGURE_PUSHD);\
+	  (($(LIBXML2_HELP)) || (exit 1));\
+	  popd)
+
+#
+# List libxml2 Docs
+#
+list-libxml2-docs: $(LIBXML2_DOCS_TGZ)
+	@(echo Listing $(LIBXML2_DOCS_TGZ)...;\
+	  (($(LIBXML2_LIST_DOCS_TGZ)) || (exit 1)))
+
+#
+# Install libxml2 Docs
+#
+install-libxml2-docs: $(LIBXML2_DOCS_PREFIX)
+	@(echo Extracting $(LIBXML2_DOCS_TGZ)...;\
+	  (($(LIBXML2_EXTRACT_DOCS_TGZ)) || (exit 1)))
+
+#
+# List libxml2 Patch
+#
+list-libxml2-patch: $(LIBXML2_PATCH_TGZ)
+	@(echo Listing $(LIBXML2_PATCH_TGZ)...;\
+	  (($(LIBXML2_LIST_PATCH_TGZ)) || (exit 1)))
+
+#
+# Extract libxml2 patch
+#
+extract-libxml2-patch: $(LIBXML2_DIR)
+	@(echo Extracting $(LIBXML2_PATCH_TGZ)...;\
+	  (($(LIBXML2_EXTRACT_PATCH_TGZ)) || (exit 1)))
+
+#
+# List libxml2
+#
+list-libxml2: 
+	@(echo Listing $(LIBXML2_TGZ)...;\
+	  (($(LIBXML2_LIST_TGZ)) || (exit 1)))
+
+#
+# Extract libxml2
+#
+extract-libxml2: unextract-libxml2 $(LIBXML2_DIR)
+
+unextract-libxml2: 
+	@(echo Removing $(LIBXML2_DIR)...;\
+	  (($(LIBXML2_REMOVE_DIR)) || (exit 1)))
+
+$(LIBXML2_DIR): $(LIBXML2_TGZ)
+	@(echo Extracting $(LIBXML2_TGZ)...;\
+	  (($(LIBXML2_EXTRACT_TGZ)) || (exit 1)) && \
+	  (($(LIBXML2_TOUCH_EXTRACT)) || (exit 1)))
+	  
+#
+# Archive libxml2
+#
+archive-libxml2: 
+	@(echo Archiving $(LIBXML2_DIR) to $(LIBXML2_TGZ)...;\
+	  (($(LIBXML2_ARCHIVE) $(LIBXML2_TGZ) $(LIBXML2_DIR)) || (exit 1)))
+
+#
+# Install libxml2 links
+#
+install-libxml2-links: 
+	@((echo removing $(LIBXML2_LINK_NAME)) && \
+	  ((rm -f $(LIBXML2_LINK_NAME)) || (exit 1)) && \
+	  (echo Linking $(LIBXML2_LINK_NAME) "->" $(LIBXML2_PREFIX)) && \
+	  ((ln -s $(LIBXML2_PREFIX) $(LIBXML2_LINK_NAME)) || (exit 1)))
+	  
+#
+# libxml2 linked
+#
+libxml2-linked: 
+	@echo link is $(LIBXML2_LINK_NAME) "->" $(LIBXML2_PREFIX)
+	  
+#
+# Install libxml2 prefix
+#
+install-libxml2-prefix: 
+	@((echo makeing $(LIBXML2_PREFIX)) && \
+	  ((mkdir -p $(LIBXML2_PREFIX)) || (exit 1)) && \
+	  (echo makeing $(LIBXML2_EXEC_PREFIX)) && \
+	  ((mkdir -p $(LIBXML2_EXEC_PREFIX)) || (exit 1)))
+	  
+#
+# libxml2 prefixed
+#
+libxml2-prefixed: 
+	@((echo prefix is $(LIBXML2_PREFIX)) && \
+	  (echo exec prefix is $(LIBXML2_EXEC_PREFIX)) && \
+	  (echo conf prefix is $(LIBXML2_CONF_PREFIX)) && \
+	  (echo docs prefix is $(LIBXML2_DOCS_PREFIX)))
+	  
+$(LIBXML2_PREFIX):
+	@(echo Makeing Directory $(LIBXML2_PREFIX)...;\
+	  (($(LIBXML2_MKDIR) $(LIBXML2_PREFIX)) || (exit 1)))
+
+$(LIBXML2_EXEC_PREFIX):
+	@(echo Makeing Directory $(LIBXML2_EXEC_PREFIX)...;\
+	  (($(LIBXML2_MKDIR) $(LIBXML2_EXEC_PREFIX)) || (exit 1)))
+
+$(LIBXML2_CONF_PREFIX):
+	@(echo Makeing Directory $(LIBXML2_CONF_PREFIX)...;\
+	  (($(LIBXML2_MKDIR) $(LIBXML2_CONF_PREFIX)) || (exit 1)))
+
+$(LIBXML2_DOCS_PREFIX):
+	@(echo Makeing Directory $(LIBXML2_DOCS_PREFIX)...;\
+	  (($(LIBXML2_MKDIR) $(LIBXML2_DOCS_PREFIX)) || (exit 1)))
+
+#
+# libxml2 archived
+#
+libxml2-archived: 
+	@(echo $(LIBXML2_TGZ))
+	  
+#
+# libxml2 extracted
+#
+libxml2-extracted: 
+	@(echo $(LIBXML2_EXTRACT) $(LIBXML2_TGZ))
+
+
+
+        
+
