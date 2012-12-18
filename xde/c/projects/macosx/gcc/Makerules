@@ -1,0 +1,193 @@
+#############################################################################
+# Copyright (c) 1988-2007 $organization$.
+#
+# This software is provided by the author and contributors ``as is'' and
+# any express or implied warranties, including, but not limited to, the
+# implied warranties of merchantability and fitness for a particular purpose
+# are disclaimed.  In no event shall the author or contributors be liable
+# for any direct, indirect, incidental, special, exemplary, or consequential
+# damages (including, but not limited to, procurement of substitute goods
+# or services; loss of use, data, or profits; or business interruption)
+# however caused and on any theory of liability, whether in contract, strict
+# liability, or tort (including negligence or otherwise) arising in any way
+# out of the use of this software, even if advised of the possibility of
+# such damage.
+#
+#   File: Makerules
+#
+# Author: $author$
+#   Date: 4/4/2007
+#
+#    $Id$
+#
+# MaxOSX makefile rules for XDE projects
+#
+#############################################################################
+
+INCLUDES:=$(INCLUDES) $(shell for ii in . $(MODULES_USED); do echo -I$(PKG)/$$ii/include; done)
+
+LIB_C_OBJS=$(LIB_C_SOURCES:.c=.o)
+LIB_CPP_OBJS=$(LIB_CPP_SOURCES:.cpp=.o)
+LIB_CXX_OBJS=$(LIB_CXX_SOURCES:.cxx=.o)
+
+SLIB_C_OBJS=$(SLIB_C_SOURCES:.c=.o)
+SLIB_CPP_OBJS=$(SLIB_CPP_SOURCES:.cpp=.o)
+SLIB_CXX_OBJS=$(SLIB_CXX_SOURCES:.cxx=.o)
+
+EXE_C_OBJS=$(EXE_C_SOURCES:.c=.o)
+EXE_CPP_OBJS=$(EXE_CPP_SOURCES:.cpp=.o)
+EXE_CXX_OBJS=$(EXE_CXX_SOURCES:.cxx=.o)
+EXE_PASCAL_OBJS=$(EXE_PASCAL_SOURCES:.pas=.o)
+EXE_LCGI_RES=$(EXE_LCGI_SOURCES:.lcgi=.lcgi.res)
+
+KMOD_C_OBJS=$(KMOD_C_SOURCES:.c=.o)
+
+LIB_OBJS = $(LIB_C_OBJS) $(LIB_CPP_OBJS)  $(LIB_CXX_OBJS)
+
+SLIB_OBJS = $(SLIB_C_OBJS) $(SLIB_CPP_OBJS)  $(SLIB_CXX_OBJS)
+
+EXE_OBJS = $(EXE_C_OBJS) $(EXE_CPP_OBJS) $(EXE_CXX_OBJS)
+
+EXE_RES = $(EXE_LCGI_RES)
+
+KMOD_OBJS = $(KMOD_C_OBJS)
+
+ALL_OBJS = $(OBJS) $(LIB_OBJS) $(SLIB_OBJS) $(KMOD_OBJS) $(EXE_OBJS)
+
+ALL_TARGETS = $(EXETARGET) $(LIBTARGET) $(SLIBTARGET) $(USRTARGET)
+
+all: ${LIBTARGET} ${SLIBTARGET} ${KMODTARGET} ${EXETARGET} ${PASCAL_EXETARGET}
+
+install: ${LIBINSTALL} ${SLIBINSTALL} ${EXEINSTALL}
+
+${SLIBINSTALL}: ${SLIBTARGET} 
+	@echo "      Installing Shared Lib - " ${SLIBTARGET}
+	@$(CP) $(LIBDIR)/${SLIBTARGET} $@
+
+${LIBTARGET}: $(LIBDIR) ${LIBDEP}  ${LIB_OBJS}
+	@echo "      Building Static Lib - " $@
+	@$(AR) $(ARFLAGS) $@ $(LIB_OBJS)
+	@$(MV) $@ $(LIBDIR)
+
+${SLIBTARGET}: $(LIBDIR) ${SLIBDEP} ${SLIB_OBJS}
+	@echo "      Building Shared Lib - " $@
+	@for dir in $(SLIB_DIRS); do \
+		echo "      Make $$dir" ; \
+		(cd $$dir && make) || (echo "      Make $$dir Failed") ; \
+	done
+	@$(CXXDSO) ${INCLUDES} $(DSOFLAGS) -o $@ $(LDFLAGS) $(SLIB_OBJS) $(LIBSSO)
+	@$(MV) $@ $(LIBDIR)
+
+${EXETARGET}: $(BINDIR) ${EXEDEP} ${EXE_OBJS} $(EXE_RES)
+	@echo "      Building Executable - " $@
+	@for dir in $(EXE_DIRS); do \
+		echo "      Make $$dir" ; \
+		(cd $$dir && make) || (echo "      Make $$dir Failed") ; \
+	done
+	@$(CXXLD) ${INCLUDES} $(LDFLAGS) -o $@ $(EXE_OBJS) $(LIBS)
+	@$(STRIP) $@ 
+	@$(MV) $@ $(BINDIR)
+
+${PASCAL_EXETARGET}: $(BINDIR) ${PASCAL_EXEDEP} ${EXE_PASCAL_OBJS} 
+	@echo "      Building Executable - " $@
+	@$(PASCALLD) ${PASCAL_INCLUDES} $(PASCAL_LDFLAGS) -o $@ $(EXE_PASCAL_OBJS) $(PASCAL_LIBS)
+	@$(STRIP) $@ 
+	@$(MV) $@ $(BINDIR)
+
+${KMODTARGET}: ${KMOD_OBJS} ${KMODDEP} ${KMOD_RES} 
+	@echo "      Building Kernel Module - " $@
+	@for dir in $(KMOD_DIRS); do \
+		echo "      Make $$dir" ; \
+		(cd $$dir && make) || (echo "      Make $$dir Failed") ; \
+	done
+	@$(KCCLD) ${KINCLUDES} $(KLDFLAGS) -o $@ $(KMOD_OBJS) $(KLIBS)
+	@$(MV) $@ $(BINDIR)
+
+$(LIBDIR):
+	@$(MKDIR) -p $(LIBDIR)
+
+$(BINDIR):
+	@$(MKDIR) -p $(BINDIR)
+
+again: clean all
+
+this-again: clean-this all
+
+clean-this:
+	$(RM) $(ALL_OBJS)
+
+clean:
+	@for dir in $(SLIB_DIRS) $(SLIBDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "      Make $$dir clean Failed") ; \
+	done
+	@for dir in $(EXE_DIRS) $(EXEDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "      Make $$dir clean Failed") ; \
+	done
+	@for dir in $(KMOD_DIRS) $(KMODDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "      Make $$dir clean Failed") ; \
+	done
+	$(RM) $(ALL_OBJS)
+
+veryclean:
+	@for dir in $(SLIB_DIRS) $(SLIBDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
+	done
+	@for dir in $(EXE_DIRS) $(EXEDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
+	done
+	@for dir in $(KMOD_DIRS) $(KMODDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
+	done
+	$(RM) $(ALL_OBJS) $(ALL_TARGETS)
+
+again: clean all
+
+$(KMOD_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@echo $(KCC) -c $(KCFLAGS) -o $@ $<
+	@$(KCC) -c $(KCFLAGS) -o $@ $<
+
+$(LIB_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CC) -c $(CFLAGS) -o $@ $<
+
+$(SLIB_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CC) -c $(CFLAGS) -o $@ $<
+
+$(EXE_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CC) -c $(CFLAGS) -o $@ $<
+
+$(LIB_CPP_SOURCES:.cpp=.o): %.o: %.cpp
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(SLIB_CPP_SOURCES:.cpp=.o): %.o: %.cpp
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(EXE_CPP_SOURCES:.cpp=.o): %.o: %.cpp
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(LIB_CXX_SOURCES:.cxx=.o): %.o: %.cxx
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(SLIB_CXX_SOURCES:.cxx=.o): %.o: %.cxx
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(EXE_CXX_SOURCES:.cxx=.o): %.o: %.cxx
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(EXE_PASCAL_SOURCES:.pas=.o): %.o: %.pas
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(PASCAL) -c $(PASCALFLAGS) -o $@ $<
+
+$(EXE_LCGI_SOURCES:.lcgi=.lcgi.res): %.lcgi.res: %.lcgi
+	@echo Copying $< to $(BINDIR) ...
+	@$(CP) $< $(BINDIR)
+	@$(TOUCH) $@
