@@ -31,6 +31,8 @@ all:
 		(cd $$dir && make) || (echo "Make $$dir Failed") ; \
 	done
 
+again: clean all
+
 ifeq ($(INSTALL_DIRS),yes)
 install:
 	@for dir in $(SRC_DIRS); do \

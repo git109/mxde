@@ -47,8 +47,8 @@ KCOMPILER_PREFIX =
 #
 # xml-xerces-xalan
 #
-XERCESCROOT = $(PKJ)/../../thirdparty/xml-xerces-xalan/xml-xerces/c
-XALANCROOT = $(PKJ)/../../thirdparty/xml-xerces-xalan/xml-xalan/c
+XERCESCROOT = $(PKG)/../../thirdparty/xml-xerces-xalan/xml-xerces/c
+XALANCROOT = $(PKG)/../../thirdparty/xml-xerces-xalan/xml-xalan/c
 
 #
 # Build programs

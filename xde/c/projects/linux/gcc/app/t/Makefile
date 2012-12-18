@@ -40,10 +40,13 @@ USRDEFINES = \
 # user includes
 #
 USRINCLUDES = \
--I$(PKG)/$(SRC)/ct \
--I$(PKG)/$(SRC)/cos/cunix \
--I$(PKG)/$(SRC)/cos \
--I$(PKG)/$(SRC) \
+-I$(PKG)/$(SRC)/clib/ct \
+-I$(PKG)/$(SRC)/clib/ccgi \
+-I$(PKG)/$(SRC)/clib/cxttp \
+-I$(PKG)/$(SRC)/clib/cos/cunix \
+-I$(PKG)/$(SRC)/clib/cos/cplatform \
+-I$(PKG)/$(SRC)/clib/cos \
+-I$(PKG)/$(SRC)/clib/cbase \
 
 #
 # targets
@@ -59,11 +62,11 @@ EXE_C_SOURCES = \
 # executable C++ .cxx sources
 #
 EXE_CXX_SOURCES = \
-$(PKG)/$(SRC)/ct/ctdatefunctions.cxx \
-$(PKG)/$(SRC)/ct/ctfilefunctions.cxx \
-$(PKG)/$(SRC)/ct/ctfunctions.cxx \
-$(PKG)/$(SRC)/ct/ctmain.cxx \
-$(PKG)/$(SRC)/cos/argmain.cxx \
+$(PKG)/$(SRC)/clib/ct/ctdatefunctions.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfilefunctions.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunctions.cxx \
+$(PKG)/$(SRC)/clib/ct/ctmain.cxx \
+$(PKG)/$(SRC)/clib/cos/argmain.cxx \
 
 #
 # executable libs

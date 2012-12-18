@@ -117,6 +117,9 @@ clean-this:
 	$(RM) $(ALL_OBJS)
 
 clean:
+	@for dir in $(LIB_DIRS) $(LIBDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "      Make $$dir clean Failed") ; \
+	done
 	@for dir in $(SLIB_DIRS) $(SLIBDEP_DIRS); do \
 		(cd $$dir && make clean) || (echo "      Make $$dir clean Failed") ; \
 	done
@@ -129,6 +132,9 @@ clean:
 	$(RM) $(ALL_OBJS)
 
 veryclean:
+	@for dir in $(LIB_DIRS) $(LIBDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
+	done
 	@for dir in $(SLIB_DIRS) $(SLIBDEP_DIRS); do \
 		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
 	done
@@ -139,8 +145,6 @@ veryclean:
 		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
 	done
 	$(RM) $(ALL_OBJS) $(ALL_TARGETS)
-
-again: clean all
 
 $(KMOD_C_SOURCES:.c=.o): %.o: %.c
 	@echo Compiling $(BUILD_TYPE) $< ...

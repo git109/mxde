@@ -29,6 +29,7 @@ SRC = src
 include $(PKG)/$(PRJ)/Makedefines
 
 SRC_DIRS = \
+$(PKG)/$(PRJ)/lib/libcbase \
 $(PKG)/$(PRJ)/lib/libcos \
 $(PKG)/$(PRJ)/lib/libcxttp \
 $(PKG)/$(PRJ)/lib/libccgi \
