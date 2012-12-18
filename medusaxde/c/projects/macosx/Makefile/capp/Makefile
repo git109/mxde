@@ -33,3 +33,9 @@ SRC_DIRS = \
 $(PKG)/$(PRJ)/capp/ccgi \
 
 include $(PKG)/$(PRJ)/Makedirs
+
+install:
+	@(echo Installing exes...;\
+	  ((mkdir -p $(HOME)/build/medusaxde) || (exit 1));\
+	  ((cp -r $(PKGBLD)/bin $(HOME)/build/medusaxde) || (exit 1));\
+	  echo ...Installed exes)

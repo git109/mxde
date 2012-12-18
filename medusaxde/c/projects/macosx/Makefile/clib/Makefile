@@ -40,3 +40,9 @@ $(PKG)/$(PRJ)/clib/libclibxslt \
 
 include $(PKG)/$(PRJ)/Makedirs
 
+install:
+	@(echo Installing libs...;\
+	  ((mkdir -p $(HOME)/build/medusaxde) || (exit 1));\
+	  ((cp -r $(PKGBLD)/lib $(HOME)/build/medusaxde) || (exit 1));\
+	  echo ...Installed libs)
+

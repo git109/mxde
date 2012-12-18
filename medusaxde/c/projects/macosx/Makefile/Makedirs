@@ -34,12 +34,14 @@ again:
 		(cd $$dir && make again) || (echo "Make $$dir again Failed") ; \
 	done
 	
+ifeq ($(INSTALL_DIRS),yes)
 install:
 	@for dir in $(SRC_DIRS); do \
 		echo "-----------------------------------------------------------------" ; \
 		echo "Make $$dir install" ; \
 		(cd $$dir && make install) || (echo "Make $$dir install Failed") ; \
 	done
+endif
 
 clean:
 	@for dir in $(SRC_DIRS); do \

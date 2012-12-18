@@ -33,4 +33,6 @@ SRC_DIRS = \
 $(PKG)/$(PRJ)/clib \
 $(PKG)/$(PRJ)/capp \
 
+INSTALL_DIRS = yes
+
 include $(PKG)/$(PRJ)/Makedirs
