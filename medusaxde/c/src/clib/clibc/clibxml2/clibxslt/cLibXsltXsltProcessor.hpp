@@ -38,6 +38,9 @@
 //#include <libexslt/exsltconfig.h>
 #include <libexslt/exslt.h>
 
+#define DEFAULT_XSLT_PARSE_OPTIONS_XML_PARSE_NOERROR XML_PARSE_NOERROR
+#define DEFAULT_XSLT_PARSE_OPTIONS_XML_PARSE_NOWARNING XML_PARSE_NOWARNING
+
 #if defined(c_NAMESPACE)
 namespace c_NAMESPACE {
 #endif // defined(c_NAMESPACE) 
@@ -80,7 +83,7 @@ public:
     cLibXsltXsltProcessor()
     : m_secPrefs(0),
       m_entLoader(0),
-      m_xsltParseOptions(XSLT_PARSE_OPTIONS | XML_PARSE_NOWARNING),
+      m_xsltParseOptions(XSLT_PARSE_OPTIONS | DEFAULT_XSLT_PARSE_OPTIONS_XML_PARSE_NOERROR | DEFAULT_XSLT_PARSE_OPTIONS_XML_PARSE_NOWARNING),
       m_xmlParseOptions(XML_PARSE_NOENT | XML_PARSE_NOCDATA | XML_PARSE_NOWARNING)
     {
     }
@@ -182,11 +185,13 @@ public:
         xsltStylesheetPtr xsltStyle;
         xsltTransformContextPtr xsltCtxt;
         xmlParserCtxtPtr xmlCtxt;
-        xmlGenericErrorFunc errorFunc;
+        xmlGenericErrorFunc xsltErrorFunc;
+        xmlGenericErrorFunc xmlErrorFunc;
 
-        errorFunc = GenericError;
-        xmlSetGenericErrorFunc(&errors, errorFunc);
-        xsltSetGenericErrorFunc(&errors, errorFunc);
+        xsltErrorFunc = XsltGenericError;
+        xmlErrorFunc = XmlGenericError;
+        xmlSetGenericErrorFunc(&errors, xmlErrorFunc);
+        xsltSetGenericErrorFunc(&errors, xsltErrorFunc);
 
         if ((xmlCtxt = xmlNewParserCtxt()))
         {
@@ -299,18 +304,35 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////
-    //  Function: GenericError
+    //  Function: XsltGenericError
     //
     //    Author: $author$
     //      Date: 8/11/2011
     ///////////////////////////////////////////////////////////////////////
-    static void GenericError
+    static void XsltGenericError
     (void* context, const char* message, ...)
     {
         cCharWriterInterface* errors = 0;
         va_list va;
         va_start(va, message);
         if ((errors = (cCharWriterInterface*)(context)))
+            errors->WriteFormattedV(message, va);
+        va_end(va);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: XmlGenericError
+    //
+    //    Author: $author$
+    //      Date: 12/19/2012
+    ///////////////////////////////////////////////////////////////////////
+    static void XmlGenericError
+    (void* context, const char* message, ...)
+    {
+        cCharWriterInterface* errors = 0;
+        va_list va;
+        va_start(va, message);
+        if ((errors = (cCharWriterInterface*)(context)))
+        if (!(DEFAULT_XSLT_PARSE_OPTIONS_XML_PARSE_NOERROR))
             errors->WriteFormattedV(message, va);
         va_end(va);
     }

@@ -115,6 +115,7 @@ public:
     cString* const m_nullParam;
     cLibXsltXsltParamsChars m_paramsChars;
     cLibXsltXsltParamsStrings m_params;
+    cLibXsltXsltParamsStrings m_paramNames;
 
     ///////////////////////////////////////////////////////////////////////
     //  Constructor: cLibXsltXsltParams
@@ -137,11 +138,37 @@ public:
     virtual ~cLibXsltXsltParams()
     {
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///  Function: AddName
+    ///
+    ///    Author: $author$
+    ///      Date: 12/19/2012
+    ///////////////////////////////////////////////////////////////////////
+    virtual eError AddName(const cString& name)
+    {
+        eError error = e_ERROR_NONE;
+        cString** params;
+        cString* param;
+        ssize_t length;
+        int unequal;
+        if ((params = m_paramNames.Elements(length))) {
+            for (ssize_t i = 0; i < length; i++) {
+                if ((param = params[i])) {
+                    if (!(unequal = param->compare(name))) {
+                        return error = e_ERROR_FAILED;
+                    }
+                }
+            }
+        }
+        if ((param = new cString(name)))
+            m_paramNames.Append(&param, 1);
+        return error;
+    }
 #else // !defined(CLIBXSLTXSLTPARAMS_MEMBERS_ONLY) 
 #endif // !defined(CLIBXSLTXSLTPARAMS_MEMBERS_ONLY) 
 
     ///////////////////////////////////////////////////////////////////////
-    //  Function: AddLiteralParameter
+    //  Function: AddLiteral
     //
     //    Author: $author$
     //      Date: 8/13/2011
@@ -157,6 +184,8 @@ public:
 #if !defined(CLIBXSLTXSLTPARAMS_MEMBER_FUNCS_IMPLEMENT)
         cString *paramName, *paramExpression;
         const char *paramNameChars, *paramExpressionChars;
+        eError error2;
+        if (!(error2 = AddName(name)))
         if ((paramName = new cString(name)))
         {
             if ((paramNameChars = paramName->HasChars()))
@@ -198,6 +227,8 @@ public:
 #if !defined(CLIBXSLTXSLTPARAMS_MEMBER_FUNCS_IMPLEMENT)
         cString *paramName, *paramExpression;
         const char *paramNameChars, *paramExpressionChars;
+        eError error2;
+        if (!(error2 = AddName(name)))
         if ((paramName = new cString(name)))
         {
             if ((paramNameChars = paramName->HasChars()))
@@ -282,7 +313,19 @@ public:
                 }
             }
         }
-        m_params.Clear();
+        m_paramNames.Clear();
+        if ((params = m_paramNames.Elements(length)))
+        {
+            for (ssize_t i = 0; i < length; i++)
+            {
+                if ((param = params[i]))
+                {
+                    delete param;
+                    params[i] = 0;
+                }
+            }
+        }
+        m_paramNames.Clear();
 #else // !defined(CLIBXSLTXSLTPARAMS_MEMBER_FUNCS_IMPLEMENT) 
 #endif // !defined(CLIBXSLTXSLTPARAMS_MEMBER_FUNCS_IMPLEMENT) 
         return error;
