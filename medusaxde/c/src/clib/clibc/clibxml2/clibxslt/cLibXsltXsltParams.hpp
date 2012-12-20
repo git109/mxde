@@ -313,7 +313,7 @@ public:
                 }
             }
         }
-        m_paramNames.Clear();
+        m_params.Clear();
         if ((params = m_paramNames.Elements(length)))
         {
             for (ssize_t i = 0; i < length; i++)
