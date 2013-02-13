@@ -41,7 +41,7 @@
 <!-- Parameters                                                             -->
 <!--========================================================================-->
 <xsl:param name="events_class" select="'EventsInterface'"/>
-<xsl:param name="events_class_type" select="'c_INTERFACE_CLASS '"/>
+<xsl:param name="events_class_type" select="$class_type"/>
 <xsl:param name="events_class_access" select="'public'"/>
 
 <!--========================================================================-->
