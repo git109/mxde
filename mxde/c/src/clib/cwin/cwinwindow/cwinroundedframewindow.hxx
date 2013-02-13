@@ -441,7 +441,75 @@ public:
     }
     /**
      **********************************************************************
-     * Function: On_WM_NCHITTEST_RIGHT_WindowMessage
+     * Function: On_WM_NCHITTEST_TOP_LEFT_WindowMessage
+     *
+     *   Author: $author$
+     *     Date: 2/2/2010
+     **********************************************************************
+     */
+    virtual LRESULT On_WM_NCHITTEST_TOP_LEFT_WindowMessage
+    (HWND hWnd,
+     UINT msg,
+     WPARAM wParam,
+     LPARAM lParam) 
+    {
+        LRESULT lResult = HTCAPTION;
+        return lResult;
+    }
+    /**
+     **********************************************************************
+     * Function: On_WM_NCHITTEST_TOP_RIGHT_WindowMessage
+     *
+     *   Author: $author$
+     *     Date: 2/2/2010
+     **********************************************************************
+     */
+    virtual LRESULT On_WM_NCHITTEST_TOP_RIGHT_WindowMessage
+    (HWND hWnd,
+     UINT msg,
+     WPARAM wParam,
+     LPARAM lParam) 
+    {
+        LRESULT lResult = HTCAPTION;
+        return lResult;
+    }
+    /**
+     **********************************************************************
+     * Function: On_WM_NCHITTEST_BOTTOM_LEFT_WindowMessage
+     *
+     *   Author: $author$
+     *     Date: 12/30/2009
+     **********************************************************************
+     */
+    virtual LRESULT On_WM_NCHITTEST_BOTTOM_LEFT_WindowMessage
+    (HWND hWnd,
+     UINT msg,
+     WPARAM wParam,
+     LPARAM lParam) 
+    {
+        LRESULT lResult = HTCAPTION;
+        return lResult;
+    }
+    /**
+     **********************************************************************
+     * Function: On_WM_NCHITTEST_BOTTOM_RIGHT_WindowMessage
+     *
+     *   Author: $author$
+     *     Date: 12/30/2009
+     **********************************************************************
+     */
+    virtual LRESULT On_WM_NCHITTEST_BOTTOM_RIGHT_WindowMessage
+    (HWND hWnd,
+     UINT msg,
+     WPARAM wParam,
+     LPARAM lParam) 
+    {
+        LRESULT lResult = HTCAPTION;
+        return lResult;
+    }
+    /**
+     **********************************************************************
+     * Function: On_WM_NCHITTEST_WindowMessage
      *
      *   Author: $author$
      *     Date: 12/30/2009
@@ -464,8 +532,14 @@ public:
             (hWnd, msg, wParam, lParam);
         else
         if (yPos >= (LONG)(r.bottom-m_bottomMargin-m_cornerRadius))
+        {
+            if (xPos >= (LONG)(r.right-m_rightMargin-m_cornerRadius))
+                return On_WM_NCHITTEST_BOTTOM_RIGHT_WindowMessage
+                (hWnd, msg, wParam, lParam);
+            else
             return On_WM_NCHITTEST_BOTTOM_WindowMessage
             (hWnd, msg, wParam, lParam);
+        }
         else
         if (xPos < (LONG)(r.left+m_leftMargin+m_cornerRadius))
             return On_WM_NCHITTEST_LEFT_WindowMessage

@@ -100,6 +100,7 @@ public:
      LPCMDLINE cmdLine,
      INT cmdShow) 
     {
+        cWinDroidMainWindow& m_mainWindow = GetMainWindow();
         eError error = e_ERROR_NONE;
         error = m_mainWindow.CreateMainWindow
         (windowClass, hInstance, hPrevinst, cmdLine, cmdShow);
@@ -120,6 +121,7 @@ public:
      LPCMDLINE cmdLine,
      INT cmdShow) 
     {
+        cWinDroidMainWindow& m_mainWindow = GetMainWindow();
         eError error = e_ERROR_NONE;
         error = m_mainWindow.DestroyMainWindow
         (windowClass, hInstance, hPrevinst, cmdLine, cmdShow);
@@ -140,6 +142,7 @@ public:
      LPCMDLINE cmdLine,
      INT cmdShow) 
     {
+        cWinDroidMainWindow& m_mainWindow = GetMainWindow();
         eError error = e_ERROR_NONE;
         error = m_mainWindow.InitializeMainWindowClass
         (windowClass, hInstance, hPrevinst, cmdLine, cmdShow);
@@ -160,10 +163,23 @@ public:
      LPCMDLINE cmdLine,
      INT cmdShow) 
     {
+        cWinDroidMainWindow& m_mainWindow = GetMainWindow();
         eError error = e_ERROR_NONE;
         error = m_mainWindow.FinalizeMainWindowClass
         (windowClass, hInstance, hPrevinst, cmdLine, cmdShow);
         return error;
+    }
+    /**
+     **********************************************************************
+     * Function: GetMainWindow
+     *
+     *   Author: $author$
+     *     Date: 12/11/2012
+     **********************************************************************
+     */
+    virtual cWinDroidMainWindow& GetMainWindow()
+    {
+        return m_mainWindow;
     }
 };
 
