@@ -29,7 +29,8 @@
  xmlns:mxde="Medusa-Xos-Development-Environment"
  xmlns:xde="Medusa-Xos-Development-Environment"
  xmlns="Medusa-Xos-Development-Environment"
- id="create_cxx_cwin" for="" or_not_for="" using="cxx" or_not_using="yes">
+ id="create_cxx_cwin" 
+ using="cxx" or_not_using="yes">
     <text>Create C++ cWin?...</text>
     <!--========================================================================-->
     <!--                                                                        -->

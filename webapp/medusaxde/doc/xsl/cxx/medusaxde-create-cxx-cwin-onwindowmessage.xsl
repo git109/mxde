@@ -233,6 +233,14 @@
         <xsl:with-param name="is_param_file_case_is" select="'no'"/>
         <xsl:with-param name="is_param_file_name_is" select="'no'"/>
     </xsl:call-template>
+    <xsl:call-template name="cxx_form_fields">
+        <xsl:with-param name="is_param_" select="'no'"/>
+        <xsl:with-param name="is_param_module" select="'yes'"/>
+    </xsl:call-template>
+    <xsl:call-template name="cxx_class_form_fields">
+        <xsl:with-param name="is_param_" select="'no'"/>
+        <xsl:with-param name="is_param_class_namespace" select="'yes'"/>
+    </xsl:call-template>
     <xsl:call-template name="windows_messages_form_fields">
         <xsl:with-param name="is_param_" select="'no'"/>
         <xsl:with-param name="is_param_section" select="'yes'"/>
@@ -241,8 +249,14 @@
     <xsl:call-template name="cxx_class_form_fields">
         <xsl:with-param name="is_param_" select="'no'"/>
         <xsl:with-param name="is_param_class" select="'yes'"/>
+        <xsl:with-param name="is_param_class_object" select="'no'"/>
+        <xsl:with-param name="is_param_class_comment" select="'yes'"/>
         <xsl:with-param name="is_param_class_separator" select="'yes'"/>
         <xsl:with-param name="class" select="'c'"/>
+    </xsl:call-template>
+    <xsl:call-template name="cxx_class_form_fields">
+        <xsl:with-param name="is_param_" select="'no'"/>
+        <xsl:with-param name="is_param_class_function_comment" select="'yes'"/>
     </xsl:call-template>
     <xsl:call-template name="windows_messages_form_fields">
         <xsl:with-param name="is_param_section" select="'no'"/>

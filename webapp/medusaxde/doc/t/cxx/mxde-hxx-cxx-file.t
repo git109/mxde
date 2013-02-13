@@ -70,7 +70,15 @@
 %
 %)%)%%
 %)%)%%
+%%parse(%Namespace%,;,,,,%(%
+%%kk_%namespace%_kk% %Namespace% {
+%
+%)%,Namespace)%%
 %%include(%derived_fileinclude%%hxx_cxx_fileinclude%)%%
+%%reverse-parse(%Namespace%,;,,,,%(%
+%} %cc_%%left_comment% namespace %Namespace% %right_comment%%_cc%
+%
+%)%,Namespace)%%
 %%
 %%if(%file_hxx%,%(%
 %%include(%filepath%/mxde-%if-then(%style%,%(-)%)%hxx-file-ifdef-end.t)%%

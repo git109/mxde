@@ -23,13 +23,14 @@
 %typename,%(%else-then(%typename%,%(%else-then(%left(%typedef%,:)%,%(%typedef%)%)%)%)%)%,%
 %typedefine,%(%else-then(%typedefine%,%(%else-then(%right-of-left(%typedef%,:)%,%(%typedef%)%)%)%)%)%,%
 %%(%
+%%else-no(%typedef_comment%,%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)% Typedef: %do(%typename%)%
 %do(%left_separator%)%
 %do(%left_separator%)%  Author: %author%
 %do(%left_separator%)%    Date: %date%
 %do(%end_separator%)%%
-%%_typedef_% %do(%typedefine%)%
-%do(%typename%)%;
+%)%)%%
+%%_typedef_% %do(%typedefine%)% %do(%typename%)%;
 %
 %)%)%

@@ -20,7 +20,7 @@
 %#
 %#############################################################################
 %apply-x(%
-%date,%(%else-then(%date%,%(%date()%)%)%)%,%
+%date,%(%else-then(%file_date%,%(%else-then(%date%,%(%date()%)%)%)%)%)%,%
 %author,%(%else-then(%author%,%($organization$     )%)%)%,%
 %organization,%(%else-then(%organization%,%(%author%)%)%)%,%
 %fileprefix,%(%if-then(%else-then(%fileprefix%,%(mxde)%)%,%(-)%)%)%,%

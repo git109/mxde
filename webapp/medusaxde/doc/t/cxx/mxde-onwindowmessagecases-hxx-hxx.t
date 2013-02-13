@@ -28,6 +28,7 @@
 %on_window_messages,%(%else-then(%on_window_messages%,%(%else-then(%parameters(on_window_message,,;)%,%(%window_messages%)%)%)%)%)%,%
 %_indent,%(%indent%)%,%
 %indent,%(%indent%%indent_%%indent_%)%,%
+%CLASS,%(%FILE_MODULE%%CLASS%)%,%
 %%(%
 %
 %_#if_% %_defined_%%(()%%CLASS%_MEMBER_CASES_SWITCH%())%

@@ -31,11 +31,17 @@
 %DefWindowProc,%(%else(%equal(DefWindowProc,%OnWindowMessageDefault%)%,%(DefWindowProc)%)%)%,%
 %_indent,%(%indent%)%,%
 %indent,%(%indent%%indent_%)%,%
+%CLASS,%(%FILE_MODULE%%CLASS%)%,%
 %%(%
 %%if(%class%,%(%
 %
 %_#if_% %_defined_%%(()%%CLASS%_MEMBERS_CLASS%())%
-%with(indent,%(%_indent%)%,%(%
+%
+%%parse(%Class_namespace%,;,,,,%(%
+%%kk_%namespace%_kk% %Class_namespace% {
+%
+%)%,Class_namespace)%%
+%%with(indent,%(%_indent%)%,%(%
 %%if(%class_comment%,%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)%  Class: %Class%
@@ -55,12 +61,14 @@
 %)%)%%
 %%parse(%on_window_messages%,;,,,,%(%
 %%if(%What%,%(%
+%%if(%class_function_comment%,%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)% Function: %On_%%What%%_WindowMessage%
 %do(%left_separator%)%
 %do(%left_separator%)%   Author: %author%
 %do(%left_separator%)%     Date: %date%
 %do(%end_separator%)%%
+%)%)%%
 %%indent%%_virtual_% LRESULT %On_%%What%%_WindowMessage%
 %indent%(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 %
@@ -97,14 +105,16 @@
 %)%)%%
 %)%,What)%%
 %%if(%on_window_message_default%,%(%
+%%if(%class_function_comment%,%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)% Function: %OnWindowMessageDefault%
 %do(%left_separator%)%
 %do(%left_separator%)%   Author: %author%
 %do(%left_separator%)%     Date: %date%
 %do(%end_separator%)%%
+%)%)%%
 %%indent%%_virtual_% LRESULT %OnWindowMessageDefault%
-%indent%(HWND hWnd, UINT msg WPARAM wParam LPARAM lParam)
+%indent%(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 %
 %%if(%class_member_funcs_interface_ifdefs%,%(%
 %%_#if_% %_defined_%(%CLASS%_MEMBER_FUNCS_INTERFACE)
@@ -141,7 +151,12 @@
 %
 %_#if_% %_defined_%%(()%%CLASS%_MEMBERS_CLASS%())%
 %_indent%};
-%_#endif_% %cc_%%left_comment% defined%(()%%CLASS%_MEMBERS_CLASS%())% %right_comment%%_cc%
+%
+%%reverse-parse(%Class_namespace%,;,,,,%(%
+%} %cc_%%left_comment% namespace %Class_namespace% %right_comment%%_cc%
+%
+%)%,Class_namespace)%%
+%%_#endif_% %cc_%%left_comment% defined%(()%%CLASS%_MEMBERS_CLASS%())% %right_comment%%_cc%
 %
 %
 %)%)%%

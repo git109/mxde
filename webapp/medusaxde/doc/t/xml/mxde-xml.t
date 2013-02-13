@@ -44,7 +44,8 @@
 )%,%
 %begin_comment,%(%cc_%%left_comment%)%,%
 %end_comment,%(%right_comment%%_cc%)%,%
-%separator_middle,%(========================================================================)%,%
+%separator_extra,%(%include(%filepath%/%organization%-separator-extra.t)%)%,%
+%separator_middle,%(========================================================================%separator_extra%)%,%
 %separator_padd,%(%length(%separator_middle%)%)%,%
 %separator,%(%left_comment%%separator_middle%%right_comment%)%,%
 %begin_separator,%(%%indent%%%cc_%%separator%
@@ -54,6 +55,8 @@
 %left_separator,%(%%indent%%%left_comment%)%,%
 %right_separator,%(%right_comment%
 )%,%
+%section_separator,%(%(%do(%%indent%%%cc_%%left_comment%%%separator_middle%%%right_comment%%_cc%
+)%)%)%,%
 %section,%(%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)%%padd( , ,%separator_padd%)%%do(%right_separator%)%%

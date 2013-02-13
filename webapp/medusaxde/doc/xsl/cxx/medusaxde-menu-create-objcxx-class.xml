@@ -30,7 +30,6 @@
  xmlns:xde="Medusa-Xos-Development-Environment"
  xmlns="Medusa-Xos-Development-Environment"
  id="create_objcxx_class" 
- for="" or_not_for="" 
  using="objc" or_not_using="yes">
 
     <text>Create Objective-C++</text>

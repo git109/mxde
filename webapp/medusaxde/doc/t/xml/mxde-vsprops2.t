@@ -1,5 +1,5 @@
 %########################################################################
-%# Copyright (c) 1988-2013 $organization$
+%# Copyright (c) 1988-2009 $organization$     
 %#
 %# This software is provided by the author and contributors ``as is'' 
 %# and any express or implied warranties, including, but not limited to, 
@@ -15,19 +15,14 @@
 %#
 %#   File: mxde-vsprops.t
 %#
-%# Author: $author$
-%#   Date: 2/3/2013
+%# Author: $author$           
+%#   Date: 12/5/2009
 %########################################################################
 %with(%
-%filepath,%(%else-then(%filepath%,%(%filepath(%input%)%)%)%)%,%
-%derived_includefile,%(%else(%derived_fileinclude%,%(%filepath%/mxde-vsprops.t)%)%)%,%
-%xml_version,%(%else-then(%xml_version%,%(1.0)%)%)%,%
-%xml_encoding,%(%else-then(%xml_encoding%,%(Windows-1252)%)%)%,%
-%%(%
-%%if(%derived_includefile%,%(%
-%%include(%filepath%/mxde-xml.t)%%
-%)%,%(%
-%%with(%
+%html_,%(%if(%equal(text/html,%content_type%)%,%(<html><body><pre>)%)%)%,%
+%_html,%(%if(%html_%,%(</pre></body></html>)%)%)%,%
+%lt,%(%if(%html_%,%(&lt;)%,%(<)%)%)%,%
+%gt,%(%if(%html_%,%(&gt;)%,%(>)%)%)%,%
 %project,%(%else-then(%project%,%(Project)%)%)%,%
 %Project,%(%else-then(%Project%,%(%project%)%)%)%,%
 %PROJECT,%(%else-then(%PROJECT%,%(%toupper(%Project%)%)%)%)%,%
@@ -67,124 +62,118 @@
 %BUILD_OBJ,%(%else-then(%BUILD_OBJ%,%(BUILD_OBJ)%)%)%,%
 %BUILD_LIB,%(%else-then(%BUILD_LIB%,%(BUILD_LIB)%)%)%,%
 %BUILD_BIN,%(%else-then(%BUILD_BIN%,%(BUILD_BIN)%)%)%,%
-%separator_middle,%(===============================================)%,%
 %%(%
-%%else(%file%,%(%
-%%include(%filepath%/mxde-xml-version.t)%%
-%%do(%section_separator%)%%
-%)%)%%
-%%lt%VisualStudioPropertySheet
-    ProjectType="Visual C++"
-    Version="8.00"
-    Name="%Project%"%gt%
-    
-    %do(%section_separator%)%
+%%html_%
+%lt%?xml version="1.0" encoding="Windows-1252"?%gt%
+%lt%!--===============================================--%gt%
+%lt%VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="%Project%"
+	%gt%
     
     %lt%UserMacro
-        Name="%SOURCE_ROOT_DIR%"
-        Value="%source_root_Dir%"
-    /%gt%
+		Name="%SOURCE_ROOT_DIR%"
+		Value="%source_root_Dir%"
+	/%gt%
     
     %lt%UserMacro
-        Name="%SOURCE_BUILD_DIR%"
-        Value="$(%SOURCE_HOME%)"
-    /%gt%
+		Name="%SOURCE_BUILD_DIR%"
+		Value="$(%SOURCE_HOME%)"
+	/%gt%
     
-    %do(%section_separator%)%
+    %lt%!--===============================================--%gt%
     
     %lt%UserMacro
-        Name="%PROJECT_GROUP%"
-        Value="%project_Group%"
-    /%gt%
+		Name="%PROJECT_GROUP%"
+		Value="%project_Group%"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_NAME%"
-        Value="%Project%"
-    /%gt%
+		Name="%PROJECT_NAME%"
+		Value="%Project%"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_VERSION%"
-        Value="%project_Version%"
-    /%gt%
+		Name="%PROJECT_VERSION%"
+		Value="%project_Version%"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_DIR%"
-        Value="$(%PROJECT_GROUP%)/$(%PROJECT_NAME%)-$(%PROJECT_VERSION%)"
-    /%gt%
+		Name="%PROJECT_DIR%"
+		Value="$(%PROJECT_GROUP%)/$(%PROJECT_NAME%)-$(%PROJECT_VERSION%)"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_SOURCE_DIR%"
-        Value="$(%SOURCE_ROOT_DIR%)/$(%PROJECT_DIR%)"
-    /%gt%
+		Name="%PROJECT_SOURCE_DIR%"
+		Value="$(%SOURCE_ROOT_DIR%)/$(%PROJECT_DIR%)"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_BUILD_DIR%"
-        Value="$(%SOURCE_BUILD_DIR%)/$(%PROJECT_DIR%)"
-    /%gt%
-    
-    %do(%section_separator%)%
+		Name="%PROJECT_BUILD_DIR%"
+		Value="$(%SOURCE_BUILD_DIR%)/$(%PROJECT_DIR%)"
+	/%gt%
+	
+    %lt%!--===============================================--%gt%
 
     %lt%UserMacro
-        Name="%PROJECT_BUILD%"
-        Value="$(%PROJECT_BUILD_DIR%)/build/$(PlatformName)/vc8/$(ConfigurationName)"
-    /%gt%
+		Name="%PROJECT_BUILD%"
+		Value="$(%PROJECT_BUILD_DIR%)/build/$(PlatformName)/vc8/$(ConfigurationName)"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_BUILD_OBJ%"
-        Value="$(%PROJECT_BUILD%)/obj"
-    /%gt%
+		Name="%PROJECT_BUILD_OBJ%"
+		Value="$(%PROJECT_BUILD%)/obj"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_BUILD_LIB%"
-        Value="$(%PROJECT_BUILD%)/lib"
-    /%gt%
+		Name="%PROJECT_BUILD_LIB%"
+		Value="$(%PROJECT_BUILD%)/lib"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_BUILD_BIN%"
-        Value="$(%PROJECT_BUILD%)/bin"
-    /%gt%
+		Name="%PROJECT_BUILD_BIN%"
+		Value="$(%PROJECT_BUILD%)/bin"
+	/%gt%
+	
+    %lt%UserMacro
+		Name="%PROJECT_INCLUDE_DIRS%"
+		Value="$(%PROJECT_SOURCE_DIR%)/include"
+	/%gt%
+    %lt%UserMacro
+		Name="%PROJECT_LIB_DIRS%"
+		Value="$(%PROJECT_BUILD_LIB%)"
+	/%gt%
+    %lt%UserMacro
+		Name="%PROJECT_LIBS%"
+		Value="%project_Libs%"
+	/%gt%
+	
+    %lt%!--===============================================--%gt%
     
     %lt%UserMacro
-        Name="%PROJECT_INCLUDE_DIRS%"
-        Value="$(%PROJECT_SOURCE_DIR%)/include"
-    /%gt%
+		Name="%BUILD_DIR%"
+		Value="$(%PROJECT_BUILD%)"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_LIB_DIRS%"
-        Value="$(%PROJECT_BUILD_LIB%)"
-    /%gt%
+		Name="%BUILD_OBJ%"
+		Value="$(%PROJECT_BUILD_OBJ%)"
+	/%gt%
     %lt%UserMacro
-        Name="%PROJECT_LIBS%"
-        Value="%project_Libs%"
-    /%gt%
-    
-    %do(%section_separator%)%
-    
+		Name="%BUILD_LIB%"
+		Value="$(%PROJECT_BUILD_LIB%)"
+	/%gt%
     %lt%UserMacro
-        Name="%BUILD_DIR%"
-        Value="$(%PROJECT_BUILD%)"
-    /%gt%
-    %lt%UserMacro
-        Name="%BUILD_OBJ%"
-        Value="$(%PROJECT_BUILD_OBJ%)"
-    /%gt%
-    %lt%UserMacro
-        Name="%BUILD_LIB%"
-        Value="$(%PROJECT_BUILD_LIB%)"
-    /%gt%
-    %lt%UserMacro
-        Name="%BUILD_BIN%"
-        Value="$(%PROJECT_BUILD_BIN%)"
-    /%gt%
+		Name="%BUILD_BIN%"
+		Value="$(%PROJECT_BUILD_BIN%)"
+	/%gt%
 
     %lt%UserMacro
-        Name="%INCLUDE_DIRS%"
-        Value="$(%PROJECT_INCLUDE_DIRS%)"
-    /%gt%
+		Name="%INCLUDE_DIRS%"
+		Value="$(%PROJECT_INCLUDE_DIRS%)"
+	/%gt%
     %lt%UserMacro
-        Name="%LIB_DIRS%"
-        Value="$(%PROJECT_LIB_DIRS%)"
-    /%gt%
+		Name="%LIB_DIRS%"
+		Value="$(%PROJECT_LIB_DIRS%)"
+	/%gt%
     %lt%UserMacro
-        Name="%LIBS%"
-        Value="$(%PROJECT_LIBS%)"
-    /%gt%
-    
-    %do(%section_separator%)%
-
+		Name="%LIBS%"
+		Value="$(%PROJECT_LIBS%)"
+	/%gt%
+	
 %lt%/VisualStudioPropertySheet%gt%
+%_html%
 %
-%)%)%%
-%)%)%%
 %)%)%

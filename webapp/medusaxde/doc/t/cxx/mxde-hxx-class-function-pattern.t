@@ -23,6 +23,8 @@
 %%if(%equal(doundo,%class_function_pattern%)%%equal(createdestroy,%class_function_pattern%)%,%(%
 %%if(%class_function_Do%,%(%
 %%with(%
+%Class_function_return,%()%,%
+%CLASS_FUNCTION_RETURN,%()%,%
 %class_function_return,%(%class_function_do_return%)%,%
 %class_function_parameters,%(%class_function_do_parameters%)%,%
 %Class_function_name,%(%Class_function_prefix%%class_function_Do%%Class_function_name%%Class_function_suffix%)%,%
@@ -32,6 +34,8 @@
 %)%)%%
 %%if(%class_function_Undo%,%(%
 %%with(%
+%Class_function_return,%()%,%
+%CLASS_FUNCTION_RETURN,%()%,%
 %class_function_return,%(%class_function_undo_return%)%,%
 %class_function_parameters,%(%class_function_undo_parameters%)%,%
 %Class_function_name,%(%Class_function_prefix%%class_function_Undo%%Class_function_name%%Class_function_suffix%)%,%
@@ -43,6 +47,8 @@
 %%if(%equal(setget,%class_function_pattern%)%,%(%
 %%if(%class_function_Do%,%(%
 %%with(%
+%Class_function_return,%()%,%
+%CLASS_FUNCTION_RETURN,%()%,%
 %class_function_return,%(%class_function_do_return%)%,%
 %class_function_parameters,%(%class_function_do_parameters%)%,%
 %Class_function_name,%(%Class_function_prefix%%class_function_Do%%Class_function_name%%Class_function_suffix%)%,%
@@ -52,6 +58,8 @@
 %)%)%%
 %%if(%class_function_Undo%,%(%
 %%with(%
+%Class_function_return,%()%,%
+%CLASS_FUNCTION_RETURN,%()%,%
 %class_function_const,%(%class_function_get_const%)%,%
 %class_function_return,%(%class_function_undo_return%)%,%
 %class_function_parameters,%(%class_function_undo_parameters%)%,%

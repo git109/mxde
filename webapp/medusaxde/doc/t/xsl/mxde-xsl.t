@@ -65,7 +65,8 @@
 )%,%
 %begin_comment,%(%cc_%%left_comment%)%,%
 %end_comment,%(%right_comment%%_cc%)%,%
-%separator_middle,%(========================================================================)%,%
+%separator_extra,%(%include(%filepath%/%organization%-separator-extra.t)%)%,%
+%separator_middle,%(========================================================================%separator_extra%)%,%
 %separator_padd,%(%length(%separator_middle%)%)%,%
 %separator,%(%left_comment%%separator_middle%%right_comment%)%,%
 %begin_separator,%(%%indent%%%cc_%%separator%

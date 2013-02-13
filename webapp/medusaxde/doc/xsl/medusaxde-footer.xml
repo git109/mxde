@@ -71,6 +71,23 @@
     <!-- footer-item                                                            -->
     <!--                                                                        -->
     <!--========================================================================-->
+    <footer-item id="for_google"
+     is_location_query_and="yes"
+     is_location_query_and_tab="no"
+     is_location_query_and_menu="no"
+     is_location_query_and_author="yes"
+     is_location_query_and_using="yes"
+     is_location_query_and_border="no"
+     location_query="for=google&amp;tab=create"
+     location="medusaxde.xsl">
+        <text>Google</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
     <footer-item id="for_none"
      is_location_query_and="yes"
      is_location_query_and_tab="no"

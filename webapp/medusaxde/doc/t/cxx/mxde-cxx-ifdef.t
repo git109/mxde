@@ -31,8 +31,22 @@
 %ifdef,%(%else-then(%left(%ifdef%,:)%,%ifdef%)%)%,%
 %ifdef_comment,%(%(%include(%filepath%/%fileprefix%cxx-ifdef-comment.t)%)%)%,%
 %ifdef_include,%(%(%include(%filepath%/%fileprefix%cxx-ifdef-include.t)%)%)%,%
+%if_defined,%(%else-then(%if_defined%,%(%
+%%parse(%ifdef%,|,%()%,%(|| )%,%(%
+%%parse(%ifdef%,&,%()%,%(&& )%,%(%
+%%kk_%%ndefined%defined%_kk%(%ifdef%) %
+%)%,ifdef)%%
+%)%,ifdef)%%
+%)%)%)%,%
+%else_defined,%(%else-then(%else_defined%,%(%
+%%parse(%ifdef%,|,%()%,%(|| )%,%(%
+%%parse(%ifdef%,&,%()%,%(&& )%,%(%
+%%ndefined%defined(%ifdef%) %
+%)%,ifdef)%%
+%)%,ifdef)%%
+%)%)%)%,%
 %%(
-%kk_%#if%_kk% %kk_%%ndefined%defined%_kk%(%ifdef%) %if(%ifname%,%(
+%kk_%#if%_kk% %if_defined% %if(%ifname%,%(
 %do(%ifdef_comment%)%)%)%%
 %%if(%ifinclude%,%(%with(include,%(%ifinclude%)%,%(%do(%ifdef_include%)%)%)%)%)%%
 %%parse(%elif%,;,,,%(%with(%
@@ -40,13 +54,20 @@
 %ifdef,%(%else-then(%left(%ifdef%,=)%,%ifdef%)%)%,%
 %ifname,%(%right(%ifdef%,:)%)%,%
 %ifdef,%(%else-then(%left(%ifdef%,:)%,%ifdef%)%)%,%
+%elif_defined,%(%else-then(%elif_defined%,%(%
+%%parse(%ifdef%,|,%()%,%(|| )%,%(%
+%%parse(%ifdef%,&,%()%,%(&& )%,%(%
+%%kk_%%ndefined%defined%_kk%(%ifdef%) %
+%)%,ifdef)%%
+%)%,ifdef)%%
+%)%)%)%,%
 %%(
-%kk_%#elif%_kk% %kk_%%ndefined%defined%_kk%(%ifdef%) %if(%ifname%,%(
+%kk_%#elif%_kk% %elif_defined% %if(%ifname%,%(
 %do(%ifdef_comment%)%)%)%%
 %%if(%ifinclude%,%(%with(include,%(%ifinclude%)%,%(%do(%ifdef_include%)%)%)%)%)%%
 %)%)%)%,ifdef)%
-%kk_%#else%_kk% %cc_%%left_comment% %ndefined%defined(%ifdef%) %right_comment%%_cc%%if(%elsename%,%(
+%kk_%#else%_kk% %cc_%%left_comment% %else_defined% %right_comment%%_cc%%if(%elsename%,%(
 %apply(ifname,%elsename%,%(%do(%ifdef_comment%)%)%)%)%)%%
 %%if(%elseinclude%,%(%with(include,%(%elseinclude%)%,%(%do(%ifdef_include%)%)%)%)%)%
-%kk_%#endif%_kk% %cc_%%left_comment% %ndefined%defined(%ifdef%) %right_comment%%_cc%
+%kk_%#endif%_kk% %cc_%%left_comment% %else_defined% %right_comment%%_cc%
 )%)%

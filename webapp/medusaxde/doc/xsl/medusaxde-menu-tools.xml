@@ -31,31 +31,31 @@
     <!-- menu-section                                                           -->
     <!--                                                                        -->
     <!--========================================================================-->
-    <menu-section id="apache" for="" or_not_for="" using="" or_not_using="">
-        <text>Apache</text>
+    <menu-section id="visualstudio">
+        <text>VisualStudio</text>
         <!--========================================================================-->
         <!--                                                                        -->
         <!-- menu-item                                                              -->
         <!--                                                                        -->
         <!--========================================================================-->
         <menu-item
-         id="apache_conf"
+         id="vsprops"
          is_location_query_and="yes"
          is_location_query_and_for="yes"
          is_location_query_and_using="yes"
-         location_path="/medusaxde/xsl/apache/"
+         location_path="/medusaxde/xsl/visualstudio/"
          location_query="document_file=../medusaxde.xml&amp;form=1"
-         location="medusaxde-create-httpd-conf.xsl">
-            <text>Create .conf File</text>
+         location="medusaxde-create-vsprops.xsl">
+            <text>Create .vsprops File</text>
         </menu-item>
     </menu-section>
-
+    
     <!--========================================================================-->
     <!--                                                                        -->
     <!-- menu-section                                                           -->
     <!--                                                                        -->
     <!--========================================================================-->
-    <menu-section id="fb" for="" or_not_for="" using="" or_not_using="">
+    <menu-section id="fb">
         <text>FireBreath</text>
         <!--========================================================================-->
         <!--                                                                        -->
@@ -79,7 +79,31 @@
     <!-- menu-section                                                           -->
     <!--                                                                        -->
     <!--========================================================================-->
-    <menu-section id="video_service" for="" or_not_for="" using="" or_not_using="">
+    <menu-section id="apache">
+        <text>Apache</text>
+        <!--========================================================================-->
+        <!--                                                                        -->
+        <!-- menu-item                                                              -->
+        <!--                                                                        -->
+        <!--========================================================================-->
+        <menu-item
+         id="apache_conf"
+         is_location_query_and="yes"
+         is_location_query_and_for="yes"
+         is_location_query_and_using="yes"
+         location_path="/medusaxde/xsl/apache/"
+         location_query="document_file=../medusaxde.xml&amp;form=1"
+         location="medusaxde-create-httpd-conf.xsl">
+            <text>Create .conf File</text>
+        </menu-item>
+    </menu-section>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- menu-section                                                           -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <menu-section id="video_service">
         <text>WebRTC</text>
         <!--========================================================================-->
         <!--                                                                        -->

@@ -61,4 +61,23 @@
         <cxx_function_comment>yes</cxx_function_comment>
     </for-which>
 
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="google"
+     target="google"
+     href="/medusaxde/">
+        <text>Google</text>
+        <author>$author$</author>
+        <organization>Google</organization>
+        <copyright>yes</copyright>
+        <open_source>yes</open_source>
+        <cxx_file_type>hpp</cxx_file_type>
+        <cxx_file_is_case>nocase</cxx_file_is_case>
+        <cxx_class_comment>yes</cxx_class_comment>
+        <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
 </medusaxde:for>

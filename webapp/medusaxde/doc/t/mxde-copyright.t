@@ -21,13 +21,13 @@
 %#############################################################################
 %apply-x(%
 %author,%(%else-then(%author%,$organization$     )%)%,%
-%year,%(%else-then(%year%,%(%year()%)%)%)%,%
+%year,%(%else-then(%copyright_year%,%(%else-then(%year%,%(%year()%)%)%)%)%)%,%
 %first_year,%(%else-then(%first_year%,%(1988)%)%)%,%
 %first_year,%(%else(%equal(%first_year%,%year%)%,%(%first_year%-)%)%)%,%
 %copyright_author,%(%else-then(%copyright_author%,%(%else-then(%organization%,%(%author%)%)%)%)%)%,%
-%copyright_text,%(%else-then(%copyright_text%,%( Copyright (c) %first_year%%year% %copyright_author%)%)%)%,%
+%copyright_text,%(%else-then(%copyright_text%,%else-then(%include(%filepath%/%organization%-copyright.t)%,%(Copyright (c) %first_year%%year% %copyright_author%)%)%)%)%,%
 %%(%
 %%do(%left_separator%)%%
-%%padd(%copyright_text%, ,%separator_padd%)%%
+%%padd( %copyright_text%, ,%separator_padd%)%%
 %%do(%right_separator%)%%
 %)%)%

@@ -1,5 +1,5 @@
 %########################################################################
-%# Copyright (c) 1988-2011 $organization$  
+%# Copyright (c) 1988-2013 $organization$
 %#
 %# This software is provided by the author and contributors ``as is'' 
 %# and any express or implied warranties, including, but not limited to, 
@@ -13,34 +13,9 @@
 %# or otherwise) arising in any way out of the use of this software, 
 %# even if advised of the possibility of such damage.
 %#
-%#   File: mxde-cxx-enum.t
+%#   File: Google-separator-extra.t
 %#
-%# Author: $author$           
-%#   Date: 2/4/2011
+%# Author: $author$
+%#   Date: 1/21/2013
 %########################################################################
-%with(%
-%%(%
-%%else-no(%enum_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)%    Enum: %do(%enum%)%
-%do(%left_separator%)%
-%do(%left_separator%)%  Author: %author%
-%do(%left_separator%)%    Date: %date%
-%do(%end_separator%)%%
-%)%)%%
-%%_enum_% %do(%enum%)%
-{
-%with(indent,%(%indent%%indent_%)%,%(%
-%%parse(%enum_list%,;,,%(,)%,%(
-)%,%(%
-%%with(%
-%enum_name,%(%else-then(%left(%enum_item%,=)%,%(%enum_item%)%)%)%,%
-%enum_value,%(%then-if(%right(%enum_item%,=)%,%( = )%)%)%,%
-%%(%
-%%indent%%enum_item_before%%enum_name%%enum_item_after%%enum_value%%
-%)%)%%
-%)%,enum_item)%%
-%)%)%%
-%};
-%
-%)%)%
+%with(%(========)%)%

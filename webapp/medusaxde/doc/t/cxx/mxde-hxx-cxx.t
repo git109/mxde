@@ -110,11 +110,15 @@
 %%indent%% */)%,%()%)%%_cc%
 )%,%
 %left_separator,%(%%indent%%%else(%cpp_comments%,%( *)%,%(%else(%cppp_comments%,%(//)%,%(///)%)%)%)%)%,%
+%namespace,%(%else-then(%namespace%,%()%)%)%,%
+%Namespace,%(%else-then(%Namespace%,%(%namespace%)%)%)%,%
+%NAMESPACE,%(%else-then(%NAMESPACE%,%(%toupper(%Namespace%)%)%)%)%,%
+%namespace,%(%else-then(%_Namespace%,%(%tolower(%Namespace%)%)%)%)%,%
 %class_comment,%(%else(%equal(no,%class_comment%)%,%(%else-then(%class_comment%,%(yes)%)%)%)%)%,%
 %class_constructor_comment,%(%else(%equal(no,%class_constructor_comment%)%,%(%else-then(%class_constructor_comment%,%(yes)%)%)%)%)%,%
 %class_destructor_comment,%(%else(%equal(no,%class_destructor_comment%)%,%(%else-then(%class_destructor_comment%,%(yes)%)%)%)%)%,%
 %class_function_comment,%(%else(%equal(no,%class_function_comment%)%,%(%else-then(%class_function_comment%,%(yes)%)%)%)%)%,%
-%class_namespace_define,%(%else-then(%class_namespace_define%,%(c_NAMESPACE)%)%)%,%
+%class_namespace_define,%(%else-then(%class_namespace_define%,%(%else-no(%else-then(%class_namespace_define_is%,yes)%,%(%else-no(%else-then(%cbases%,yes)%,%(c)%)%_NAMESPACE)%)%)%)%)%,%
 %Class_namespace_define,%(%else-then(%Class_namespace_define%,%(%class_namespace_define%)%)%)%,%
 %CLASS_NAMESPACE_DEFINE,%(%else-then(%CLASS_NAMESPACE_DEFINE%,%(%toupper(%Class_namespace_define%)%)%)%)%,%
 %class_namespace_define,%(%else-then(%_Class_namespace_define%,%(%tolower(%Class_namespace_define%)%)%)%)%,%
