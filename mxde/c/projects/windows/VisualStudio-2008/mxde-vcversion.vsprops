@@ -10,11 +10,11 @@
 
     <UserMacro
 		Name="VCVersion"
-		Value="vc8"
+		Value="vc9"
 	/>
     <UserMacro
 		Name="VSVersion"
-		Value="VS2005"
+		Value="VS2008"
 	/>
 
     <!--===============================================-->

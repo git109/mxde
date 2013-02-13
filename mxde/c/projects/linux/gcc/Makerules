@@ -1,0 +1,179 @@
+#############################################################################
+# Copyright (c) 1988-2009 medusa@medusade.org
+#
+# This software is provided by the author and contributors ``as is'' and
+# any express or implied warranties, including, but not limited to, the
+# implied warranties of merchantability and fitness for a particular purpose
+# are disclaimed.  In no event shall the author or contributors be liable
+# for any direct, indirect, incidental, special, exemplary, or consequential
+# damages (including, but not limited to, procurement of substitute goods
+# or services; loss of use, data, or profits; or business interruption)
+# however caused and on any theory of liability, whether in contract, strict
+# liability, or tort (including negligence or otherwise) arising in any way
+# out of the use of this software, even if advised of the possibility of
+# such damage.
+#
+#   File: Makerules
+#
+# Author: medusa@medusade.org
+#   Date: 3/12/2009
+#
+# Linux Gcc makefile rules for Medusa Xos Development Environment (MXDE)
+#############################################################################
+
+LIB_C_OBJS=$(LIB_C_SOURCES:.c=.o)
+LIB_CC_OBJS=$(LIB_CC_SOURCES:.cc=.o)
+LIB_CPP_OBJS=$(LIB_CPP_SOURCES:.cpp=.o)
+LIB_CXX_OBJS=$(LIB_CXX_SOURCES:.cxx=.o)
+LIB_OBJS = $(LIB_C_OBJS) $(LIB_CC_OBJS) $(LIB_CPP_OBJS) $(LIB_CXX_OBJS)
+
+SLIB_C_OBJS=$(SLIB_C_SOURCES:.c=.o)
+SLIB_CC_OBJS=$(SLIB_CC_SOURCES:.cc=.o)
+SLIB_CPP_OBJS=$(SLIB_CPP_SOURCES:.cpp=.o)
+SLIB_CXX_OBJS=$(SLIB_CXX_SOURCES:.cxx=.o)
+SLIB_OBJS = $(SLIB_C_OBJS) $(SLIB_CC_OBJS) $(SLIB_CPP_OBJS)  $(SLIB_CXX_OBJS)
+
+EXE_C_OBJS=$(EXE_C_SOURCES:.c=.o)
+EXE_CC_OBJS=$(EXE_CC_SOURCES:.cc=.o)
+EXE_CPP_OBJS=$(EXE_CPP_SOURCES:.cpp=.o)
+EXE_CXX_OBJS=$(EXE_CXX_SOURCES:.cxx=.o)
+EXE_OBJS = $(EXE_C_OBJS) $(EXE_CC_OBJS) $(EXE_CPP_OBJS) $(EXE_CXX_OBJS)
+
+KMOD_C_OBJS=$(KMOD_C_SOURCES:.c=.o)
+KMOD_OBJS = $(KMOD_C_OBJS)
+
+ALL_OBJS = $(OBJS) $(LIB_OBJS) $(SLIB_OBJS) $(KMOD_OBJS) $(EXE_OBJS)
+ALL_TARGETS = $(EXETARGET) $(LIBTARGET) $(SLIBTARGET) $(USRTARGET)
+
+all: ${LIBTARGET} ${SLIBTARGET} ${KMODTARGET} ${EXETARGET}
+
+again: clean all
+
+this-again: clean-this all
+
+clean-this:
+	$(RM) $(ALL_OBJS)
+
+clean:
+	@for dir in $(SLIB_DIRS) $(SLIBDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "Make $$dir clean Failed") ; \
+	done
+	@for dir in $(EXE_DIRS) $(EXEDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "Make $$dir clean Failed") ; \
+	done
+	@for dir in $(KMOD_DIRS) $(KMODDEP_DIRS); do \
+		(cd $$dir && make clean) || (echo "Make $$dir clean Failed") ; \
+	done
+	$(RM) $(ALL_OBJS)
+
+veryclean:
+	@for dir in $(SLIB_DIRS) $(SLIBDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "Make $$dir veryclean Failed") ; \
+	done
+	@for dir in $(EXE_DIRS) $(EXEDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "Make $$dir veryclean Failed") ; \
+	done
+	@for dir in $(KMOD_DIRS) $(KMODDEP_DIRS); do \
+		(cd $$dir && make veryclean) || (echo "Make $$dir veryclean Failed") ; \
+	done
+	$(RM) $(ALL_OBJS) $(ALL_TARGETS)
+
+cxxflags:
+	@echo $(CXXFLAGS)
+
+arflags:
+	@echo $(ARFLAGS)
+
+ldflags:
+	@echo $(LDFLAGS)
+
+${LIBTARGET}: ${LIBDEP}  ${LIB_OBJS}
+	@echo "Building Static Lib" $@ ...
+	@$(AR) $(ARFLAGS) $@ $(LIB_OBJS)
+	@$(MKDIR) $(LIBDIR)
+	@$(MV) $@ $(LIBDIR)
+
+${SLIBTARGET}: ${SLIBDEP} ${SLIB_OBJS} 
+	@echo "Building Shared Lib" $@ ...
+	@for dir in $(SLIB_DIRS); do \
+		echo "Make $$dir" ; \
+		(cd $$dir && make) || (echo "Make $$dir Failed") ; \
+	done
+	@$(CXXDSO) ${INCLUDES} $(DSOFLAGS) -o $@ $(LDFLAGS) $(SLIB_OBJS) $(LIBSSO)
+	@$(MKDIR) $(LIBDIR)
+	@$(MV) $@ $(LIBDIR)
+
+${EXETARGET}: ${EXEDEP} ${EXE_OBJS} 
+	@echo "Building Executable" $@ ...
+	@for dir in $(EXE_DIRS); do \
+		echo "Make $$dir" ; \
+		(cd $$dir && make) || (echo "Make $$dir Failed") ; \
+	done
+	@$(CXXLD) ${INCLUDES} $(LDFLAGS) -o $@ $(EXE_OBJS) $(LIBS)
+	@$(STRIP) $@ 
+	@$(MKDIR) $(BINDIR)
+	@$(MV) $@ $(BINDIR)
+
+${KMODTARGET}: ${KMOD_OBJS} ${KMODDEP} 
+	@echo "Building Kernel Module" $@ ...
+	@for dir in $(KMOD_DIRS); do \
+		echo "Make $$dir" ; \
+		(cd $$dir && make) || (echo "Make $$dir Failed") ; \
+	done
+	@$(KCCLD) ${KINCLUDES} $(KLDFLAGS) -o $@ $(KMOD_OBJS) $(KLIBS)
+	@$(MKDIR) $(BINDIR)
+	@$(MV) $@ $(BINDIR)
+
+$(KMOD_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@echo $(KCC) -c $(KCFLAGS) -o $@ $<
+	@$(KCC) -c $(KCFLAGS) -o $@ $<
+
+$(LIB_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CC) -c $(CFLAGS) -o $@ $<
+
+$(SLIB_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CC) -c $(CFLAGS) -o $@ $<
+
+$(EXE_C_SOURCES:.c=.o): %.o: %.c
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CC) -c $(CFLAGS) -o $@ $<
+
+$(LIB_CPP_SOURCES:.cpp=.o): %.o: %.cpp
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(SLIB_CPP_SOURCES:.cpp=.o): %.o: %.cpp
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(EXE_CPP_SOURCES:.cpp=.o): %.o: %.cpp
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(LIB_CXX_SOURCES:.cxx=.o): %.o: %.cxx
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(SLIB_CXX_SOURCES:.cxx=.o): %.o: %.cxx
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(EXE_CXX_SOURCES:.cxx=.o): %.o: %.cxx
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(LIB_CC_SOURCES:.cc=.o): %.o: %.cc
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(SLIB_CC_SOURCES:.cc=.o): %.o: %.cc
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 
+$(EXE_CC_SOURCES:.cc=.o): %.o: %.cc
+	@echo Compiling $(BUILD_TYPE) $< ...
+	@$(CXX) -c $(CXXFLAGS) -o $@ $<
+	 

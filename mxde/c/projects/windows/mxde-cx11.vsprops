@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="mxde-cx11">
+    
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_CXM_INCLUDES"
+		Value="$(MXDE_CLIB)\cx11\cxm\cplatform\windows;$(MXDE_CLIB)\cx11\cxm\cplatform;$(MXDE_CLIB)\cx11\cxm"
+	/>
+    <UserMacro
+		Name="MXDE_CXAW_INCLUDES"
+		Value="$(MXDE_CLIB)\cx11\cxaw\cplatform\windows;$(MXDE_CLIB)\cx11\cxaw\cplatform;$(MXDE_CLIB)\cx11\cxaw"
+	/>
+    <UserMacro
+		Name="MXDE_CXT_INCLUDES"
+		Value="$(MXDE_CLIB)\cx11\cxt\cplatform\windows;$(MXDE_CLIB)\cx11\cxt\cplatform;$(MXDE_CLIB)\cx11\cxt"
+	/>
+    <UserMacro
+		Name="MXDE_CX11_INCLUDES"
+		Value="$(MXDE_CXM_INCLUDES);$(MXDE_CXAW_INCLUDES);$(MXDE_CXT_INCLUDES);$(MXDE_CLIB)\cx11\cplatform\windows;$(MXDE_CLIB)\cx11\cplatform;$(MXDE_CLIB)\cx11"
+	/>
+	
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

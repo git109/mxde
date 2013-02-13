@@ -338,7 +338,7 @@
 	/>
     <UserMacro
 		Name="MXDE_COS_INCLUDES"
-		Value="$(MXDE_CLIB)/cos/windows/getopt;$(MXDE_CLIB)/cos/windows;$(MXDE_CLIB)/cos/cplatform;$(MXDE_CLIB)/cos"
+		Value="$(MXDE_CLIB)/cos/windows/getopt;$(MXDE_CLIB)/cos/windows;$(MXDE_CLIB)/cos/cplatform;$(MXDE_CLIB)/cos;$(MXDE_CLIB)/cbase"
 	/>
     <UserMacro
 		Name="MXDE_NEW_COS_INCLUDES"
@@ -347,7 +347,7 @@
 
     <UserMacro
 		Name="MXDE_C_INCLUDES"
-		Value="$(MXDE_CCGI_INCLUDES);$(MXDE_CNET_INCLUDES);$(MXDE_COS_INCLUDES);$(MXDE_CLIB)/cbase"
+		Value="$(MXDE_CCGI_INCLUDES);$(MXDE_CNET_INCLUDES);$(MXDE_COS_INCLUDES)"
 	/>
     <UserMacro
 		Name="MXDE_CWINHASH_INCLUDES"

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="mxde-cqt"
+	>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="QT_GROUP"
+		Value="thirdparty/Qt/"
+	/>
+    <UserMacro
+		Name="QT_NAME"
+		Value="Qt"
+	/>
+    <UserMacro
+		Name="QT_VERSION"
+		Value="-4.6.2-$(VSVersion)"
+	/>
+    <UserMacro
+		Name="QT_DIR"
+		Value="$(QT_GROUP)$(QT_NAME)$(QT_VERSION)"
+	/>
+
+    <UserMacro
+		Name="QT_SOURCE_DIR"
+		Value="$(SOURCE_DIR)/$(QT_DIR)/src"
+	/>
+    <UserMacro
+		Name="QT_INCLUDE_DIR"
+		Value="$(SOURCE_DIR)/$(QT_DIR)/include"
+	/>
+    <UserMacro
+		Name="QT_BUILD_DIR"
+		Value="$(SOURCE_DIR)/$(QT_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+
+    <UserMacro
+		Name="QT_LIB"
+		Value="$(QT_BUILD_DIR)/lib"
+	/>
+    <UserMacro
+		Name="QT_LIBS"
+		Value="QtGui4.lib QtCore4.lib"
+	/>
+    <UserMacro
+		Name="QT_DEBUG_LIBS"
+		Value="QtGuid4.lib QtCored4.lib"
+	/>
+    <UserMacro
+		Name="QT_MAIN_LIBS"
+		Value="$(QT_LIBS) qtmain.lib"
+	/>
+    <UserMacro
+		Name="QT_MAIN_DEBUG_LIBS"
+		Value="$(QT_DEBUG_LIBS) qtmaind.lib"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_QT_INCLUDES"
+		Value="$(QT_INCLUDE_DIR)/QtGui;$(QT_INCLUDE_DIR)/QtNetwork;$(QT_INCLUDE_DIR)/QtXml;$(QT_INCLUDE_DIR)/QtCore;$(QT_INCLUDE_DIR)"
+	/>
+    <UserMacro
+		Name="MXDE_CQT_INCLUDES"
+		Value="$(MXDE_CLIB)\cqt;$(MXDE_QT_INCLUDES)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

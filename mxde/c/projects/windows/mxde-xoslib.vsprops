@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="mxde-xoslib"
+	>
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="XOSLIB_DIR"
+		Value="xoslib"
+	/>
+    <UserMacro
+		Name="XOSLIB_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(XOSLIB_DIR)/c/src"
+	/>
+
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSWIN_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosWin;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/Win"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_XOSWIN_INCLUDE_DIRS);$(XOSLIB_SOURCE_DIR)/lib/XosGui;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSNETWORK_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosNetwork/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosNetwork;$(XOSLIB_SOURCE_DIR)/lib/Generic/Network/Win;$(XOSLIB_SOURCE_DIR)/lib/Generic/Network"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosPlatform;$(XOSLIB_SOURCE_DIR)/lib/Generic/Platform"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCORE_XOSTHREAD_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosThread/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosThread/XosUnix;$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosThread;$(XOSLIB_SOURCE_DIR)/lib/Generic/Thread/Win;$(XOSLIB_SOURCE_DIR)/lib/Generic/Thread/Unix;$(XOSLIB_SOURCE_DIR)/lib/Generic/Thread"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCORE_XOSWIN_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosWin/getopt;$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosPlatform/XosWin;$(XOSLIB_SOURCE_DIR)/lib/Generic/Platform/Win"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCORE_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSCORE_XOSWIN_INCLUDE_DIRS);$(XOSLIB_XOSCORE_XOSTHREAD_INCLUDE_DIRS);$(XOSLIB_XOSPLATFORM_INCLUDE_DIRS);$(XOSLIB_SOURCE_DIR)/lib/XosCore;$(XOSLIB_SOURCE_DIR)/lib/Generic/Core;$(XOSLIB_SOURCE_DIR)/lib/Generic"
+	/>
+    <UserMacro
+		Name="XOSLIB_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_INCLUDE_DIRS);$(XOSLIB_XOSNETWORK_INCLUDE_DIRS);$(XOSLIB_XOSCORE_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_WEBRTC_SOURCE_DIR"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosWebRtc/XosWebRtcClient"
+	/>
+    <UserMacro
+		Name="XOSLIB_WEBRTC_INCLUDE_DIRS"
+		Value="$(XOSLIB_WEBRTC_SOURCE_DIR)/XosWin;$(XOSLIB_WEBRTC_SOURCE_DIR);$(XOSLIB_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>
