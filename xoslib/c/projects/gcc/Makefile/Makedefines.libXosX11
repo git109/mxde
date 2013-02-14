@@ -1,0 +1,68 @@
+########################################################################
+# Copyright (c) 1988-2013 $organization$
+#
+# This software is provided by the author and contributors ``as is'' 
+# and any express or implied warranties, including, but not limited to, 
+# the implied warranties of merchantability and fitness for a particular 
+# purpose are disclaimed. In no event shall the author or contributors 
+# be liable for any direct, indirect, incidental, special, exemplary, 
+# or consequential damages (including, but not limited to, procurement 
+# of substitute goods or services; loss of use, data, or profits; or 
+# business interruption) however caused and on any theory of liability, 
+# whether in contract, strict liability, or tort (including negligence 
+# or otherwise) arising in any way out of the use of this software, 
+# even if advised of the possibility of such damage.
+#
+#   File: Makedefines.libXosX11
+#
+# Author: $author$
+#   Date: 2/9/2013
+#
+# Linux Gcc Makedefines for Xoslib libXosX11 Static Library
+########################################################################
+
+#
+# Static Library C++ .cpp sources
+#
+_LIB_XosGui_XosX11_XosPlatform_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosPlatform/XosPlatform_GL_gl.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosPlatform/XosPlatform_GL_glu.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosPlatform/XosPlatform_GL_glx.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosPlatform/XosPlatform_X11_Xlib.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosPlatform/XosPlatform_X11_xpm.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosPlatform/XosPlatform_X11_Xutil.cpp \
+
+_LIB_XosGui_XosX11_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXBase.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXInterfaceBase.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXlib.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXColor.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXColormap.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXColormapAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXEvent.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXEventTarget.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXEventTargetInterface.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXGC.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXGCAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXPixel.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXPixelAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXPixmapAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXDrawableAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXWindow.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXWindowAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXWindowInterface.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXDisplay.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXDisplayAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXAtom.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXAtomAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXScreen.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXScreenAttached.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXMain.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXWindowMain.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXContext.cpp \
+$(PKG)/$(SRC)/lib/XosGui/XosX11/XosXContextAttached.cpp \
+
+_LIB_XosX11_CPP_SOURCES = \
+$(_LIB_XosGui_XosX11_XosPlatform_CPP_SOURCES) \
+$(_LIB_XosGui_XosX11_CPP_SOURCES) \
+

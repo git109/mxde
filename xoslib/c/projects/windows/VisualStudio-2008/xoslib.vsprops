@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="xoslib"
+	>
+    
+    <UserMacro
+		Name="VCVersion"
+		Value="vc9"
+	/>
+
+    <UserMacro
+		Name="VSVersion"
+		Value="VS2008"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="SOURCE_ROOT_DIR"
+		Value="../../../../../.."
+	/>
+    
+    <UserMacro
+		Name="SOURCE_BUILD_DIR"
+		Value="$(SOURCE_ROOT_DIR)"
+	/>
+    
+    <UserMacro
+		Name="SOURCE_BUILD"
+		Value="$(SOURCE_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="XOSLIB_DIR"
+		Value="xoslib"
+	/>
+    <UserMacro
+		Name="XOSLIB_SOURCE_DIR"
+		Value="../../../../src"
+	/>
+    <UserMacro
+		Name="XOSLIB_BUILD_DIR"
+		Value="$(SOURCE_BUILD_DIR)/$(XOSLIB_DIR)/build"
+	/>
+	
+    <UserMacro
+		Name="XOSLIB_BUILD"
+		Value="$(XOSLIB_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="XOSLIB_OBJ"
+		Value="$(XOSLIB_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="XOSLIB_LIB"
+		Value="$(XOSLIB_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="XOSLIB_BIN"
+		Value="$(XOSLIB_BUILD)/bin"
+	/>
+	
+    <UserMacro
+		Name="XOSLIB_DEFINES"
+		Value=""
+	/>
+
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSMAC_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosOpenGL/XosMac;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosMac;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/Mac"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSWIN_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosOpenGL/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosWin;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/Win"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_XOSWIN_INCLUDE_DIRS);$(XOSLIB_XOSGUI_XOSMAC_INCLUDE_DIRS);$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosOpenGL;$(XOSLIB_SOURCE_DIR)/lib/XosGui;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSNETWORK_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosNetwork/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosNetwork;$(XOSLIB_SOURCE_DIR)/lib/Generic/Network/Win;$(XOSLIB_SOURCE_DIR)/lib/Generic/Network"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCORE_XOSTHREAD_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosThread/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosThread/XosUnix;$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosThread;$(XOSLIB_SOURCE_DIR)/lib/Generic/Thread/Win;$(XOSLIB_SOURCE_DIR)/lib/Generic/Thread/Unix;$(XOSLIB_SOURCE_DIR)/lib/Generic/Thread"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCORE_XOSWIN_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosWin/getopt;$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosPlatform/XosWin;$(XOSLIB_SOURCE_DIR)/lib/Generic/Platform/Win"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosPlatform;$(XOSLIB_SOURCE_DIR)/lib/Generic/Platform"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCORE_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSCORE_XOSTHREAD_INCLUDE_DIRS);$(XOSLIB_XOSCORE_XOSWIN_INCLUDE_DIRS);$(XOSLIB_SOURCE_DIR)/lib/XosCore/XosUnix;$(XOSLIB_XOSPLATFORM_INCLUDE_DIRS);$(XOSLIB_SOURCE_DIR)/lib/XosCore;$(XOSLIB_SOURCE_DIR)/lib/Generic/Core;$(XOSLIB_SOURCE_DIR)/lib/Generic"
+	/>
+    <UserMacro
+		Name="XOSLIB_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_INCLUDE_DIRS);$(XOSLIB_XOSNETWORK_INCLUDE_DIRS);$(XOSLIB_XOSCORE_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_LIB_DIRS"
+		Value="$(XOSLIB_LIB)"
+	/>
+    <UserMacro
+		Name="XOSLIB_LIBS"
+		Value=""
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

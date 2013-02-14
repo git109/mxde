@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="xoslib-cocoa">
+    
+    <!--===============================================-->
+    
+    <UserMacro
+        Name="COCOA_GROUP"
+        Value="thirdparty/cocoa/"
+    />
+    <UserMacro
+        Name="COCOA_NAME"
+        Value="cocoa"
+    />
+    <UserMacro
+        Name="COCOA_VERSION"
+        Value=""
+    />
+    <UserMacro
+        Name="COCOA_DIR"
+        Value="$(COCOA_GROUP)$(COCOA_NAME)$(COCOA_VERSION)"
+    />
+    <UserMacro
+        Name="COCOA_SOURCE_DIR"
+        Value="$(SOURCE_ROOT_DIR)/$(COCOA_DIR)"
+    />
+    <UserMacro
+        Name="COCOA_BUILD_DIR"
+        Value="$(SOURCE_BUILD_DIR)/$(COCOA_DIR)"
+    />
+    
+    <!--===============================================-->
+
+
+    <UserMacro
+        Name="COCOA_BUILD"
+        Value="$(COCOA_BUILD_DIR)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="COCOA_OBJ"
+        Value="$(COCOA_BUILD)/obj"
+    />
+    <UserMacro
+        Name="COCOA_LIB"
+        Value="$(COCOA_BUILD)/lib"
+    />
+    <UserMacro
+        Name="COCOA_BIN"
+        Value="$(COCOA_BUILD)/bin"
+    />
+    
+    <UserMacro
+        Name="COCOA_INCLUDE_DIRS"
+        Value="$(COCOA_SOURCE_DIR)"
+    />
+    <UserMacro
+        Name="COCOA_LIB_DIRS"
+        Value="$(COCOA_LIB)"
+    />
+    <UserMacro
+        Name="COCOA_LIBS"
+        Value=""
+    />
+    <UserMacro
+        Name="COCOA_DEBUG_LIBS"
+        Value=""
+    />
+    
+    <!--===============================================-->
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSCOCOA_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosCocoa;$(COCOA_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCOCOA_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_XOSCOCOA_INCLUDE_DIRS);$(XOSLIB_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCOCOA_LIB_DIRS"
+		Value="$(COCOA_LIB_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCOCOA_LIBS"
+		Value="$(COCOA_LIBS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSCOCOA_DEBUG_LIBS"
+		Value="$(COCOA_DEBUG_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

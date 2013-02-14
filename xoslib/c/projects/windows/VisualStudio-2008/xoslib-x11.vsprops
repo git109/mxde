@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="xoslib-x11"
+	>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_GL_CPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cgl/cplatform/windows;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cgl/cplatform"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_CPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cx11/cplatform/windows;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cx11/cplatform;$(XOSLIB_XOSGUI_XOSX11_GL_CPLATFORM_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_XOSPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/XosPlatform/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/XosPlatform;$(XOSLIB_XOSGUI_XOSX11_CPLATFORM_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosOpenGL/XosX11;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/X11;$(XOSLIB_XOSGUI_XOSX11_XOSPLATFORM_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+
+
+    <UserMacro
+		Name="XOSLIB_XOSX11_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_XOSX11_INCLUDE_DIRS);$(XOSLIB_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+    
+</VisualStudioPropertySheet>

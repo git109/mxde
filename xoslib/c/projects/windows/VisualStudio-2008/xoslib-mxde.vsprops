@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="xoslib-mxde"
+	>
+    
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/mxde"
+	/>
+
+    <UserMacro
+		Name="MXDE_C_SRC"
+		Value="$(MXDE_DIR)/c/src"
+	/>
+    <UserMacro
+		Name="MXDE_CLIB"
+		Value="$(MXDE_C_SRC)/clib"
+	/>
+    <UserMacro
+		Name="MXDE_CAPP"
+		Value="$(MXDE_C_SRC)/capp"
+	/>
+    <UserMacro
+		Name="MXDE_CLIB_NEW"
+		Value="$(MXDE_CLIB)/new"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_CGIFLIB_INCLUDES"
+		Value="$(MXDE_CLIB)/cgiflib;$(GIFLIB_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBBMP_INCLUDES"
+		Value="$(MXDE_CLIB)/clibbmp;$(LIBBMP_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBJPEG_INCLUDES"
+		Value="$(MXDE_CLIB)/clibjpeg;$(LIBJPEG_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBPNG_INCLUDES"
+		Value="$(MXDE_CLIB)/clibpng;$(LIBPNG_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBTIFF_INCLUDES"
+		Value="$(MXDE_CLIB)/clibtiff;$(LIBTIFF_INCLUDE_DIRS)"
+	/>
+
+    <UserMacro
+		Name="MXDE_CXM_INCLUDES"
+		Value="$(MXDE_CLIB)/cx11/cxm;$(MXDE_CLIB)/cx11/cxm/cplatform/windows;$(MXDE_CLIB)/cx11/cxm/cplatform"
+	/>
+    <UserMacro
+		Name="MXDE_CXAW_INCLUDES"
+		Value="$(MXDE_CLIB)/cx11/cxaw;$(MXDE_CLIB)/cx11/cxaw/cplatform/windows;$(MXDE_CLIB)/cx11/cxaw/cplatform"
+	/>
+    <UserMacro
+		Name="MXDE_CXT_INCLUDES"
+		Value="$(MXDE_CLIB)/cx11/cxt;$(MXDE_CLIB)/cx11/cxt/cplatform/windows;$(MXDE_CLIB)/cx11/cxt/cplatform"
+	/>
+    <UserMacro
+		Name="MXDE_CLIBX11_INCLUDES"
+		Value="$(MXDE_CLIB)/cx11;$(MXDE_CLIB)/cx11/cplatform/windows;$(MXDE_CLIB)/cx11/cplatform"
+	/>
+    <UserMacro
+		Name="MXDE_CX11_INCLUDES"
+		Value="$(MXDE_CXM_INCLUDES);$(MXDE_CXAW_INCLUDES);$(MXDE_CXT_INCLUDES);$(MXDE_CLIBX11_INCLUDES)"
+	/>
+
+    <UserMacro
+		Name="MXDE_CWIN_INCLUDES"
+		Value="$(MXDE_CLIB)/cwin/cwinpng;$(MXDE_CLIB)/cwin/cwingif;$(MXDE_CLIB)/cwin/cwintiff;$(MXDE_CLIB)/cwin/cwinjpeg;$(MXDE_CLIB)/cwin/cwinbitmap;$(MXDE_CLIB)/cwin/cwincontrol;$(MXDE_CLIB)/cwin/cwinwindow;$(MXDE_CLIB)/cwin/cwinwindowclass;$(MXDE_CLIB)/cwin/cwinmain;$(MXDE_CLIB)/cwin/cwingdi;$(MXDE_CLIB)/cwin"
+	/>
+
+    <UserMacro
+		Name="MXDE_CIMAGE_INCLUDES"
+		Value="$(MXDE_CLIB)/cimage/cwin;$(MXDE_CLIB)/cimage/cx11;$(MXDE_CLIB)/cimage;$(MXDE_CLIBPNG_INCLUDES)"
+	/>
+    <UserMacro
+		Name="MXDE_COS_INCLUDES"
+		Value="$(MXDE_CLIB)/cos/windows;$(MXDE_CLIB)/cos/cplatform;$(MXDE_CLIB)/cos"
+	/>
+
+    <UserMacro
+		Name="XOSLIB_MXDE_INCLUDES"
+		Value="$(MXDE_CIMAGE_INCLUDES);$(MXDE_CWIN_INCLUDES);$(MXDE_COS_INCLUDES);$(MXDE_CLIB)/cbase"
+	/>
+
+    <!--===============================================-->
+</VisualStudioPropertySheet>

@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{8369C37A-2E18-4CD8-92F8-EEDDD52F4671}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{7CDE492E-2487-4482-AED4-B252947571E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{9A2F5B58-88D9-4146-A148-F6736821C848}"
+	ProjectSection(SolutionItems) = preProject
+		xoslib-mxde.vsprops = xoslib-mxde.vsprops
+		xoslib-x11.vsprops = xoslib-x11.vsprops
+		xoslib.vsprops = xoslib.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Make Files", "Make Files", "{E38682E3-8ACC-4905-BF34-51923239E4DD}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\linux\Makefile\Makedefines = ..\..\linux\Makefile\Makedefines
+		..\..\linux\Makefile\Makedirs = ..\..\linux\Makefile\Makedirs
+		..\..\linux\Makefile\Makefile = ..\..\linux\Makefile\Makefile
+		..\..\linux\Makefile\Makerules = ..\..\linux\Makefile\Makerules
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXosCore", "libXosCore\libXosCore.vcproj", "{D654FCC2-0ABA-4E46-8837-DAF95711AA10}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXosX11", "libXosX11\libXosX11.vcproj", "{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XosXHello", "XosXHello\XosXHello.vcproj", "{5808FCC3-F62F-482E-9C1B-AD1B66E564B5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D654FCC2-0ABA-4E46-8837-DAF95711AA10} = {D654FCC2-0ABA-4E46-8837-DAF95711AA10}
+		{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B} = {4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D654FCC2-0ABA-4E46-8837-DAF95711AA10}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D654FCC2-0ABA-4E46-8837-DAF95711AA10}.Debug|Win32.Build.0 = Debug|Win32
+		{D654FCC2-0ABA-4E46-8837-DAF95711AA10}.Release|Win32.ActiveCfg = Release|Win32
+		{D654FCC2-0ABA-4E46-8837-DAF95711AA10}.Release|Win32.Build.0 = Release|Win32
+		{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B}.Debug|Win32.Build.0 = Debug|Win32
+		{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B}.Release|Win32.ActiveCfg = Release|Win32
+		{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B}.Release|Win32.Build.0 = Release|Win32
+		{5808FCC3-F62F-482E-9C1B-AD1B66E564B5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5808FCC3-F62F-482E-9C1B-AD1B66E564B5}.Debug|Win32.Build.0 = Debug|Win32
+		{5808FCC3-F62F-482E-9C1B-AD1B66E564B5}.Release|Win32.ActiveCfg = Release|Win32
+		{5808FCC3-F62F-482E-9C1B-AD1B66E564B5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5808FCC3-F62F-482E-9C1B-AD1B66E564B5} = {8369C37A-2E18-4CD8-92F8-EEDDD52F4671}
+		{D654FCC2-0ABA-4E46-8837-DAF95711AA10} = {7CDE492E-2487-4482-AED4-B252947571E0}
+		{4A7AECF6-984A-4956-A7D1-41C4FD0B9D0B} = {7CDE492E-2487-4482-AED4-B252947571E0}
+	EndGlobalSection
+EndGlobal

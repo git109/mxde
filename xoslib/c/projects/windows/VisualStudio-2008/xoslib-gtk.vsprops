@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="xoslib-gtk"
+	>
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="CAIRO_GROUP"
+		Value="../libc/cairo"
+	/>
+    <UserMacro
+		Name="CAIRO_NAME"
+		Value="cairo"
+	/>
+    <UserMacro
+		Name="CAIRO_VERSION"
+		Value="1.8.10"
+	/>
+    <UserMacro
+		Name="CAIRO_DIR"
+		Value="$(CAIRO_GROUP)/$(CAIRO_NAME)-$(CAIRO_VERSION)"
+	/>
+    <UserMacro
+		Name="CAIRO_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(CAIRO_DIR)"
+	/>
+    <UserMacro
+		Name="CAIRO_INCLUDE_DIRS"
+		Value="$(CAIRO_SOURCE_DIR)/config/$(PlatformName);$(CAIRO_SOURCE_DIR)/src;$(CAIRO_SOURCE_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="PANGO_GROUP"
+		Value="../libc/pango"
+	/>
+    <UserMacro
+		Name="PANGO_NAME"
+		Value="pango"
+	/>
+    <UserMacro
+		Name="PANGO_VERSION"
+		Value="1.28.0"
+	/>
+    <UserMacro
+		Name="PANGO_DIR"
+		Value="$(PANGO_GROUP)/$(PANGO_NAME)-$(PANGO_VERSION)"
+	/>
+    <UserMacro
+		Name="PANGO_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(PANGO_DIR)"
+	/>
+    <UserMacro
+		Name="PANGO_INCLUDE_DIRS"
+		Value="$(PANGO_SOURCE_DIR)/config/$(PlatformName);$(PANGO_SOURCE_DIR)/src;$(PANGO_SOURCE_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="GLIB_GROUP"
+		Value="../libc/glib"
+	/>
+    <UserMacro
+		Name="GLIB_NAME"
+		Value="glib"
+	/>
+    <UserMacro
+		Name="GLIB_VERSION"
+		Value="2.24.1"
+	/>
+    <UserMacro
+		Name="GLIB_DIR"
+		Value="$(GLIB_GROUP)/$(GLIB_NAME)-$(GLIB_VERSION)"
+	/>
+    <UserMacro
+		Name="GLIB_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(GLIB_DIR)"
+	/>
+    <UserMacro
+		Name="GLIB_INCLUDE_DIRS"
+		Value="$(GLIB_SOURCE_DIR)/config/$(PlatformName);$(GLIB_SOURCE_DIR)/gmodule;$(GLIB_SOURCE_DIR)/glib;$(GLIB_SOURCE_DIR)/gio;$(GLIB_SOURCE_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="GDK_PIXBUF_GROUP"
+		Value="gtk"
+	/>
+    <UserMacro
+		Name="GDK_PIXBUF_NAME"
+		Value="gdk-pixbuf"
+	/>
+    <UserMacro
+		Name="GDK_PIXBUF_VERSION"
+		Value="2.24.0"
+	/>
+    <UserMacro
+		Name="GDK_PIXBUF_DIR"
+		Value="$(GDK_PIXBUF_GROUP)/$(GDK_PIXBUF_NAME)-$(GDK_PIXBUF_VERSION)"
+	/>
+    <UserMacro
+		Name="GDK_PIXBUF_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(GDK_PIXBUF_DIR)"
+	/>
+    <UserMacro
+		Name="GDK_PIXBUF_INCLUDE_DIRS"
+		Value="$(GDK_PIXBUF_SOURCE_DIR)/config/$(PlatformName);$(GDK_PIXBUF_SOURCE_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="ATK_GROUP"
+		Value="gtk"
+	/>
+    <UserMacro
+		Name="ATK_NAME"
+		Value="atk"
+	/>
+    <UserMacro
+		Name="ATK_VERSION"
+		Value="2.0.0"
+	/>
+    <UserMacro
+		Name="ATK_DIR"
+		Value="$(ATK_GROUP)/$(ATK_NAME)-$(ATK_VERSION)"
+	/>
+    <UserMacro
+		Name="ATK_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(ATK_DIR)"
+	/>
+    <UserMacro
+		Name="ATK_INCLUDE_DIRS"
+		Value="$(ATK_SOURCE_DIR)/config/$(PlatformName);$(ATK_SOURCE_DIR)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="GTK_GROUP"
+		Value="gtk"
+	/>
+    <UserMacro
+		Name="GTK_NAME"
+		Value="gtk"
+	/>
+    <UserMacro
+		Name="GTK_VERSION"
+		Value="2.24.0"
+	/>
+    <UserMacro
+		Name="GTK_DIR"
+		Value="$(GTK_GROUP)/$(GTK_NAME)-$(GTK_VERSION)"
+	/>
+    <UserMacro
+		Name="GTK_SOURCE_DIR"
+		Value="$(SOURCE_ROOT_DIR)/$(GTK_DIR)"
+	/>
+    <UserMacro
+		Name="GTK_INCLUDE_DIRS"
+		Value="$(GTK_SOURCE_DIR)/config/$(PlatformName);$(GTK_SOURCE_DIR);$(ATK_INCLUDE_DIRS);$(GDK_PIXBUF_INCLUDE_DIRS);$(GLIB_INCLUDE_DIRS);$(CAIRO_INCLUDE_DIRS));$(PANGO_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSGTK_XOSGDK_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosGtk/XosGdk/XosPlatform;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosGtk/XosGdk;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/Gtk/Gdk"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSGTK_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_XOSGTK_XOSGDK_INCLUDE_DIRS);$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosGtk/XosPlatform;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosGtk;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/Gtk;$(GTK_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_GL_CPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cgl/cplatform/windows;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cgl/cplatform"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_CPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cx11/cplatform/windows;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/cx11/cplatform;$(XOSLIB_XOSGUI_XOSX11_GL_CPLATFORM_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_XOSPLATFORM_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/XosPlatform/XosWin;$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11/XosPlatform;$(XOSLIB_XOSGUI_XOSX11_CPLATFORM_INCLUDE_DIRS)"
+	/>
+    <UserMacro
+		Name="XOSLIB_XOSGUI_XOSX11_INCLUDE_DIRS"
+		Value="$(XOSLIB_SOURCE_DIR)/lib/XosGui/XosX11;$(XOSLIB_SOURCE_DIR)/lib/Generic/Gui/X11;$(XOSLIB_XOSGUI_XOSX11_XOSPLATFORM_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="XOSLIB_GTK_INCLUDE_DIRS"
+		Value="$(XOSLIB_XOSGUI_XOSGTK_INCLUDE_DIRS);$(XOSLIB_XOSGUI_XOSX11_INCLUDE_DIRS);$(XOSLIB_INCLUDE_DIRS)"
+	/>
+
+    <!--===============================================-->
+</VisualStudioPropertySheet>

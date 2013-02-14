@@ -1,0 +1,111 @@
+########################################################################
+# Copyright (c) 1988-2013 $organization$
+#
+# This software is provided by the author and contributors ``as is'' 
+# and any express or implied warranties, including, but not limited to, 
+# the implied warranties of merchantability and fitness for a particular 
+# purpose are disclaimed. In no event shall the author or contributors 
+# be liable for any direct, indirect, incidental, special, exemplary, 
+# or consequential damages (including, but not limited to, procurement 
+# of substitute goods or services; loss of use, data, or profits; or 
+# business interruption) however caused and on any theory of liability, 
+# whether in contract, strict liability, or tort (including negligence 
+# or otherwise) arising in any way out of the use of this software, 
+# even if advised of the possibility of such damage.
+#
+#   File: Makedefines.libXosCore
+#
+# Author: $author$
+#   Date: 2/5/2013
+#
+# Linux Gcc Makefile for Xoslib libXosCore Static Library
+########################################################################
+
+#
+# Static Library C++ .cpp sources
+#
+_LIB_XosCore_XosPlatform_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform.cpp \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform_errno.cpp \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform_opengl.cpp \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform_pthread.cpp \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform_semaphore.cpp \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform_socket.cpp \
+$(PKG)/$(SRC)/lib/XosPlatform/XosPlatform_time.cpp \
+
+_LIB_XosCore_XosCore_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosCore/XosAllocatedAttached.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosAllocatedAttachedInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosArray.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosArrayInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosAttached.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosAttachedInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosBase.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosCreatedAttached.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosCreatedAttachedInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosDebug.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosError.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosExportBase.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosIBuffer.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosIBufferFile.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosInstanceBase.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosInterfaceBase.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosIOStreamInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosIStreamInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosOpenedAttached.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosOpenedAttachedInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosOptMain.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosOStreamInterface.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosString.cpp \
+
+_LIB_XosCore_XosThread_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosMutex.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosMutexBase.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosSemaphore.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosSemaphoreBase.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosThread.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosThreadBase.cpp \
+
+_LIB_XosCore_XosNetwork_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosNetwork/XosIPv4AddrString.cpp \
+$(PKG)/$(SRC)/lib/XosNetwork/XosSocket.cpp \
+
+_LIB_XosCore_XosGui_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosGui/XosPixel.cpp \
+
+_LIB_XosCore_CPP_SOURCES = \
+$(_LIB_XosCore_XosPlatform_CPP_SOURCES) \
+$(_LIB_XosCore_XosCore_CPP_SOURCES) \
+$(_LIB_XosCore_XosThread_CPP_SOURCES) \
+$(_LIB_XosCore_XosNetwork_CPP_SOURCES) \
+$(_LIB_XosCore_XosGui_CPP_SOURCES) \
+
+#
+# Static Library Unix C++ .cpp sources
+#
+_LIB_XosCore_XosPlatform_XosUnix_CPP_SOURCES = \
+
+_LIB_XosCore_XosCore_XosUnix_CPP_SOURCES = \
+
+_LIB_XosCore_XosThread_XosUnix_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosUnix/XosPThread.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosUnix/XosPThreadMutex.cpp \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosUnix/XosPThreadSemaphore.cpp \
+
+_LIB_XosCore_XosNetwork_XosUnix_CPP_SOURCES = \
+
+_LIB_XosCore_XosGui_XosUnix_CPP_SOURCES = \
+
+_LIB_XosCore_XosUnix_CPP_SOURCES = \
+$(_LIB_XosCore_XosPlatform_XosUnix_CPP_SOURCES) \
+$(_LIB_XosCore_XosCore_XosUnix_CPP_SOURCES) \
+$(_LIB_XosCore_XosThread_XosUnix_CPP_SOURCES) \
+$(_LIB_XosCore_XosNetwork_XosUnix_CPP_SOURCES) \
+$(_LIB_XosCore_XosGui_XosUnix_CPP_SOURCES) \
+
+#
+# Static Library MacOSX C++ .cpp sources
+#
+_LIB_XosCore_XosMac_CPP_SOURCES = \
+$(PKG)/$(SRC)/lib/XosCore/XosThread/XosMac/XosMachSemaphore.cpp \
+
