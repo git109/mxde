@@ -22,33 +22,10 @@
 #define _XOS_MAIN_HPP_
 
 #include "xos/os/MainBase.hpp"
+#include "xos/os/MainOpt.hpp"
 #include "xos/os/StreamLogger.hpp"
-#include <getopt.h>
-
-#define XOS_MAIN_2STRING_(id) "" #id ""
-#define XOS_MAIN_2STRING(id) XOS_MAIN_2STRING_(id)
-
-#define XOS_MAIN_OPTIONS_CHARS "l:h"
-#define XOS_MAIN_OPTIONS_OPTIONS \
-            {"logging-level", XOS_MAIN_OPT_ARGUMENT_REQUIRED, 0, 'l'},\
-            {"help", XOS_MAIN_OPT_ARGUMENT_NONE, 0, 'h'},
-
-enum
-{
-    XOS_MAIN_OPT_ARGUMENT_NONE     = 0,
-    XOS_MAIN_OPT_ARGUMENT_REQUIRED = 1,
-    XOS_MAIN_OPT_ARGUMENT_OPTIONAL = 2
-};
 
 namespace xos {
-
-typedef int MainOptArgument;
-enum
-{
-    MAIN_OPT_ARGUMENT_NONE     = XOS_MAIN_OPT_ARGUMENT_NONE,
-    MAIN_OPT_ARGUMENT_REQUIRED = XOS_MAIN_OPT_ARGUMENT_REQUIRED,
-    MAIN_OPT_ARGUMENT_OPTIONAL = XOS_MAIN_OPT_ARGUMENT_OPTIONAL
-};
 
 typedef MainBaseImplement MainImplement;
 typedef MainBase MainExtend;
@@ -177,19 +154,20 @@ public:
      const char* optname, int optind,
      int argc, char**argv, char**env)
     {
-        int err = 1;
-        switch(optval)
+        int err = xos::OnLoggingOption
+        (optval, optarg, optname, optind, argc, argv, env);
+        /*switch(optval)
         {
         case 'l':
             err = OnLoggingLevel(optarg);
             break;
-        }
+        }*/
         return err;
     }
     static int OnLoggingLevel(const char* optarg)
     {
-        int err = 1;
-        char c;
+        int err = xos::OnLoggingLevel(optarg);
+        /*char c;
 
         if ((optarg))
         if ((c = optarg[0]))
@@ -240,7 +218,7 @@ public:
             default:
                 err = 1;
             }
-        }
+        }*/
         return err;
     }
     virtual int OnUsageOption

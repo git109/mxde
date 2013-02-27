@@ -19,16 +19,10 @@
 ///   Date: 10/24/2012
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/unix/DLibrary.hpp"
+#include "xos/os/os/DLibrary.cpp"
 
 namespace xos {
 namespace unix {
 
 } // namespace unix 
 } // namespace xos 
-
-
-
-
-
-        
-

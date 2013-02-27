@@ -241,6 +241,10 @@ if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
 #define XOS_LOG_INFOF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Info, message, ##__VA_ARGS__)
 #define XOS_LOG_DEBUGF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Debug, message, ##__VA_ARGS__)
 #define XOS_LOG_TRACEF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Trace, message, ##__VA_ARGS__)
+
+// default logging levels
+//
+#define XOS_DEFAULT_LOGGING_LEVELS XOS_LOGGING_LEVELS_INFO
 #endif // defined(LOG4CXX)
 
 #if defined(LOGGER_None)

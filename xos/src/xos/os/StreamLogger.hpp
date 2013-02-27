@@ -26,7 +26,7 @@
 #include "xos/base/Attached.hpp"
 #include "xos/base/Locker.hpp"
 
-#define XOS_STREAMLOGGER_LEVELS_ENABLED ::xos::Logger::Levels::Trace
+#define XOS_STREAMLOGGER_LEVELS_ENABLED XOS_DEFAULT_LOGGING_LEVELS
 
 namespace xos {
 

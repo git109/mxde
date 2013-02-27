@@ -76,6 +76,15 @@ public:
         Append(chars);
         return *this; }
 
+    StringT& Assign(int value) {
+        this->clear();
+        Append(value);
+        return *this; }
+    StringT& Assign(unsigned int value) {
+        this->clear();
+        Append(value);
+        return *this; }
+
     StringT& Append(const Extends& string) {
         this->append(string);
         return *this; }
@@ -114,6 +123,50 @@ public:
         }
         return *this; }
 
+    StringT& Append(int value) {
+        TChar c = ((TChar)('0'));
+        TChar s = ((TChar)('-'));
+        size_t digits;
+        unsigned msdValue;
+
+        if (0 != value) {
+            if (0 > value) {
+                Append(&s, 1);
+                value = -value;
+            }
+            for (digits = 0, msdValue = 0; 
+                 value; value /= 10, digits++)
+                msdValue = (msdValue*10) + (value%10);
+            for (; msdValue; msdValue /= 10, --digits) {
+                TChar d = c + (TChar)(msdValue%10);
+                Append(&d, 1);
+            }
+            for (; digits; --digits)
+                Append(&c, 1);
+        } else {
+            Append(&c, 1);
+        }
+        return *this; }
+    StringT& Append(unsigned int value) {
+        TChar c = ((TChar)('0'));
+        size_t digits;
+        unsigned msdValue;
+
+        if (0 != value) {
+            for (digits = 0, msdValue = 0; 
+                 value; value /= 10, digits++)
+                msdValue = (msdValue*10) + (value%10);
+            for (; msdValue; msdValue /= 10, --digits) {
+                TChar d = c + (TChar)(msdValue%10);
+                Append(&d, 1);
+            }
+            for (; digits; --digits)
+                Append(&c, 1);
+        } else {
+            Append(&c, 1);
+        }
+        return *this; }
+
     size_t Clear() {
         size_t count = this->length();
         this->clear();
@@ -134,6 +187,8 @@ public:
     StringT& operator << (const Extends& str){ this->append(str); return *this; }
     StringT& operator << (const char* chars){ Append(chars); return *this; }
     StringT& operator << (const wchar_t* chars){ Append(chars); return *this; }
+    StringT& operator << (int value){ Append(value); return *this; }
+    StringT& operator << (unsigned int value){ Append(value); return *this; }
 };
 
 typedef StringT<char> String;

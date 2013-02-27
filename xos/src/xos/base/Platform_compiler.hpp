@@ -136,6 +136,20 @@
 //
 #endif // defined(__GNUC__)
 
+#if defined(__OBJC__) || defined(__OBJC2__)
+#if !defined(OBJC) 
+#define OBJC
+#endif // !defined(OBJC) 
+#else // defined(__OBJC__) || defined(__OBJC2__)
+#endif // defined(__OBJC__) || defined(__OBJC2__)
+
+#if defined(__OBJC2__) 
+#if !defined(OBJC2) 
+#define OBJC2
+#endif // !defined(OBJC2) 
+#else // defined(__OBJC2__) 
+#endif // defined(__OBJC2__) 
+
 namespace xos {
 } // namespace xos
 

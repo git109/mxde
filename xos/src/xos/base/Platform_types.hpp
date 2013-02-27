@@ -64,6 +64,8 @@ typedef UINT64 uint64_t;
 typedef int MODE_T;
 typedef MODE_T mode_t;
 
+typedef SSIZE_T ssize_t;
+
 typedef time_t useconds_t;
 // ...
 // Visual C++
@@ -76,13 +78,21 @@ typedef time_t useconds_t;
 #warning Compiler other than Visual C++ (Gcc) being used
 #endif // defined(CPLATFORM_DEFINED_DEBUG)
 
+#if !defined(__MINGW32__)
+// MinGWin
+// ...
 typedef char INT8;
 typedef short INT16;
 typedef unsigned char UINT8;
 typedef unsigned short UINT16;
-
-typedef int MODE_T;
+// ...
+// MinGWin
+#else // !defined(__MINGW32__)
 #define PCCHAR PCCHAR_T
+typedef int MODE_T;
+#endif // !defined(__MINGW32__)
+
+typedef TCHAR tchar_t;
 // ...
 // Gcc
 //
@@ -91,8 +101,6 @@ typedef int MODE_T;
 typedef ULONGLONG QWORD;
 
 typedef DWORD MODE;
-
-typedef SSIZE_T ssize_t;
 
 typedef HANDLE INVALID_HANDLE_T;
 typedef HANDLE NULL_HANDLE_T;

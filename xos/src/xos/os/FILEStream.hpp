@@ -34,15 +34,16 @@ public:
     typedef FILEStreamImplement Implements;
     typedef FILEStreamExtend Extends;
 
-    FILEStream(FILE* detached=0, LockedInterface* locked=0)
-    : Extends(detached),m_locked(locked){}
+    FILEStream(FILE* detached=0, LockedInterface* locked=0, bool noLogging=false)
+    : Extends(detached),m_locked(locked),m_noLogging(noLogging){}
     virtual ~FILEStream(){}
 
     virtual ssize_t Read(WhatT* what, size_t size){
         ssize_t count = -Error::Failed;
         if ((m_attachedTo))
         if (0 >= (count = fread(what, 1, size, m_attachedTo))){
-            XOS_LOG_ERROR("failed on fread()");
+            if (!(m_noLogging))
+                XOS_LOG_ERROR("failed on fread()");
             count = -Error::Failed;
         }
         return count;
@@ -53,7 +54,8 @@ public:
             if (0 > (size))
                 size = strlen((const char*)(what));
             if (0 >= (count = fwrite(what, 1, size, m_attachedTo))){
-                XOS_LOG_ERROR("failed on fwrite()");
+                if (!(m_noLogging))
+                    XOS_LOG_ERROR("failed on fwrite()");
                 count = -Error::Failed;
             }
         }
@@ -63,7 +65,8 @@ public:
         ssize_t count = -Error::Failed;
         if ((m_attachedTo)){
             if (0 > (count = vfprintf(m_attachedTo, format, va))) {
-                XOS_LOG_ERROR("failed on vfprintf()");
+                if (!(m_noLogging))
+                    XOS_LOG_ERROR("failed on vfprintf()");
                 count = -Error::Failed;
             }
         }
@@ -76,7 +79,8 @@ public:
         int err;
         if ((m_attachedTo))
         if ((err = fflush(m_attachedTo))){
-            XOS_LOG_ERROR("failed " << err << " on fflush()");
+            if (!(m_noLogging))
+                XOS_LOG_ERROR("failed " << err << " on fflush()");
             count = -Error::Failed;
         }
         return count;
@@ -88,7 +92,8 @@ public:
         int err;
         if ((m_attachedTo))
         if ((err = fseek(m_attachedTo, size, origin))){
-            XOS_LOG_ERROR("failed " << err << " on fseek()");
+            if (!(m_noLogging))
+                XOS_LOG_ERROR("failed " << err << " on fseek()");
             count = -Error::Failed;
         }
         return count;
@@ -97,7 +102,8 @@ public:
         ssize_t count = -Error::Failed;
         if ((m_attachedTo))
         if (0 > (count = ftell(m_attachedTo))){
-            XOS_LOG_ERROR("failed on ftell()");
+            if (!(m_noLogging))
+                XOS_LOG_ERROR("failed on ftell()");
             count = -Error::Failed;
         }
         return count;
@@ -110,6 +116,7 @@ public:
         return m_locked.TimedLock(waitMilliseconds); }
 protected:
     LockedAttached m_locked;
+    bool m_noLogging;
 };
 
 } // namespace xos

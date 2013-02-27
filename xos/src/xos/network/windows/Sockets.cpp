@@ -23,7 +23,7 @@
 #include "xos/network/windows/Socket.cpp"
 #include "xos/network/windows/local/Socket.cpp"
 #include "xos/network/os/Socket.cpp"
-#include "sys/Socket.cpp"
+//#include "sys/Socket.cpp"
 
 #if defined(WINSOCK_2)
 #define WINSOCK_VERSION_MAJOR 2

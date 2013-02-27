@@ -23,13 +23,13 @@
 
 #include "xos/os/os/Os.hpp"
 
-#if defined(WINDOWS) 
+#if defined(WINDOWS_API) 
 // Windows
 typedef HMODULE DLIBRARY_T;
 typedef DLIBRARY_T INVALID_DLIBRARY_T;
 #define INVALID_DLIBRARY 0
 #define DLIBRARY_FILE_EXTENSION_CHARS "dll"
-#else // defined(WINDOWS) 
+#else // defined(WINDOWS_API) 
 // Unix
 #include <dlfcn.h>
 typedef void* DLIBRARY_T;
@@ -41,21 +41,21 @@ typedef unsigned INVALID_DLIBRARY_T;
 #else // defined(MACOSX)
 #define DLIBRARY_FILE_EXTENSION_CHARS "so"
 #endif // defined(MACOSX)
-#endif // defined(WINDOWS)
+#endif // defined(WINDOWS_API)
 
 #define DLIBRARY_SYMBOL_(identifier) "" #identifier ""
 #define DLIBRARY_SYMBOL(identifier) DLIBRARY_SYMBOL_(identifier)
 
-#if defined(WINDOWS) 
+#if defined(WINDOWS_API) 
 // Windows
 #include "xos/os/windows/DLibrary.hpp"
 #elif defined(MACOSX) 
 // MacOSX
 #include "xos/os/macosx/DLibrary.hpp"
-#else // defined(WINDOWS) 
+#else // defined(WINDOWS_API) 
 // Unix
 #include "xos/os/unix/DLibrary.hpp"
-#endif // defined(WINDOWS)
+#endif // defined(WINDOWS_API)
 
 namespace xos {
 namespace os {

@@ -59,6 +59,31 @@ protected:
     AttachedT m_attachedTo;
 };
 
+template
+<class TAttached,
+ class TUnattached=TAttached,
+ TUnattached VUnattached=0,
+ class TImplement=InterfaceBase>
+
+class _EXPORT_CLASS AttachedImplement: virtual public TImplement {
+public:
+    typedef TImplement Implements;
+
+    typedef TAttached AttachedT;
+    typedef TUnattached UnattachedT;
+    static const UnattachedT Unattached=VUnattached;
+
+    virtual AttachedT Attach(AttachedT attachedTo){
+        return Unattached;
+    }
+    virtual AttachedT Detach(){
+        return Unattached;
+    }
+    virtual AttachedT AttachedTo() const {
+        return Unattached;
+    }
+};
+
 } // namespace xos
 
 #endif // _XOS_ATTACHED_HPP_ 

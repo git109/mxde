@@ -20,6 +20,11 @@
 ///////////////////////////////////////////////////////////////////////
 #include "xos/base/Platform.hpp"
 
+#if defined(WINDOWS) 
+void _PLATFORM_EXPORT sleep(int count) { 
+    Sleep((count)*1000); 
+}
+#endif // defined(WINDOWS) 
+
 namespace xos {
 } // namespace xos
-

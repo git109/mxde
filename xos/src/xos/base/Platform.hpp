@@ -28,6 +28,10 @@
 #include "xos/base/Platform_types.hpp"
 #include "xos/base/Platform_api.hpp"
 
+#if defined(WINDOWS) 
+void _PLATFORM_EXPORT sleep(int count);
+#endif // defined(WINDOWS) 
+
 namespace xos {
 } // namespace xos
 
