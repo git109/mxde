@@ -20,6 +20,7 @@
 ///////////////////////////////////////////////////////////////////////
 #include "iXosWindowMain.hh"
 
+#if defined(OBJC)  
 ///////////////////////////////////////////////////////////////////////
 /// Implentation: iXosMainView
 ///
@@ -47,7 +48,7 @@
         return view;
     }
     -(void)windowWillClose:(NSNotification*)notification {
-        [[NSApplication sharedApplication] terminate:self];
+        [[NSApplication sharedApplication] stop:self];
     }
 @end
 
@@ -100,3 +101,5 @@
         return err;
     }
 @end
+#else // defined(OBJC)  
+#endif // defined(OBJC)  

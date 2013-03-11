@@ -43,7 +43,7 @@
 ///    Author: $author$
 ///      Date: 12/20/2012
 ///////////////////////////////////////////////////////////////////////
-@interface iXosMain {
+@interface iXosMain: NSObject {
     }
     + (id<iXosMain>)Allocate;
 @end

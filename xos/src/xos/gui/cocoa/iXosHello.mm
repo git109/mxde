@@ -23,6 +23,11 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 
+#define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_FILE "frame.raw" 
+#define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_WIDTH 352
+#define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_HEIGHT 288
+#define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_DEPTH 4
+
 NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
     NSRect N;
     if (W.height < W.width) {
@@ -47,34 +52,18 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
         [super initWithFrame:rect pixelFormat:[NSOpenGLView defaultPixelFormat]];
         m_preparedOpenGL = false;
         m_image = 0;
-        m_imageFile = "/Users/jboyd/images/frame.raw";
-        m_imageWidth=352; m_imageHeight=288; m_imageDepth=4; m_imageSize=0;
+        m_imageFile = XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_FILE;
+        m_imageWidth = XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_WIDTH; 
+        m_imageHeight = XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_HEIGHT; 
+        m_imageDepth = XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_DEPTH; 
+        m_imageSize = 0;
         return self;
     }
     - (void)prepareOpenGL {
         xos::gui::opengl::ContextImplemented openglContextImpl(self);
 
-        if ((m_image = malloc(m_imageSize=(m_imageWidth*m_imageHeight*m_imageDepth)))) {
-            FILE* file = 0;
-            size_t count = 0;
-            if ((file = fopen(m_imageFile, "rb"))) {
-                count = fread(m_image, m_imageSize, 1, file);
-                fclose(file);
-                if (1 > (count)) {
-                    XOS_LOG_ERROR("failed on fread() of \"" << m_imageFile << "\"");
-                    free(m_image);
-                    m_image = 0;
-                    return;
-                }
-            } else {
-                XOS_LOG_ERROR("failed on fopen(\"" << m_imageFile << "\",...)");
-                free(m_image);
-                m_image = 0;
-                return;
-            }
-        } else {
+        if (!(m_image = [self ReadImageFile]))
             return;
-        }
 
         if ((openglRenderer.Init(openglContextImpl))) {
             openglRenderer.Prepare();
@@ -140,13 +129,39 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
             glFlush();
             [[self openGLContext ] flushBuffer ];
         } else {
-            openglRenderer.Render
-            (m_image, m_imageWidth, m_imageHeight,
-             m_image, m_imageWidth, m_imageHeight);
+            if ((m_image)) {
+                openglRenderer.Render
+                (m_image, m_imageWidth, m_imageHeight,
+                 m_image, m_imageWidth, m_imageHeight);
+            } else {
+                [[NSColor DEFAULT_IXOSHELLO_VIEW_BG_COLOR] set];
+                NSRectFill([self bounds]);
+            }
         }
     }
     - (void)SetImageFile:(const char*)chars {
         m_imageFile = chars;
+    }
+    - (void*)ReadImageFile {
+        XOS_LOG_DEBUG(" read image file \"" << m_imageFile << "\"...");
+        if ((m_image = malloc(m_imageSize=(m_imageWidth*m_imageHeight*m_imageDepth)))) {
+            FILE* file = 0;
+            size_t count = 0;
+            if ((file = fopen(m_imageFile, "rb"))) {
+                count = fread(m_image, m_imageSize, 1, file);
+                fclose(file);
+                if (1 > (count)) {
+                    XOS_LOG_ERROR("failed on fread() of \"" << m_imageFile << "\"");
+                    free(m_image);
+                    m_image = 0;
+                }
+            } else {
+                XOS_LOG_ERROR("failed on fopen(\"" << m_imageFile << "\",...)");
+                free(m_image);
+                m_image = 0;
+            }
+        }
+        return m_image;
     }
 @end
 

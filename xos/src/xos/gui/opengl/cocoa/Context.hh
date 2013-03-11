@@ -22,6 +22,7 @@
 #define _XOS_GUI_COCOA_CONTEXT_HH
 
 #include "xos/gui/opengl/Context.hpp"
+#include <Cocoa/Cocoa.h>
 
 namespace xos {
 namespace gui {

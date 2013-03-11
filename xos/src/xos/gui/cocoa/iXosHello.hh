@@ -25,6 +25,8 @@
 #include "xos/gui/opengl/cocoa/Context.hh"
 #include "xos/webrtc/peerconnection/client/cocoa/OpenGL.hh"
 
+#define DEFAULT_IXOSHELLO_VIEW_BG_COLOR redColor
+
 ///////////////////////////////////////////////////////////////////////
 /// Interface: iXosHelloMainView
 ///
@@ -45,6 +47,7 @@
     - (void)reshape;
     - (void)drawRect:(NSRect)rect;
     - (void)SetImageFile:(const char*)chars;
+    - (void*)ReadImageFile;
 @end
 
 ///////////////////////////////////////////////////////////////////////

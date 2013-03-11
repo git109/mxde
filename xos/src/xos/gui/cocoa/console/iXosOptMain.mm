@@ -114,6 +114,8 @@
         int err = 0;
         switch(optval) {
         case 'l':
+            err = [self OnLoggingOption:optval optarg:optarg optname:optname 
+                   optind:optind argc:argc argv:argv env:env];
             break;
         case 'h':
             err = [self Usage:argc argv:argv env:env];
@@ -121,6 +123,11 @@
         default:
             err = 1;
         }
+        return err;
+    }
+    - (int)OnLoggingOption:(int)optval optarg:(const char*)optarg optname:(const char*)optname optind:(int)optind argc:(int)argc argv:(char**)argv env:(char**)env {
+        int err = xos::OnLoggingOption
+        (optval, optarg, optname, optind, argc, argv, env);
         return err;
     }
     - (const char*)OptionUsage:(const char*&)optarg longopt:(const struct option*)longopt {

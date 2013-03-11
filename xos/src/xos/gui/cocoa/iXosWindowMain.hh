@@ -21,7 +21,7 @@
 #ifndef _XOS_GUI_COCOA_IXOSWINDOWMAIN_HH
 #define _XOS_GUI_COCOA_IXOSWINDOWMAIN_HH
 
-#include <cocoa/cocoa.h>
+#include <Cocoa/Cocoa.h>
 #include "console/iXosOptMain.hh"
 
 #define DEFAULT_IXOSWINDOWMAIN_WINWOW_TITLE "iXosWindowMain"
@@ -32,6 +32,7 @@
 
 #define DEFAULT_IXOSWINDOWMAIN_VIEW_BG_COLOR whiteColor
 
+#if defined(OBJC)  
 ///////////////////////////////////////////////////////////////////////
 /// Interface: iXosMainView
 ///
@@ -73,7 +74,7 @@
 ///    Author: $author$
 ///      Date: 12/20/2012
 ///////////////////////////////////////////////////////////////////////
-@interface iXosWindowMain: iXosBaseMain <iXosWindowMain> {
+@interface iXosWindowMain: iXosOptMain <iXosWindowMain> {
     NSAutoreleasePool *m_pool;
     NSApplication *m_app;
     iXosMainWindow *m_window;
@@ -83,5 +84,7 @@
     - (int)AfterRun:(int)argc argv:(char**)argv env:(char**)env;
     - (int)Run:(int)argc argv:(char**)argv env:(char**)env;
 @end
+#else // defined(OBJC)  
+#endif // defined(OBJC)  
 
 #endif // _XOS_GUI_COCOA_IXOSWINDOWMAIN_HH 

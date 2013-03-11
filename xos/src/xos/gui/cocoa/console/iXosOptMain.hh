@@ -32,6 +32,13 @@
 ///     Date: 12/23/2012
 ///////////////////////////////////////////////////////////////////////
 @protocol iXosOptMain <iXosBaseMain>
+    - (int)Usage:(int)argc argv:(char**)argv env:(char**)env;
+    - (int)GetOptions:(int)argc argv:(char**)argv env:(char**)env;
+    - (int)OnOption:(int)optval optarg:(const char*)optarg optname:(const char*)optname optind:(int)optind argc:(int)argc argv:(char**)argv env:(char**)env;
+    - (int)OnLoggingOption:(int)optval optarg:(const char*)optarg optname:(const char*)optname optind:(int)optind argc:(int)argc argv:(char**)argv env:(char**)env;
+    - (const char*)OptionUsage:(const char*&)optarg longopt:(const struct option*)longopt;
+    - (const char*)Options:(const struct option*&)longopts;
+    - (const char*)Arguments:(const char**&)args;
 @end
 ///////////////////////////////////////////////////////////////////////
 /// Interface: iXosOptMain
@@ -55,5 +62,3 @@
 #endif // defined(OBJC)
 
 #endif // _XOS_GUI_COCOA_CONSOLE_IXOSOPTMAIN_HH 
-        
-
