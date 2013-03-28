@@ -43,6 +43,9 @@ public:
 
     Attached(AttachedT attachedTo=((AttachedT)(Unattached))): m_attachedTo(attachedTo){}
     virtual ~Attached(){}
+    virtual void Construct(AttachedT attachedTo) {
+        m_attachedTo = attachedTo;
+    }
 
     virtual AttachedT Attach(AttachedT attachedTo){
         return m_attachedTo = attachedTo;

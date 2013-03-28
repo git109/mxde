@@ -18,48 +18,79 @@
 /// Author: $author$
 ///   Date: Aug 5, 2012
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_X11_DISPLAY_HPP_
-#define _XOS_X11_DISPLAY_HPP_
+#ifndef _XOS_GUI_X11_DISPLAY_HPP_
+#define _XOS_GUI_X11_DISPLAY_HPP_
 
+#include "xos/gui/x11/Screen.hpp"
 #include "xos/base/Opened.hpp"
 #include "xos/os/Logger.hpp"
-#include <X11/Xlib.h>
 
 namespace xos {
 namespace x11 {
 
 typedef InterfaceBase DisplayImplement;
-typedef Attached<::Display*, int, 0> DisplayAttached;
-typedef Opened<::Display*, int, 0, DisplayAttached> DisplayExtend;
-
+typedef xos::Attached<XDisplay*, int, 0> DisplayAttached;
+typedef xos::Opened<XDisplay*, int, 0, DisplayAttached> DisplayExtend;
+///////////////////////////////////////////////////////////////////////
+///  Class: Display
+///////////////////////////////////////////////////////////////////////
 class EXPORT_CLASS Display: virtual public DisplayImplement, public DisplayExtend {
 public:
     typedef DisplayImplement Implements;
     typedef DisplayExtend Extends;
 
-    Display(::Display* attachedTo=0):Extends(attachedTo){}
+    ///////////////////////////////////////////////////////////////////////
+    ///  Constructor: Display
+    ///////////////////////////////////////////////////////////////////////
+    Display(XDisplay* attachedTo=0):Extends(attachedTo){}
     virtual ~Display(){}
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual bool Open(const char* displayName){
-        ::Display* detached;
-        if ((detached = ::XOpenDisplay(displayName))){
-            Attach(detached, true);
-            return true;
+        XDisplay* detached;
+        if ((displayName)) {
+            if ((detached = XOpenDisplay(displayName))){
+                if ((m_screen.AttachDisplay(*detached))) {
+                    AttachOpened(detached);
+                    return true;
+                }
+                XCloseDisplay(detached);
+            }
+            XOS_LOG_ERROR("failed on XOpenDisplay(\"" << displayName << "\")");
         }
-        XOS_LOG_ERROR("failed on XOpenDisplay(\"" << displayName << "\")");
         return false;
     }
     virtual bool Close(){
-        ::Display* detached;
+        bool isSuccess = false;
+        XDisplay* detached;
         if ((detached = Detach())){
-            int err = ::XCloseDisplay(detached);
-            return true;
+            XCloseDisplay(detached);
+            isSuccess = true;
         }
-        return false;
+        m_screen.Detach();
+        return isSuccess;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual XWindow RootWindowAttachedTo() const {
+        XWindow xWindow = None;
+        XScreen* xScreen = 0;
+        if ((xScreen = ScreenAttachedTo()))
+            xWindow = XRootWindowOfScreen(xScreen);
+        return xWindow;
+    }
+    virtual XScreen* ScreenAttachedTo() const {
+        XScreen* xScreen = m_screen.AttachedTo();
+        return  xScreen;
+    }
+
+protected:
+    Screen m_screen;
 };
 
 } // namespace x11
 } // namespace xos
 
-#endif // _XOS_X11_DISPLAY_HPP_
+#endif // _XOS_GUI_X11_DISPLAY_HPP_

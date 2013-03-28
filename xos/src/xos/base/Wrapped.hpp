@@ -51,6 +51,10 @@ public:
     Wrapped(): m_wrapped(m_wrappedDefault) {}
     virtual ~Wrapped() {}
 
+    virtual Wrapped& Copy(const TWrapped& wrapped) {
+        memcpy(&m_wrapped, &wrapped, sizeof(TWrapped));
+        return *this;
+    }
     virtual Wrapped& operator = (const Wrapped& copy) {
         memcpy(&m_wrapped, &copy.m_wrapped, sizeof(TWrapped));
         return *this;

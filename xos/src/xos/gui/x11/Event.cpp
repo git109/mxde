@@ -13,30 +13,15 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Point.hpp
+///   File: Event.cpp
 ///
 /// Author: $author$
-///   Date: 3/1/2013
+///   Date: 3/24/2013
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_GUI_OPENGL_POINT_HPP
-#define _XOS_GUI_OPENGL_POINT_HPP
-
-#include "xos/gui/Point.hpp"
+#include "xos/gui/x11/Event.hpp"
 
 namespace xos {
-namespace gui {
-namespace opengl {
+namespace x11 {
 
-typedef PointT<float> PointExtend;
-struct Point: public PointExtend {
-    typedef PointExtend Extends;
-    Point(float x, float y): Extends(x,y){}
-    Point(int x, int y): Extends((float)x,(float)y){}
-    Point(unsigned x, unsigned y): Extends((float)x,(float)y){}
-};
-
-} // namespace opengl 
-} // namespace gui 
+} // namespace x11 
 } // namespace xos 
-
-#endif // _XOS_GUI_OPENGL_POINT_HPP 

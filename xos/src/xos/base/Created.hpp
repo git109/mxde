@@ -43,12 +43,17 @@ public:
 
     Created
     (AttachedT attachedTo=((AttachedT)(Unattached)), bool isCreated=false)
-    : Extends(attachedTo), m_isCreated(isCreated){}
-    virtual ~Created()
-    {
+    : Extends(attachedTo), m_isCreated(isCreated){
+    }
+    virtual ~Created() {
         Error error = xos::Error::Failed;
         if (!(Destroyed()))
             throw(error);
+    }
+    virtual void Construct
+    (AttachedT attachedTo, bool isCreated) {
+        Extends::Construct(attachedTo);
+        m_isCreated = isCreated;
     }
 
     virtual bool Destroyed(){

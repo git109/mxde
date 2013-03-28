@@ -32,6 +32,7 @@ struct Size: public SizeExtend {
     typedef SizeExtend Extends;
     Size(float width, float height): Extends(width, height) {}
     Size(int width,  int height): Extends((float)width, (float)height) {}
+    Size(unsigned width,  unsigned height): Extends((float)width, (float)height) {}
 };
 
 } // namespace opengl 
