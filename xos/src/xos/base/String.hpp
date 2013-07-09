@@ -41,13 +41,19 @@ public:
     StringT(const StringT& copy): Extends(copy){}
     StringT(const Extends& copy): Extends(copy){}
     StringT(const char* chars, size_t length){
-        Append(chars);
+        Append(chars, length);
     }
     StringT(const char* chars){
         Append(chars);
     }
-    StringT(const wchar_t* chars, size_t length){
+    StringT(const unsigned char* chars, size_t length){
+        Append(chars, length);
+    }
+    StringT(const unsigned char* chars){
         Append(chars);
+    }
+    StringT(const wchar_t* chars, size_t length){
+        Append(chars, length);
     }
     StringT(const wchar_t* chars){
         Append(chars);
@@ -64,6 +70,14 @@ public:
         Append(chars, length);
         return *this; }
     StringT& Assign(const char* chars) {
+        this->clear();
+        Append(chars);
+        return *this; }
+    StringT& Assign(const unsigned char* chars, size_t length) {
+        this->clear();
+        Append(chars, length);
+        return *this; }
+    StringT& Assign(const unsigned char* chars) {
         this->clear();
         Append(chars);
         return *this; }
@@ -98,6 +112,23 @@ public:
         }
         return *this; }
     StringT& Append(const char* chars) {
+        if ((chars)) {
+            TChar c;
+            while ((c = (TChar)(*chars++))) {
+                this->append(&c, 1);
+            }
+        }
+        return *this; }
+    StringT& Append(const unsigned char* chars, size_t length) {
+        if ((chars)) {
+            TChar c;
+            while (0 < (length--)) {
+                c = (TChar)(*chars++);
+                this->append(&c, 1);
+            }
+        }
+        return *this; }
+    StringT& Append(const unsigned char* chars) {
         if ((chars)) {
             TChar c;
             while ((c = (TChar)(*chars++))) {

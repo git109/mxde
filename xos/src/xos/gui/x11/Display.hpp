@@ -74,6 +74,17 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual XScreen* AttachWithScreenOf(XDisplay* detached, bool isOpen = false) {
+        XScreen* xScreen = 0;
+        if ((detached = Attach(detached, isOpen))) {
+            if (!(xScreen = m_screen.AttachDisplay(*detached)))
+                Detach();
+        }
+        return xScreen;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual XWindow RootWindowAttachedTo() const {
         XWindow xWindow = None;
         XScreen* xScreen = 0;

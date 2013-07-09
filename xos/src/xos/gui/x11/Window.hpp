@@ -191,6 +191,18 @@ public:
         }
         return false;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool StoreName(const char* chars) {
+        XDisplay* xDisplay;
+        XWindow xWindow;
+        if ((chars) && (xDisplay = m_display) && (None != (xWindow = m_attachedTo))) {
+            XStoreName(xDisplay, xWindow, chars);
+            return true;
+        }
+        return false;
+    }
 };
 
 } // namespace x11 

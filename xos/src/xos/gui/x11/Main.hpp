@@ -27,6 +27,7 @@
 #include "xos/gui/x11/Event.hpp"
 #include "xos/gui/x11/Colormap.hpp"
 #include "xos/gui/x11/Color.hpp"
+#include "xos/gui/x11/Atom.hpp"
 #include "xos/os/Main.hpp"
 
 #define XOS_GUI_X11_MAIN_DISPLAY_NAME ":0"
@@ -266,33 +267,13 @@ public:
     virtual int AfterOpenDisplay
     (XDisplay& xDisplay, XScreen& xScreen, int argc, char** argv, char** env) {
         int err = 0;
-        XColormap xColormap;
-        if ((xColormap = m_colormap.AttachDefaultOfScreen(xDisplay, xScreen))) {
-            if ((m_redColor.AllocateRGB8(xDisplay, xColormap, 255,0,0))) {
-                if ((m_greenColor.AllocateRGB8(xDisplay, xColormap, 0,255,0))) {
-                    if ((m_blueColor.AllocateRGB8(xDisplay, xColormap, 0,0,255))) {
-                        if ((m_whiteColor.AttachWhiteOfScreen(xDisplay, xScreen))) {
-                            if ((m_blackColor.AttachBlackOfScreen(xDisplay, xScreen))) {
-                                return 0;
-                            }
-                        }
-                        m_blueColor.Free();
-                    }
-                    m_greenColor.Free();
-                }
-                m_redColor.Free();
-            }
-        }
+        err = AllocateStandardColors(xDisplay, xScreen, argc, argv, env);
         return err;
     }
     virtual int BeforeCloseDisplay
     (XDisplay& xDisplay, XScreen& xScreen, int argc, char** argv, char** env) {
         int err = 0;
-        m_blackColor.Detach();
-        m_whiteColor.Detach();
-        m_blueColor.Free();
-        m_greenColor.Free();
-        m_redColor.Free();
+        err = FreeStandardColors(xDisplay, xScreen, argc, argv, env);
         return err;
     }
     virtual int AfterCloseDisplay(int argc, char** argv, char** env) {
@@ -330,6 +311,57 @@ public:
         if (!(isSuccess = m_context.Destroy()))
         {   XOS_LOG_ERROR("failed on m_context.Destroy()"); }
         return isSuccess;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int AttachStandardAtoms
+    (XDisplay& xDisplay, XScreen& xScreen, int argc, char** argv, char** env) {
+        int err = 1;
+        XAtom xAtom;
+
+        if ((xAtom = m_atomWmProtocols.AttachIntern
+            (xDisplay, XOS_GUI_X11_ATOM_NAME_WM_PROTOCOLS)))
+
+        if ((xAtom = m_atomWmDeleteWindow.AttachIntern
+            (xDisplay, XOS_GUI_X11_ATOM_NAME_WM_DELETE_WINDOW)))
+            err = 0;
+
+        return err;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int AllocateStandardColors
+    (XDisplay& xDisplay, XScreen& xScreen, int argc, char** argv, char** env) {
+        int err = 0;
+        XColormap xColormap;
+        if ((xColormap = m_colormap.AttachDefaultOfScreen(xDisplay, xScreen))) {
+            if ((m_redColor.AllocateRGB8(xDisplay, xColormap, 255,0,0))) {
+                if ((m_greenColor.AllocateRGB8(xDisplay, xColormap, 0,255,0))) {
+                    if ((m_blueColor.AllocateRGB8(xDisplay, xColormap, 0,0,255))) {
+                        if ((m_whiteColor.AttachWhiteOfScreen(xDisplay, xScreen))) {
+                            if ((m_blackColor.AttachBlackOfScreen(xDisplay, xScreen))) {
+                                return 0;
+                            }
+                        }
+                        m_blueColor.Free();
+                    }
+                    m_greenColor.Free();
+                }
+                m_redColor.Free();
+            }
+        }
+        return err;
+    }
+    virtual int FreeStandardColors
+    (XDisplay& xDisplay, XScreen& xScreen, int argc, char** argv, char** env) {
+        int err = 0;
+        m_blackColor.Detach();
+        m_whiteColor.Detach();
+        m_blueColor.Free();
+        m_greenColor.Free();
+        m_redColor.Free();
+        return err;
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -407,6 +439,8 @@ protected:
     Color m_whiteColor;
     Color m_blackColor;
     Colormap m_colormap;
+    Atom m_atomWmProtocols;
+    Atom m_atomWmDeleteWindow;
     bool m_doneProcessingXEvents;
 };
 

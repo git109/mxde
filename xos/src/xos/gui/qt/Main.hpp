@@ -21,7 +21,12 @@
 #ifndef _XOS_GUI_QT_MAIN_HPP
 #define _XOS_GUI_QT_MAIN_HPP
 
-#include <QtGui>
+#include <QtCore/QtCore>
+#if  (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+#include <QtGui/QtGui>
+#else
+#include <QtWidgets/QtWidgets>
+#endif
 #include "xos/os/Main.hpp"
 
 #define XOS_GUI_QT_MAIN_DISPLAY_OPT "display"
@@ -86,7 +91,7 @@ public:
     (int argc, char** argv, char** env)
     {
         int err = 0;
-        QApplication qApplication(argc, argv, env);
+        QApplication qApplication(argc, argv);
         if (!(err = BeforeExec(qApplication, argc, argv, env)))
         {
             int err2;

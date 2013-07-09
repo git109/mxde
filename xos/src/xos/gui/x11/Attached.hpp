@@ -90,6 +90,9 @@ public:
     virtual AttachedT AttachedTo() const {
         return Extends::AttachedTo();
     }
+    virtual XDisplay* DisplayAttachedTo() const {
+        return m_display;
+    }
 
 protected:
     XDisplay* m_display;

@@ -26,6 +26,8 @@
 #include <X11/Xutil.h>
 #include <X11/Xresource.h>
 #include <X11/xpm.h>
+#include <X11/ICE/ICE.h>
+#include <X11/ICE/ICElib.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glx.h>
@@ -74,6 +76,9 @@ enum { Success = XOS_GUI_X11_XLIB_Success };
 namespace xos {
 namespace x11 {
 
+typedef short XOffset;
+typedef unsigned short XSize;
+typedef ::Status XStatus;
 typedef ::Display XDisplay;
 typedef ::Screen XScreen;
 typedef ::Visual XVisual;

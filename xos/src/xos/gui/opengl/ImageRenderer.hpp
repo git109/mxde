@@ -44,9 +44,54 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///  Constructor: ImageRenderer
     ///////////////////////////////////////////////////////////////////////
-    ImageRenderer() {
+    ImageRenderer()
+    : m_width(0), m_height(0),
+      m_inMinWidth(100), m_inMinHeight(100),
+      m_inOffsetX(10), m_inOffsetY(10),
+      m_inRatio(4), m_inRatioTo(1),
+      m_textureMagFilter(GL_LINEAR), 
+      m_textureMinFilter(GL_LINEAR) {
     }
     virtual ~ImageRenderer() {
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Prepare() {
+        glGenTextures(1, &m_texture);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+        return !(GL_NO_ERROR != glGetError()); 
+    }
+    virtual bool Reshape(int width, int height) {
+        m_width = width; m_height = height;
+        glViewport(0, 0, width, height);
+        return !(GL_NO_ERROR != glGetError()); 
+    }
+    virtual bool SwapBuffers() {
+        return false;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Render
+    (const void* image, int imageWidth, int imageHeight,
+     const void* inImage, int inImageWidth, int inImageHeight) {
+         return RenderResizedImage
+         (m_texture, image, imageWidth, imageHeight, 
+          inImage, inImageWidth, inImageHeight, 
+          m_width, m_height, m_inOffsetX, m_inOffsetY, 
+          m_inMinWidth, m_inMinHeight, m_inRatio, m_inRatioTo);
+    }
+    virtual bool Render
+    (const void* image, int imageWidth, int imageHeight) {
+         return RenderResizedImage
+         (m_texture, image, imageWidth, imageHeight, m_width, m_height);
+    }
+    virtual bool RenderRaw
+    (const void* image, int imageWidth, int imageHeight) {
+         return RenderImage
+         (m_texture, image, imageWidth, imageHeight);
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -148,6 +193,16 @@ public:
         glEnd();
         return !(GL_NO_ERROR != glGetError()); 
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    int m_width, m_height;
+    int m_inMinWidth, m_inMinHeight;
+    int m_inOffsetX, m_inOffsetY;
+    int m_inRatio, m_inRatioTo;
+    GLint m_textureMagFilter, m_textureMinFilter;
+    GLuint m_texture;
 };
 
 } // namespace opengl 
