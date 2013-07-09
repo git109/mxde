@@ -138,15 +138,12 @@ public:
         Display* xDisplay = 0;
         Window detached = None;
         bool isCreated = false;
-        Status success;
 
         if (None != (detached = Detach(xDisplay, isCreated)))
         {
             if ((xDisplay))
             {
-                if (!(success = XDestroyWindow(xDisplay, detached)))
-                { XOS_DBE(("()\n failed on XDestroyWindow(xDisplay=%p, detached=0x%x)", xDisplay, detached)); }
-                else
+                XDestroyWindow(xDisplay, detached);
                 error = XOS_ERROR_NONE;
             }
         }
@@ -228,9 +225,7 @@ public:
         int err;
         if ((m_xDisplay) && (None != m_attached))
         {
-            if ((err = XUnmapWindow(m_xDisplay, m_attached)))
-            { XOS_DBE(("() result %d on XUnmapWindow()\n", err)); }
-            //else
+            XUnmapWindow(m_xDisplay, m_attached);
             error = XOS_ERROR_NONE;
         }
 #else // !defined(XOSXWINDOW_MEMBER_FUNCS_IMPLEMENT) 
@@ -276,13 +271,10 @@ public:
     {
         XosError error = XOS_ERROR_FAILED;
 #if !defined(XOSXWINDOW_MEMBER_FUNCS_IMPLEMENT)
-        Status success;
         if ((m_xDisplay) && (None != m_attached))
         {
-            if (!(success = XChangeWindowAttributes
-                (m_xDisplay, m_attached, valueMask, &xSetWindowAttributes)))
-            { XOS_DBE(("() failed on XChangeWindowAttributes()\n")); }
-            else
+            XChangeWindowAttributes
+            (m_xDisplay, m_attached, valueMask, &xSetWindowAttributes);
             error = XOS_ERROR_NONE;
         }
 #else // !defined(XOSXWINDOW_MEMBER_FUNCS_IMPLEMENT) 

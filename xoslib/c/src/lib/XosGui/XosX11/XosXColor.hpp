@@ -140,11 +140,10 @@ public:
         if ((detached = Detach()))
         {
             if ((m_xDisplay) && (None != (m_xColormap)))
-            if (!(err = XFreeColors
-                (m_xDisplay, m_xColormap, &detached, 1, 0)))
+            {
+                XFreeColors(m_xDisplay, m_xColormap, &detached, 1, 0);
                 error = XOS_ERROR_NONE;
-            else
-            {   XOS_DBE(("()\n failed %d on XFreeColors()\n", err)); }
+            }
         }
         else
         if ((onlyAllocatred))
@@ -217,17 +216,15 @@ public:
         RGB8ToXColor(xColor, r,g,b);
 
         if ((xDisplay) && (None != (xColormap)))
-        if (!(err = XQueryColor
-            (xDisplay, xColormap, &xColor)))
         {
-            m_xDisplay = xDisplay;
-            m_xColormap = xColormap;
-            Attach(detached = xColor.pixel);
-            error = XOS_ERROR_NONE;
+            XQueryColor(xDisplay, xColormap, &xColor);
+            if ((xColor.pixel)) {
+                m_xDisplay = xDisplay;
+                m_xColormap = xColormap;
+                Attach(detached = xColor.pixel);
+                error = XOS_ERROR_NONE;
+            }
         }
-        else
-        {   XOS_DBE(("()\n failed %d on XQueryColor()\n", err)); }
-
         return error;
     }
 

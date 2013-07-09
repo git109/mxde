@@ -124,16 +124,10 @@ public:
         XosError error = XOS_ERROR_FAILED;
         Display* xDisplay;
         Colormap detached;
-        int err;
 
         if ((detached = Detach(xDisplay)) != vUnattached)
         {
-            if ((err = XFreeColormap(xDisplay, detached)))
-            {   XOS_DBE(("() failed err = %d on XFreeColormap()\n", err)); }
-            //
-            // Always seem to get error code...
-            //
-            //else
+            XFreeColormap(xDisplay, detached);
             error = XOS_ERROR_NONE;
         }
         else

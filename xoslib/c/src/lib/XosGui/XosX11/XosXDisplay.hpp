@@ -142,14 +142,11 @@ public:
         XosError error = XOS_ERROR_FAILED;
         Display* detached;
         bool isOpen;
-        int err;
 
         if ((detached = Detach(isOpen)))
         {
-            if (!(err = XCloseDisplay(detached)))
-                error = XOS_ERROR_NONE;
-            else
-            XOS_DBE(("() failed on XCloseDisplay(%p)\n", detached));
+            XCloseDisplay(detached);
+            error = XOS_ERROR_NONE;
         }
         else
         if (!(onlyOpen))

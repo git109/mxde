@@ -133,14 +133,10 @@ public:
         Display* xDisplay;
         Drawable xDrawable;
         tAttachedTo detached;
-        int err;
 
         if ((detached = Detach(xDisplay, xDrawable)))
         {
-            if (Success != (err = XFreeGC(xDisplay, detached)))
-            { XOS_DBE(("() returned %d on ()\n", err)); }
-            //
-            //else
+            XFreeGC(xDisplay, detached);
             error = XOS_ERROR_NONE;
         }
         else
@@ -179,15 +175,11 @@ public:
      unsigned int height)
     {
         XosError error = XOS_ERROR_FAILED;
-        int err;
 
         if ((m_xDisplay) && (m_xDrawable != None) && (m_attached != vUnattached))
         {
-            if (Success != (err = XFillRectangle
-                (m_xDisplay, m_xDrawable, m_attached, x,y, width,height)))
-            {   XOS_DBE(("() returned %d on XFillRectangle()\n", err)); }
-            //
-            //else
+            XFillRectangle
+            (m_xDisplay, m_xDrawable, m_attached, x,y, width,height);
             error = XOS_ERROR_NONE;
         }
         return error;
@@ -203,14 +195,10 @@ public:
     (unsigned long toColor)
     {
         XosError error = XOS_ERROR_FAILED;
-        int err;
 
         if ((m_xDisplay) && (m_attached != vUnattached))
         {
-            if (Success != (err = XSetForeground(m_xDisplay, m_attached, toColor)))
-            { XOS_DBE(("() returned %d on XSetForeground()\n", err)); }
-            //
-            //else
+            XSetForeground(m_xDisplay, m_attached, toColor);
             error = XOS_ERROR_NONE;
         }
         return error;
@@ -236,14 +224,10 @@ public:
     (unsigned long toColor)
     {
         XosError error = XOS_ERROR_FAILED;
-        int err;
 
         if ((m_xDisplay) && (m_attached != vUnattached))
         {
-            if (Success != (err = XSetBackground(m_xDisplay, m_attached, toColor)))
-            { XOS_DBE(("() returned %d on XSetBackground()\n", err)); }
-            //
-            //else
+            XSetBackground(m_xDisplay, m_attached, toColor);
             error = XOS_ERROR_NONE;
         }
         return error;

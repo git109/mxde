@@ -181,17 +181,10 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual bool GetXEvent(XEvent& xEvent, Display& xDisplay)
     {
-        int err;
-
         XOS_DBT(("() in...\n"));
-
-        if ((err = XNextEvent(&xDisplay, &xEvent)))
-        { XOS_DBE(("() failed %d on XNextEvent()\n", err)); }
-        else {
-            XOS_DBT(("() ...out\n"));
-            return true;
-        }
-        return false;
+        XNextEvent(&xDisplay, &xEvent);
+        XOS_DBT(("() ...out\n"));
+        return true;
     }
     ///////////////////////////////////////////////////////////////////////
     ///  Function: ProcessXEvent

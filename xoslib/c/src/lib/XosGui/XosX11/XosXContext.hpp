@@ -79,10 +79,7 @@ public:
     XosError Save(Display& xDisplay, XID xID, XPointer data)
     {
         XosError error = XOS_ERROR_FAILED;
-        int err;
-        if ((err = XSaveContext(&xDisplay, xID, m_attached, data)))
-        { XOS_DBE(("() failed %d on XSaveContext(%p, %d, %d,...)\n", &xDisplay, xID, m_attached)); }
-        else
+        XSaveContext(&xDisplay, xID, m_attached, data);
         error = XOS_ERROR_NONE;
         return error;
     }
@@ -95,10 +92,7 @@ public:
     XosError Delete(Display& xDisplay, XID xID)
     {
         XosError error = XOS_ERROR_FAILED;
-        int err;
-        if ((err = XDeleteContext(&xDisplay, xID, m_attached)))
-        { XOS_DBE(("() failed %d on XDeleteContext(%p, %d, %d)\n", &xDisplay, xID, m_attached)); }
-        else
+        XDeleteContext(&xDisplay, xID, m_attached);
         error = XOS_ERROR_NONE;
         return error;
     }
