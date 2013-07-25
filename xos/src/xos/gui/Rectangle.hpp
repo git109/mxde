@@ -54,11 +54,19 @@ struct RectangleT {
     static RectangleT& Resize
     (RectangleT& rect, const TSize& fromSize, const TSize& toSize) {
         if (toSize.height < toSize.width) {
-            rect.size.width = (toSize.height * fromSize.width) / fromSize.height;
-            rect.size.height = toSize.height;
+            if ((rect.size.width = (toSize.height * fromSize.width) / fromSize.height) > toSize.width) {
+                rect.size.height = (toSize.width * fromSize.height) / fromSize.width;
+                rect.size.width = toSize.width;
+            } else {
+                rect.size.height = toSize.height;
+            }
         } else {
-            rect.size.height = (toSize.width * fromSize.height) / fromSize.width;
-            rect.size.width = toSize.width;
+            if ((rect.size.height = (toSize.width * fromSize.height) / fromSize.width) > toSize.height) {
+                rect.size.width = (toSize.height * fromSize.width) / fromSize.height;
+                rect.size.height = toSize.height;
+            } else {
+                rect.size.width = toSize.width;
+            }
         }
         rect.origin.x = (toSize.width - rect.size.width) / 2;
         rect.origin.y = (toSize.height - rect.size.height) / 2;

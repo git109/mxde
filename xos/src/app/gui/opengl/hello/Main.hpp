@@ -22,12 +22,25 @@
 #define _XOS_GUI_OPENGL_HELLO_MAIN_HPP
 
 #include "xos/gui/opengl/ImageRenderer.hpp"
+#include "xos/gui/ImageRenderer.hpp"
+#include "xos/os/Main.hpp"
 #include "xos/os/Logger.hpp"
 
 #define XOS_GUI_OPENGL_HELLO_DEFAULT_IMAGE_FILENAME "video-frame-bgra.raw"
 #define XOS_GUI_OPENGL_HELLO_DEFAULT_IMAGE_WIDTH 352
 #define XOS_GUI_OPENGL_HELLO_DEFAULT_IMAGE_HEIGHT 288
 #define XOS_GUI_OPENGL_HELLO_DEFAULT_IMAGE_DEPTH 4
+
+#define XOS_GUI_OPENGL_HELLO_OPENGL_OPT "opengl"
+#define XOS_GUI_OPENGL_HELLO_OPENGL_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_GUI_OPENGL_HELLO_OPENGL_OPTARG "{on | off}"
+#define XOS_GUI_OPENGL_HELLO_OPENGL_OPTUSE "OpenGL on/off"
+#define XOS_GUI_OPENGL_HELLO_OPENGL_OPTVAL_S "g:"
+#define XOS_GUI_OPENGL_HELLO_OPENGL_OPTVAL_C 'g'
+
+#define XOS_GUI_OPENGL_HELLO_OPTIONS_CHARS XOS_GUI_OPENGL_HELLO_OPENGL_OPTVAL_S
+#define XOS_GUI_OPENGL_HELLO_OPTIONS_OPTIONS \
+            {XOS_GUI_OPENGL_HELLO_OPENGL_OPT, XOS_GUI_OPENGL_HELLO_OPENGL_OPTARG_REQUIRED, 0, XOS_GUI_OPENGL_HELLO_OPENGL_OPTVAL_C},
 
 namespace xos {
 namespace opengl {
@@ -67,7 +80,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual void RenderRaw() {
         if ((m_image)) {
-            gui::opengl::ImageRenderer& glRenderer = GlRenderer();
+	    gui::ImageRendererInterface& glRenderer = GlRenderer();
             glRenderer.RenderRaw
             (m_image, m_imageWidth, m_imageHeight);
             glRenderer.SwapBuffers();
@@ -75,7 +88,7 @@ public:
     }
     virtual void Render() {
         if ((m_image)) {
-            gui::opengl::ImageRenderer& glRenderer = GlRenderer();
+	    gui::ImageRendererInterface& glRenderer = GlRenderer();
             glRenderer.Render
             (m_image, m_imageWidth, m_imageHeight);
             glRenderer.SwapBuffers();
@@ -83,7 +96,7 @@ public:
     }
     virtual void RenderIn() {
         if ((m_image)) {
-            gui::opengl::ImageRenderer& glRenderer = GlRenderer();
+	    gui::ImageRendererInterface& glRenderer = GlRenderer();
             glRenderer.Render
             (m_image, m_imageWidth, m_imageHeight,
              m_image, m_imageWidth, m_imageHeight);
@@ -139,7 +152,7 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual gui::opengl::ImageRenderer& GlRenderer() const = 0;
+    virtual gui::ImageRendererInterface& GlRenderer() const = 0;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

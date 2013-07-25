@@ -115,6 +115,7 @@ public:
     virtual bool OnHandle_Expose_XtEvent
     (XtWidget xtWidget, XtPointer xtPointer, XEvent& xEvent, Boolean& continueToDispatch) {
         bool isHandled = false;
+        if ((this->m_window.AttachedTo()))
         if ((this->m_render))
             (this->*(this->m_render))();
         else
@@ -124,7 +125,8 @@ public:
     virtual bool OnHandle_UnmapNotify_XtEvent
     (XtWidget xtWidget, XtPointer xtPointer, XEvent& xEvent, Boolean& continueToDispatch) {
         bool isHandled = false;
-        this->m_glRenderer.Finish();
+        if ((this->m_window.AttachedTo()))
+            this->m_glRenderer.Finish();
         this->m_window.Detach();
         return isHandled;
     }
@@ -133,16 +135,19 @@ public:
         bool isHandled = false;
         if ((this->m_window.Attach(this->m_display.AttachedTo(), XtWindow(xtWidget)))) {
             if ((this->m_glRenderer.Init(this->m_display.AttachedTo(), XtWindow(xtWidget)))) {
-                this->m_glRenderer.Prepare();
+                if ((this->m_glRenderer.Prepare()))
+                    return isHandled;
             }
+            this->m_window.Detach();
         }
         return isHandled;
     }
     virtual bool OnHandle_ConfigureNotify_XtEvent
     (XtWidget xtWidget, XtPointer xtPointer, XEvent& xEvent, Boolean& continueToDispatch) {
         bool isHandled = false;
-        this->m_glRenderer.Reshape
-        (xEvent.xconfigure.width, xEvent.xconfigure.height);
+        if ((this->m_window.AttachedTo()))
+            this->m_glRenderer.Reshape
+            (xEvent.xconfigure.width, xEvent.xconfigure.height);
         this->m_window.Invalidate();
         return isHandled;
     }
@@ -163,7 +168,8 @@ public:
         bool isHandled = false;
         XOS_LOG_INFO("WM_DELETE_WINDOW...");
         this->SetDoneProcessingXEvents();
-        this->m_glRenderer.Finish();
+        if ((this->m_window.AttachedTo()))
+            this->m_glRenderer.Finish();
         this->m_window.Detach();
         return isHandled;
     }

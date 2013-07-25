@@ -72,7 +72,10 @@ public:
                 } else {
                     XOS_LOG_ERROR("failed on m_glRenderer.Init()");
                     FreeImage();
+                    ChangeBackground(m_main.RedColor());
                 }
+            } else {
+                ChangeBackground(m_main.RedColor());
             }
         }
         return 0;

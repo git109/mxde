@@ -23,6 +23,7 @@
 
 #include "xos/gui/wx/Platform.hpp"
 #include "xos/base/Base.hpp"
+#include <wx/defs.h>
 
 namespace xos {
 namespace wx {

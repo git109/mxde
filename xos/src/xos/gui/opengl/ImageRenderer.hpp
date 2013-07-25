@@ -21,6 +21,7 @@
 #ifndef _XOS_GUI_OPENGL_IMAGERENDERER_HPP
 #define _XOS_GUI_OPENGL_IMAGERENDERER_HPP
 
+#include "xos/gui/ImageRenderer.hpp"
 #include "xos/gui/opengl/Context.hpp"
 #include "xos/gui/opengl/Rectangle.hpp"
 #include "xos/gui/opengl/Size.hpp"
@@ -30,7 +31,7 @@ namespace xos {
 namespace gui {
 namespace opengl {
 
-typedef InterfaceBase ImageRendererImplement;
+typedef gui::ImageRendererInterface ImageRendererImplement;
 typedef ExportBase ImageRendererExtend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: ImageRenderer
@@ -108,7 +109,7 @@ public:
         Rectangle rect(Size(width, height), Size(toWidth, toHeight));
         RenderTexture(glTexture, rect.origin, rect.size);
 
-        if ((width >= minInWidth) && (height >= minInHeight))
+        if ((toWidth >= minInWidth) && (toHeight >= minInHeight))
         {
             float oX = (float)(inX);
             float oY = (float)(inY);

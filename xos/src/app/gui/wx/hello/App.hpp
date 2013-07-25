@@ -53,8 +53,8 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual xos::gui::opengl::ImageRenderer& GlRenderer() const {
-        return (xos::gui::opengl::ImageRenderer&)(*this);
+    virtual xos::gui::ImageRendererInterface& GlRenderer() const {
+        return (xos::gui::ImageRendererInterface&)(*this);
     }
 };
 
