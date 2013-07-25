@@ -23,7 +23,6 @@
 include(../../../../QtCreator/lib/libXosCore.pri)
 
 TARGET = qtXosHello
-#TEMPLATE = exe
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
@@ -32,9 +31,13 @@ ${QTDIR}/include \
 DEFINES += \
 $${libXosCore_DEFINES} \
 
+HEADERS += \
+$${XOS_SRC}/app/gui/qt/hello/Main.hpp \
+
 SOURCES += \
-$${libXosCore_SOURCES} \
 $${XOS_SRC}/app/gui/qt/hello/Main.cpp \
 
-LIBS += -framework QtWidgets -framework QtOpenGL \
+LIBS += \
+$${libXosCore_LIBS} \
 
+QT += opengl

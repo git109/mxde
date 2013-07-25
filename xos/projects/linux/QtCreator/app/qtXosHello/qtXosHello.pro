@@ -31,8 +31,10 @@ ${QTDIR}/include \
 DEFINES += \
 $${libXosCore_DEFINES} \
 
-SOURCES += \
+HEADERS += \
 $${XOS_SRC}/app/gui/qt/hello/Main.hpp \
+
+SOURCES += \
 $${XOS_SRC}/app/gui/qt/hello/Main.cpp \
 
 LIBS += \

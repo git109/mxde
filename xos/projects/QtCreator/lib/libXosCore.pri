@@ -65,6 +65,8 @@ $${XOS_SRC}/xos/fs/PathDirectoryAppender.cpp \
 $${XOS_SRC}/xos/fs/PathParser.cpp \
 $${XOS_SRC}/xos/fs/PathParserEvents.cpp \
 $${XOS_SRC}/xos/fs/Time.cpp \
+$${XOS_SRC}/xos/gui/ImageRenderer.cpp \
+$${XOS_SRC}/xos/gui/qt/ImageRenderer.cpp \
 $${XOS_SRC}/xos/gui/opengl/Context.cpp \
 $${XOS_SRC}/xos/gui/opengl/ImageRenderer.cpp \
 

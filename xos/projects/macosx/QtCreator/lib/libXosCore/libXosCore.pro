@@ -36,7 +36,7 @@ SOURCES += \
 $${libXosCore_SOURCES} \
 $${XOS_SRC}/xos/os/unix/Mutexes.cpp \
 $${XOS_SRC}/xos/os/unix/Processes.cpp \
-$${XOS_SRC}/xos/os/unix/Semaphores.hpp \
+$${XOS_SRC}/xos/os/unix/Semaphores.cpp \
 $${XOS_SRC}/xos/os/unix/Threads.cpp \
 $${XOS_SRC}/xos/network/unix/Sockets.cpp \
 
