@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2012 $organization$
+/// Copyright (c) 1988-2013 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,46 +13,36 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Error.hpp
+///   File: Main.cpp
 ///
 /// Author: $author$
-///   Date: Aug 5, 2012
+///   Date: 7/27/2013
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_ERROR_HPP_
-#define _XOS_ERROR_HPP_
-
-#include "xos/base/Platform.hpp"
+#include "app/gui/qt/crypto/hash/Main.hpp"
+#include "xos/crypto/hash/mxde/Md5.hpp"
+#include "app/gui/qt/crypto/hash/Main.cpp"
 
 namespace xos {
+namespace app {
+namespace gui {
+namespace qt {
+namespace crypto {
+namespace hash {
 
-class EXPORT_CLASS Error {
-public:
-    typedef int Code;
-    enum {
-        None = 0,
-        Failed,
-        NotImplemented,
-        NotAllowed,
-        InvalidParameter,
-        InvalidParameterSize,
-        InvalidParameterValue,
+///////////////////////////////////////////////////////////////////////
+///  Class: Main
+///////////////////////////////////////////////////////////////////////
+static xos::crypto::hash::mxde::Md5 g_hash;
+xos::crypto::hash::Interface& Main::GetHash() const {
+    return g_hash;
+}
+const char* Main::GetHashName() const {
+    return "MD5";
+}
 
-        Next,
-        First = None,
-        Last = Next-1
-    };
-    Error(Code code = None): m_code(code) {}
-    inline Error& operator = (Code code) {
-        m_code = code;
-        return *this;
-    }
-    inline operator Code() const {
-        return m_code;
-    }
-protected:
-    Code m_code;
-};
-
-} // namespace xos
-
-#endif // _XOS_ERROR_HPP_ 
+} // namespace hash 
+} // namespace crypto 
+} // namespace qt 
+} // namespace gui 
+} // namespace app 
+} // namespace xos 

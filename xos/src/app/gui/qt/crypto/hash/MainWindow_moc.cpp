@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2012 $organization$
+/// Copyright (c) 1988-2013 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,46 +13,9 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Error.hpp
+///   File: MainWindow_moc.cpp
 ///
 /// Author: $author$
-///   Date: Aug 5, 2012
+///   Date: 7/27/2013
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_ERROR_HPP_
-#define _XOS_ERROR_HPP_
-
-#include "xos/base/Platform.hpp"
-
-namespace xos {
-
-class EXPORT_CLASS Error {
-public:
-    typedef int Code;
-    enum {
-        None = 0,
-        Failed,
-        NotImplemented,
-        NotAllowed,
-        InvalidParameter,
-        InvalidParameterSize,
-        InvalidParameterValue,
-
-        Next,
-        First = None,
-        Last = Next-1
-    };
-    Error(Code code = None): m_code(code) {}
-    inline Error& operator = (Code code) {
-        m_code = code;
-        return *this;
-    }
-    inline operator Code() const {
-        return m_code;
-    }
-protected:
-    Code m_code;
-};
-
-} // namespace xos
-
-#endif // _XOS_ERROR_HPP_ 
+#include "app/gui/qt/crypto/hash/MainWindow.moc"

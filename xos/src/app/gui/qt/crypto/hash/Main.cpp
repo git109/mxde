@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2012 $organization$
+/// Copyright (c) 1988-2013 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,46 +13,34 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Error.hpp
+///   File: Main.cpp
 ///
 /// Author: $author$
-///   Date: Aug 5, 2012
+///   Date: 7/28/2013
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_ERROR_HPP_
-#define _XOS_ERROR_HPP_
-
-#include "xos/base/Platform.hpp"
+#include "app/gui/qt/crypto/hash/MainWindow.cpp"
+#include "app/gui/qt/crypto/hash/Main.hpp"
+#include "xos/os/Main_main.cpp"
 
 namespace xos {
+namespace app {
+namespace gui {
+namespace qt {
+namespace crypto {
+namespace hash {
 
-class EXPORT_CLASS Error {
-public:
-    typedef int Code;
-    enum {
-        None = 0,
-        Failed,
-        NotImplemented,
-        NotAllowed,
-        InvalidParameter,
-        InvalidParameterSize,
-        InvalidParameterValue,
+///////////////////////////////////////////////////////////////////////
+///  Class: Main
+///////////////////////////////////////////////////////////////////////
+static Main g_main;
 
-        Next,
-        First = None,
-        Last = Next-1
-    };
-    Error(Code code = None): m_code(code) {}
-    inline Error& operator = (Code code) {
-        m_code = code;
-        return *this;
-    }
-    inline operator Code() const {
-        return m_code;
-    }
-protected:
-    Code m_code;
-};
+} // namespace hash 
+} // namespace crypto 
+} // namespace qt 
+} // namespace gui 
+} // namespace app 
+} // namespace xos 
 
-} // namespace xos
 
-#endif // _XOS_ERROR_HPP_ 
+        
+

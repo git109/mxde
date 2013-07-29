@@ -198,6 +198,66 @@ public:
         }
         return *this; }
 
+    StringT& Assignx(const char* chars, size_t length, char A='a') {
+        Clear();
+        return AppendX((const uint8_t*)(chars), length, A);
+    }
+    StringT& AssignX(const char* chars, size_t length, char A='A') {
+        Clear();
+        return AppendX((const uint8_t*)(chars), length, A);
+    }
+
+    StringT& Appendx(const char* chars, size_t length, char A='a') {
+        return AppendX((const uint8_t*)(chars), length, A);
+    }
+    StringT& AppendX(const char* chars, size_t length, char A='A') {
+        return AppendX((const uint8_t*)(chars), length, A);
+    }
+
+    StringT& Assignx(const uint8_t* bytes, size_t length, char A='a') {
+        Clear();
+        return AppendX(bytes, length, A);
+    }
+    StringT& AssignX(const uint8_t* bytes, size_t length, char A='A') {
+        Clear();
+        return AppendX(bytes, length, A);
+    }
+
+    StringT& Appendx(const uint8_t* bytes, size_t length, char A='a') {
+        return AppendX(bytes, length, A);
+    }
+    StringT& AppendX(const uint8_t* bytes, size_t length, char A='A') {
+        TChar x[2];
+        uint8_t b;
+        if (0 < length)
+        {
+            for (; 0 < length; --length)
+            {
+                b = (*bytes++);
+                x[0] = DToX(b >> 4, A);
+                x[1] = DToX(b & 15, A);
+                Append(x, 2);
+            }
+        }
+        else
+        for (; (b = (*bytes++)); )
+        {
+            x[0] = DToX(b >> 4, A);
+            x[1] = DToX(b & 15, A);
+            Append(x, 2);
+        }
+        return *this; 
+    }
+    TChar DToX(uint8_t d, char A='A') const {
+        TChar x = (TChar)(0);
+        if ((0 <= d) && (9 >= d))
+            x = (TChar)(('0') +  d);
+        else
+        if ((10 <= d) && (15 >= d))
+            x = (TChar)((A) + (d - 10));
+        return x;
+    }
+
     size_t Clear() {
         size_t count = this->length();
         this->clear();

@@ -33,6 +33,12 @@ template
 
 class EXPORT_CLASS Array: virtual public TImplement, public TExtend {
 public:
+    Array(ssize_t length)
+    : m_elements(m_defaultElements),
+      m_elementsSize(VDefaultSize),
+      m_elementsLength(0) {
+        SetLength(length);
+    }
     Array()
     : m_elements(m_defaultElements),
       m_elementsSize(VDefaultSize),
