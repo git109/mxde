@@ -76,3 +76,13 @@ libXosCore_LIBS += \
 libXosCore_LIBS += \
 -lXosCore \
 
+XOS_MXDE_SRC += \
+$${XOS_PRJ}/../mxde/c/src \
+
+XosMxde_INCLUDEPATH += \
+$${XOS_SRC}/xos/mxde \
+$${XOS_MXDE_SRC}/clib/ccrypto \
+$${XOS_MXDE_SRC}/clib/cos/cplatform \
+$${XOS_MXDE_SRC}/clib/cos \
+$${XOS_MXDE_SRC}/clib/cbase \
+
