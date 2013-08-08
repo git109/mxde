@@ -101,23 +101,18 @@ public:
                             m_textLabel->resize(m_hashLabel->width(), m_hashLabel->height());
                             m_textLabel->move(m_fileLabel->x(), m_fileLabel->y()+m_fileLabel->height());
 
-                            if ((m_hashEdit = new QTextEdit(this))) {
+                            if ((m_hashEdit = new QLineEdit(this))) {
                                 QFontMetrics fontMetrics = m_hashEdit->fontMetrics();
                                 int hashWidth = HashWidth(fontMetrics);
                                 if (hashWidth < m_cancelButton->width())
                                     hashWidth = m_cancelButton->width();
-                                m_hashEdit->setLineWrapMode(QTextEdit::NoWrap);
-                                m_hashEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-                                m_hashEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+                                m_hashEdit->setReadOnly(true);
                                 m_hashEdit->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
                                 m_hashEdit->resize(hashWidth, m_cancelButton->height());
                                 m_hashEdit->move(m_cancelButton->x(), m_cancelButton->y());
                                 m_cancelButton->move(m_cancelButton->x()+m_hashEdit->width(), m_cancelButton->y());
 
-                                if ((m_fileEdit = new QTextEdit(this))) {
-                                    m_fileEdit->setLineWrapMode(QTextEdit::NoWrap);
-                                    m_fileEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-                                    m_fileEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+                                if ((m_fileEdit = new QLineEdit(this))) {
                                     m_fileEdit->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
                                     m_fileEdit->resize(m_hashEdit->width(), m_hashEdit->height());
                                     m_fileEdit->move(m_hashEdit->x(), m_hashEdit->y()+m_hashEdit->height());
@@ -246,7 +241,7 @@ protected:
             m_hashEdit->clear();
             if ((BeginHash())) {
                 if ((m_fileEdit)) {
-                    QString fileString = m_fileEdit->toPlainText();
+                    QString fileString = m_fileEdit->text();
                     if (0 < (fileString.length())) {
                         QByteArray fileArray = fileString.toAscii();
                         xos::String string(fileArray.data(), fileArray.length());
@@ -394,8 +389,8 @@ protected:
     QLabel* m_hashLabel;
     QLabel* m_fileLabel;
     QLabel* m_textLabel;
-    QTextEdit* m_hashEdit;
-    QTextEdit* m_fileEdit;
+    QLineEdit* m_hashEdit;
+    QLineEdit* m_fileEdit;
     QTextEdit* m_textEdit;
     QProgressBar* m_progressBar;
     FILE* m_file;

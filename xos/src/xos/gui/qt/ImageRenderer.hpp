@@ -23,7 +23,7 @@
 
 #include "xos/gui/ImageRenderer.hpp"
 #include "xos/gui/Rectangle.hpp"
-#include <QtGui/QWidget>
+#include "xos/gui/qt/Gui.hpp"
 
 namespace xos {
 namespace gui {

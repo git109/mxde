@@ -21,13 +21,8 @@
 #ifndef _XOS_GUI_QT_MAIN_HPP
 #define _XOS_GUI_QT_MAIN_HPP
 
-#include <QtCore/QtCore>
-#if  (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-#include <QtGui/QtGui>
-#else
-#include <QtWidgets/QtWidgets>
-#endif
 #include "xos/os/Main.hpp"
+#include "xos/gui/qt/Gui.hpp"
 
 #define XOS_GUI_QT_MAIN_DISPLAY_OPT "display"
 #define XOS_GUI_QT_MAIN_DISPLAY_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED

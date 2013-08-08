@@ -58,6 +58,12 @@ public:
     StringT(const wchar_t* chars){
         Append(chars);
     }
+    StringT(int value){
+        Append(value);
+    }
+    StringT(unsigned int value){
+        Append(value);
+    }
     StringT(){}
     virtual ~StringT(){}
 
@@ -273,6 +279,52 @@ public:
     }
     size_t Length() const  {
         return this->length();
+    }
+
+    int toInt() const {
+        const TChar c0 = (TChar)('0');
+        const TChar c9 = (TChar)('9');
+        const TChar minus = (TChar)('-');
+        bool negative = false;
+        int value = 0;
+        size_t length, digits, count;
+        const TChar* chars;
+        TChar c, d;
+
+        if (((chars = Chars(length))) && (0 < length)) {
+            for (digits = 0, count = 0; count < length; count++) {
+                if (((c = chars[count]) >= c0) && (c <= c9)) {
+                    value = (value*10) + (int)(d = (TChar)(c - c0));
+                    if ((d != 0) || digits)
+                        digits++;
+                } else {
+                    if ((minus == c) && !(digits))
+                        negative = !negative;
+                }
+            }
+        }
+        if ((value) && (negative))
+            value = -value;
+        return value;
+    }
+    unsigned int toUnsignedInt() const {
+        const TChar c0 = (TChar)('0');
+        const TChar c9 = (TChar)('9');
+        unsigned int value = 0;
+        size_t length, digits, count;
+        const TChar* chars;
+        TChar c, d;
+
+        if (((chars = Chars(length))) && (0 < length)) {
+            for (digits = 0, count = 0; count < length; count++) {
+                if (((c = chars[count]) >= c0) && (c <= c9)) {
+                    value = (value*10) + (int)(d = (TChar)(c - c0));
+                    if ((d != 0) || digits)
+                        digits++;
+                }
+            }
+        }
+        return value;
     }
 
     StringT& operator << (const Extends& str){ this->append(str); return *this; }

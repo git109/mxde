@@ -22,6 +22,7 @@
 #include "xos/os/StreamLogger.hpp"
 #include "xos/os/FILEStream.hpp"
 #include "xos/os/os/Mutex.cpp"
+#include "xos/base/NULLStream.hpp"
 
 static const char* Options
 (const struct option*& longopts)
@@ -85,7 +86,11 @@ static int GetOptions
 
 int main(int argc, char** argv, char** env) {
     xos::os::Mutex locker;
+#if defined(WINDOWS) && !defined(_CONSOLE)
+    xos::NULLStream errStream(&locker);
+#else // defined(WINDOWS) && !defined(_CONSOLE)
     xos::FILEStream errStream(stderr, &locker);
+#endif // defined(WINDOWS) && !defined(_CONSOLE)
     xos::Main::Logger errLogger(&errStream);
     int err = 1;
     XOS_LOGGING_LEVELS oldLevels;
