@@ -165,53 +165,53 @@ public:
 
         if ((hasHost = (0 != (chars = m_fileHost.HasChars(length)))))
         {
-            if (0 > (count = Append(&m_directorySeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_directorySeparatorChar, 1)))
                 return count;
-            if (0 > (count = Append(&m_directorySeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_directorySeparatorChar, 1)))
                 return count;
-            if (0 > (count = Append(chars, length)))
+            if (0 > (count = this->Append(chars, length)))
                 return count;
         }
 
         if ((hasVolume = (0 != (chars = m_fileVolume.HasChars(length)))))
         {
             if (hasHost)
-            if (0 > (count = Append(&m_directorySeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_directorySeparatorChar, 1)))
                 return count;
-            if (0 > (count = Append(chars, length)))
+            if (0 > (count = this->Append(chars, length)))
                 return count;
-            if (0 > (count = Append(&m_volumeSeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_volumeSeparatorChar, 1)))
                 return count;
         }
 
         if ((hasDirectory = (0 != (chars = m_fileDirectory.HasChars(length)))))
         {
             if ((hasHost && !hasVolume) || m_isRootDirectory)
-            if (0 > (count = Append(&m_directorySeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_directorySeparatorChar, 1)))
                 return count;
-            if (0 > (count = Append(chars, length)))
+            if (0 > (count = this->Append(chars, length)))
                 return count;
         }
 
         if ((hasFileBase = (0 != (chars = m_fileBase.HasChars(length)))))
         {
             if (hasDirectory || m_isRootDirectory || (hasHost && !hasVolume))
-            if (0 > (count = Append(&m_directorySeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_directorySeparatorChar, 1)))
                 return count;
-            if (0 > (count = Append(chars, length)))
+            if (0 > (count = this->Append(chars, length)))
                 return count;
 
             if ((hasFileExtension = (0 != (chars = m_fileExtension.HasChars(length)))))
             {
-                if (0 > (count = Append(&m_extensionSeparatorChar, 1)))
+                if (0 > (count = this->Append(&m_extensionSeparatorChar, 1)))
                     return count;
-                if (0 > (count = Append(chars, length)))
+                if (0 > (count = this->Append(chars, length)))
                     return count;
             }
         }
         else if (m_isRootDirectory)
         {
-            if (0 > (count = Append(&m_directorySeparatorChar, 1)))
+            if (0 > (count = this->Append(&m_directorySeparatorChar, 1)))
                 return count;
         }
         count = CTHIS Length();

@@ -34,6 +34,8 @@
 #define CCGI_CONTENT_TYPE_TEXT "text/text"
 #define CCGI_DEBUG_LEVELS_PARAM "debug-levels"
 
+#define CCGI_CONTENT_TYPE_FIELD_NAME "content_type"
+
 #if defined(c_NAMESPACE)
 namespace c_NAMESPACE {
 #endif // defined(c_NAMESPACE) 

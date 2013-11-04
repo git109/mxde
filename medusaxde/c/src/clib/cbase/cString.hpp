@@ -144,6 +144,82 @@ public:
 #endif // !defined(CSTRINGT_MEMBERS_ONLY) 
 
     ///////////////////////////////////////////////////////////////////////
+    //  Function: ToLower
+    //
+    //    Author: $author$
+    //      Date: 8/20/2013
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t ToLower()
+#if defined(CSTRINGT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CSTRINGT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = 0;
+#if !defined(CSTRINGT_MEMBER_FUNCS_IMPLEMENT)
+        const char_t* chars;
+        ssize_t length;
+        if ((chars = HasChars(length))) {
+            static const char_t a = (char_t)('a');
+            static const char_t A = (char_t)('A');
+            static const char_t Z = (char_t)('Z');
+            cStringT upper(chars, length);
+            if ((chars = upper.HasChars(length))) {
+                Clear();
+                for (ssize_t i=0; i<length; ++i) {
+                    char_t c = chars[i];
+                    if ((c >= A) && (c <= Z)) {
+                        c = a + (c - A);
+                        ++count;
+                    }
+                    Append(&c, 1);
+                }
+            }
+        }
+#else // !defined(CSTRINGT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CSTRINGT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CSTRINGT_MEMBER_FUNCS_INTERFACE) 
+
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: ToUpper
+    //
+    //    Author: $author$
+    //      Date: 8/20/2013
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t ToUpper()
+#if defined(CSTRINGT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CSTRINGT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = 0;
+#if !defined(CSTRINGT_MEMBER_FUNCS_IMPLEMENT)
+        const char_t* chars;
+        ssize_t length;
+        if ((chars = HasChars(length))) {
+            static const char_t a = (char_t)('a');
+            static const char_t z = (char_t)('z');
+            static const char_t A = (char_t)('A');
+            cStringT lower(chars, length);
+            if ((chars = lower.HasChars(length))) {
+                Clear();
+                for (ssize_t i=0; i<length; ++i) {
+                    char_t c = chars[i];
+                    if ((c >= a) && (c <= z)) {
+                        c = A + (c - a);
+                        ++count;
+                    }
+                    Append(&c, 1);
+                }
+            }
+        }
+#else // !defined(CSTRINGT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CSTRINGT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CSTRINGT_MEMBER_FUNCS_INTERFACE) 
+
+    ///////////////////////////////////////////////////////////////////////
     //  Function: Clear
     //
     //    Author: $author$

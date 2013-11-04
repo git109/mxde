@@ -104,10 +104,6 @@ public:
 };
 #undef CDB_CLASS
 
-#if defined(c_NAMESPACE)
-}
-#endif // defined(c_NAMESPACE) 
-
 ///////////////////////////////////////////////////////////////////////
 // Typedef: cWriterInterfaceImplement
 //
@@ -150,6 +146,42 @@ class c_IMPLEMENT_CLASS cWriterImplement
 public:
     typedef cWriterImplementImplement cImplements;
 };
+
+//
+// BYTE
+//
+class c_INTERFACE_CLASS cBYTEWriterInterface;
+typedef cWriterInterfaceT
+<cBYTEWriterInterface, BYTE> cBYTEWriterInterfaceImplement;
+///////////////////////////////////////////////////////////////////////
+//  Class: cBYTEWriterInterface
+//
+// Author: $author$
+//   Date: 5/15/2011
+///////////////////////////////////////////////////////////////////////
+class c_INTERFACE_CLASS cBYTEWriterInterface
+: virtual public cBYTEWriterInterfaceImplement {
+public:
+    typedef cBYTEWriterInterfaceImplement cImplements;
+};
+typedef cWriterImplementT
+<cBYTEWriterInterface, BYTE> cBYTEWriterImplementImplement;
+///////////////////////////////////////////////////////////////////////
+//  Class: cBYTEWriterImplement
+//
+// Author: $author$
+//   Date: 5/15/2011
+///////////////////////////////////////////////////////////////////////
+class c_IMPLEMENT_CLASS cBYTEWriterImplement
+: virtual public cBYTEWriterImplementImplement
+{
+public:
+    typedef cBYTEWriterImplementImplement cImplements;
+};
+
+#if defined(c_NAMESPACE)
+}
+#endif // defined(c_NAMESPACE) 
 
 #else // !defined(CWRITERINTERFACET_MEMBERS_ONLY) 
 #endif // !defined(CWRITERINTERFACET_MEMBERS_ONLY) 

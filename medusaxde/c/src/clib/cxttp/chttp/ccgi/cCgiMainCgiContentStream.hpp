@@ -95,6 +95,17 @@ public:
         return count;
     }
     ///////////////////////////////////////////////////////////////////////
+    //  Function: GetContentType
+    //
+    //    Author: $author$
+    //      Date: 8/20/2013
+    ///////////////////////////////////////////////////////////////////////
+    virtual cString GetContentType() const
+    {
+        cString type(m_cgiMain.GetContentType());
+        return type;
+    }
+    ///////////////////////////////////////////////////////////////////////
     //  Function: Write
     //
     //    Author: $author$

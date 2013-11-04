@@ -85,6 +85,162 @@ public:
 #endif // !defined(CWRITERT_MEMBERS_ONLY) 
 
     ///////////////////////////////////////////////////////////////////////
+    //  Function: WriteMSB
+    //
+    //    Author: $author$
+    //      Date: 8/20/2013
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t WriteMSB(size_t value, size_t size)
+#if defined(CWRITERT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_NOT_IMPLEMENTED;
+#if !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_delegated) && ((tWriterInterface*)(this) != m_delegated))
+            count = m_delegated->WriteMSB(value, size);
+        else {
+            ssize_t length;
+            size_t digits;
+            size_t msdValue;
+
+            for (digits = 0, msdValue = 0; digits<size; value >>= 8, digits++)
+                msdValue = (msdValue<<8) | (value&255);
+
+            for (; digits>0; msdValue >>= 8, --digits) {
+                TWhat b = (TWhat)(msdValue&255);
+                if (0 > (length = Write(&b, 1)))
+                    return length;
+                count += length;
+            }
+        }
+#else // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: WriteX
+    //
+    //    Author: $author$
+    //      Date: 8/20/2011
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t WriteX
+    (const BYTE* bytes, size_t size, char A='A', char F='F')
+#if defined(CWRITERT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_NOT_IMPLEMENTED;
+#if !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_delegated) && ((tWriterInterface*)(this) != m_delegated))
+            count = m_delegated->WriteX(bytes, size, A, F);
+        else {
+        }
+#else // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: PutX
+    //
+    //    Author: $author$
+    //      Date: 8/20/2011
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t PutX
+    (BYTE byte, char A='A', char F='F')
+#if defined(CWRITERT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_NOT_IMPLEMENTED;
+#if !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_delegated) && ((tWriterInterface*)(this) != m_delegated))
+            count = m_delegated->PutX(byte, A, F);
+        else {
+        }
+#else // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: Write2X
+    //
+    //    Author: $author$
+    //      Date: 8/20/2011
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Write2X
+    (const BYTE* bytes, size_t size, char A='A', char F='F')
+#if defined(CWRITERT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_NOT_IMPLEMENTED;
+#if !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_delegated) && ((tWriterInterface*)(this) != m_delegated))
+            count = m_delegated->Write2X(bytes, size, A, F);
+        else {
+        }
+#else // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: Put2X
+    //
+    //    Author: $author$
+    //      Date: 8/20/2011
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Put2X
+    (BYTE byte, char A='A', char F='F')
+#if defined(CWRITERT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    {
+        ssize_t count = -e_ERROR_NOT_IMPLEMENTED;
+#if !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_delegated) && ((tWriterInterface*)(this) != m_delegated))
+            count = m_delegated->Put2X(byte, A, F);
+        else {
+        }
+#else // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+        return count;
+    }
+#endif // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    ///////////////////////////////////////////////////////////////////////
+    //  Function: BYTE2X
+    //
+    //    Author: $author$
+    //      Date: 8/20/2011
+    ///////////////////////////////////////////////////////////////////////
+    virtual tWhat BYTE2X
+    (BYTE byte, char A='A', char F='F')
+#if defined(CWRITERT_MEMBER_FUNCS_INTERFACE)
+    = 0;
+#else // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+    {
+        tWhat x = (tWhat)('0');
+#if !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT)
+        if ((m_delegated) && ((tWriterInterface*)(this) != m_delegated))
+            x = m_delegated->BYTE2X(byte, A, F);
+        else {
+            const tWhat a = ((tWhat)A);
+            const tWhat zero = ((tWhat)'0');
+            tWhat x;
+            if ((byte = (byte & 15)) < 10) x = zero + byte;
+            else x = a + (byte - 10);
+        }
+#else // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+#endif // !defined(CWRITERT_MEMBER_FUNCS_IMPLEMENT) 
+        return x;
+    }
+#endif // defined(CWRITERT_MEMBER_FUNCS_INTERFACE) 
+
+    ///////////////////////////////////////////////////////////////////////
     //  Function: Write
     //
     //    Author: $author$
@@ -235,6 +391,32 @@ public:
     }
 };
 
+//
+// BYTE
+//
+typedef cWriterT
+<cBYTEWriterImplement,cBYTEWriterInterface,BYTE> cBYTEWriterExtend;
+///////////////////////////////////////////////////////////////////////
+//  Class: cBYTEWriter
+//
+// Author: $author$
+//   Date: 5/22/2011
+///////////////////////////////////////////////////////////////////////
+class c_INSTANCE_CLASS cBYTEWriter: public cBYTEWriterExtend {
+public:
+    typedef cBYTEWriterExtend cExtends;
+    ///////////////////////////////////////////////////////////////////////
+    //  Constructor: cBYTEWriter
+    //
+    //       Author: $author$
+    //         Date: 5/22/2011
+    ///////////////////////////////////////////////////////////////////////
+    cBYTEWriter(tWriterInterface* delegatedTo=0)
+    : cExtends(delegatedTo)
+    {
+    }
+};
+
 #if defined(c_NAMESPACE)
 }
 #endif // defined(c_NAMESPACE) 
@@ -243,5 +425,3 @@ public:
 #endif // !defined(CWRITERT_MEMBERS_ONLY) 
 
 #endif // !defined(_CWRITER_HPP) || defined(CWRITERT_MEMBERS_ONLY) 
-        
-

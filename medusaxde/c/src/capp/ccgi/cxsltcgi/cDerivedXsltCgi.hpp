@@ -35,17 +35,43 @@
 #else // !defined(CXSLTCGI_NAME) 
 #endif // !defined(CXSLTCGI_NAME) 
 
+#if !defined(CXSLTCGI_PATH_PREFIX) 
+#define CXSLTCGI_PATH_PREFIX \
+    ""
+#else // !defined(CXSLTCGI_PATH_PREFIX) 
+#endif // !defined(CXSLTCGI_PATH_PREFIX) 
+
+#if !defined(CXSLTCGI_PATH_NAME) 
+#define CXSLTCGI_PATH_NAME \
+    "/medusaxde/xsl"
+#else // !defined(CXSLTCGI_PATH_NAME) 
+#endif // !defined(CXSLTCGI_PATH_NAME) 
+
 #if !defined(CXSLTCGI_PATH) 
 #define CXSLTCGI_PATH \
-    "/medusaxde/xsl" \
+    CXSLTCGI_PATH_PREFIX \
+    CXSLTCGI_PATH_NAME \
     CXSLTCGI_PATH_SEPARATOR \
     CXSLTCGIBASE_NAME
 #else // !defined(CXSLTCGI_PATH) 
 #endif // !defined(CXSLTCGI_PATH) 
 
+#if !defined(CXSLTCGI_FILEPATH_PREFIX) 
+#define CXSLTCGI_FILEPATH_PREFIX \
+    "../../../../../../../webapp"
+#else // !defined(CXSLTCGI_FILEPATH_PREFIX) 
+#endif // !defined(CXSLTCGI_FILEPATH_PREFIX) 
+
+#if !defined(CXSLTCGI_FILEPATH_NAME) 
+#define CXSLTCGI_FILEPATH_NAME \
+    "/medusaxde/doc/xsl"
+#else // !defined(CXSLTCGI_FILEPATH_NAME) 
+#endif // !defined(CXSLTCGI_FILEPATH_NAME) 
+
 #if !defined(CXSLTCGI_FILEPATH) 
 #define CXSLTCGI_FILEPATH \
-    "../../../../../mxde/medusaxde/doc/xsl" \
+    CXSLTCGI_FILEPATH_PREFIX \
+    CXSLTCGI_FILEPATH_NAME \
     CXSLTCGI_FILEPATH_SEPARATOR
 #else // !defined(CXSLTCGI_FILEPATH) 
 #endif // !defined(CXSLTCGI_FILEPATH) 

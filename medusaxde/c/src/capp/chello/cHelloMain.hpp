@@ -89,7 +89,7 @@ public:
         int err = 0;
 #if !defined(CHELLOMAIN_MEMBER_FUNCS_IMPLEMENT)
         c_DB_TRACE("() in...");
-        OutFormatted("Hello\n");
+        OutFormatted("Hello %s\n", (optind<argc)?(argv[optind]):(""));
         c_DB_TRACE("() ...out");
 #else // !defined(CHELLOMAIN_MEMBER_FUNCS_IMPLEMENT)
 #endif // !defined(CHELLOMAIN_MEMBER_FUNCS_IMPLEMENT) 
