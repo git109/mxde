@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: $date$
 #
-# MacOSX Gcc Makefile for Static Library libcxttp Xos Development project
+# MacOSX Gcc Makefile for Shared Library libcxml Xos Development project
 ########################################################################
 
 PKG = $(PWD)/../../../../..
@@ -38,43 +38,66 @@ USRDEFINES = \
 # user includes
 #
 USRINCLUDES = \
--I$(PKG)/src/clib/cxttp/chttp/ccgi \
--I$(PKG)/src/clib/cxttp/chttp \
--I$(PKG)/src/clib/cxttp \
 -I$(PKG)/src/clib/cxml \
 
 #
 # targets
 #
-LIBTARGET = libcxttp.a
+SLIBTARGET = libcxml.dylib
 
 #
-# Static Library C sources
+# Shared Library C sources
 #
-LIB_C_SOURCES = \
+SLIB_C_SOURCES = \
 
 #
-# Static Library C++ .cxx sources
+# Shared Library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
+SLIB_CXX_SOURCES = \
 
 #
-# Static Library C++ .cpp sources
+# Shared Library C++ .cpp sources
 #
-LIB_CPP_SOURCES = \
-$(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormField.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFieldInterface.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFieldItem.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFieldList.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFields.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFieldsInterface.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiEnv.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiEnvInterface.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiContentStream.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiContentStreamInterface.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiInterface.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgi.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiXmlWriter.cpp \
-$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiXmlWriterInterface.cpp \
+SLIB_CPP_SOURCES = \
+$(PKG)/$(SRC)/clib/cxml/cXmlAttributeEncoder.cpp \
+$(PKG)/$(SRC)/clib/cxml/cXmlTextEncoder.cpp \
+
+#
+# Shared Library libs
+#
+#LIBSSO = \
+#-lsomelib
+#
+LIBSSO = \
+-lcbase \
+-lcos \
+-lpthread \
+
+#
+# Shared Library depends
+#
+#SLIBDEP = \
+#$(PKG)/$(BLD)/libsomelib.a \
+#
+SLIBDEP = \
+
+#
+# Shared Library depend dirs
+#
+#SLIBDEP_DIRS = \
+#../libsomelib
+#
+SLIBDEP_DIRS = \
 
 include $(PKG)/$(PRJ)/Makerules
+
+#
+# Shared Library depend rules
+#
+#$(PKG)/$(BLD)/libsomelib.a:
+#	@(echo Building libsomelib.a ...;\
+#	  pushd ../libsomelib;\
+#	  ((make) || (exit 1));\
+#	  popd)
+#
+

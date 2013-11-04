@@ -83,9 +83,15 @@ LIBS = \
 -lcxttp \
 -lcos \
 -lcbase \
+-lcplatform \
+-lcfs \
+-lcthread \
 -lxml2 \
 -lxslt \
 -lexslt \
+-lcgicc \
+-lpthread \
+-ldl \
 
 #
 # Executable depends

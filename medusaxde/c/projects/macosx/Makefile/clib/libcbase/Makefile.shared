@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: $date$
 #
-# MaxOSX Gcc Makefile for Static Library libcbase Xos Development project
+# MaxOSX Gcc Makefile for Shared Library libcbase Xos Development project
 ########################################################################
 
 PKG = $(PWD)/../../../../..
@@ -42,22 +42,22 @@ USRINCLUDES = \
 #
 # targets
 #
-LIBTARGET = libcbase.a
+SLIBTARGET = libcbase.dylib
 
 #
-# Static Library C sources
+# Shared Library C sources
 #
-LIB_C_SOURCES = \
+SLIB_C_SOURCES = \
 
 #
-# Static Library C++ .cxx sources
+# Shared Library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
+SLIB_CXX_SOURCES = \
 
 #
-# Static Library C++ .cpp sources
+# Shared Library C++ .cpp sources
 #
-LIB_CPP_SOURCES = \
+SLIB_CPP_SOURCES = \
 $(PKG)/$(SRC)/clib/cbase/cBase.cpp \
 $(PKG)/$(SRC)/clib/cbase/cError.cpp \
 $(PKG)/$(SRC)/clib/cbase/cImplementBase.cpp \
@@ -87,6 +87,15 @@ $(PKG)/$(SRC)/clib/cbase/cReferenced.cpp \
 $(PKG)/$(SRC)/clib/cbase/cTypes.cpp \
 $(PKG)/$(SRC)/clib/cbase/cArray.cpp \
 $(PKG)/$(SRC)/clib/cbase/cArrayInterface.cpp \
+
+#
+# Shared Library libs
+#
+#LIBSSO = \
+#-lsomelib
+#
+LIBSSO = \
+-lpthread \
 
 include $(PKG)/$(PRJ)/Makerules
 

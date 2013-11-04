@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: $date$
 #
-# MacOSX Gcc Makefile for Shared Library libcxml Xos Development project
+# MacOSX Gcc Makefile for Static Library libcxml Xos Development project
 ########################################################################
 
 PKG = $(PWD)/../../../../..
@@ -43,61 +43,24 @@ USRINCLUDES = \
 #
 # targets
 #
-SLIBTARGET = libcxml.dylib
+LIBTARGET = libcxml.a
 
 #
-# Shared Library C sources
+# Static Library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
-# Shared Library C++ .cxx sources
+# Static Library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 
 #
-# Shared Library C++ .cpp sources
+# Static Library C++ .cpp sources
 #
-SLIB_CPP_SOURCES = \
+LIB_CPP_SOURCES = \
 $(PKG)/$(SRC)/clib/cxml/cXmlAttributeEncoder.cpp \
 $(PKG)/$(SRC)/clib/cxml/cXmlTextEncoder.cpp \
 
-#
-# Shared Library libs
-#
-#LIBSSO = \
-#-lsomelib
-#
-LIBSSO = \
--lcbase \
--lcos \
--lpthread \
-
-#
-# Shared Library depends
-#
-#SLIBDEP = \
-#$(PKG)/$(BLD)/libsomelib.a \
-#
-SLIBDEP = \
-
-#
-# Shared Library depend dirs
-#
-#SLIBDEP_DIRS = \
-#../libsomelib
-#
-SLIBDEP_DIRS = \
-
 include $(PKG)/$(PRJ)/Makerules
-
-#
-# Shared Library depend rules
-#
-#$(PKG)/$(BLD)/libsomelib.a:
-#	@(echo Building libsomelib.a ...;\
-#	  pushd ../libsomelib;\
-#	  ((make) || (exit 1));\
-#	  popd)
-#
 

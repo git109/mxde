@@ -73,10 +73,23 @@ $(PKG)/$(SRC)/capp/ccgicc/cCgiccCgi.cpp \
 #-lsomelib
 #
 LIBS = \
+-L$(HOME)/build/cgicc/lib \
+-L$(HOME)/build/libxml2/lib \
+-L$(HOME)/build/libxslt/lib \
 -lccgicc \
+-lclibxslt \
 -lcxttp \
 -lcos \
 -lcbase \
+-lcplatform \
+-lcfs \
+-lcthread \
+-lxml2 \
+-lxslt \
+-lexslt \
+-lcgicc \
+-lpthread \
+-ldl \
 
 #
 # Executable depends

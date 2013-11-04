@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: $date$
 #
-# MacOSX Gcc Makefile for Shared Library libclibxslt Xos Development project
+# MacOSX Gcc Makefile for Static Library libclibxslt Xos Development project
 ########################################################################
 
 PKG = $(PWD)/../../../../..
@@ -53,67 +53,24 @@ USRLIBDIRS = \
 #
 # targets
 #
-SLIBTARGET = libclibxslt.dylib
+LIBTARGET = libclibxslt.a
 
 #
-# Shared Library C sources
+# Static Library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
-# Shared Library C++ .cxx sources
+# Static Library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 
 #
-# Shared Library C++ .cpp sources
+# Static Library C++ .cpp sources
 #
-SLIB_CPP_SOURCES = \
+LIB_CPP_SOURCES = \
 $(PKG)/$(SRC)/clib/clibc/clibxml2/clibxslt/cLibXsltXsltParams.cpp \
 $(PKG)/$(SRC)/clib/clibc/clibxml2/clibxslt/cLibXsltXsltProcessor.cpp \
 $(PKG)/$(SRC)/clib/clibc/clibxml2/clibxslt/cLibXsltXsltProcessorInterface.cpp \
 
-#./resource.h \
-#./libclibxslt.rc \
-
-#
-# Shared Library libs
-#
-#LIBSSO = \
-#-lsomelib
-#
-LIBSSO = \
--lcos \
--lcxslt \
--lxml2 \
--lxslt \
--lexslt \
-
-#
-# Shared Library depends
-#
-#SLIBDEP = \
-#$(PKG)/$(BLD)/libsomelib.a \
-#
-SLIBDEP = \
-
-#
-# Shared Library depend dirs
-#
-#SLIBDEP_DIRS = \
-#../libsomelib
-#
-SLIBDEP_DIRS = \
-
 include $(PKG)/$(PRJ)/Makerules
-
-#
-# Shared Library depend rules
-#
-#$(PKG)/$(BLD)/libsomelib.a:
-#	@(echo Building libsomelib.a ...;\
-#	  pushd ../libsomelib;\
-#	  ((make) || (exit 1));\
-#	  popd)
-#
-
