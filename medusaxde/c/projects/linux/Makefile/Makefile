@@ -1,5 +1,5 @@
 ########################################################################
-# Copyright (c) 1988-2011 $organization$
+# Copyright (c) 1988-2013 $organization$
 #
 # This software is provided by the author and contributors ``as is'' 
 # and any express or implied warranties, including, but not limited to, 
@@ -16,24 +16,24 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 10/10/2011
+#   Date: 8/13/2013
 #
-# MacOSX Gcc Makefile for MedusaXde CGI Applications
+# Linux Makefile for MedusaXde
 ########################################################################
 
-PKG = $(PWD)/../../../../..
+PKG = $(PWD)/../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/Makefile
+BLD = build/linux
+PRJ = projects/linux/Makefile
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
 
 SRC_DIRS = \
-$(PKG)/$(PRJ)/capp/ccgi/ccgicc \
-$(PKG)/$(PRJ)/capp/ccgi/clibxsltcgi \
-$(PKG)/$(PRJ)/capp/ccgi/cvcprojxsltcgi \
-$(PKG)/$(PRJ)/capp/ccgi/cvspropsxsltcgi \
+$(PKG)/$(PRJ)/clib \
+$(PKG)/$(PRJ)/capp \
+
+INSTALL_DIRS = yes
 
 include $(PKG)/$(PRJ)/Makedirs
 

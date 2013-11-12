@@ -18,13 +18,13 @@
 # Author: $author$
 #   Date: $date$
 #
-# MacOSX Gcc Makefile for Static Library libcos Xos Development project
+# Linux Gcc Makefile for Static Library libcos Xos Development project
 ########################################################################
 
 PKG = $(PWD)/../../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/Makefile
+BLD = build/linux
+PRJ = projects/linux/Makefile
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
@@ -70,6 +70,51 @@ $(PKG)/$(SRC)/clib/cos/cMainInterface.cpp \
 $(PKG)/$(SRC)/clib/cos/cOptMain.cpp \
 $(PKG)/$(SRC)/clib/cos/cOptMainInterface.cpp \
 
+#$(PKG)/$(SRC)/clib/cos/cfs/cFileSystemEntry.cpp \
+
+#$(PKG)/$(SRC)/clib/cos/windows/cWinSecurityAttributes.cpp \
+#$(PKG)/$(SRC)/clib/cos/windows/cWinSecurityAttributesInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cCondition.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cConditionBase.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cConditionInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cEventBase.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cEventInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cSemaphore.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cSemaphoreBase.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cSemaphoreInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cThread.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cThreadBase.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cThreadInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cWait.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cWaitInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinCrtThread.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinCrtThreadInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinEvent.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinEventInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinMutex.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinMutexInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinSemaphore.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinSemaphoreInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinThread.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cwinthread/cWinThreadInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThread.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadCondition.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadConditionInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadMutex.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadMutexInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadSemaphore.cpp \
+#$(PKG)/$(SRC)/clib/cos/cthread/cpthread/cPThreadSemaphoreInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cwinfs/cWinFileSystemEntry.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cwinfs/cWinFileSystemEntryInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cwinfs/cWinFindFileData.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cFilePath.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cFilePathInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cFilePathParser.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cFilePathParserEvents.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cFilePathParserEventsInterface.cpp \
+#$(PKG)/$(SRC)/clib/cos/cfs/cFilePathParserInterface.cpp \
+
 #
 # Static Library depends
 #
@@ -78,7 +123,6 @@ $(PKG)/$(SRC)/clib/cos/cOptMainInterface.cpp \
 #
 LIBDEP = \
 $(PKG)/$(BLD)/libcbase.a \
-$(PKG)/$(BLD)/libcplatform.a \
 $(PKG)/$(BLD)/libcfs.a \
 $(PKG)/$(BLD)/libcthread.a \
 
@@ -90,7 +134,6 @@ $(PKG)/$(BLD)/libcthread.a \
 #
 LIBDEP_DIRS = \
 ../libcbase \
-./libcplatform \
 ./libcfs \
 ./libcthread \
 
@@ -111,12 +154,6 @@ $(PKG)/$(BLD)/libcbase.a:
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libcplatform.a:
-	@(echo Building libcplatform.a ...;\
-	  pushd ./libcplatform;\
-	  ((make) || (exit 1));\
-	  popd)
-
 $(PKG)/$(BLD)/libcfs.a:
 	@(echo Building libcfs.a ...;\
 	  pushd ./libcfs;\
@@ -128,3 +165,5 @@ $(PKG)/$(BLD)/libcthread.a:
 	  pushd ./libcthread;\
 	  ((make) || (exit 1));\
 	  popd)
+
+

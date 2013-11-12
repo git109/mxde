@@ -18,13 +18,13 @@
 # Author: $author$
 #   Date: 10/10/2011
 #
-# MacOSX Gcc Makefile for MedusaXde CGI Applications
+# Linux Makefile for MedusaXde CGI Applications
 ########################################################################
 
 PKG = $(PWD)/../../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/Makefile
+BLD = build/linux
+PRJ = projects/linux/Makefile
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines

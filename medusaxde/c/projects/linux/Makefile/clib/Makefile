@@ -18,22 +18,32 @@
 # Author: $author$
 #   Date: 10/10/2011
 #
-# MacOSX Gcc Makefile for MedusaXde CGI Applications
+# Linux Makefile for MedusaXde libraries
 ########################################################################
 
-PKG = $(PWD)/../../../../..
+PKG = $(PWD)/../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/Makefile
+BLD = build/linux
+PRJ = projects/linux/Makefile
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
 
 SRC_DIRS = \
-$(PKG)/$(PRJ)/capp/ccgi/ccgicc \
-$(PKG)/$(PRJ)/capp/ccgi/clibxsltcgi \
-$(PKG)/$(PRJ)/capp/ccgi/cvcprojxsltcgi \
-$(PKG)/$(PRJ)/capp/ccgi/cvspropsxsltcgi \
+$(PKG)/$(PRJ)/clib/libcbase \
+$(PKG)/$(PRJ)/clib/libcos \
+$(PKG)/$(PRJ)/clib/libcxttp \
+$(PKG)/$(PRJ)/clib/libccgicc \
+$(PKG)/$(PRJ)/clib/libcxml \
+$(PKG)/$(PRJ)/clib/libcxslt \
+$(PKG)/$(PRJ)/clib/libclibxslt \
 
 include $(PKG)/$(PRJ)/Makedirs
+
+install:
+	@(echo Installing libs...;\
+	  ((mkdir -p $(HOME)/build/medusaxde) || (exit 1));\
+	  ((cp -r $(PKGBLD)/lib $(HOME)/build/medusaxde) || (exit 1));\
+	  echo ...Installed libs)
+
 

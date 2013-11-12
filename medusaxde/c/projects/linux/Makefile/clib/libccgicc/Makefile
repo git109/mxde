@@ -18,13 +18,13 @@
 # Author: $author$
 #   Date: $date$
 #
-# MacOSX Gcc Makefile for Static Library libcos Xos Development project
+# Linux Gcc Makefile for Static Library libccgicc Xos Development project
 ########################################################################
 
 PKG = $(PWD)/../../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/Makefile
+BLD = build/linux
+PRJ = projects/linux/Makefile
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
@@ -38,11 +38,17 @@ USRDEFINES = \
 # user includes
 #
 USRINCLUDES = \
+-I$(HOME)/build/cgicc/include/cgicc \
+-I$(HOME)/build/cgicc/include \
+-I$(PKG)/src/clib/cxttp/chttp/ccgi \
+-I$(PKG)/src/clib/cxttp/chttp \
+-I$(PKG)/src/clib/cxttp \
+-I$(PKG)/src/clib/cxml \
 
 #
 # targets
 #
-LIBTARGET = libcos.a
+LIBTARGET = libccgicc.a
 
 #
 # Static Library C sources
@@ -58,17 +64,13 @@ LIB_CXX_SOURCES = \
 # Static Library C++ .cpp sources
 #
 LIB_CPP_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cDebug.cpp \
-$(PKG)/$(SRC)/clib/cos/cDebugImplemented.cpp \
-$(PKG)/$(SRC)/clib/cos/cDebugInterface.cpp \
-$(PKG)/$(SRC)/clib/cos/cCharFile.cpp \
-$(PKG)/$(SRC)/clib/cos/cCharFileInterface.cpp \
-$(PKG)/$(SRC)/clib/cos/cFile.cpp \
-$(PKG)/$(SRC)/clib/cos/cFileInterface.cpp \
-$(PKG)/$(SRC)/clib/cos/cMain.cpp \
-$(PKG)/$(SRC)/clib/cos/cMainInterface.cpp \
-$(PKG)/$(SRC)/clib/cos/cOptMain.cpp \
-$(PKG)/$(SRC)/clib/cos/cOptMainInterface.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccFormEntries.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccCgiInterface_TheMain.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccCgiMain.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccMain.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccMainCgiContentStream.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccMainHttpFormFields.cpp \
+$(PKG)/$(SRC)/clib/ccgicc/cCgiccMainInterface.cpp \
 
 #
 # Static Library depends
@@ -77,10 +79,6 @@ $(PKG)/$(SRC)/clib/cos/cOptMainInterface.cpp \
 #$(PKG)/$(BLD)/libsomelib.a \
 #
 LIBDEP = \
-$(PKG)/$(BLD)/libcbase.a \
-$(PKG)/$(BLD)/libcplatform.a \
-$(PKG)/$(BLD)/libcfs.a \
-$(PKG)/$(BLD)/libcthread.a \
 
 #
 # Static Library depend dirs
@@ -89,10 +87,6 @@ $(PKG)/$(BLD)/libcthread.a \
 #../libsomelib
 #
 LIBDEP_DIRS = \
-../libcbase \
-./libcplatform \
-./libcfs \
-./libcthread \
 
 include $(PKG)/$(PRJ)/Makerules
 
@@ -105,26 +99,4 @@ include $(PKG)/$(PRJ)/Makerules
 #	  ((make) || (exit 1));\
 #	  popd)
 #
-$(PKG)/$(BLD)/libcbase.a:
-	@(echo Building libcbase.a ...;\
-	  pushd ../libcbase;\
-	  ((make) || (exit 1));\
-	  popd)
 
-$(PKG)/$(BLD)/libcplatform.a:
-	@(echo Building libcplatform.a ...;\
-	  pushd ./libcplatform;\
-	  ((make) || (exit 1));\
-	  popd)
-
-$(PKG)/$(BLD)/libcfs.a:
-	@(echo Building libcfs.a ...;\
-	  pushd ./libcfs;\
-	  ((make) || (exit 1));\
-	  popd)
-
-$(PKG)/$(BLD)/libcthread.a:
-	@(echo Building libcthread.a ...;\
-	  pushd ./libcthread;\
-	  ((make) || (exit 1));\
-	  popd)
