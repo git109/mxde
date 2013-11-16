@@ -16,27 +16,21 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 12/17/2012
+#   Date: 11/13/2013
 #
-# MaxOSX Makefile for MedusaXde applications
+# Linux Makefile for MedusaXde Console Applications
 ########################################################################
 
-PKG = $(PWD)/../../../..
+PKG = $(PWD)/../../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/Makefile
+BLD = build/linux
+PRJ = projects/linux/Makefile
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
 
 SRC_DIRS = \
-$(PKG)/$(PRJ)/capp/ccgi \
-$(PKG)/$(PRJ)/capp/cconsole \
+$(PKG)/$(PRJ)/capp/cconsole/clibxslt \
 
 include $(PKG)/$(PRJ)/Makedirs
 
-install:
-	@(echo Installing exes...;\
-	  ((mkdir -p $(HOME)/build/medusaxde) || (exit 1));\
-	  ((cp -r $(PKGBLD)/bin $(HOME)/build/medusaxde) || (exit 1));\
-	  echo ...Installed exes)

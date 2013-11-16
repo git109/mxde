@@ -81,9 +81,9 @@ LIBS = \
 -lcos \
 
 EXEDEP = \
-$(PKG)/$(BLD)/libcxalan.so \
-$(PKG)/$(BLD)/libcxerces.so \
-$(PKG)/$(BLD)/libccgi.so \
+$(PKG)/$(BLD)/libcxalan.$(SLIBEXT) \
+$(PKG)/$(BLD)/libcxerces.$(SLIBEXT) \
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT) \
 
 SLIBDEP_DIRS = \
 ../../lib/libcxalan \
@@ -92,20 +92,20 @@ SLIBDEP_DIRS = \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcxalan.so:
-	@(echo      Building libcxalan.so ...;\
+$(PKG)/$(BLD)/libcxalan.$(SLIBEXT):
+	@(echo      Building libcxalan.$(SLIBEXT) ...;\
 	  pushd ../../lib/libcxalan;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libcxerces.so:
-	@(echo      Building libcxerces.so ...;\
+$(PKG)/$(BLD)/libcxerces.$(SLIBEXT):
+	@(echo      Building libcxerces.$(SLIBEXT) ...;\
 	  pushd ../../lib/libcxerces;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libccgi.so:
-	@(echo      Building libccgi.so ...;\
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT):
+	@(echo      Building libccgi.$(SLIBEXT) ...;\
 	  pushd ../../lib/libccgi;\
 	  ((make) || (exit 1));\
 	  popd)

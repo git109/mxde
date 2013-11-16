@@ -47,7 +47,7 @@ USRDEFINES = \
 #
 # targets
 #
-LIBTARGET = libcfs.a
+LIBTARGET = libcfs.$(LIBEXT)
 
 #
 # library C sources

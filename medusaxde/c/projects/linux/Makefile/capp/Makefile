@@ -31,6 +31,7 @@ include $(PKG)/$(PRJ)/Makedefines
 
 SRC_DIRS = \
 $(PKG)/$(PRJ)/capp/ccgi \
+$(PKG)/$(PRJ)/capp/cconsole \
 
 include $(PKG)/$(PRJ)/Makedirs
 

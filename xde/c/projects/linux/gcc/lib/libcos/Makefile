@@ -82,9 +82,9 @@ LIBSSO = \
 -lcfs \
 
 SLIBDEP = \
-$(PKG)/$(BLD)/libcbase.a \
-$(PKG)/$(BLD)/libcipc.a \
-$(PKG)/$(BLD)/libcfs.a \
+$(PKG)/$(BLD)/libcbase.$(LIBEXT) \
+$(PKG)/$(BLD)/libcipc.$(LIBEXT) \
+$(PKG)/$(BLD)/libcfs.$(LIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcbase \
@@ -93,20 +93,20 @@ libcfs \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcbase.a:
-	@(echo      Building libcbase.a ...;\
+$(PKG)/$(BLD)/libcbase.$(LIBEXT):
+	@(echo      Building libcbase.$(LIBEXT) ...;\
 	  pushd ../libcbase;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libcipc.a:
-	@(echo      Building libcipc.a ...;\
+$(PKG)/$(BLD)/libcipc.$(LIBEXT):
+	@(echo      Building libcipc.$(LIBEXT) ...;\
 	  pushd libcipc;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libcfs.a:
-	@(echo      Building libcfs.a ...;\
+$(PKG)/$(BLD)/libcfs.$(LIBEXT):
+	@(echo      Building libcfs.$(LIBEXT) ...;\
 	  pushd libcfs;\
 	  ((make) || (exit 1));\
 	  popd)

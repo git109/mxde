@@ -52,7 +52,7 @@ USRLDFLAGS = \
 #
 # targets
 #
-LIBTARGET = libcipc.a
+LIBTARGET = libcipc.$(LIBEXT)
 
 #
 # library C sources
