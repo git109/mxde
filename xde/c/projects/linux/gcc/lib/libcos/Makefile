@@ -51,15 +51,15 @@ USRLDFLAGS = \
 #
 # targets
 #
-SLIBTARGET = libcos.so
+SLIBTARGET = libcos.$(LIBEXT)
 
 #
-# shared library C sources
+# static library C sources
 #
 SLIB_C_SOURCES = \
 
 #
-# shared library C++ .cxx sources
+# static library C++ .cxx sources
 #
 SLIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/cos/cdebug.cxx \
@@ -70,16 +70,6 @@ $(PKG)/$(SRC)/clib/cos/cmain.cxx \
 $(PKG)/$(SRC)/clib/cos/cmainarginterface.cxx \
 $(PKG)/$(SRC)/clib/cos/cmainarg.cxx \
 $(PKG)/$(SRC)/clib/cos/cargmain.cxx \
-
-#
-# shared library libs
-#
-LIBSSO = \
--ldl \
--lpthread \
--lcbase \
--lcipc \
--lcfs \
 
 SLIBDEP = \
 $(PKG)/$(BLD)/libcbase.$(LIBEXT) \

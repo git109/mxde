@@ -64,8 +64,9 @@ AR			=	$(COMPILER_PATH)$(COMPILER_PREFIX)ar crs
 RANLIB		=	ranlib
 STRIP		=	strip
 LIBTOOL		=	
-LIBEXT		=	dylib
-LEX			=	echo flex
+LIBEXT		=	a
+SLIBEXT		=	dylib
+LEX		=	echo flex
 LEXLIB		=	-lfl
 YACC		=	echo bison -y
 

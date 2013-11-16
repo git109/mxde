@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 1/1/2009
 #
-# Linux makefile for XDE library libcxml.so
+# Linux makefile for XDE shared library libcxml
 #
 #############################################################################
 
@@ -41,7 +41,7 @@ USRINCLUDES = \
 #
 # targets
 #
-SLIBTARGET = libcxml.so
+SLIBTARGET = libcxml.$(SLIBEXT)
 
 #
 # shared library C++ .cxx sources
@@ -108,15 +108,15 @@ LIBSSO = \
 -lcos \
 
 SLIBDEP = \
-$(PKG)/$(BLD)/libcos.so \
+$(PKG)/$(BLD)/libcos.$(SLIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcos.so:
-	@(echo      Building libcos.so ...;\
+$(PKG)/$(BLD)/libcos.$(SLIBEXT):
+	@(echo      Building libcos.$(SLIBEXT) ...;\
 	  pushd ../libcos;\
 	  ((make) || (exit 1));\
 	  popd)

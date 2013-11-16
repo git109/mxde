@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 12/22/2008
 #
-# MacOSX makefile for shared library libct
+# MacOSX makefile for static library libct
 #
 #############################################################################
 
@@ -48,17 +48,17 @@ USRDEFINES = \
 #
 # targets
 #
-SLIBTARGET = libct.$(LIBEXT)
+LIBTARGET = libct.$(LIBEXT)
 
 #
-# shared library C sources
+# static library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
-# shared library C++ .cxx sources
+# static library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/ct/ctvariableinterface.cxx \
 $(PKG)/$(SRC)/clib/ct/ctvariable.cxx \
 $(PKG)/$(SRC)/clib/ct/ctvalueinterface.cxx \
@@ -73,22 +73,21 @@ $(PKG)/$(SRC)/clib/ct/ctinterface.cxx \
 $(PKG)/$(SRC)/clib/ct/ct.cxx \
 
 #
-# shared library libs
+# static library libs
 #
 LIBSSO = \
 -lcos \
 
-SLIBDEP = \
+LIBDEP = \
 $(PKG)/$(BLD)/libcos.$(LIBEXT) \
 
-SLIBDEP_DIRS = \
+LIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
 
 $(PKG)/$(BLD)/libcos.$(LIBEXT):
 	@(echo      Building libcos.$(LIBEXT) ...;\
-	  pushd ../libcos;\
-	  ((make) || (exit 1));\
-	  popd)
+	pushd ../libcos;\
+	((make) || (exit 1)); popd)
 

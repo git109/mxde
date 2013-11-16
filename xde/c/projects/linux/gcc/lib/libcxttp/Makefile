@@ -41,39 +41,33 @@ USRINCLUDES = \
 #
 # targets
 #
-SLIBTARGET = libcxttp.so
+SLIBTARGET = libcxttp.$(LIBEXT)
 
 #
-# shared library C sources
+# static library C sources
 #
 SLIB_C_SOURCES = \
 $(PKG)/$(SRC)/clib/cxttp/http.c \
 $(PKG)/$(SRC)/clib/cxttp/xttp.c \
 
 #
-# shared library C++ .cxx sources
+# static library C++ .cxx sources
 #
 SLIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/cxttp/chttpformfield.cxx \
 $(PKG)/$(SRC)/clib/cxttp/chttpformfieldinterface.cxx \
 $(PKG)/$(SRC)/clib/cxttp/chttpurlencodedformfieldwriter.cxx \
 
-#
-# shared library libs
-#
-LIBSSO = \
--lcos \
-
 SLIBDEP = \
-$(PKG)/$(BLD)/libcos.so \
+$(PKG)/$(BLD)/libcos.$(LIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcos.so:
-	@(echo      Building libcos.so ...;\
+$(PKG)/$(BLD)/libcos.$(LIBEXT):
+	@(echo      Building libcos.$(LIBEXT) ...;\
 	  pushd ../libcos;\
 	  ((make) || (exit 1));\
 	  popd)

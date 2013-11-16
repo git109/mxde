@@ -20,10 +20,10 @@
 #
 #############################################################################
 
-PKG = $(PWD)/../../../../../..
+PKG = $(PWD)/../../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/gcc
+BLD = build/linux/gcc
+PRJ = projects/linux/gcc
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
@@ -32,11 +32,9 @@ include $(PKG)/$(PRJ)/Makedefines
 # user includes
 #
 USRINCLUDES = \
--I$(PKG)/$(SRC)/clib/cfs \
--I$(PKG)/$(SRC)/clib/cos/cunix \
 -I$(PKG)/$(SRC)/clib/cos/cplatform \
 -I$(PKG)/$(SRC)/clib/cos \
--I$(PKG)/$(SRC)/clib/cbase \
+-I$(PKG)/$(SRC)/clib/cbase
 
 #
 # user defines
@@ -45,27 +43,70 @@ USRDEFINES = \
 -DDEFAULT_DEBUG_LEVELS=1
 
 #
+# user ld flags
+#
+USRLDFLAGS = \
+-L$(PKG)/$(BLD)
+
+#
 # targets
 #
-LIBTARGET = libcfs.$(LIBEXT)
+SLIBTARGET = libcos.$(SLIBEXT)
 
 #
-# library C sources
+# shared library C sources
 #
-LIB_C_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_stat.c \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_path.c \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_file.c \
+SLIB_C_SOURCES = \
 
 #
-# library C++ .cxx sources
+# shared library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cfileinterface.cxx \
-$(PKG)/$(SRC)/clib/cos/cfile.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepatheventinterface.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepathinterface.cxx \
-$(PKG)/$(SRC)/clib/cfs/ctofilepathwriter.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepath.cxx \
+SLIB_CXX_SOURCES = \
+$(PKG)/$(SRC)/clib/cos/cdebug.cxx \
+$(PKG)/$(SRC)/clib/cos/cdeviceinterface.cxx \
+$(PKG)/$(SRC)/clib/cos/cdevice.cxx \
+$(PKG)/$(SRC)/clib/cos/cmaininterface.cxx \
+$(PKG)/$(SRC)/clib/cos/cmain.cxx \
+$(PKG)/$(SRC)/clib/cos/cmainarginterface.cxx \
+$(PKG)/$(SRC)/clib/cos/cmainarg.cxx \
+$(PKG)/$(SRC)/clib/cos/cargmain.cxx \
+
+#
+# shared library libs
+#
+LIBSSO = \
+-ldl \
+-lpthread \
+-lcbase \
+-lcipc \
+-lcfs \
+
+SLIBDEP = \
+$(PKG)/$(BLD)/libcbase.$(LIBEXT) \
+$(PKG)/$(BLD)/libcipc.$(LIBEXT) \
+$(PKG)/$(BLD)/libcfs.$(LIBEXT) \
+
+SLIBDEP_DIRS = \
+../libcbase \
+libcipc \
+libcfs \
 
 include $(PKG)/$(PRJ)/Makerules
+
+$(PKG)/$(BLD)/libcbase.$(LIBEXT):
+	@(echo      Building libcbase.$(LIBEXT) ...;\
+	  pushd ../libcbase;\
+	  ((make) || (exit 1));\
+	  popd)
+
+$(PKG)/$(BLD)/libcipc.$(LIBEXT):
+	@(echo      Building libcipc.$(LIBEXT) ...;\
+	  pushd libcipc;\
+	  ((make) || (exit 1));\
+	  popd)
+
+$(PKG)/$(BLD)/libcfs.$(LIBEXT):
+	@(echo      Building libcfs.$(LIBEXT) ...;\
+	  pushd libcfs;\
+	  ((make) || (exit 1));\
+	  popd)

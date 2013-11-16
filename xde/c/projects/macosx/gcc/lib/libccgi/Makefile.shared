@@ -20,7 +20,7 @@
 #
 #############################################################################
 
-PKG = $(PWD)/../../../../../..
+PKG = $(PWD)/../../../../..
 
 BLD = build/macosx
 PRJ = projects/macosx/gcc
@@ -32,7 +32,8 @@ include $(PKG)/$(PRJ)/Makedefines
 # user includes
 #
 USRINCLUDES = \
--I$(PKG)/$(SRC)/clib/cfs \
+-I$(PKG)/$(SRC)/clib/ccgi \
+-I$(PKG)/$(SRC)/clib/cxttp \
 -I$(PKG)/$(SRC)/clib/cos/cunix \
 -I$(PKG)/$(SRC)/clib/cos/cplatform \
 -I$(PKG)/$(SRC)/clib/cos \
@@ -47,25 +48,45 @@ USRDEFINES = \
 #
 # targets
 #
-LIBTARGET = libcfs.$(LIBEXT)
+SLIBTARGET = libccgi.$(SLIBEXT)
 
 #
-# library C sources
+# shared library C sources
 #
-LIB_C_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_stat.c \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_path.c \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_file.c \
+SLIB_C_SOURCES = \
 
 #
-# library C++ .cxx sources
+# shared library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cfileinterface.cxx \
-$(PKG)/$(SRC)/clib/cos/cfile.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepatheventinterface.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepathinterface.cxx \
-$(PKG)/$(SRC)/clib/cfs/ctofilepathwriter.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepath.cxx \
+SLIB_CXX_SOURCES = \
+$(PKG)/$(SRC)/clib/ccgi/ccgiinterface.cxx \
+$(PKG)/$(SRC)/clib/ccgi/ccgienv.cxx \
+$(PKG)/$(SRC)/clib/ccgi/ccgi.cxx \
+$(PKG)/$(SRC)/clib/ccgi/ccgistream.cxx \
+$(PKG)/$(SRC)/clib/ccgi/cfilenamecgi.cxx \
+$(PKG)/$(SRC)/clib/ccgi/ctemplatecgi.cxx \
+$(PKG)/$(SRC)/clib/ccgi/cdocumenttemplatecgi.cxx \
+$(PKG)/$(SRC)/clib/ccgi/ctemplatenamelist.cxx \
+$(PKG)/$(SRC)/clib/ccgi/cdocumentnamelist.cxx \
+
+#
+# shared library libs
+#
+LIBSSO = \
+-lcxttp \
+-lcos \
+
+SLIBDEP = \
+$(PKG)/$(BLD)/libcxttp.$(SLIBEXT) \
+
+SLIBDEP_DIRS = \
+../libcxttp \
 
 include $(PKG)/$(PRJ)/Makerules
+
+$(PKG)/$(BLD)/libcxttp.$(SLIBEXT):
+	@(echo      Building libcxttp.$(SLIBEXT) ...;\
+	  pushd ../libcxttp;\
+	  ((make) || (exit 1));\
+	  popd)
+

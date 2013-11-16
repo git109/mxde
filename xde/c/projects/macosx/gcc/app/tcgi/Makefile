@@ -72,8 +72,8 @@ LIBS = \
 -lcos \
 
 EXEDEP = \
-$(PKG)/$(BLD)/libct.dylib \
-$(PKG)/$(BLD)/libccgi.dylib \
+$(PKG)/$(BLD)/libct.$(SLIBEXT) \
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT) \
 
 #EXEDEP_DIRS = \
 #../../lib/libct \
@@ -81,14 +81,14 @@ $(PKG)/$(BLD)/libccgi.dylib \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libct.dylib:
-	@(echo      Building libct.dylib ...;\
+$(PKG)/$(BLD)/libct.$(SLIBEXT):
+	@(echo      Building libct.$(SLIBEXT) ...;\
 	  pushd ../../lib/libct;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libccgi.dylib:
-	@(echo      Building libccgi.dylib ...;\
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT):
+	@(echo      Building libccgi.$(SLIBEXT) ...;\
 	  pushd ../../lib/libccgi;\
 	  ((make) || (exit 1));\
 	  popd)

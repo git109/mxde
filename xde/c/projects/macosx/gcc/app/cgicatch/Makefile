@@ -65,15 +65,15 @@ LIBS = \
 -lcos \
 
 EXEDEP = \
-$(PKG)/$(BLD)/libccgi.$(LIBEXT) \
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT) \
 
 #EXEDEP_DIRS = \
 #../../lib/libccgi \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libccgi.$(LIBEXT):
-	@(echo      Building libccgi.$(LIBEXT) ...;\
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT):
+	@(echo      Building libccgi.$(SLIBEXT) ...;\
 	  pushd ../../lib/libccgi;\
 	  ((make) || (exit 1));\
 	  popd)

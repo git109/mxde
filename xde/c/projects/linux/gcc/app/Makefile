@@ -34,7 +34,8 @@ $(PKG)/$(PRJ)/app/cgi \
 $(PKG)/$(PRJ)/app/t \
 $(PKG)/$(PRJ)/app/tcgi \
 $(PKG)/$(PRJ)/app/cxxlcgi \
-$(PKG)/$(PRJ)/app/xslcgi \
+
+#$(PKG)/$(PRJ)/app/xslcgi \
 
 include $(PKG)/$(PRJ)/Makedirs
 
@@ -43,3 +44,4 @@ install:
 	  ((mkdir -p $(HOME)/build/xde) || (exit 1));\
 	  ((cp -r $(PKGBLD)/bin $(HOME)/build/xde) || (exit 1));\
 	  echo ...Installed exes)
+

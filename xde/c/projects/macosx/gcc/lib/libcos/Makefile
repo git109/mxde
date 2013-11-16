@@ -51,17 +51,17 @@ USRLDFLAGS = \
 #
 # targets
 #
-SLIBTARGET = libcos.dylib
+LIBTARGET = libcos.$(LIBEXT)
 
 #
-# shared library C sources
+# static library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
-# shared library C++ .cxx sources
+# static library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/cos/cdebug.cxx \
 $(PKG)/$(SRC)/clib/cos/cdeviceinterface.cxx \
 $(PKG)/$(SRC)/clib/cos/cdevice.cxx \
@@ -71,42 +71,32 @@ $(PKG)/$(SRC)/clib/cos/cmainarginterface.cxx \
 $(PKG)/$(SRC)/clib/cos/cmainarg.cxx \
 $(PKG)/$(SRC)/clib/cos/cargmain.cxx \
 
-#
-# shared library libs
-#
-LIBSSO = \
--ldl \
--lpthread \
--lcbase \
--lcipc \
--lcfs \
+LIBDEP = \
+$(PKG)/$(BLD)/libcbase.$(LIBEXT) \
+$(PKG)/$(BLD)/libcipc.$(LIBEXT) \
+$(PKG)/$(BLD)/libcfs.$(LIBEXT) \
 
-SLIBDEP = \
-$(PKG)/$(BLD)/libcbase.a \
-$(PKG)/$(BLD)/libcipc.a \
-$(PKG)/$(BLD)/libcfs.a \
-
-SLIBDEP_DIRS = \
+LIBDEP_DIRS = \
 ../libcbase \
 libcipc \
 libcfs \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcbase.a:
-	@(echo      Building libcbase.a ...;\
+$(PKG)/$(BLD)/libcbase.$(LIBEXT):
+	@(echo      Building libcbase.$(LIBEXT) ...;\
 	  pushd ../libcbase;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libcipc.a:
-	@(echo      Building libcipc.a ...;\
+$(PKG)/$(BLD)/libcipc.$(LIBEXT):
+	@(echo      Building libcipc.$(LIBEXT) ...;\
 	  pushd libcipc;\
 	  ((make) || (exit 1));\
 	  popd)
 
-$(PKG)/$(BLD)/libcfs.a:
-	@(echo      Building libcfs.a ...;\
+$(PKG)/$(BLD)/libcfs.$(LIBEXT):
+	@(echo      Building libcfs.$(LIBEXT) ...;\
 	  pushd libcfs;\
 	  ((make) || (exit 1));\
 	  popd)

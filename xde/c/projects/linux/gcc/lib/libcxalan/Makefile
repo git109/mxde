@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 12/24/2008
 #
-# Linux makefile for XDE library libcxalan.so
+# Linux makefile for XDE shared library libcxalan
 #
 #############################################################################
 
@@ -47,7 +47,7 @@ USRINCLUDES = \
 #
 # targets
 #
-SLIBTARGET = libcxalan.so
+SLIBTARGET = libcxalan.$(SLIBEXT)
 
 #
 # shared library C sources
@@ -75,15 +75,15 @@ LIBSSO = \
 -lcos \
 
 SLIBDEP = \
-$(PKG)/$(BLD)/libcxerces.so \
+$(PKG)/$(BLD)/libcxerces.$(SLIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcxerces \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcxerces.so:
-	@(echo      Building libcxerces.so ...;\
+$(PKG)/$(BLD)/libcxerces.$(SLIBEXT):
+	@(echo      Building libcxerces.$(SLIBEXT) ...;\
 	  pushd ../libcxerces;\
 	  ((make) || (exit 1));\
 	  popd)

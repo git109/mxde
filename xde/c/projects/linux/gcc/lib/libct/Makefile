@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 12/22/2008
 #
-# Linux makefile for libct.so
+# Linux makefile for static library libct
 #
 #############################################################################
 
@@ -48,15 +48,15 @@ USRDEFINES = \
 #
 # targets
 #
-SLIBTARGET = libct.so
+SLIBTARGET = libct.$(LIBEXT)
 
 #
-# shared library C sources
+# static library C sources
 #
 SLIB_C_SOURCES = \
 
 #
-# shared library C++ .cxx sources
+# static library C++ .cxx sources
 #
 SLIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/ct/ctvariableinterface.cxx \
@@ -72,22 +72,16 @@ $(PKG)/$(SRC)/clib/ct/ctfunctionargument.cxx \
 $(PKG)/$(SRC)/clib/ct/ctinterface.cxx \
 $(PKG)/$(SRC)/clib/ct/ct.cxx \
 
-#
-# shared library libs
-#
-LIBSSO = \
--lcos \
-
 SLIBDEP = \
-$(PKG)/$(BLD)/libcos.so \
+$(PKG)/$(BLD)/libcos.$(LIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcos.so:
-	@(echo      Building libcos.so ...;\
+$(PKG)/$(BLD)/libcos.$(LIBEXT):
+	@(echo      Building libcos.$(LIBEXT) ...;\
 	  pushd ../libcos;\
 	  ((make) || (exit 1));\
 	  popd)

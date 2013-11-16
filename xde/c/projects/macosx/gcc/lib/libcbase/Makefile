@@ -52,7 +52,7 @@ USRLDFLAGS = \
 #
 # targets
 #
-LIBTARGET = libcbase.a
+LIBTARGET = libcbase.$(LIBEXT)
 
 #
 # library C sources

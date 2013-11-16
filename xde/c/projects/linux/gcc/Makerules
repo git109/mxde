@@ -52,6 +52,8 @@ EXE_RES = $(EXE_LCGI_RES)
 
 KMOD_OBJS = $(KMOD_C_OBJS)
 
+ALL_RES = $(EXE_RES)
+
 ALL_OBJS = $(OBJS) $(LIB_OBJS) $(SLIB_OBJS) $(KMOD_OBJS) $(EXE_OBJS)
 
 ALL_TARGETS = $(EXETARGET) $(LIBTARGET) $(SLIBTARGET) $(USRTARGET)
@@ -84,6 +86,7 @@ ${EXETARGET}: $(BINDIR) ${EXEDEP} ${EXE_OBJS} $(EXE_RES)
 		echo "      Make $$dir" ; \
 		(cd $$dir && make) || (echo "      Make $$dir Failed") ; \
 	done
+	@echo $(CXXLD) ${INCLUDES} $(LDFLAGS) -o $@ $(EXE_OBJS) $(LIBS)
 	@$(CXXLD) ${INCLUDES} $(LDFLAGS) -o $@ $(EXE_OBJS) $(LIBS)
 	@$(STRIP) $@ 
 	@$(MV) $@ $(BINDIR)
@@ -114,7 +117,7 @@ again: clean all
 this-again: clean-this all
 
 clean-this:
-	$(RM) $(ALL_OBJS)
+	$(RM) $(ALL_OBJS) $(ALL_RES)
 
 clean:
 	@for dir in $(LIB_DIRS) $(LIBDEP_DIRS); do \
@@ -129,7 +132,7 @@ clean:
 	@for dir in $(KMOD_DIRS) $(KMODDEP_DIRS); do \
 		(cd $$dir && make clean) || (echo "      Make $$dir clean Failed") ; \
 	done
-	$(RM) $(ALL_OBJS)
+	$(RM) $(ALL_OBJS) $(ALL_RES)
 
 veryclean:
 	@for dir in $(LIB_DIRS) $(LIBDEP_DIRS); do \
@@ -144,7 +147,7 @@ veryclean:
 	@for dir in $(KMOD_DIRS) $(KMODDEP_DIRS); do \
 		(cd $$dir && make veryclean) || (echo "      Make $$dir veryclean Failed") ; \
 	done
-	$(RM) $(ALL_OBJS) $(ALL_TARGETS)
+	$(RM) $(ALL_OBJS) $(ALL_RES) $(ALL_TARGETS)
 
 $(KMOD_C_SOURCES:.c=.o): %.o: %.c
 	@echo Compiling $(BUILD_TYPE) $< ...

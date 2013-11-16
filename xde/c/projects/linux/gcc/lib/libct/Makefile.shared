@@ -18,12 +18,14 @@
 # Author: $author$
 #   Date: 12/22/2008
 #
+# Linux makefile for shared library libct
+#
 #############################################################################
 
-PKG = $(PWD)/../../../../../..
+PKG = $(PWD)/../../../../..
 
-BLD = build/macosx
-PRJ = projects/macosx/gcc
+BLD = build/linux/gcc
+PRJ = projects/linux/gcc
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
@@ -32,7 +34,6 @@ include $(PKG)/$(PRJ)/Makedefines
 # user includes
 #
 USRINCLUDES = \
--I$(PKG)/$(SRC)/clib/cfs \
 -I$(PKG)/$(SRC)/clib/cos/cunix \
 -I$(PKG)/$(SRC)/clib/cos/cplatform \
 -I$(PKG)/$(SRC)/clib/cos \
@@ -47,25 +48,47 @@ USRDEFINES = \
 #
 # targets
 #
-LIBTARGET = libcfs.$(LIBEXT)
+SLIBTARGET = libct.$(SLIBEXT)
 
 #
-# library C sources
+# shared library C sources
 #
-LIB_C_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_stat.c \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_path.c \
-$(PKG)/$(SRC)/clib/cos/cplatform/cplatform_file.c \
+SLIB_C_SOURCES = \
 
 #
-# library C++ .cxx sources
+# shared library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
-$(PKG)/$(SRC)/clib/cos/cfileinterface.cxx \
-$(PKG)/$(SRC)/clib/cos/cfile.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepatheventinterface.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepathinterface.cxx \
-$(PKG)/$(SRC)/clib/cfs/ctofilepathwriter.cxx \
-$(PKG)/$(SRC)/clib/cfs/cfilepath.cxx \
+SLIB_CXX_SOURCES = \
+$(PKG)/$(SRC)/clib/ct/ctvariableinterface.cxx \
+$(PKG)/$(SRC)/clib/ct/ctvariable.cxx \
+$(PKG)/$(SRC)/clib/ct/ctvalueinterface.cxx \
+$(PKG)/$(SRC)/clib/ct/ctvalue.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunctioninterface.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunctionlist.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunctiontree.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunction.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunctionparameter.cxx \
+$(PKG)/$(SRC)/clib/ct/ctfunctionargument.cxx \
+$(PKG)/$(SRC)/clib/ct/ctinterface.cxx \
+$(PKG)/$(SRC)/clib/ct/ct.cxx \
+
+#
+# shared library libs
+#
+LIBSSO = \
+-lcos \
+
+SLIBDEP = \
+$(PKG)/$(BLD)/libcos.$(SLIBEXT) \
+
+SLIBDEP_DIRS = \
+../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
+
+$(PKG)/$(BLD)/libcos.$(SLIBEXT):
+	@(echo      Building libcos.$(SLIBEXT) ...;\
+	  pushd ../libcos;\
+	  ((make) || (exit 1));\
+	  popd)
+

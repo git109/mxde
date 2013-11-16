@@ -74,6 +74,7 @@ $(PKG)/$(SRC)/clib/cbase/cnamelist.cxx \
 LIBS = \
 -lxalan-c \
 -lxerces-c \
+-lxerces-depdom \
 -lcxalan \
 -lcxerces \
 -lccgi \

@@ -34,8 +34,9 @@ $(PKG)/$(PRJ)/lib/libcos \
 $(PKG)/$(PRJ)/lib/libcxttp \
 $(PKG)/$(PRJ)/lib/libccgi \
 $(PKG)/$(PRJ)/lib/libct \
-$(PKG)/$(PRJ)/lib/libcxerces \
-$(PKG)/$(PRJ)/lib/libcxalan \
+
+#$(PKG)/$(PRJ)/lib/libcxerces \
+#$(PKG)/$(PRJ)/lib/libcxalan \
 
 include $(PKG)/$(PRJ)/Makedirs
 

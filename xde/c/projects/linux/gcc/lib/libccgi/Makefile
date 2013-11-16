@@ -48,15 +48,15 @@ USRDEFINES = \
 #
 # targets
 #
-SLIBTARGET = libccgi.so
+SLIBTARGET = libccgi.$(LIBEXT)
 
 #
-# shared library C sources
+# static library C sources
 #
 SLIB_C_SOURCES = \
 
 #
-# shared library C++ .cxx sources
+# static library C++ .cxx sources
 #
 SLIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/ccgi/ccgiinterface.cxx \
@@ -69,23 +69,16 @@ $(PKG)/$(SRC)/clib/ccgi/cdocumenttemplatecgi.cxx \
 $(PKG)/$(SRC)/clib/ccgi/ctemplatenamelist.cxx \
 $(PKG)/$(SRC)/clib/ccgi/cdocumentnamelist.cxx \
 
-#
-# shared library libs
-#
-LIBSSO = \
--lcxttp \
--lcos \
-
 SLIBDEP = \
-$(PKG)/$(BLD)/libcxttp.so \
+$(PKG)/$(BLD)/libcxttp.$(LIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcxttp \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcxttp.so:
-	@(echo      Building libcxttp.so ...;\
+$(PKG)/$(BLD)/libcxttp.$(LIBEXT):
+	@(echo      Building libcxttp.$(LIBEXT) ...;\
 	  pushd ../libcxttp;\
 	  ((make) || (exit 1));\
 	  popd)

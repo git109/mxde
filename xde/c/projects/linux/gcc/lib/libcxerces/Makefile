@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 12/23/2008
 #
-# Linux makefile for XDE library libcxerces.so
+# Linux makefile for XDE shaered library libcxerces
 #
 #############################################################################
 
@@ -45,7 +45,7 @@ USRINCLUDES = \
 #
 # targets
 #
-SLIBTARGET = libcxerces.so
+SLIBTARGET = libcxerces.$(SLIBEXT)
 
 #
 # shared library C sources
@@ -78,15 +78,15 @@ LIBSSO = \
 -lcos \
 
 SLIBDEP = \
-$(PKG)/$(BLD)/libcos.so \
+$(PKG)/$(BLD)/libcos.$(SLIBEXT) \
 
 SLIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcos.so:
-	@(echo      Building libcos.so ...;\
+$(PKG)/$(BLD)/libcos.$(SLIBEXT):
+	@(echo      Building libcos.$(SLIBEXT) ...;\
 	  pushd ../libcos;\
 	  ((make) || (exit 1));\
 	  popd)

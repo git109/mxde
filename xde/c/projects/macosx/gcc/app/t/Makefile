@@ -74,15 +74,15 @@ LIBS = \
 -lcos \
 
 EXEDEP = \
-$(PKG)/$(BLD)/libct.dylib \
+$(PKG)/$(BLD)/libct.$(SLIBEXT) \
 
 #SLIBDEP_DIRS = \
 #../../lib/libct \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libct.dylib:
-	@(echo      Building libct.dylib ...;\
+$(PKG)/$(BLD)/libct.$(SLIBEXT):
+	@(echo      Building libct.$(SLIBEXT) ...;\
 	  pushd ../../lib/libct;\
 	  ((make) || (exit 1));\
 	  popd)
