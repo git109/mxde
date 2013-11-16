@@ -65,7 +65,7 @@ public:
         count = 0;
 
         if (0 > length)
-        if (0 >= (length = LengthOf(chars)))
+        if (0 >= (length = this->LengthOf(chars)))
             return found;
 
         for (tell=0; tell<length; tell++)
@@ -96,7 +96,7 @@ public:
         count = 0;
 
         if (0 > length)
-        if (0 >= (length = LengthOf(chars)))
+        if (0 >= (length = this->LengthOf(chars)))
             return found;
 
         for (tell=length; 0<tell; --tell)

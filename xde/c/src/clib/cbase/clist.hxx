@@ -366,7 +366,7 @@ public:
 
             if (!item->m_is_persistant)
             {
-                DeleteItem(*item);
+                CTHIS DeleteItem(*item);
 
                 if (!item->m_is_static)
                 if ((error=FreeItem(*item)))

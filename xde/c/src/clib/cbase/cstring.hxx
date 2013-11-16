@@ -113,7 +113,7 @@ public:
         TSize told;
         const TChar* thisChars;
 
-        if (!(thisChars = HasChars(count)))
+        if (!(thisChars = this->HasChars(count)))
             return count;
 
         if (m_tell >= (length = (TSize)(count)))
@@ -123,7 +123,7 @@ public:
             count = (TLength)((told = length) - m_tell);
         else count = (TLength)(size);
 
-        if (0 <= (count = CopyTo
+        if (0 <= (count = this->CopyTo
             (chars, thisChars+m_tell, count)))
             m_tell = told;
         return count;
@@ -301,7 +301,7 @@ public:
             if ((c >= a) && (c <= z))
                 c = A + (c - a);
 
-            append(&c, 1);
+            this->append(&c, 1);
         }
         length = Length()-oldLength;
         return length;
@@ -339,7 +339,7 @@ public:
             if ((c >= A) && (c <= Z))
                 c = a + (c - A);
 
-            append(&c, 1);
+            this->append(&c, 1);
         }
         length = Length()-oldLength;
         return length;
@@ -409,9 +409,9 @@ public:
             return 0;
         }
         if (0 > length)
-        if (0 > (length = LengthOf(chars)))
+        if (0 > (length = this->LengthOf(chars)))
             return length;
-        assign(chars, length);
+        this->assign(chars, length);
         count = length;
         m_tell = 0;
         return count;
@@ -432,9 +432,9 @@ public:
         if (!chars)
             return 0;
         if (0 > length)
-        if (0 > (length = LengthOf(chars)))
+        if (0 > (length = this->LengthOf(chars)))
             return length;
-        append(chars, length);
+        this->append(chars, length);
         count = length;
         return count;
     }
@@ -563,12 +563,12 @@ public:
         int unequal = -e_ERROR_FAILED-1;
         if (chars)
         if (0 > length)
-            unequal = compare(chars);
+            unequal = this->compare(chars);
         else
         {
             cExtends to;
             to.assign(chars, length);
-            unequal = compare(to);
+            unequal = this->compare(to);
         }
         return unequal;
     }

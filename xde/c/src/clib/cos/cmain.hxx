@@ -124,7 +124,7 @@ public:
         eError error;
         if (!(error = StdAttach()))
         {
-            err = Run(argc, argv, env);
+            err = this->Run(argc, argv, env);
             StdDetach();
         }
         return err;

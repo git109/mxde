@@ -87,8 +87,8 @@ public:
     (TWhat* what, TSize size) 
     {
         TLength length = -e_ERROR_NOT_ATTACHED;
-        if (m_deligate)
-            length = m_deligate->Read(what, size);
+        if (this->m_deligate)
+            length = this->m_deligate->Read(what, size);
         return length;
     }
     /**
@@ -102,8 +102,8 @@ public:
     virtual TDeligates* SetDeligate
     (TDeligates* deligate) 
     {
-        TDeligates* oldDeligate = m_deligate;
-        m_deligate = deligate;
+        TDeligates* oldDeligate = this->m_deligate;
+        this->m_deligate = deligate;
         return oldDeligate;
     }
     /**
@@ -116,7 +116,7 @@ public:
      */
     virtual TDeligates* GetDeligate() const 
     {
-        return m_deligate;
+        return this->m_deligate;
     }
 };
 #undef CDB_CLASS

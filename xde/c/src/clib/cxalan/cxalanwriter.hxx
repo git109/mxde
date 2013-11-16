@@ -95,8 +95,8 @@ public:
      */
     virtual void write
     (const char* s,
-	 unsigned int theOffset = 0,
-	 unsigned int theLength = UINT_MAX) 
+	 size_t theOffset = 0,
+	 size_t theLength = UINT_MAX) 
     {
         char c;
 
@@ -131,8 +131,8 @@ public:
      */
     virtual void write
     (const nsXalan::XalanDOMChar* s,
-	 unsigned int theOffset = 0,
-	 unsigned int theLength = UINT_MAX) 
+	 nsXalan::XalanDOMString::size_type theOffset = 0,
+	 nsXalan::XalanDOMString::size_type theLength = UINT_MAX) 
     {
         if (UINT_MAX == theLength)
             theLength = XalanDOMCharLength(s);
@@ -151,8 +151,8 @@ public:
      */
     virtual void write
     (const nsXalan::XalanDOMString& s,
-	 unsigned int theOffset = 0,
-	 unsigned int theLength = UINT_MAX) 
+	 nsXalan::XalanDOMString::size_type theOffset = 0,
+	 nsXalan::XalanDOMString::size_type theLength = UINT_MAX) 
     {
 		const nsXalan::XalanDOMChar* c = s.c_str();
 

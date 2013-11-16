@@ -162,7 +162,7 @@ public:
         CTHIS SetContentType(CTHIS GetContentTypeHTML());
 
         if ((error = m_t.Initialize()))
-            OutputContentL
+            CTHIS OutputContentL
             (H1_, CTHIS m_cgiNameChars, _H1, 
              B_, "failed on m_t.Initialize()", _B, BR, NULL_POINTER);
         else

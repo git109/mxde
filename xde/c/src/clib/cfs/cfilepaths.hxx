@@ -92,7 +92,7 @@ public:
     {
         TFilePathInterface* filePath = 0;
         error = e_ERROR_NONE;
-        if ((m_filePathsChars = HasChars(m_filePathsLength)))
+        if ((m_filePathsChars = this->HasChars(m_filePathsLength)))
             filePath = GetNextFilePath(error);
         return filePath;
     }
