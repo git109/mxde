@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 1/1/2009
 #
-# Linux makefile for XDE static library libcxml
+# Linux makefile for XDE shared library libcxml
 #
 #############################################################################
 
@@ -41,12 +41,12 @@ USRINCLUDES = \
 #
 # targets
 #
-LIBTARGET = libcxml.$(LIBEXT)
+SLIBTARGET = libcxml.$(SLIBEXT)
 
 #
-# static library C++ .cxx sources
+# shared library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
+SLIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/cxml/cxmlchar.cxx \
 $(PKG)/$(SRC)/cxml/cxmlcharwriter.cxx \
 $(PKG)/$(SRC)/cxml/cxmlstring.cxx \
@@ -101,16 +101,22 @@ $(PKG)/$(SRC)/cxml/cxmlelementnodeprocessor.cxx \
 $(PKG)/$(SRC)/cxml/cxmlprocessorinterface.cxx \
 $(PKG)/$(SRC)/cxml/cxmlprocessor.cxx \
 
-LIBDEP = \
-$(PKG)/$(BLD)/libcos.$(LIBEXT) \
+#
+# shared library libs
+#
+LIBSSO = \
+-lcos \
 
-LIBDEP_DIRS = \
+SLIBDEP = \
+$(PKG)/$(BLD)/libcos.$(SLIBEXT) \
+
+SLIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcos.$(LIBEXT):
-    @(echo      Building libcos.$(LIBEXT) ...;\
+$(PKG)/$(BLD)/libcos.$(SLIBEXT):
+	@(echo      Building libcos.$(SLIBEXT) ...;\
 	  pushd ../libcos;\
 	  ((make) || (exit 1));\
 	  popd)

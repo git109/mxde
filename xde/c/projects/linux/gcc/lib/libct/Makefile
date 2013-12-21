@@ -48,17 +48,17 @@ USRDEFINES = \
 #
 # targets
 #
-SLIBTARGET = libct.$(LIBEXT)
+LIBTARGET = libct.$(LIBEXT)
 
 #
 # static library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
 # static library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/ct/ctvariableinterface.cxx \
 $(PKG)/$(SRC)/clib/ct/ctvariable.cxx \
 $(PKG)/$(SRC)/clib/ct/ctvalueinterface.cxx \
@@ -72,10 +72,10 @@ $(PKG)/$(SRC)/clib/ct/ctfunctionargument.cxx \
 $(PKG)/$(SRC)/clib/ct/ctinterface.cxx \
 $(PKG)/$(SRC)/clib/ct/ct.cxx \
 
-SLIBDEP = \
+LIBDEP = \
 $(PKG)/$(BLD)/libcos.$(LIBEXT) \
 
-SLIBDEP_DIRS = \
+LIBDEP_DIRS = \
 ../libcos \
 
 include $(PKG)/$(PRJ)/Makerules

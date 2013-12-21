@@ -32,6 +32,7 @@ include $(PKG)/$(PRJ)/Makedefines
 # user includes
 #
 USRINCLUDES = \
+-I$(PKG)/$(SRC)/clib/ccgi \
 -I$(PKG)/$(SRC)/clib/cxttp \
 -I$(PKG)/$(SRC)/clib/cos/cunix \
 -I$(PKG)/$(SRC)/clib/cos/cplatform \
@@ -41,33 +42,38 @@ USRINCLUDES = \
 #
 # targets
 #
-LIBTARGET = libcxttp.$(LIBEXT)
+EXETARGET = cgi
 
 #
-# static library C sources
+# executable C sources
 #
-LIB_C_SOURCES = \
-$(PKG)/$(SRC)/clib/cxttp/http.c \
-$(PKG)/$(SRC)/clib/cxttp/xttp.c \
+EXE_C_SOURCES = \
 
 #
-# static library C++ .cxx sources
+# executable C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
-$(PKG)/$(SRC)/clib/cxttp/chttpformfield.cxx \
-$(PKG)/$(SRC)/clib/cxttp/chttpformfieldinterface.cxx \
-$(PKG)/$(SRC)/clib/cxttp/chttpurlencodedformfieldwriter.cxx \
+EXE_CXX_SOURCES = \
+$(PKG)/$(SRC)/capp/ccgi/cgi/ccgimain.cxx \
+$(PKG)/$(SRC)/clib/ccgi/cgi.cxx \
 
-LIBDEP = \
-$(PKG)/$(BLD)/libcos.$(LIBEXT) \
+#
+# executable libs
+#
+LIBS = \
+-lccgi \
+-lcxttp \
+-lcos \
 
-LIBDEP_DIRS = \
-../libcos \
+EXEDEP = \
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT) \
+
+SLIBDEP_DIRS = \
+../../lib/libccgi \
 
 include $(PKG)/$(PRJ)/Makerules
 
-$(PKG)/$(BLD)/libcos.$(LIBEXT):
-	@(echo      Building libcos.$(LIBEXT) ...;\
-	  pushd ../libcos;\
+$(PKG)/$(BLD)/libccgi.$(SLIBEXT):
+	@(echo      Building libccgi.$(SLIBEXT) ...;\
+	  pushd ../../lib/libccgi;\
 	  ((make) || (exit 1));\
 	  popd)

@@ -48,17 +48,17 @@ USRDEFINES = \
 #
 # targets
 #
-SLIBTARGET = libccgi.$(LIBEXT)
+LIBTARGET = libccgi.$(LIBEXT)
 
 #
 # static library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
 # static library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/ccgi/ccgiinterface.cxx \
 $(PKG)/$(SRC)/clib/ccgi/ccgienv.cxx \
 $(PKG)/$(SRC)/clib/ccgi/ccgi.cxx \
@@ -69,10 +69,10 @@ $(PKG)/$(SRC)/clib/ccgi/cdocumenttemplatecgi.cxx \
 $(PKG)/$(SRC)/clib/ccgi/ctemplatenamelist.cxx \
 $(PKG)/$(SRC)/clib/ccgi/cdocumentnamelist.cxx \
 
-SLIBDEP = \
+LIBDEP = \
 $(PKG)/$(BLD)/libcxttp.$(LIBEXT) \
 
-SLIBDEP_DIRS = \
+LIBDEP_DIRS = \
 ../libcxttp \
 
 include $(PKG)/$(PRJ)/Makerules

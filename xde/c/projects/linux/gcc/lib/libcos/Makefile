@@ -51,17 +51,17 @@ USRLDFLAGS = \
 #
 # targets
 #
-SLIBTARGET = libcos.$(LIBEXT)
+LIBTARGET = libcos.$(LIBEXT)
 
 #
 # static library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
 
 #
 # static library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 $(PKG)/$(SRC)/clib/cos/cdebug.cxx \
 $(PKG)/$(SRC)/clib/cos/cdeviceinterface.cxx \
 $(PKG)/$(SRC)/clib/cos/cdevice.cxx \
@@ -71,12 +71,12 @@ $(PKG)/$(SRC)/clib/cos/cmainarginterface.cxx \
 $(PKG)/$(SRC)/clib/cos/cmainarg.cxx \
 $(PKG)/$(SRC)/clib/cos/cargmain.cxx \
 
-SLIBDEP = \
+LIBDEP = \
 $(PKG)/$(BLD)/libcbase.$(LIBEXT) \
 $(PKG)/$(BLD)/libcipc.$(LIBEXT) \
 $(PKG)/$(BLD)/libcfs.$(LIBEXT) \
 
-SLIBDEP_DIRS = \
+LIBDEP_DIRS = \
 ../libcbase \
 libcipc \
 libcfs \
