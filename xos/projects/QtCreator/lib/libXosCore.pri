@@ -29,6 +29,50 @@ $${XOS_SRC} \
 
 libXosCore_DEFINES += \
 
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/base/Acquired.hpp \
+$${XOS_SRC}/xos/base/Array.hpp \
+$${XOS_SRC}/xos/base/Attached.hpp \
+$${XOS_SRC}/xos/base/Base.hpp \
+$${XOS_SRC}/xos/base/Created.hpp \
+$${XOS_SRC}/xos/base/Error.hpp \
+$${XOS_SRC}/xos/base/ExportBase.hpp \
+$${XOS_SRC}/xos/base/InterfaceBase.hpp \
+$${XOS_SRC}/xos/base/Join.hpp \
+$${XOS_SRC}/xos/base/List.hpp \
+$${XOS_SRC}/xos/base/Locked.hpp \
+$${XOS_SRC}/xos/base/Locker.hpp \
+$${XOS_SRC}/xos/base/Named.hpp \
+$${XOS_SRC}/xos/base/Opened.hpp \
+$${XOS_SRC}/xos/base/Platform.hpp \
+$${XOS_SRC}/xos/base/Reference.hpp \
+$${XOS_SRC}/xos/base/Readerhpp \
+$${XOS_SRC}/xos/base/StringReader.hpp \
+$${XOS_SRC}/xos/base/Stream.hpp \
+$${XOS_SRC}/xos/base/String.hpp \
+$${XOS_SRC}/xos/base/StringBase.hpp \
+$${XOS_SRC}/xos/base/Wait.hpp \
+$${XOS_SRC}/xos/base/Wrapped.hpp \
+$${XOS_SRC}/xos/os/FILEStream.hpp \
+$${XOS_SRC}/xos/os/Logger.hpp \
+$${XOS_SRC}/xos/os/MainBase.hpp \
+$${XOS_SRC}/xos/os/MainOpt.hpp \
+$${XOS_SRC}/xos/os/StreamLogger.hpp \
+$${XOS_SRC}/xos/network/Addresses.hpp \
+$${XOS_SRC}/xos/network/ip/v4/AddressString.hpp \
+$${XOS_SRC}/xos/network/Endpoints.hpp \
+$${XOS_SRC}/xos/network/Transports.hpp \
+$${XOS_SRC}/xos/fs/Path.hpp \
+$${XOS_SRC}/xos/fs/PathDirectory.hpp \
+$${XOS_SRC}/xos/fs/PathDirectoryAppender.hpp \
+$${XOS_SRC}/xos/fs/PathParser.hpp \
+$${XOS_SRC}/xos/fs/PathParserEvents.hpp \
+$${XOS_SRC}/xos/fs/Time.hpp \
+$${XOS_SRC}/xos/gui/ImageRenderer.hpp \
+$${XOS_SRC}/xos/gui/qt/ImageRenderer.hpp \
+$${XOS_SRC}/xos/gui/opengl/Context.hpp \
+$${XOS_SRC}/xos/gui/opengl/ImageRenderer.hpp \
+
 libXosCore_SOURCES += \
 $${XOS_SRC}/xos/base/Acquired.cpp \
 $${XOS_SRC}/xos/base/Array.cpp \
@@ -42,9 +86,12 @@ $${XOS_SRC}/xos/base/Join.cpp \
 $${XOS_SRC}/xos/base/List.cpp \
 $${XOS_SRC}/xos/base/Locked.cpp \
 $${XOS_SRC}/xos/base/Locker.cpp \
+$${XOS_SRC}/xos/base/Named.cpp \
 $${XOS_SRC}/xos/base/Opened.cpp \
 $${XOS_SRC}/xos/base/Platform.cpp \
 $${XOS_SRC}/xos/base/Reference.cpp \
+$${XOS_SRC}/xos/base/Reader.cpp \
+$${XOS_SRC}/xos/base/StringReader.cpp \
 $${XOS_SRC}/xos/base/Stream.cpp \
 $${XOS_SRC}/xos/base/String.cpp \
 $${XOS_SRC}/xos/base/StringBase.cpp \
@@ -65,10 +112,8 @@ $${XOS_SRC}/xos/fs/PathDirectoryAppender.cpp \
 $${XOS_SRC}/xos/fs/PathParser.cpp \
 $${XOS_SRC}/xos/fs/PathParserEvents.cpp \
 $${XOS_SRC}/xos/fs/Time.cpp \
-$${XOS_SRC}/xos/gui/ImageRenderer.cpp \
-$${XOS_SRC}/xos/gui/qt/ImageRenderer.cpp \
+$${XOS_SRC}/xos/gui/ImageRenderers.cpp \
 $${XOS_SRC}/xos/gui/opengl/Context.cpp \
-$${XOS_SRC}/xos/gui/opengl/ImageRenderer.cpp \
 
 libXosCore_LIBS += \
 -L$${XOS_LIB}/libXosCore \
@@ -85,4 +130,3 @@ $${XOS_MXDE_SRC}/clib/ccrypto \
 $${XOS_MXDE_SRC}/clib/cos/cplatform \
 $${XOS_MXDE_SRC}/clib/cos \
 $${XOS_MXDE_SRC}/clib/cbase \
-

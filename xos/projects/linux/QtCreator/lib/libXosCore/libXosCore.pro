@@ -37,3 +37,5 @@ $${libXosCore_DEFINES} \
 SOURCES += \
 $${libXosCore_SOURCES} \
 
+QT += opengl
+

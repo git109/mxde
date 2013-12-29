@@ -32,6 +32,16 @@ $${libXosCore_INCLUDEPATH} \
 DEFINES += \
 $${libXosCore_DEFINES} \
 
+HEADERS += \
+$${libXosCore_HEADERS} \
+$${XOS_SRC}/xos/os/Time.hpp \
+$${XOS_SRC}/xos/os/os/Time.hpp \
+$${XOS_SRC}/xos/os/unix/Time.hpp \
+$${XOS_SRC}/xos/os/Mutex.hpp \
+$${XOS_SRC}/xos/os/os/Mutex.hpp \
+$${XOS_SRC}/xos/os/unix/Mutex.hpp \
+$${XOS_SRC}/xos/os/unix/Mutexes.hpp \
+
 SOURCES += \
 $${libXosCore_SOURCES} \
 $${XOS_SRC}/xos/os/unix/Mutexes.cpp \
@@ -40,3 +50,4 @@ $${XOS_SRC}/xos/os/unix/Semaphores.cpp \
 $${XOS_SRC}/xos/os/unix/Threads.cpp \
 $${XOS_SRC}/xos/network/unix/Sockets.cpp \
 
+QT += opengl

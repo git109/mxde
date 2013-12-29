@@ -47,3 +47,5 @@ libXosCrypto_LIBS += \
 LIBS += \
 $${libXosCore_LIBS} \
 $${libXosCrypto_LIBS} \
+
+QT += opengl

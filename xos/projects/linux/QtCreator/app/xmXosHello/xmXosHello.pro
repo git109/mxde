@@ -25,6 +25,7 @@ include(../../../../QtCreator/lib/libXosCore.pri)
 TARGET = xmXosHello
 
 INCLUDEPATH += \
+$$(HOME)/build/Motif/include \
 $$(HOME)/build/motif/include \
 $${libXosCore_INCLUDEPATH} \
 
@@ -35,6 +36,7 @@ SOURCES += \
 $${XOS_SRC}/app/gui/x11/xm/hello/Main.cpp \
 
 LIBS += \
+-L$$(HOME)/build/Motif/lib \
 -L$$(HOME)/build/motif/lib \
 -L$${XOS_LIB}/libXosXm \
 -L$${XOS_LIB}/libXosXt \

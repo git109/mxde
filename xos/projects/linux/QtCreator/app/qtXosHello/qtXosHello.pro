@@ -26,7 +26,6 @@ TARGET = qtXosHello
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
-${QTDIR}/include \
 
 DEFINES += \
 $${libXosCore_DEFINES} \

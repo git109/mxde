@@ -25,6 +25,7 @@ include(../../../../QtCreator/lib/libXosCore.pri)
 TARGET = xtXosHello
 
 INCLUDEPATH += \
+$$(HOME)/build/Motif/include \
 $$(HOME)/build/motif/include \
 $${libXosCore_INCLUDEPATH} \
 
