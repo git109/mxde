@@ -192,6 +192,10 @@ typedef Array<tchar_t> TCharArray;
 typedef Array<wchar_t> WCharArray;
 typedef Array<char> CharArray;
 
+typedef Array<uint8_t> ByteArray;
+typedef Array<uint16_t> WordArray;
+typedef Array<uint32_t> LongWordArray;
+
 } // namespace xos
 
 #endif // _XOS_ARRAY_HPP_ 

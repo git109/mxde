@@ -225,7 +225,7 @@ protected:
                 if ((m_textEdit)) {
                     QString textString = m_textEdit->toPlainText();
                     if (0 < (textString.length())) {
-                        QByteArray textArray = textString.toAscii();
+                        QByteArray textArray = textString.toUtf8();
                         if ((Hash(textArray.data(), textArray.length())))
                             EndHash();
                         return true;
@@ -243,7 +243,7 @@ protected:
                 if ((m_fileEdit)) {
                     QString fileString = m_fileEdit->text();
                     if (0 < (fileString.length())) {
-                        QByteArray fileArray = fileString.toAscii();
+                        QByteArray fileArray = fileString.toUtf8();
                         xos::String string(fileArray.data(), fileArray.length());
                         const char* chars = string.Chars();
                         if ((chars)) {

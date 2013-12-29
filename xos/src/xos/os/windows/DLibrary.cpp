@@ -19,7 +19,6 @@
 ///   Date: 10/24/2012
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/windows/DLibrary.hpp"
-#include "xos/os/os/DLibrary.cpp"
 
 namespace xos {
 namespace windows {

@@ -29,12 +29,15 @@ namespace xos {
 
 typedef MainBaseImplement MainImplement;
 typedef MainBase MainExtend;
-
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS Main: virtual public MainImplement, public MainExtend {
 public:
     typedef MainImplement Implements;
     typedef MainExtend Extends;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     class EXPORT_CLASS Logger: public StreamLogger {
     public:
         typedef StreamLogger Extends;
@@ -55,9 +58,13 @@ public:
 
     bool m_didUsage;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Main():m_didUsage(false){}
     virtual ~Main(){}
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int BeforeMain
     (int argc, char**argv, char**env)
     {
@@ -73,6 +80,8 @@ public:
     virtual bool DidMain() const
     {   return DidUsage(); }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int Usage
     (int argc, char**argv, char**env)
     {
@@ -125,6 +134,9 @@ public:
     {   return m_didUsage = isTrue; }
     virtual bool DidUsage() const
     {   return m_didUsage; }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int GetOptions
     (int argc, char**argv, char**env)
     {
@@ -149,6 +161,8 @@ public:
         }
         return err;
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     static int OnLoggingOption
     (int optval, const char* optarg,
      const char* optname, int optind,
@@ -156,69 +170,11 @@ public:
     {
         int err = xos::OnLoggingOption
         (optval, optarg, optname, optind, argc, argv, env);
-        /*switch(optval)
-        {
-        case 'l':
-            err = OnLoggingLevel(optarg);
-            break;
-        }*/
         return err;
     }
     static int OnLoggingLevel(const char* optarg)
     {
         int err = xos::OnLoggingLevel(optarg);
-        /*char c;
-
-        if ((optarg))
-        if ((c = optarg[0]))
-        if (!(optarg[1]))
-        {
-            err = 0;
-            switch(c)
-            {
-            case 'a':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ALL);
-                break;
- 
-            case '0':
-            case 'n':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_NONE);
-                break;
- 
-            case '1':
-            case 'f':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_FATAL);
-                break;
- 
-            case '2':
-            case 'e':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR);
-                break;
- 
-            case '3':
-            case 'w':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_WARN);
-                break;
- 
-            case '4':
-            case 'i':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_INFO);
-                break;
- 
-            case '5':
-            case 'd':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_DEBUG);
-                break;
- 
-            case '6':
-            case 't':
-                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_TRACE);
-                break;
- 
-            default:
-                err = 1;
-            }
-        }*/
         return err;
     }
     virtual int OnUsageOption
@@ -230,6 +186,8 @@ public:
         err = Usage(argc, argv, env);
         return err;
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int OnOption
     (int optval, const char* optarg,
      const char* optname, int optind,
@@ -238,12 +196,12 @@ public:
         int err = 0;
         switch(optval)
         {
-        case 'l':
+        case XOS_MAIN_LOGGING_OPTVAL_C:
             err = OnLoggingOption
             (optval, optarg, optname, optind, argc, argv, env);
             break;
 
-        case 'h':
+        case XOS_MAIN_HELP_OPTVAL_C:
             err = OnUsageOption
             (optval, optarg, optname, optind, argc, argv, env);
             break;
@@ -259,11 +217,11 @@ public:
         const char* chars = "";
         switch(longopt->val)
         {
-        case 'l':
-            optarg = "{(a)all|(n)none|(f)fatal|(e)error|(w)waring|(i)info|(t)trace|(d)debug}";
+        case XOS_MAIN_LOGGING_OPTVAL_C:
+            optarg = XOS_MAIN_LOGGING_OPTARG;
             break;
-        case 'h':
-            chars = "Usage options";
+        case XOS_MAIN_HELP_OPTVAL_C:
+            chars = XOS_MAIN_HELP_OPTUSE;
             break;
         }
         return chars;
@@ -283,6 +241,8 @@ public:
         args = 0;
         return 0;
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 };
 
 } // namespace xos

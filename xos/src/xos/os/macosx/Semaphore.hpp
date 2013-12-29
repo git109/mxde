@@ -140,7 +140,17 @@ public:
                     XOS_LOG_TRACE("...waited on semaphore_timedwait()");
                     return Success;
                 } else {
-                    XOS_LOG_TRACE("...failed " << err << " on semaphore_timedwait()");
+                    if (KERN_OPERATION_TIMED_OUT == (err)) {
+                        XOS_LOG_TRACE("...KERN_OPERATION_TIMED_OUT on semaphore_timedwait()");
+                        return Busy;
+                    } else {
+                        if (KERN_ABORTED == (err)) {
+                            XOS_LOG_TRACE("...KERN_ABORTED on semaphore_timedwait()");
+                            return Interrupted;
+                        } else {
+                            XOS_LOG_TRACE("...failed " << err << " on semaphore_timedwait()");
+                        }
+                    }
                 }
             } else {
                 XOS_LOG_TRACE("wait on semaphore_wait()...");

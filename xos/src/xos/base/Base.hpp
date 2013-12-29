@@ -25,6 +25,9 @@
 #include "xos/base/ExportBase.hpp"
 #include "xos/base/Error.hpp"
 
+#define XOS_STRINGX(value) "" #value ""
+#define XOS_STRING(value) XOS_STRINGX(value)
+
 namespace xos {
 
 class Base {

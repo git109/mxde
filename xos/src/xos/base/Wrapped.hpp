@@ -37,6 +37,7 @@ public:
     typedef TImplement Implements;
     typedef TExtend Extends;
     typedef TWrapped WrappedT;
+    typedef TInitialized InitializedT;
 
     Wrapped(TWrapped& wrapped, TInitialized initialized): m_wrapped(wrapped) {
         memset(&m_wrapped, initialized, sizeof(TWrapped));

@@ -21,8 +21,6 @@
 #ifndef _XOS_APP_GUI_QT_HELLO_MAIN_HPP
 #define _XOS_APP_GUI_QT_HELLO_MAIN_HPP
 
-#include <QtOpenGL/QtOpenGL>
-#include <QtGui/QPushButton>
 #include "xos/gui/qt/WindowMain.hpp"
 #include "xos/gui/qt/ImageRenderer.hpp"
 #include "app/gui/opengl/hello/Main.hpp"

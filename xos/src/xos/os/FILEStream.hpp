@@ -81,7 +81,8 @@ public:
         if ((err = fflush(m_attachedTo))){
             if (!(m_noLogging))
                 XOS_LOG_ERROR("failed " << err << " on fflush()");
-            count = -Error::Failed;
+        } else {
+            count = 0;
         }
         return count;
     }
@@ -94,7 +95,8 @@ public:
         if ((err = fseek(m_attachedTo, size, origin))){
             if (!(m_noLogging))
                 XOS_LOG_ERROR("failed " << err << " on fseek()");
-            count = -Error::Failed;
+        } else {
+            count = size;
         }
         return count;
     }

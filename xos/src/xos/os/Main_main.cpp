@@ -43,11 +43,11 @@ static int OnOption
     int err = 0;
     switch(optval)
     {
-    case 'l':
+    case XOS_MAIN_LOGGING_OPTVAL_C:
         err = xos::Main::OnLoggingOption
         (optval, optarg, optname, optind, argc, argv, env);
         break;
-    case 'h':
+    case XOS_MAIN_HELP_OPTVAL_C:
         XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR);
         break;
     }

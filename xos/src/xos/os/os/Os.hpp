@@ -25,6 +25,7 @@
 
 namespace xos {
 namespace windows { namespace crt {} }
+namespace macosx { namespace crt {} }
 namespace unix {namespace crt {} }
 namespace os {
 

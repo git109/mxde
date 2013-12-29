@@ -54,6 +54,7 @@ public:
         }
     }
 
+    using Extends::Open;
     virtual bool Open(const char* name) {
         TString path(name);
         return Open(path);

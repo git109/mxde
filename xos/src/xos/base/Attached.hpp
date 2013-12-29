@@ -58,6 +58,9 @@ public:
     virtual AttachedT AttachedTo() const {
         return m_attachedTo;
     }
+    virtual AttachedT& attachedTo() const {
+        return (AttachedT&)(m_attachedTo);
+    }
 protected:
     AttachedT m_attachedTo;
 };
@@ -85,6 +88,25 @@ public:
     virtual AttachedT AttachedTo() const {
         return Unattached;
     }
+};
+
+template
+<class TAttached,
+ class TUnattached=TAttached,
+ TUnattached VUnattached=0,
+ class TImplement=InterfaceBase>
+
+class _EXPORT_CLASS AttachedInterface: virtual public TImplement {
+public:
+    typedef TImplement Implements;
+
+    typedef TAttached AttachedT;
+    typedef TUnattached UnattachedT;
+    static const UnattachedT Unattached=VUnattached;
+
+    virtual AttachedT Attach(AttachedT attachedTo) = 0;
+    virtual AttachedT Detach() = 0;
+    virtual AttachedT AttachedTo() const = 0;
 };
 
 } // namespace xos

@@ -56,6 +56,7 @@ public:
       m_isParent(false),
       m_isCurrent(false),
       m_isCircular(false),
+      m_appender(*this),
       m_directoryAppender(m_directory),
       m_fileDirectoryAppender(m_fileDirectory)
     {}
@@ -68,6 +69,7 @@ public:
       m_isParent(false),
       m_isCurrent(false),
       m_isCircular(false),
+      m_appender(*this),
       m_directoryAppender(m_directory),
       m_fileDirectoryAppender(m_fileDirectory)
     {}
@@ -79,6 +81,7 @@ public:
       m_isParent(false),
       m_isCurrent(false),
       m_isCircular(false),
+      m_appender(*this),
       m_directoryAppender(m_directory),
       m_fileDirectoryAppender(m_fileDirectory)
     {}
@@ -126,6 +129,15 @@ public:
             }
         }
         return false;
+    }
+
+    PathT& AssignDirectory(const char* chars) {
+        this->clear();
+        return AppendDirectory(chars);
+    }
+    PathT& AppendDirectory(const char* chars) {
+        m_appender.Append(chars);
+        return *this;
     }
 
     TString GetHost() const { return m_host; }
@@ -264,6 +276,7 @@ protected:
     TString m_fileBase;
     TString m_fileExtension;
 
+    TDirectoryAppender m_appender;
     TDirectoryAppender m_directoryAppender;
     TDirectoryAppender m_fileDirectoryAppender;
 

@@ -20,6 +20,17 @@
 ///////////////////////////////////////////////////////////////////////
 #include "xos/os/os/DLibrary.hpp"
 
+#if defined(WINDOWS_API) 
+// Windows
+#include "xos/os/windows/DLibrary.cpp"
+#elif defined(MACOSX) 
+// MacOSX
+#include "xos/os/macosx/DLibrary.cpp"
+#else // defined(WINDOWS_API) 
+// Unix
+#include "xos/os/unix/DLibrary.cpp"
+#endif // defined(WINDOWS_API)
+
 namespace xos {
 namespace os {
 

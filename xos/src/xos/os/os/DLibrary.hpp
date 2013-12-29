@@ -25,29 +25,6 @@
 
 #if defined(WINDOWS_API) 
 // Windows
-typedef HMODULE DLIBRARY_T;
-typedef DLIBRARY_T INVALID_DLIBRARY_T;
-#define INVALID_DLIBRARY 0
-#define DLIBRARY_FILE_EXTENSION_CHARS "dll"
-#else // defined(WINDOWS_API) 
-// Unix
-#include <dlfcn.h>
-typedef void* DLIBRARY_T;
-typedef unsigned INVALID_DLIBRARY_T;
-#define INVALID_DLIBRARY 0
-#if defined(MACOSX)
-// MacOSX
-#define DLIBRARY_FILE_EXTENSION_CHARS "dylib"
-#else // defined(MACOSX)
-#define DLIBRARY_FILE_EXTENSION_CHARS "so"
-#endif // defined(MACOSX)
-#endif // defined(WINDOWS_API)
-
-#define DLIBRARY_SYMBOL_(identifier) "" #identifier ""
-#define DLIBRARY_SYMBOL(identifier) DLIBRARY_SYMBOL_(identifier)
-
-#if defined(WINDOWS_API) 
-// Windows
 #include "xos/os/windows/DLibrary.hpp"
 #elif defined(MACOSX) 
 // MacOSX
@@ -59,6 +36,8 @@ typedef unsigned INVALID_DLIBRARY_T;
 
 namespace xos {
 namespace os {
+
+typedef os::DLibrary DLibrary;
 
 } // namespace os 
 } // namespace xos 

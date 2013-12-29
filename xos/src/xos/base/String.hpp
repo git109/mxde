@@ -32,12 +32,15 @@ template
 <typename TChar, 
  class TExtend=std::basic_string<TChar>, 
  class TImplement=StringImplement>
-
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 class EXPORT_CLASS StringT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringT(const StringT& copy): Extends(copy){}
     StringT(const Extends& copy): Extends(copy){}
     StringT(const char* chars, size_t length){
@@ -66,7 +69,8 @@ public:
     }
     StringT(){}
     virtual ~StringT(){}
-
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringT& Assign(const Extends& string) {
         this->clear();
         Append(string);
@@ -105,6 +109,8 @@ public:
         Append(value);
         return *this; }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringT& Append(const Extends& string) {
         this->append(string);
         return *this; }
@@ -204,6 +210,8 @@ public:
         }
         return *this; }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringT& Assignx(const char* chars, size_t length, char A='a') {
         Clear();
         return AppendX((const uint8_t*)(chars), length, A);
@@ -213,6 +221,8 @@ public:
         return AppendX((const uint8_t*)(chars), length, A);
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringT& Appendx(const char* chars, size_t length, char A='a') {
         return AppendX((const uint8_t*)(chars), length, A);
     }
@@ -264,6 +274,8 @@ public:
         return x;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     size_t Clear() {
         size_t count = this->length();
         this->clear();
@@ -281,7 +293,14 @@ public:
         return this->length();
     }
 
-    int toInt() const {
+    int Compare(const StringT& to) const {
+        return this->compare(to);
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    int toInt() const { return ToInt(); }
+    int ToInt() const {
         const TChar c0 = (TChar)('0');
         const TChar c9 = (TChar)('9');
         const TChar minus = (TChar)('-');
@@ -307,7 +326,8 @@ public:
             value = -value;
         return value;
     }
-    unsigned int toUnsignedInt() const {
+    unsigned int toUnsignedInt() const { return ToUnsignedInt(); }
+    unsigned int ToUnsignedInt() const {
         const TChar c0 = (TChar)('0');
         const TChar c9 = (TChar)('9');
         unsigned int value = 0;
@@ -327,13 +347,105 @@ public:
         return value;
     }
 
+    StringT& toLiteral
+    (StringT& to, char q = '"',
+     const char* trueChars = "true",
+     const char* falseChars = "false") const {
+        return ToLiteral(to, q, trueChars, falseChars);
+    }
+    StringT& ToLiteral
+    (StringT& to, char q = '"',
+     const char* trueChars = "true",
+     const char* falseChars = "false") const {
+        const TChar cQ = (TChar)(q);
+        const TChar ca = (TChar)('a');
+        const TChar cf = (TChar)('f');
+        const TChar cx = (TChar)('x');
+        const TChar cA = (TChar)('A');
+        const TChar cF = (TChar)('F');
+        const TChar cX = (TChar)('X');
+        const TChar c0 = (TChar)('0');
+        const TChar c9 = (TChar)('9');
+        const TChar minus = (TChar)('-');
+        const StringT sTrue(trueChars);
+        const StringT sFalse(falseChars);
+        bool isQuoted = true;
+        bool has0X = false;
+        size_t length, count;
+        const TChar* chars;
+        TChar c;
+
+        if ((!this->compare(sTrue)) || (!this->compare(sFalse))) {
+            isQuoted = false;
+        } else {
+            if (((chars = Chars(length))) && (0 < length)) {
+                for (isQuoted = false , count = 0; count < length; count++) {
+                    if (((c = chars[count]) < c0) || (c > c9)) {
+                        if (c != minus) {
+                            if ((c != cx) && (c != cX)) {
+                                if ((c < ca) || (c > cf)) {
+                                    if ((c < cA) || (c > cF)) {
+                                        isQuoted = true;
+                                        break;
+                                    } else {
+                                        if ((2 > (count)) || !(has0X)) {
+                                            isQuoted = true;
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    if ((2 > (count)) || !(has0X)) {
+                                        isQuoted = true;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                if ((c0 != chars[0]) || (1 != count)) {
+                                    isQuoted = true;
+                                    break;
+                                } else {
+                                    has0X = true;
+                                }
+                            }
+                        } else {
+                            if (0 < (count)) {
+                                isQuoted = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        isQuoted = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if ((isQuoted)) {
+            to.Append(&cQ, 1);
+        }
+        if ((Length())) {
+            to.Append(*this);
+        }
+        if ((isQuoted)) {
+            to.Append(&cQ, 1);
+        }
+        return to;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringT& operator << (const Extends& str){ this->append(str); return *this; }
     StringT& operator << (const char* chars){ Append(chars); return *this; }
     StringT& operator << (const wchar_t* chars){ Append(chars); return *this; }
     StringT& operator << (int value){ Append(value); return *this; }
     StringT& operator << (unsigned int value){ Append(value); return *this; }
+
+    int operator >> (int& value) {value = toInt(); return value; }
+    unsigned int operator >> (unsigned int& value) {value = toUnsignedInt(); return value; }
 };
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 typedef StringT<char> String;
 typedef StringT<wchar_t> WString;
 typedef StringT<tchar_t> TString;

@@ -21,9 +21,53 @@
 #ifndef _XOS_OS_DLIBRARY_HPP
 #define _XOS_OS_DLIBRARY_HPP
 
-#include "xos/base/Base.hpp"
+#include "xos/base/String.hpp"
 
 namespace xos {
+
+typedef InterfaceBase DLibraryImplement;
+///////////////////////////////////////////////////////////////////////
+///  Class: DLibrary
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS DLibrary: virtual public DLibraryImplement {
+public:
+    typedef DLibraryImplement Implements;
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Open(const std::string& fileName, bool resolve=true, bool global=false) {
+        return Open(fileName.c_str(), resolve, global);
+    }
+    virtual bool Open(const wchar_t* fileName, bool resolve=true, bool global=false) {
+        if ((fileName)) {
+            String s(fileName);
+            return Open(s.c_str(), resolve, global);
+        }
+        return false;
+    }
+    virtual bool Open(const char* fileName, bool resolve=true, bool global=false) {
+        return false;
+    }
+    virtual bool Close() {
+        return false;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual void* GetAddress(const std::string& symbol) const {
+        return GetAddress(symbol.c_str());
+    }
+    virtual void* GetAddress(const wchar_t* symbol) const {
+        if ((symbol)) {
+            String s(symbol);
+            return GetAddress(s.c_str());
+        }
+        return 0;
+    }
+    virtual void* GetAddress(const char* symbol) const {
+        return 0;
+    }
+};
 
 } // namespace xos 
 

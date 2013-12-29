@@ -25,23 +25,29 @@
 
 namespace xos {
 
-template
-<class TWhat=void, class TEnd=int, TEnd VEnd=0,
- class TImplement=LockedInterface, 
- typename TStatus=LockedInterface::Status,
- TStatus VSuccess=LockedInterface::Success>
-
-class EXPORT_CLASS StreamBase: virtual public TImplement {
+class EXPORT_CLASS StreamLockedInterface: virtual public LockedInterface {
 public:
-    typedef TImplement Implements;
-    typedef TWhat WhatT;
-    typedef TEnd EndT;
-
+    typedef LockedInterface Implements;
     enum Whence {
         FromBegin,
         FromEnd,
         FromCurrent
     };
+};
+
+template
+<class TWhat=void, class TEnd=int, TEnd VEnd=0,
+ class TImplement=StreamLockedInterface, 
+ typename TWhence=StreamLockedInterface::Whence,
+ TWhence VFromBegin=StreamLockedInterface::FromBegin, 
+ typename TStatus=LockedInterface::Status,
+ TStatus VSuccess=LockedInterface::Success>
+
+class EXPORT_CLASS StreamBaseT: virtual public TImplement {
+public:
+    typedef TImplement Implements;
+    typedef TWhat WhatT;
+    typedef TEnd EndT;
 
     virtual ssize_t Read(WhatT* what, size_t size) = 0;
     virtual ssize_t Write(const WhatT* what, ssize_t size = -1) = 0;
@@ -49,7 +55,7 @@ public:
     virtual ssize_t Fill() = 0;
     virtual ssize_t Flush() = 0;
 
-    virtual ssize_t Seek(size_t size, Whence whence = FromBegin) = 0;
+    virtual ssize_t Seek(size_t size, TWhence whence = VFromBegin) = 0;
     virtual ssize_t Tell() const = 0;
 
     virtual bool Lock(){ return true; }
@@ -61,9 +67,20 @@ protected:
     static const EndT End = (EndT)(VEnd);
 };
 
-typedef StreamBase<void> StreamExtend;
-class EXPORT_CLASS Stream: public StreamExtend {
+typedef StreamBaseT<void> StreamBase;
+
+typedef StreamBaseT<char> CharStreamBase;
+typedef StreamBaseT<wchar_t> WCharStreamBase;
+typedef StreamBaseT<tchar_t> TCharStreamBase;
+
+typedef StreamBaseT<uint8_t> ByteStreamBase;
+typedef StreamBaseT<uint16_t> WordStreamBase;
+typedef StreamBaseT<uint32_t> LongWordStreamBase;
+
+template <class TImplement=StreamBase>
+class EXPORT_CLASS StreamT: virtual public TImplement {
 public:
+    typedef TImplement Implements;
     virtual ssize_t WriteFormatted(const char* format, ...) {
         ssize_t count = 0;
         va_list va;
@@ -78,9 +95,15 @@ public:
     }
 };
 
-typedef StreamBase<char> CharStream;
-typedef StreamBase<wchar_t> WCharStream;
-typedef StreamBase<tchar_t> TCharStream;
+typedef StreamT<StreamBase> Stream;
+
+typedef StreamT<CharStreamBase> CharStream;
+typedef WCharStreamBase WCharStream;
+typedef TCharStreamBase TCharStream;
+
+typedef ByteStreamBase ByteStream;
+typedef WordStreamBase WordStream;
+typedef LongWordStreamBase LongWordStream;
 
 } // namespace xos
 

@@ -54,7 +54,8 @@ public:
       m_imageWidth(XOS_APP_GUI_HELLO_DEFAULT_IMAGE_WIDTH),  
       m_imageHeight(XOS_APP_GUI_HELLO_DEFAULT_IMAGE_HEIGHT),  
       m_imageDepth(XOS_APP_GUI_HELLO_DEFAULT_IMAGE_DEPTH), 
-      m_imageFile(XOS_APP_GUI_HELLO_DEFAULT_IMAGE_FILENAME) {
+      m_imageFile(XOS_APP_GUI_HELLO_DEFAULT_IMAGE_FILENAME), 
+      m_defaultImageFile(XOS_APP_GUI_HELLO_DEFAULT_IMAGE_FILENAME) {
     }
     virtual ~ImageT() {
         FreeImage();
@@ -80,8 +81,9 @@ public:
         if ((m_imageFile)) {
             FILE* file = 0;
             if ((file = fopen(m_imageFile, "rb"))) {
-                m_imageSize = (m_imageWidth*m_imageHeight*m_imageDepth);
-                if ((m_image = malloc(m_imageSize))) {
+                /*m_imageSize = (m_imageWidth*m_imageHeight*m_imageDepth);
+                if ((m_image = malloc(m_imageSize))) {*/
+                if ((AllocateImage(m_imageWidth, m_imageHeight, m_imageDepth))) {
                     size_t count = 0;
                     count = fread(m_image, m_imageSize, 1, file);
                     fclose(file);
@@ -89,9 +91,9 @@ public:
                         XOS_LOG_ERROR("failed on fread() of \"" << m_imageFile << "\"");
                         FreeImage();
                     }
-                } else {
+                /*} else {
                     XOS_LOG_ERROR("failed on malloc(" << m_imageSize << ")");
-                    InitImage();
+                    InitImage();*/
                 }
             } else {
                 XOS_LOG_ERROR("failed on fopen(\"" << m_imageFile << "\",...)");
@@ -99,6 +101,23 @@ public:
             }
         }
         return m_image;
+    }
+    virtual void* AllocateImage
+    (int imageWidth, int imageHeight, int imageDepth) {
+        void* image = 0;
+        int imageSize;
+        if (0 < (imageSize = (imageWidth*imageHeight*imageDepth))) {
+            FreeImage();
+            if ((image = malloc(imageSize))) {
+                m_image = image;
+                m_imageWidth = imageWidth;
+                m_imageHeight = imageHeight;
+                m_imageDepth = imageDepth;
+            } else {
+                XOS_LOG_ERROR("failed on malloc(" << imageSize << ")");
+            }
+        }
+        return image;
     }
     virtual void FreeImage() {
         if ((m_image)) {
@@ -112,7 +131,7 @@ public:
         m_imageWidth = XOS_APP_GUI_HELLO_DEFAULT_IMAGE_WIDTH;  
         m_imageHeight = XOS_APP_GUI_HELLO_DEFAULT_IMAGE_HEIGHT;  
         m_imageDepth = XOS_APP_GUI_HELLO_DEFAULT_IMAGE_DEPTH; 
-        m_imageFile = XOS_APP_GUI_HELLO_DEFAULT_IMAGE_FILENAME;
+        m_imageFile = m_defaultImageFile;
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -150,6 +169,7 @@ protected:
     void* m_image;
     unsigned m_imageSize, m_imageWidth, m_imageHeight, m_imageDepth;
     const char* m_imageFile;
+    const char* m_defaultImageFile;
     String m_imageFileString;
 };
 

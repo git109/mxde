@@ -25,6 +25,7 @@
 #include "xos/base/Created.hpp"
 #include "xos/os/Logger.hpp"
 #include <semaphore.h>
+#include <errno.h>
 
 #if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
 #define SEM_HAS_TIMEDWAIT
@@ -157,7 +158,17 @@ public:
                     XOS_LOG_TRACE("...waited on sem_timedwait()");
                     return Success;
                 } else {
-                    XOS_LOG_TRACE("...failed " << err << " on sem_timedwait()");
+                    if (ETIMEDOUT == (errno)) {
+                        XOS_LOG_TRACE("...ETIMEDOUT on semaphore_timedwait()");
+                        return Busy;
+                    } else {
+                        if (EINTR == (errno)) {
+                            XOS_LOG_TRACE("...EINTR on semaphore_timedwait()");
+                            return Interrupted;
+                        } else {
+                            XOS_LOG_TRACE("...failed " << err << " on semaphore_timedwait()");
+                        }
+                    }
                 }
             } else {
                 if (0 == (waitMilliSeconds)) {

@@ -40,6 +40,12 @@ public:
     virtual ~Directory() {
     }
 
+    virtual bool Open(const std::string& name) {
+        const char* chars;
+        if ((chars = name.c_str()))
+            return Open(chars);
+        return false;
+    }
     virtual bool Open(const wchar_t* name) {
         return false;
     }
