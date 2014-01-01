@@ -18,17 +18,10 @@
 /// Author: $author$
 ///   Date: 11/23/2013
 ///////////////////////////////////////////////////////////////////////
-#include "Request.hpp"
+#include "xos/inet/http/Request.hpp"
 
 namespace xos {
 namespace http {
 
-
-
-
 } // namespace http 
 } // namespace xos 
-
-
-        
-

@@ -67,6 +67,9 @@ typedef MODE_T mode_t;
 typedef SSIZE_T ssize_t;
 
 typedef time_t useconds_t;
+
+typedef USHORT ushort;
+typedef ULONG ulong;
 // ...
 // Visual C++
 //

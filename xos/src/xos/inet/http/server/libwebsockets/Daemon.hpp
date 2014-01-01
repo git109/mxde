@@ -21,6 +21,7 @@
 #ifndef _XOS_HTTP_SERVER_LIBWEBSOCKETS_DAEMON_HPP
 #define _XOS_HTTP_SERVER_LIBWEBSOCKETS_DAEMON_HPP
 
+#include "xos/inet/http/server/libwebsockets/Libwebsockets.hpp"
 #include "xos/inet/http/server/Daemon.hpp"
 #include "xos/inet/http/FormReader.hpp"
 #include "xos/inet/http/Response.hpp"
@@ -29,7 +30,6 @@
 #include "xos/base/Array.hpp"
 #include "xos/base/Attached.hpp"
 #include "xos/base/Wrapped.hpp"
-#include <libwebsockets.h>
 
 #define XOS_HTTP_SERVER_LIBWEBSOCKETS_DAEMON_LWS_DEBUG_LEVEL 7
 #define XOS_HTTP_SERVER_LIBWEBSOCKETS_DAEMON_LWS_TIMEOUT_MS 50

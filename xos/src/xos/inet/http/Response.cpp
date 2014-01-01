@@ -18,7 +18,7 @@
 /// Author: $author$
 ///   Date: 11/23/2013
 ///////////////////////////////////////////////////////////////////////
-#include "Response.hpp"
+#include "xos/inet/http/Response.hpp"
 
 namespace xos {
 namespace http {

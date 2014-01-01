@@ -31,6 +31,7 @@
 #include "xos/base/StringReader.hpp"
 #include "xos/base/Wrapped.hpp"
 #include <mongoose.h>
+#include <unistd.h>
 
 #define XOS_HTTP_SERVER_MONGOOSE_DAEMON_SLEEP_MSECONDS 100
 
@@ -307,7 +308,7 @@ public:
                     XOS_LOG_ERROR("...failed to waiting on stop semaphore");
 
                     for (bool done = false; !done; done = false) {
-                        usleep(m_mgSleepMilliseconds*100);
+                        usleep(m_mgSleepMilliseconds*1000);
                     }
                 }
             }

@@ -57,10 +57,16 @@ public:
             xos::Daemon& daemon = xos::Daemon::GetTheInstance();
             if (0 < (fieldValue.Length())) {
                 XOS_LOG_TRACE("action = \"" << fieldValue << "\"");
+                if (!(fieldValue.Compare("false"))) {
+                    XOS_LOG_TRACE("...return false");
+                    return false;
+                } else
                 if (!(fieldValue.Compare("restart"))) {
+                    XOS_LOG_TRACE("restart...");
                     daemon.Restart();
                 } else
                 if (!(fieldValue.Compare("stop"))) {
+                    XOS_LOG_TRACE("stop...");
                     daemon.Stop();
                 }
             }
