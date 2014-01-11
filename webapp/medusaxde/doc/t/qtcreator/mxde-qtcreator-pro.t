@@ -19,7 +19,7 @@
 %#   Date: 3/29/2011
 %########################################################################
 %with(%
-%file,%(%else-then(%file%,%(Project)%)%)%,%
+%file,%(%else-then(%file%,%(%else-then(%target%,%(Project)%)%)%)%)%,%
 %filepath,%(%else-then(%filepath%,%(%filepath(%input%)%)%)%)%,%
 %include_path,%(%else-then(%include_path%,%(%else(%included_path%,%(%includepath%)%)%)%)%)%,%
 %included_path,%(%else-then(%included_path%,%(included_path)%)%)%,%
@@ -29,7 +29,7 @@
 %%if(%source_includefile%,%
 %%(%include(%includepath%/mxde-source-html.t)%)%,%(%
 %%with(%
-%file_type_extension,%(%else-then(%file_type_extension%,%(.pro)%)%)%,%
+%file_type_extension,%(%else-then(%file_type_extension%,%(pro)%)%)%,%
 %file_base,%(%else-then(%file_base%,%(%filebase(%file%)%)%)%)%,%
 %file_extension,%(%else-then(%file_extension%,%(%fileextension(%file%)%)%)%)%,%
 %file,%(%if-then(%file%,%(%else(%file_extension%,%(%then-if(%file_type_extension%,%(.)%)%)%)%)%)%)%,%
@@ -65,7 +65,11 @@
 %Target_type,%(%else-then(%Target_type%,%(%target_type%)%)%)%,%
 %TARGET_TYPE,%(%else-then(%TARGET_TYPE%,%(%toupper(%Target_type%)%)%)%)%,%
 %target_type,%(%else-then(%_Target_type%,%(%tolower(%Target_type%)%)%)%)%,%
-%defines,%(%else-then(%defines%,%(defines)%)%)%,%
+%template,%(%else-then(%template%,%(%else(%equal(executable,%target_type%)%,%(lib)%,%()%)%)%)%)%,%
+%template,%(%else-then(%template%,%(%template%)%)%)%,%
+%TEMPLATE,%(%else-then(%TEMPLATE%,%(%toupper(%template%)%)%)%)%,%
+%template,%(%else-then(%_template%,%(%tolower(%template%)%)%)%)%,%
+%defines,%(%else-then(%defines%,%()%)%)%,%
 %Defines,%(%else-then(%Defines%,%(%defines%)%)%)%,%
 %DEFINES,%(%else-then(%DEFINES%,%(%toupper(%Defines%)%)%)%)%,%
 %defines,%(%else-then(%_Defines%,%(%tolower(%Defines%)%)%)%)%,%
@@ -73,11 +77,11 @@
 %Includepath,%(%else-then(%Include_path%,%(%includepath%)%)%)%,%
 %INCLUDEPATH,%(%else-then(%INCLUDEPATH%,%(%toupper(%Includepath%)%)%)%)%,%
 %includepath,%(%else-then(%_Includepath%,%(%tolower(%Includepath%)%)%)%)%,%
-%libpath,%(%else-then(%libpath%,%(libpath)%)%)%,%
+%libpath,%(%else-then(%libpath%,%()%)%)%,%
 %Libpath,%(%else-then(%Libpath%,%(%libpath%)%)%)%,%
 %LIBPATH,%(%else-then(%LIBPATH%,%(%toupper(%Libpath%)%)%)%)%,%
 %libpath,%(%else-then(%_Libpath%,%(%tolower(%Libpath%)%)%)%)%,%
-%libs,%(%else-then(%libs%,%(libs)%)%)%,%
+%libs,%(%else-then(%libs%,%()%)%)%,%
 %Libs,%(%else-then(%Libs%,%(%libs%)%)%)%,%
 %LIBS,%(%else-then(%LIBS%,%(%toupper(%Libs%)%)%)%)%,%
 %libs,%(%else-then(%_Libs%,%(%tolower(%Libs%)%)%)%)%,%

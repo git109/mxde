@@ -86,6 +86,8 @@
 %_int_,%(%else-then(%_int_%,%(%kk_%int%_kk%)%)%)%,%
 %_char_,%(%else-then(%_char_%,%(%kk_%char%_kk%)%)%)%,%
 %_bool_,%(%else-then(%_bool_%,%(%kk_%bool%_kk%)%)%)%,%
+%_true_,%(%else-then(%_true_%,%(%kk_%true%_kk%)%)%)%,%
+%_false_,%(%else-then(%_false_%,%(%kk_%false%_kk%)%)%)%,%
 %_return_,%(%else-then(%_return_%,%(%kk_%return%_kk%)%)%)%,%
 %_switch_,%(%else-then(%_switch_%,%(%kk_%switch%_kk%)%)%)%,%
 %_case_,%(%else-then(%_case_%,%(%kk_%case%_kk%)%)%)%,%

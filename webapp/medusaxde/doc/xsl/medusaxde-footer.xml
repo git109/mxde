@@ -47,6 +47,16 @@
     </footer-item>
 
     <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="medusade"
+     location="/medusade/mxde/xsl/mxde.xsl">
+        <text>Medusade</text>
+    </footer-item>
+
+    <!--========================================================================-->
     <footer-item is_separator="yes"/>
 
     <!--========================================================================-->
@@ -64,6 +74,23 @@
      location_query="for=medusaxde&amp;tab=create" 
      location="medusaxde.xsl">
         <text>Medusaxde</text>
+    </footer-item>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- footer-item                                                            -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <footer-item id="for_gnu"
+     is_location_query_and="yes"
+     is_location_query_and_tab="no"
+     is_location_query_and_menu="no"
+     is_location_query_and_author="yes"
+     is_location_query_and_using="yes"
+     is_location_query_and_border="no"
+     location_query="for=gnu&amp;tab=create"
+     location="medusaxde.xsl">
+    <text>Gnu</text>
     </footer-item>
 
     <!--========================================================================-->

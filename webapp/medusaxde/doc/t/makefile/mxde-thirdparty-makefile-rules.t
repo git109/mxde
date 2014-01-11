@@ -23,7 +23,7 @@
 %version_minor,%(%else-then(%version_minor%,%()%)%)%,%
 %version_release,%(%else-then(%version_release%,%()%)%)%,%
 %archived,%(%else-then(%archived%,%(tar)%)%)%,%
-%compressed,%(%else-then(%compressed%,%(gz)%)%)%,%
+%compressed,%(%else-then(%compressed%,%()%)%)%,%
 %%(%
 %
 MAKEDIR=$(PWD)
@@ -49,8 +49,12 @@ MAKEDIR=$(PWD)
 %WHAT%_NAME = $(%WHAT%_NAME_BASE)$(%WHAT%_NAME_SEPARATOR)$(%WHAT%_VERSION)
 %WHAT%_INSTALL_NAME_SEPARATOR = %name_separator%
 %WHAT%_INSTALL_NAME = $(%WHAT%_NAME_BASE)$(%WHAT%_INSTALL_NAME_SEPARATOR)$(%WHAT%_VERSION)
+
 %WHAT%_ARCHIVED = %archived%
 %WHAT%_COMPRESSED = %compressed%
+%WHAT%_ARCHIVE_SEPARATOR = %archive_separator%
+%WHAT%_ARCHIVED_SEPARATOR = %if(%archived%,%($(%WHAT%_ARCHIVE_SEPARATOR))%)%
+%WHAT%_COMPRESSED_SEPARATOR = %if(%compressed%,%($(%WHAT%_ARCHIVE_SEPARATOR))%)%
 
 %WHAT%_BUILD = $(HOME)/build
 %WHAT%_PREFIX = $(%WHAT%_BUILD)/$(%WHAT%_INSTALL_NAME)
@@ -61,11 +65,11 @@ MAKEDIR=$(PWD)
 %WHAT%_DIR = $(%WHAT%_NAME)
 %WHAT%_EXTRACT_DIR = $(%WHAT%_NAME)
 %WHAT%_TGZ_PREFIX = 
-%WHAT%_TGZ = $(%WHAT%_NAME)$(%WHAT%_TGZ_PREFIX).$(%WHAT%_ARCHIVED).$(%WHAT%_COMPRESSED)
+%WHAT%_TGZ = $(%WHAT%_NAME)$(%WHAT%_TGZ_PREFIX)$(%WHAT%_ARCHIVED_SEPARATOR)$(%WHAT%_ARCHIVED)$(%WHAT%_COMPRESSED_SEPARATOR)$(%WHAT%_COMPRESSED)
 %WHAT%_PATCH_TGZ_PREFIX = $(%WHAT%_NAME_SEPARATOR)patch
-%WHAT%_PATCH_TGZ = $(%WHAT%_NAME)$(%WHAT%_PATCH_TGZ_PREFIX).$(%WHAT%_ARCHIVED).$(%WHAT%_COMPRESSED)
+%WHAT%_PATCH_TGZ = $(%WHAT%_NAME)$(%WHAT%_PATCH_TGZ_PREFIX)$(%WHAT%_ARCHIVED_SEPARATOR)$(%WHAT%_ARCHIVED)$(%WHAT%_COMPRESSED_SEPARATOR)$(%WHAT%_COMPRESSED)
 %WHAT%_DOCS_TGZ_PREFIX = $(%WHAT%_NAME_SEPARATOR)docs
-%WHAT%_DOCS_TGZ = $(%WHAT%_NAME)$(%WHAT%_DOCS_TGZ_PREFIX).$(%WHAT%_ARCHIVED).$(%WHAT%_COMPRESSED)
+%WHAT%_DOCS_TGZ = $(%WHAT%_NAME)$(%WHAT%_DOCS_TGZ_PREFIX)$(%WHAT%_ARCHIVED_SEPARATOR)$(%WHAT%_ARCHIVED)$(%WHAT%_COMPRESSED_SEPARATOR)$(%WHAT%_COMPRESSED)
 
 ifeq ($(%WHAT%_ARCHIVED),tar)
 ifeq ($(%WHAT%_COMPRESSED),gz)
@@ -82,9 +86,15 @@ endif
 %WHAT%_EXTRACT = tar -x$(%WHAT%_TAR_UNCOMPRESS)f
 %WHAT%_ARCHIVE = tar -cv$(%WHAT%_TAR_COMPRESS)f
 else
+ifeq ($(%WHAT%_ARCHIVED),zip)
+%WHAT%_LIST = unzip -l
+%WHAT%_EXTRACT = unzip
+%WHAT%_ARCHIVE = zip
+else
 %WHAT%_LIST = echo unable to list
 %WHAT%_EXTRACT = echo unable to extract
 %WHAT%_ARCHIVE = echo unable to archive
+endif
 endif
 
 %WHAT%_MKDIR = mkdir -p

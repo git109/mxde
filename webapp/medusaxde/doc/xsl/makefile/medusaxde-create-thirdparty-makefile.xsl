@@ -50,6 +50,7 @@
 	<type default="yes">tar</type>
 	<type>zip</type>
 	<type>rpm</type>
+	<type value="">none</type>
 </xsl:variable>
 <xsl:variable name="archived_types"
  select="exsl:node-set($archived_types_tree)"/>
@@ -58,6 +59,7 @@
 	<type default="yes">gz</type>
 	<type>bz2</type>
 	<type>z</type>
+	<type value="">none</type>
 </xsl:variable>
 <xsl:variable name="compressed_types"
  select="exsl:node-set($compressed_types_tree)"/>

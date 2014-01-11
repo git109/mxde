@@ -121,7 +121,7 @@
 
     %lt%UserMacro
         Name="%PROJECT_BUILD%"
-        Value="$(%PROJECT_BUILD_DIR%)/build/$(PlatformName)/vc8/$(ConfigurationName)"
+        Value="$(%PROJECT_BUILD_DIR%)/build/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
     /%gt%
     %lt%UserMacro
         Name="%PROJECT_BUILD_OBJ%"

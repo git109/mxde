@@ -95,7 +95,8 @@
 %mxdens_uri,%(%else-then(%mxdens_uri%,%(Medusa-Xos-Development-Environment)%)%)%,%
 %medusadens_uri,%(%else-then(%medusadens_uri%,%(Medusa-Xos-Development-Environment)%)%)%,%
 %medusaxdens_uri,%(%else-then(%medusaxdens_uri%,%(Medusa-Xos-Development-Environment)%)%)%,%
-%xslns_list,%(%else-then(%xslns_list%,%(xslns;exslns;xslxns;msxslns;xdens;mxdens;medusadens;medusaxdens)%)%)%,%
+%xslns_list,%(%else-then(%xslns_list%,%(xslns;exslns)%)%)%,%
+%xsl_exclude_prefixes_xslns_list,%(%else-then(%xsl_exclude_prefixes_xslns_list%,%(xslxns;msxslns;xdens;mxdens;medusadens;medusaxdens)%)%)%,%
 %xsl_version,%(%else-then(%xsl_version%,%(1.0)%)%)%,%
 %xsl_version_attr,%(
  version=%ss_%"%xsl_version%"%_ss%)%,%

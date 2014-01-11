@@ -51,11 +51,12 @@
 %version_Release,%(%else-then(%version_Release%,%(%version_release%)%)%)%,%
 %version_RELEASE,%(%else-then(%version_RELEASE%,%(%toupper(%version_Release%)%)%)%)%,%
 %version_release,%(%else-then(%version__Release%,%(%tolower(%version_Release%)%)%)%)%,%
+%archive_separator,%(%else-then(%archive_separator%,%(.)%)%)%,%
 %archived,%(%else-then(%archived%,%(tar)%)%)%,%
 %Archived,%(%else-then(%Archived%,%(%archived%)%)%)%,%
 %ARCHIVED,%(%else-then(%ARCHIVED%,%(%toupper(%Archived%)%)%)%)%,%
 %archived,%(%else-then(%_Archived%,%(%tolower(%Archived%)%)%)%)%,%
-%compressed,%(%else-then(%compressed%,%(gz)%)%)%,%
+%compressed,%(%else-then(%compressed%,%()%)%)%,%
 %Compressed,%(%else-then(%Compressed%,%(%compressed%)%)%)%,%
 %COMPRESSED,%(%else-then(%COMPRESSED%,%(%toupper(%Compressed%)%)%)%)%,%
 %compressed,%(%else-then(%_Compressed%,%(%tolower(%Compressed%)%)%)%)%,%

@@ -1,5 +1,5 @@
 %########################################################################
-%# Copyright (c) 1988-2009 $organization$     
+%# Copyright (c) 1988-$year$ $organization$
 %#
 %# This software is provided by the author and contributors ``as is'' 
 %# and any express or implied warranties, including, but not limited to, 
@@ -13,40 +13,13 @@
 %# or otherwise) arising in any way out of the use of this software, 
 %# even if advised of the possibility of such damage.
 %#
-%#   File: mxde-xsl-ns.t
+%#   File: mxde-onxevent-members-hpp-hpp.t
 %#
-%# Author: $author$           
-%#   Date: 9/29/2009
+%# Author: $author$
+%#   Date: $date$
 %########################################################################
 %with(%
+%filepath,%(%else-then(%filepath%,%(%filepath(%input%)%)%)%)%,%
 %%(%
-%%parse(%xslns_list%,;,%(
- )%,,,%(%
-%%with(%
-%xmlns_uri,%(%do(%%%xmlns%_uri%%)%)%,%
-%xmlns,%(%do(%%%xmlns%%%)%)%,%
-%%(%
-%%xx_%xmlns:%xmlns%%_xx%=%ss_%"%xmlns_uri%"%_ss%%
-%)%)%%
-%)%,xmlns)%%
-%%parse(%xsl_exclude_prefixes_xslns_list%,;,,,,%(%
-%%if(%do(%%xsl_exclude_prefixes_%do(%%%xmlns%%%)%%%)%,%(%
-%%with(%
-%xmlns_uri,%(%do(%%%xmlns%_uri%%)%)%,%
-%xmlns,%(%do(%%%xmlns%%%)%)%,%
-%%(%
-%
- %xx_%xmlns:%xmlns%%_xx%=%ss_%"%xmlns_uri%"%_ss%%
-%)%)%%
-%)%)%%
-%)%,xmlns)%%
-%%if(%xslns_list%%xsl_exclude_prefixes_xslns_list%,%(
- exclude-result-prefixes=%ss_%"%
-%%parse(%xslns_list%,;,, ,,%(%do(%%%xmlns%%%)%)%,xmlns)%%
-%%parse(%xsl_exclude_prefixes_xslns_list%,;,,,,%(%
-%%if(%do(%%xsl_exclude_prefixes_%do(%%%xmlns%%%)%%%)%,%(%
-% %do(%%%xmlns%%%)%%
-%)%)%%
-%)%,xmlns)%%
-%"%_ss%)%)%%
+%%include(%filepath%/mxde-onxevent-members-hxx-hxx.t)%%
 %)%)%

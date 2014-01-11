@@ -22,28 +22,32 @@
 %%(%
 %TARGET = %Target%
 
-TEMPLATE = %else(%equal(executable,%target_type%)%,%(lib)%,%(app)%)%
-
+%if(%template%,%(TEMPLATE = %template%
+)%)%%
+%%else(%equal(executable,%target_type%)%,%(%
+%%else(%equal(shared-library,%target_type%)%,%(
+CONFIG += staticlib
+)%)%%
+%)%)%
 INCLUDEPATH += \
 %parse(%includepath%,;,,,,%(%if-then(%then-if(%path%,%(-I)%)%, \
 )%)%,path)%
-
 DEFINES += \
 %parse(%defines%,;,,,,%(%if-then(%then-if(%define%,%(-D)%)%, \
 )%)%,define)%
-%else(%equal(executable,%target_type%)%,%(%
-%%else(%equal(shared-library,%target_type%)%,%(%
-%CONFIG += staticlib
-
-%
-%)%)%%
-%)%)%%
-%LIBS = \
-%parse(%libpath%,;,,,,%(%if-then(%then-if(%lib%,%(-L)%)%, \
+HEADERS += \
+%parse(%headers%,;,,,,%(%if-then(%then-if(%header%,%()%)%, \
+)%)%,header)%
+SOURCES += \
+%parse(%sources%,;,,,,%(%if-then(%then-if(%source%,%()%)%, \
+)%)%,source)%
+LIBS += \
+%if(%equal(executable,%target_type%)%%equal(shared-library,%target_type%)%,%(%
+%%if(%libpath%%libs%%lib_item%,%(%parse(%libpath%,;,,,,%(%if-then(%then-if(%lib%,%(-L)%)%, \
 )%)%,lib)%%
 %%parse(%libs%,;,,,,%(%if-then(%then-if(%lib%,%(-l)%)%, \
 )%)%,lib)%%
 %%parse(%lib_item%,;,,,,%(%if-then(%then-if(%lib%,%(-l)%)%, \
-)%)%,lib)%
+)%)%,lib)%)%)%)%)%
 %
 %)%)%

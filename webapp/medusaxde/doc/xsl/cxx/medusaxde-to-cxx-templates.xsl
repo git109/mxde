@@ -44,12 +44,14 @@
     
 <xsl:param name="include" select="'XosInterfaceBase.hpp'"/>
 <xsl:param name="class" select="$file"/>
+<xsl:param name="class_prefix" select="''"/>
 <xsl:param name="class_type" select="'c_INTERFACE_CLASS'"/>
 <xsl:param name="class_access" select="'public'"/>
 <xsl:param name="c_NAMESPACE" select="'c_NAMESPACE'"/>
 
 <xsl:variable name="class_type_space">
     <xsl:if test="('' != $class_type)">
+        <xsl:value-of select="$class_prefix"/>
         <xsl:value-of select="$class_type"/>
         <xsl:value-of select="' '"/>
     </xsl:if>

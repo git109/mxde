@@ -47,10 +47,17 @@
 <!--========================================================================-->
 <!-- Variables                                                              -->
 <!--========================================================================-->
+<xsl:variable name="class_prefixes_tree">
+    <prefix default="yes" value="c">c</prefix>
+    <prefix value="C">C</prefix>
+    <prefix value="">no</prefix>
+</xsl:variable>
+<xsl:variable name="class_prefixes" select="exsl:node-set($class_prefixes_tree)"/>
+
 <xsl:variable name="class_types_tree">
-    <type default="yes" value="c_INTERFACE_CLASS">interface</type>
-    <type value="c_IMPLEMENT_CLASS">implement</type>
-    <type value="c_EXPORT_CLASS">export</type>
+    <type default="yes" value="_INTERFACE_CLASS">interface</type>
+    <type value="_IMPLEMENT_CLASS">implement</type>
+    <type value="_EXPORT_CLASS">export</type>
     <type value="">no</type>
 </xsl:variable>
 <xsl:variable name="class_types" select="exsl:node-set($class_types_tree)"/>
@@ -70,6 +77,7 @@
     <xsl:param name="is_param_" select="''"/>
     <xsl:param name="is_param_include" select="$is_param_"/>
     <xsl:param name="is_param_c_NAMESPACE" select="$is_param_"/>
+    <xsl:param name="is_param_class_prefix" select="$is_param_"/>
     <xsl:param name="is_param_class_type" select="$is_param_"/>
     <xsl:param name="is_param_class" select="$is_param_"/>
 
@@ -85,6 +93,14 @@
     <xsl:param name="c_NAMESPACE_param" select="'c_NAMESPACE'"/>
     <xsl:param name="c_NAMESPACE" select="'c_NAMESPACE'"/>
 
+    <xsl:param name="class_prefix_text" select="''"/>
+    <xsl:param name="class_prefix_text_before" select="'c...'"/>
+    <xsl:param name="class_prefix_text_after" select="''"/>
+    <xsl:param name="class_prefix_option" select="''"/>
+    <xsl:param name="class_prefix_options" select="$class_prefixes/*"/>
+    <xsl:param name="class_prefix_param" select="'class_prefix'"/>
+    <xsl:param name="class_prefix" select="''"/>
+    
     <xsl:param name="class_text" select="''"/>
     <xsl:param name="class_text_before" select="'class'"/>
     <xsl:param name="class_text_after" select="''"/>
@@ -123,6 +139,17 @@
         </xsl:call-template>
     </xsl:if>
 
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_prefix)) or ('yes' = $is_param_class_prefix)">
+        <xsl:call-template name="radios_row">
+            <xsl:with-param name="text" select="$class_prefix_text"/>
+            <xsl:with-param name="text_before" select="$class_prefix_text_before"/>
+            <xsl:with-param name="text_after" select="$class_prefix_text_after"/>
+            <xsl:with-param name="name" select="$class_prefix_param"/>
+            <xsl:with-param name="value" select="$class_prefix"/>
+            <xsl:with-param name="option" select="$class_prefix_options"/>
+        </xsl:call-template>
+    </xsl:if>
+    
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_type)) or ('yes' = $is_param_class_type)">
         <xsl:call-template name="radios_row">
             <xsl:with-param name="text" select="$class_type_text"/>
@@ -162,7 +189,8 @@
     </xsl:call-template>
     <xsl:call-template name="jsapi_form_fields">
         <xsl:with-param name="class" select="'cFBPlugin_JavaScriptAPI'"/>
-        <xsl:with-param name="class_type" select="'c_INTERFACE_CLASS'"/>
+        <xsl:with-param name="class_prefix" select="'c'"/>
+        <xsl:with-param name="class_type" select="'_INTERFACE_CLASS'"/>
     </xsl:call-template>
 </xsl:template>
 </xsl:transform>

@@ -38,12 +38,27 @@
 <!-- Variables                                                -->
 <!--==========================================================-->
 <xsl:variable name="xsl_file_extensions_tree">
-    <extension value="xslt">.xslt</extension>
+    <extension default="yes" value="xslt">.xslt</extension>
     <extension value="xsl">.xsl</extension>
     <extension value="">no</extension>
 </xsl:variable>
 <xsl:variable name="xsl_file_extensions"
  select="exsl:node-set($xsl_file_extensions_tree)"/>
+
+<xsl:variable name="xsl_exclude_prefixes_tree">
+    <prefix default="yes">xalan</prefix>
+    <prefix default="yes">msxsl</prefix>
+    <prefix default="yes">xde</prefix>
+    <prefix default="yes">mxde</prefix>
+    <prefix default="yes">medusade</prefix>
+    <prefix default="yes">medusaxde</prefix>
+</xsl:variable>
+<xsl:variable name="xsl_exclude_prefixes"
+ select="exsl:node-set($xsl_exclude_prefixes_tree)"/>
+
+<!--==========================================================-->
+<!-- Templates                                                -->
+<!--==========================================================-->
 
 <!--==========================================================-->
 <!-- Template: xsl_file_form_fields                           -->
@@ -100,6 +115,7 @@
     <xsl:param name="is_param_xsl_separators" select="''"/>
     <xsl:param name="is_param_xsl_is_stylesheet_separator" select="''"/>
     <xsl:param name="is_param_xsl_is_stylesheet" select="''"/>
+    <xsl:param name="is_param_xsl_exclude_prefixes" select="''"/>
     <xsl:param name="is_param_xsl_version" select="''"/>
     <xsl:param name="is_param_xsl_output_method" select="''"/>
     <xsl:param name="is_param_xsl_output_indent" select="$is_param_xsl_output_method"/>
@@ -150,6 +166,16 @@
     </xsl:param>
     <xsl:param name="xsl_is_stylesheet_param" select="'xsl_is_stylesheet'"/>
     <xsl:param name="xsl_is_stylesheet" select="''"/>
+
+    <xsl:param name="xsl_exclude_prefixes_text" select="''"/>
+    <xsl:param name="xsl_exclude_prefixes_text_before">
+        <xsl:value-of select="'exclude-result-prefixes=&quot;'"/>
+    </xsl:param>
+    <xsl:param name="xsl_exclude_prefixes_text_after">
+        <xsl:value-of select="'&quot;'"/>
+    </xsl:param>
+    <xsl:param name="xsl_exclude_prefixes_options" select="$xsl_exclude_prefixes"/>
+    <xsl:param name="xsl_exclude_prefixes_param" select="'xsl_exclude_prefixes_'"/>
 
     <xsl:param name="xsl_version_text" select="''"/>
     <xsl:param name="xsl_version_text_before">
@@ -403,6 +429,15 @@
             <xsl:with-param name="value" select="$xsl_is_stylesheet"/>
             <xsl:with-param name="option" select="$xsl_is_stylesheet_options/*"/>
         </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xsl_exclude_prefixes)) or ('yes' = $is_param_xsl_exclude_prefixes)">
+    <xsl:call-template name="checkboxes_row">
+        <xsl:with-param name="text" select="$xsl_exclude_prefixes_text"/>
+        <xsl:with-param name="text_before" select="$xsl_exclude_prefixes_text_before"/>
+        <xsl:with-param name="text_after" select="$xsl_exclude_prefixes_text_after"/>
+        <xsl:with-param name="name" select="$xsl_exclude_prefixes_param"/>
+        <xsl:with-param name="option" select="$xsl_exclude_prefixes_options/*"/>
+    </xsl:call-template>
     </xsl:if>
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xsl_version)) or ('yes' = $is_param_xsl_version)">
         <xsl:call-template name="radios_row">

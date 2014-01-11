@@ -23,6 +23,7 @@
 %%if(1,%(%
 %%else(%no_before_separator_lf%,%(
 )%)%%
+%%else-no(%function_main%,%(%
 %%else-no(%function_main_comment%,%(%
 %%do(%begin_separator%)%%
 %%do(%left_separator%)% Function: main
@@ -38,5 +39,6 @@
 %
 %)%)%}
 %
+%)%)%%
 %)%)%%
 %)%)%

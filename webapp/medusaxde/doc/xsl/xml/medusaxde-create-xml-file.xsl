@@ -143,6 +143,7 @@
     <xsl:param name="is_param_xml_element" select="''"/>
     <xsl:param name="is_param_xml_element_ns" select="''"/>
     <xsl:param name="is_param_xml_element_ns_uri" select="''"/>
+    <xsl:param name="is_param_xml_element_ns_is_uri" select="''"/>
     <xsl:param name="is_param_xml_element_attr" select="''"/>
     <xsl:param name="is_param_xml_element_attr_value" select="''"/>
 
@@ -163,6 +164,12 @@
     <xsl:param name="xml_element_ns_uri_text_after" select="'&quot;'"/>
     <xsl:param name="xml_element_ns_uri_param" select="'xml_element_ns_uri'"/>
     <xsl:param name="xml_element_ns_uri" select="''"/>
+
+    <xsl:param name="xml_element_ns_is_uri_text" select="''"/>
+    <xsl:param name="xml_element_ns_is_uri_text_before" select="'xmlns=&quot;'"/>
+    <xsl:param name="xml_element_ns_is_uri_text_after" select="'&quot;'"/>
+    <xsl:param name="xml_element_ns_is_uri_param" select="'xml_element_ns_is_uri'"/>
+    <xsl:param name="xml_element_ns_is_uri" select="''"/>
 
     <xsl:param name="xml_element_attr_text" select="'attr'"/>
     <xsl:param name="xml_element_attr_text_before" select="''"/>
@@ -206,6 +213,15 @@
             <xsl:with-param name="value" select="$xml_element_ns_uri"/>
         </xsl:call-template>
     </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xml_element_ns_is_uri)) or ('yes' = $is_param_xml_element_ns_is_uri)">
+    <xsl:call-template name="input_row">
+        <xsl:with-param name="text" select="$xml_element_ns_is_uri_text"/>
+        <xsl:with-param name="text_before" select="$xml_element_ns_is_uri_text_before"/>
+        <xsl:with-param name="text_after" select="$xml_element_ns_is_uri_text_after"/>
+        <xsl:with-param name="name" select="$xml_element_ns_is_uri_param"/>
+        <xsl:with-param name="value" select="$xml_element_ns_is_uri"/>
+    </xsl:call-template>
+    </xsl:if>
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xml_element_attr)) or ('yes' = $is_param_xml_element_attr)">
         <xsl:call-template name="input_row">
             <xsl:with-param name="text" select="$xml_element_attr_text"/>
@@ -244,6 +260,7 @@
     <xsl:param name="is_param_xml_document" select="''"/>
     <xsl:param name="is_param_xml_document_ns" select="$is_param_xml_document"/>
     <xsl:param name="is_param_xml_document_ns_uri" select="$is_param_xml_document"/>
+    <xsl:param name="is_param_xml_document_ns_is_uri" select="$is_param_xml_document"/>
     <xsl:param name="is_param_xml_document_attr" select="$is_param_xml_document"/>
     <xsl:param name="is_param_xml_document_attr_value" select="$is_param_xml_document"/>
     <xsl:param name="is_param_xml_element" select="''"/>
@@ -344,6 +361,12 @@
     <xsl:param name="xml_document_ns_uri_text_after" select="'&quot;'"/>
     <xsl:param name="xml_document_ns_uri_param" select="'xml_document_ns_uri'"/>
     <xsl:param name="xml_document_ns_uri" select="''"/>
+
+    <xsl:param name="xml_document_ns_is_uri_text" select="''"/>
+    <xsl:param name="xml_document_ns_is_uri_text_before" select="'xmlns=&quot;'"/>
+    <xsl:param name="xml_document_ns_is_uri_text_after" select="'&quot;'"/>
+    <xsl:param name="xml_document_ns_is_uri_param" select="'xml_document_ns_is_uri'"/>
+    <xsl:param name="xml_document_ns_is_uri" select="''"/>
 
     <xsl:param name="xml_document_attr_text" select="'attr'"/>
     <xsl:param name="xml_document_attr_text_before" select="''"/>
@@ -493,6 +516,7 @@
             <xsl:with-param name="is_param_xml_element" select="$is_param_xml_document"/>
             <xsl:with-param name="is_param_xml_element_ns" select="$is_param_xml_document_ns"/>
             <xsl:with-param name="is_param_xml_element_ns_uri" select="$is_param_xml_document_ns_uri"/>
+            <xsl:with-param name="is_param_xml_element_ns_is_uri" select="$is_param_xml_document_ns_is_uri"/>
             <xsl:with-param name="is_param_xml_element_attr" select="$is_param_xml_document_attr"/>
             <xsl:with-param name="is_param_xml_element_attr_value" select="$is_param_xml_document_attr_value"/>
             <xsl:with-param name="xml_element" select="$xml_document"/>
@@ -502,6 +526,7 @@
             <xsl:with-param name="xml_element_ns_param" select="$xml_document_ns_param"/>
             <xsl:with-param name="xml_element_ns_uri" select="$xml_document_ns_uri"/>
             <xsl:with-param name="xml_element_ns_uri_param" select="$xml_document_ns_uri_param"/>
+            <xsl:with-param name="xml_element_ns_is_uri_param" select="$xml_document_ns_is_uri_param"/>
             <xsl:with-param name="xml_element_attr" select="$xml_document_attr"/>
             <xsl:with-param name="xml_element_attr_text" select="$xml_document_attr_text"/>
             <xsl:with-param name="xml_element_attr_param" select="$xml_document_attr_param"/>

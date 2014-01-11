@@ -22,7 +22,9 @@
 %section_name,%(Templates)%,%
 %%(%
 %%if(%xsl_templates%,%(%
+%%else(%no_template_section%,%(%
 %%do(%section%)%%
+%)%)%%
 %%parse(%xsl_template_name%,;,,%(
 )%,,%(%
 %%do(%begin_separator%)%%

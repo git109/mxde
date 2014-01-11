@@ -36,7 +36,7 @@
 %%include(%filepath%/mxde-xsl-include.t)%%
 %%include(%filepath%/mxde-xsl-param.t)%%
 %%include(%filepath%/mxde-xsl-variable.t)%%
-%%include(%filepath%/mxde-xsl-template.t)%%
+%%include(%filepath%/mxde-xsl-templates.t)%%
 %%include(%filepath%/mxde-xsl-end.t)%%
 %)%)%%
 %)%)%

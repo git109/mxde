@@ -41,12 +41,21 @@
 <!-- Parameters                                                             -->
 <!--========================================================================-->
 <xsl:param name="events_class" select="'EventsInterface'"/>
+<xsl:param name="events_class_prefix" select="$class_prefix"/>
 <xsl:param name="events_class_type" select="$class_type"/>
 <xsl:param name="events_class_access" select="'public'"/>
 
 <!--========================================================================-->
 <!-- Variables                                                              -->
 <!--========================================================================-->
+<xsl:variable name="events_class_type_space">
+    <xsl:if test="('' != $events_class_type)">
+        <xsl:value-of select="$events_class_prefix"/>
+        <xsl:value-of select="$events_class_type"/>
+        <xsl:value-of select="' '"/>
+    </xsl:if>
+</xsl:variable>
+
 
 <!--========================================================================-->
 <!-- Templates                                                              -->
@@ -242,7 +251,7 @@
 <!--========================================================================-->
 <xsl:text>
     class </xsl:text>
-<xsl:value-of select="$events_class_type"/><xsl:value-of select="$events_class"/>
+<xsl:value-of select="$events_class_type_space"/><xsl:value-of select="$events_class"/>
 <xsl:text>;
 </xsl:text>
 <xsl:call-template name="function_header">
@@ -777,7 +786,7 @@
     <xsl:with-param name="indent" select="$indent"/>
 </xsl:call-template>
 <xsl:value-of select="$indent"/><xsl:text>class </xsl:text>
-<xsl:value-of select="$events_class_type"/><xsl:value-of select="$events_class"/>
+<xsl:value-of select="$events_class_type_space"/><xsl:value-of select="$events_class"/>
 <xsl:text>
 </xsl:text>
 <xsl:value-of select="$indent"/>{

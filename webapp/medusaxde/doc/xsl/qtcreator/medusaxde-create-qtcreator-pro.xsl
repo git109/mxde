@@ -57,7 +57,7 @@
 <xsl:variable name="lib_items_tree">
     <lib></lib>
     <lib default="yes">pthread</lib>
-    <lib default="yes">ld</lib>
+    <lib default="yes">dl</lib>
     <lib default="yes">rt</lib>
 </xsl:variable>
 <xsl:variable name="lib_items" 

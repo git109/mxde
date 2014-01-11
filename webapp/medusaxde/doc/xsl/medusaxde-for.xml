@@ -66,6 +66,25 @@
     <!-- for-which                                                              -->
     <!--                                                                        -->
     <!--========================================================================-->
+    <for-which for="gnu"
+     target="gnu"
+     href="/medusaxde/">
+        <text>Gnu</text>
+        <author>$author$</author>
+        <organization>Gnu</organization>
+        <copyright>yes</copyright>
+        <open_source>yes</open_source>
+        <cxx_file_type>hpp</cxx_file_type>
+        <cxx_file_is_case>nocase</cxx_file_is_case>
+        <cxx_class_comment>no</cxx_class_comment>
+        <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
     <for-which for="google"
      target="google"
      href="/medusaxde/">
@@ -78,6 +97,63 @@
         <cxx_file_is_case>nocase</cxx_file_is_case>
         <cxx_class_comment>yes</cxx_class_comment>
         <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="mongoose"
+     target="mongoose"
+     href="/mongoose/">
+    <text>Mongoose</text>
+    <author>$author$</author>
+    <organization>Mongoose</organization>
+    <copyright>no</copyright>
+    <open_source>yes</open_source>
+    <cxx_file_type>hpp</cxx_file_type>
+    <cxx_file_is_case>nocase</cxx_file_is_case>
+    <cxx_class_comment>no</cxx_class_comment>
+    <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="libwebsockets"
+     target="libwebsockets"
+     href="/libwebsockets/">
+    <text>Libwebsockets</text>
+    <author>$author$</author>
+    <organization>Libwebsockets</organization>
+    <copyright>no</copyright>
+    <open_source>yes</open_source>
+    <cxx_file_type>hpp</cxx_file_type>
+    <cxx_file_is_case>nocase</cxx_file_is_case>
+    <cxx_class_comment>no</cxx_class_comment>
+    <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="html5demos"
+     target="html5demos"
+     href="/html5demos/">
+    <text>Html5Demos</text>
+	<author>$author$</author>
+	<organization>Html5Demos</organization>
+	<copyright>yes</copyright>
+	<open_source>yes</open_source>
+	<cxx_file_type>hpp</cxx_file_type>
+	<cxx_file_is_case>nocase</cxx_file_is_case>
+	<cxx_class_comment>no</cxx_class_comment>
+	<cxx_function_comment>no</cxx_function_comment>
     </for-which>
 
 </medusaxde:for>

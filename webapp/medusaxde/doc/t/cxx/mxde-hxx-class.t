@@ -138,7 +138,9 @@
 %)%)%%
 %%if(%Class_function_name%,%(%
 %%parse(%Class_function_name%,;,,,,%(%
+%%with(f,%(%Class_function_name%)%,_f,%(%tolower(%Class_function_name%)%)%,%(%
 %%include(%filepath%/mxde-hxx-class-function-pattern.t)%%
+%)%)%%
 %)%,Class_function_name)%%
 %)%,%(%
 %%include(%filepath%/mxde-hxx-class-function-pattern.t)%%
