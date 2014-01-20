@@ -23,8 +23,38 @@
 /// HTTP form parameters
 ///////////////////////////////////////////////////////////////////////
 
+httpScheme = "http";
+httpHost = "";
+httpPort = "";
+
+getHttpHostAlert = true;
+getHttpPortAlert = true;
 getHttpFormParameterAlert = true;
 
+function getHttpHost() {
+    var value = window.location.hostname;
+    if ("" != httpHost) {
+        value = httpHost;
+    }
+    if ((value != null) && (value != "")) {
+        if (getHttpHostAlert)
+            alert("http host = \"" + value + "\"");
+        return value;
+    }
+    return "";
+}
+function getHttpPort() {
+    var value = window.location.port;
+    if ("" != httpPort) {
+        value = httpPort;
+    }
+    if ((value != null) && (value != "")) {
+        if (getHttpPortAlert)
+            alert("http port = \"" + value + "\"");
+        return value;
+    }
+    return "";
+}
 function getHttpFormParameter(name) {
     name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
     var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -34,7 +64,7 @@ function getHttpFormParameter(name) {
         var value = decodeURIComponent(results[1].replace(/\+/g, " "));
         if (value) {
             if (getHttpFormParameterAlert)
-            alert("http " + name + " = " + value);
+                alert("http " + name + " = \"" + value + "\"");
             return value;
         }
     }
@@ -56,7 +86,7 @@ function getFormValue(name, form) {
     if (name)
     if ((value = document[form][name].value)) {
         if (getFormValueAlert)
-        alert(form + " " + name + " = " + value);
+        alert(form + " " + name + " = \"" + value + "\"");
         return value;
     } else {
         len = document[form][name].length;
@@ -65,7 +95,7 @@ function getFormValue(name, form) {
                 if (document[form][name][i].checked) {
                     if ((value = document[form][name][i].value)) {
                         if (getFormValueAlert)
-                        alert(form + " " + name + " = " + value);
+                        alert(form + " " + name + " = \"" + value + "\"");
                         return value;
                     }
                 }
@@ -78,7 +108,7 @@ function setFormValue(name, value, form) {
     if (!form)
         form = 'form';
     if (getFormValueAlert)
-    alert("setting " + form + " " + name + " = " + value);
+    alert("setting " + form + " " + name + " = \"" + value + "\"");
     document[form][name].value = value;
     return true;
 }
@@ -151,6 +181,7 @@ ajaxRequestAsync = false;
 onAjaxRequestSuccessAlert = true;
 onAjaxRequestErrorAlert = true;
 onAjaxRequestTimeoutAlert = true;
+makeAjaxUrlAlert = false;
 
 function getAjaxRequestResponse(req) {
     response = req.responseText;
@@ -184,11 +215,24 @@ function onAjaxRequestTimeout(url, req, callbacks) {
         callbacks.onTimeout(url, req);
     }}}
 }
-
+function makeAjaxUrl(path) {
+    var host = "";
+    var port = "";
+    if (("" != httpHost) && ("" != httpScheme)) {
+        host = httpScheme + "://" + httpHost;
+        if ("" != httpPort) {
+            port = ":" + httpPort;
+        }
+    }
+    if (makeAjaxUrlAlert)
+        alert("url = " + host + port + path + "\"");
+    return host + port + path;
+}
 ///////////////////////////////////////////////////////////////////////
 /// WebSockets
 ///////////////////////////////////////////////////////////////////////
 
+wsEventCallbackScheme = "ws";
 wsEventCallbackHost = "localhost";
 wsEventCallbackPort = 8081;
 wsEventCallbackPortIndex = 1;
@@ -201,6 +245,19 @@ wsOnOpenAlert = true;
 wsOnCloseAlert = true;
 wsOnMessageAlert = true;
 
+function wsSetToCurrentHttpLocation(portIndex) {
+    var currentHost = getHttpHost();
+    var currentPort = getHttpPort();
+    if (!portIndex) {
+        portIndex = wsEventCallbackPortIndex;
+    }
+    if ("" != currentHost) {
+        wsEventCallbackHost = currentHost;
+    }
+    if ("" != currentPort) {
+        wsEventCallbackPort = parseInt(currentPort)+portIndex;
+    }
+}
 function wsOnMessage(evt) {
     var received_msg = evt.data;
     if ((wsOnMessageAlert)) {
@@ -220,7 +277,7 @@ function wsConnectEventCallback(callback, host, port, protocol) {
 
         if (!(protocol)) protocol = wsEventCallbackProtocol;
 
-        url = "ws://"+host+":"+port;
+        url = wsEventCallbackScheme+"://"+host+":"+port;
 
         if ((ws = new WebSocket(url, protocol))) {
             ws.onopen = function() {

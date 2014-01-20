@@ -902,6 +902,10 @@
             wsOnCloseAlert = false;
             wsOnMessageAlert = false;
             onAjaxRequestSuccessAlert = false;
+            getHttpHostAlert = false;
+            getHttpPortAlert = false;
+            getHttpFormParameterAlert = false;
+            wsSetToCurrentHttpLocation();
         }
         function OnRestClockTickEvent(time) {
             currentTime.setHours(time.hour);
@@ -909,11 +913,26 @@
             currentTime.setSeconds(time.second);
             MoveHands();
         }
+        function AddTickEventListener(callback) {
+            if ('AddTickEventListener' in examples.Clock)
+                examples.Clock.AddTickEventListener(callback);
+            else examples.Clock.AddEventListener(callback);
+        }
+        function RemoveTickEventListener(callback) {
+            if ('RemoveTickEventListener' in examples.Clock)
+                examples.Clock.RemoveTickEventListener(callback);
+            else examples.Clock.RemoveEventListener(callback);
+        }
+        function OnTickEvent() {
+            if ('OnTickEvent' in examples.Clock)
+                examples.Clock.OnTickEvent();
+            else examples.Clock.Tick();
+        }
         function StartRestClock() {
             if (!(restClockStarted)) {
                 if (!(animationID) || !(excludeAnimation)) {
-                    examples.Clock.AddEventListener(OnRestClockTickEvent);
-                    examples.Clock.OnTickEvent();
+                    AddTickEventListener(OnRestClockTickEvent);
+                    OnTickEvent();
                     examples.Clock.Start();
                     restClockStarted = true;
                 } else {
@@ -926,7 +945,7 @@
         function StopRestClock() {
             if ((restClockStarted)) {
                 examples.Clock.Stop();
-                examples.Clock.RemoveEventListener(OnRestClockTickEvent);
+                RemoveTickEventListener(OnRestClockTickEvent);
                 restClockStarted = false;
             } else {
                 alert("REST Clock NOT started");
@@ -934,14 +953,14 @@
         }
         function TickRestClock() {
             if ((restClockStarted)) {
-                examples.Clock.OnTickEvent();
+                OnTickEvent();
             } else {
                 alert("REST Clock NOT started");
             }
         }
         function SetRestClockTickSeconds(to) {
             if ((restClockStarted)) {
-                examples.Clock.OnTickEvent();
+                OnTickEvent();
             }
             examples.Clock.SetTickSeconds(to);
         }

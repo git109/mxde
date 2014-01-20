@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2013 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: Clock-test-js.html                                             -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 12/25/2013                                                     -->
+<!--========================================================================-->
+<html>
+    <title>RestApp examples.Clock JavaScript Test</title>
+    <head>
+        <script type="text/javascript" src="../../thirdparty/ajaxtoolbox/AJAXRequestWithTry.js"></script>
+        <script type="text/javascript" src="../../javascript/RestApp.js"></script>
+        <script type="text/javascript" src="Clock.js"></script>
+        <script type="text/javascript">
+        function onLoad() {
+            wsSetToCurrentHttpLocation();
+        }
+        </script>
+    </head>
+    <body onLoad="onLoad()">
+        <h2>RestApp examples.Clock JavaScript Test</h2>
+        <form name="the_form">
+
+           <!-- ============= -->
+           <!-- object: Clock -->
+           <!-- ============= -->
+           <h4>Clock</h4>
+
+           <!-- ============================== -->
+           <!-- function: examples.Clock.Start -->
+           <!-- ============================== -->
+           function bool 
+           <input type="button"
+            name="examples_Clock_Start"
+            value="examples.Clock.Start"
+            onClick="examples.Clock.Start()"/>();<br/><br/>
+
+           <!-- ============================= -->
+           <!-- function: examples.Clock.Stop -->
+           <!-- ============================= -->
+           function bool 
+           <input type="button"
+            name="examples_Clock_Stop"
+            value="examples.Clock.Stop"
+            onClick="examples.Clock.Stop()"/>();<br/><br/>
+
+           <!-- ======================================= -->
+           <!-- function: examples.Clock.SetTickSeconds -->
+           <!-- ======================================= -->
+           function int
+           <input type="button"
+            name="examples_Clock_SetTickSeconds"
+            value="examples.Clock.SetTickSeconds"
+            onClick="examples.Clock.SetTickSeconds(getFormValue('examples_Clock_SetTickSeconds_to','the_form'))"/>(<br/>
+                int to = <input name="examples_Clock_SetTickSeconds_to" value=""/>);<br/><br/>
+
+           <!-- ======================================= -->
+           <!-- function: examples.Clock.GetTickSeconds -->
+           <!-- ======================================= -->
+           function int
+           <input type="button"
+            name="examples_Clock_GetTickSeconds"
+            value="examples.Clock.GetTickSeconds"
+            onClick="examples.Clock.GetTickSeconds()"/>();<br/><br/>
+
+           <!-- ========================================= -->
+           <!-- function: examples.Clock.AddEventListener -->
+           <!-- ========================================= -->
+           function 
+           <input type="button"
+            name="examples_Clock_AddEventListener"
+            value="examples.Clock.AddEventListener"
+            onClick="examples.Clock.AddEventListener(getFormValue('examples_Clock_AddEventListener_callback','the_form'))"/>(<br/>
+                EventCallbackFunction callback = <input name="examples_Clock_AddEventListener_callback" value=""/>);<br/><br/>
+
+           <!-- ============================================ -->
+           <!-- function: examples.Clock.RemoveEventListener -->
+           <!-- ============================================ -->
+           function 
+           <input type="button"
+            name="examples_Clock_RemoveEventListener"
+            value="examples.Clock.RemoveEventListener"
+            onClick="examples.Clock.RemoveEventListener(getFormValue('examples_Clock_RemoveEventListener_callback','the_form'))"/>(<br/>
+                EventCallbackFunction callback = <input name="examples_Clock_RemoveEventListener_callback" value=""/>);<br/><br/>
+
+           <!-- ==================================== -->
+           <!-- function: examples.Clock.OnTickEvent -->
+           <!-- ==================================== -->
+           function 
+           <input type="button"
+            name="examples_Clock_OnTickEvent"
+            value="examples.Clock.OnTickEvent"
+            onClick="examples.Clock.OnTickEvent()"/>();<br/><br/>
+
+           <!-- ======================================= -->
+           <!-- function: examples.Clock.RestartService -->
+           <!-- ======================================= -->
+           function bool 
+           <input type="button"
+            name="examples_Clock_RestartService"
+            value="examples.Clock.RestartService"
+            onClick="examples.Clock.RestartService()"/>();<br/><br/>
+
+           <!-- ==================================== -->
+           <!-- function: examples.Clock.StopService -->
+           <!-- ==================================== -->
+           function bool 
+           <input type="button"
+            name="examples_Clock_StopService"
+            value="examples.Clock.StopService"
+            onClick="examples.Clock.StopService()"/>();<br/><br/>
+
+        </form>
+    </body>
+</html>

@@ -1,26 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--========================================================================-->
-<!-- Copyright (c) 1988-2013 $organization$                                 -->
-<!--                                                                        -->
-<!-- This software is provided by the author and contributors ``as is''     -->
-<!-- and any express or implied warranties, including, but not limited to,  -->
-<!-- the implied warranties of merchantability and fitness for a particular -->
-<!-- purpose are disclaimed. In no event shall the author or contributors   -->
-<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
-<!-- or consequential damages (including, but not limited to, procurement   -->
-<!-- of substitute goods or services; loss of use, data, or profits; or     -->
-<!-- business interruption) however caused and on any theory of liability,  -->
-<!-- whether in contract, strict liability, or tort (including negligence   -->
-<!-- or otherwise) arising in any way out of the use of this software,      -->
-<!-- even if advised of the possibility of such damage.                     -->
-<!--                                                                        -->
-<!--   File: Clock-test.html                                                -->
-<!--                                                                        -->
-<!-- Author: $author$                                                       -->
-<!--   Date: 12/25/2013                                                     -->
-<!--========================================================================-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--=======================-->
+<!-- file: Clock-test.html -->
+<!--=======================-->
 <html>
-<title>RestApp examples.Clock Test</title>
+<title>RestApp Examples.Clock Test</title>
 <!--======-->
 <!-- head -->
 <!--======-->
@@ -32,62 +15,51 @@
 <!-- body -->
 <!--======-->
 <body onLoad="getFormValueAlert=false;setFormActionAlert=false;">
-<h2>RestApp examples.Clock Test</h2>
-<form name="form">
-<input name="scheme" value="http">://<input name="host" value="localhost">:<input name="port" value="8080">/<br>
+<h2>RestApp Examples.Clock Test</h2>
+<form name="form" action="" method="" onsubmit="setFormMethod(getFormValue('method'));return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('path')+'?'+getFormValue('query')+'#'+getFormValue('fragment'));">
+<input name="scheme" value="http">://<input name="host" value="localhost">:<input name="port" value="8080">/<br><input name="path" value="restapp/examples">?<input name="query" value="">#<input name="fragment" value=""><br>
 method <input type="radio" name="method" value="GET" checked>GET
 <input type="radio" name="method" value="POST">POST
 <input type="radio" name="method" value="PUT">PUT
 <input type="radio" name="method" value="DELETE">DELETE
 <input type="radio" name="method" value="OPTIONS">OPTIONS
 <input type="radio" name="method" value="HEAD">HEAD
-<br>
+<input type="submit" name="submit" value="submit"><br>
 </form>
-<h4>Clock</h4>
+<!--=======================-->
+<!-- function: clock.Start -->
+<!--=======================-->
+<form name="clock_Start_form" action="/restapp/examples/clock/Start" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_Start_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_Start_form'),'clock_Start_form');">bool <input type="submit" name="submit" value="restapp/examples/clock/Start">();<br>
+</form>
+<!--======================-->
+<!-- function: clock.Stop -->
+<!--======================-->
+<form name="clock_Stop_form" action="/restapp/examples/clock/Stop" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_Stop_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_Stop_form'),'clock_Stop_form');">bool <input type="submit" name="submit" value="restapp/examples/clock/Stop">();<br>
+</form>
+<!--======================-->
+<!-- function: clock.Tick -->
+<!--======================-->
+<form name="clock_Tick_form" action="/restapp/examples/clock/Tick" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_Tick_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_Tick_form'),'clock_Tick_form');">bool <input type="submit" name="submit" value="restapp/examples/clock/Tick">();<br>
+</form>
 <!--================================-->
-<!-- function: examples.Clock.Start -->
+<!-- function: clock.SetTickSeconds -->
 <!--================================-->
-<form name="examples_Clock_Start_form" action="/examples/Clock/Start" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_Start_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_Start_form'),'examples_Clock_Start_form');">function bool <input type="submit" name="submit" value="examples/Clock/Start">();<br>
+<form name="clock_SetTickSeconds_form" action="/restapp/examples/clock/SetTickSeconds" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_SetTickSeconds_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_SetTickSeconds_form'),'clock_SetTickSeconds_form');">int <input type="submit" name="submit" value="restapp/examples/clock/SetTickSeconds">(<br>int to = <input name="to" value="0">);<br>
 </form>
-<!--===============================-->
-<!-- function: examples.Clock.Stop -->
-<!--===============================-->
-<form name="examples_Clock_Stop_form" action="/examples/Clock/Stop" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_Stop_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_Stop_form'),'examples_Clock_Stop_form');">function bool <input type="submit" name="submit" value="examples/Clock/Stop">();<br>
-</form>
-<!--=========================================-->
-<!-- function: examples.Clock.SetTickSeconds -->
-<!--=========================================-->
-<form name="examples_Clock_SetTickSeconds_form" action="/examples/Clock/SetTickSeconds" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_SetTickSeconds_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_SetTickSeconds_form'),'examples_Clock_SetTickSeconds_form');">function int <input type="submit" name="submit" value="examples/Clock/SetTickSeconds">(<br>int to = <input name="to">);<br>
-</form>
-<!--=========================================-->
-<!-- function: examples.Clock.GetTickSeconds -->
-<!--=========================================-->
-<form name="examples_Clock_GetTickSeconds_form" action="/examples/Clock/GetTickSeconds" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_GetTickSeconds_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_GetTickSeconds_form'),'examples_Clock_GetTickSeconds_form');">function int <input type="submit" name="submit" value="examples/Clock/GetTickSeconds">();<br>
-</form>
-<!--===========================================-->
-<!-- function: examples.Clock.AddEventListener -->
-<!--===========================================-->
-<form name="examples_Clock_AddEventListener_form" action="/examples/Clock/AddEventListener" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_AddEventListener_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_AddEventListener_form'),'examples_Clock_AddEventListener_form');">function <input type="submit" name="submit" value="examples/Clock/AddEventListener">(<br>EventCallbackFunction callback = <input name="callback">);<br>
-</form>
-<!--==============================================-->
-<!-- function: examples.Clock.RemoveEventListener -->
-<!--==============================================-->
-<form name="examples_Clock_RemoveEventListener_form" action="/examples/Clock/RemoveEventListener" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_RemoveEventListener_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_RemoveEventListener_form'),'examples_Clock_RemoveEventListener_form');">function <input type="submit" name="submit" value="examples/Clock/RemoveEventListener">(<br>EventCallbackFunction callback = <input name="callback">);<br>
+<!--================================-->
+<!-- function: clock.GetTickSeconds -->
+<!--================================-->
+<form name="clock_GetTickSeconds_form" action="/restapp/examples/clock/GetTickSeconds" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_GetTickSeconds_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_GetTickSeconds_form'),'clock_GetTickSeconds_form');">int <input type="submit" name="submit" value="restapp/examples/clock/GetTickSeconds">();<br>
 </form>
 <!--======================================-->
-<!-- function: examples.Clock.OnTickEvent -->
+<!-- function: clock.AddTickEventListener -->
 <!--======================================-->
-<form name="examples_Clock_OnTickEvent_form" action="/examples/Clock/OnTickEvent" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_OnTickEvent_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_OnTickEvent_form'),'examples_Clock_OnTickEvent_form');">function <input type="submit" name="submit" value="examples/Clock/OnTickEvent">();<br>
+<form name="clock_AddTickEventListener_form" action="/restapp/examples/clock/AddTickEventListener" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_AddTickEventListener_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_AddTickEventListener_form'),'clock_AddTickEventListener_form');">int <input type="submit" name="submit" value="restapp/examples/clock/AddTickEventListener">();<br>
 </form>
 <!--=========================================-->
-<!-- function: examples.Clock.RestartService -->
+<!-- function: clock.RemoveTickEventListener -->
 <!--=========================================-->
-<form name="examples_Clock_RestartService_form" action="/examples/Clock/RestartService" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_RestartService_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_RestartService_form'),'examples_Clock_RestartService_form');">function bool <input type="submit" name="submit" value="examples/Clock/RestartService">();<br>
-</form>
-<!--======================================-->
-<!-- function: examples.Clock.StopService -->
-<!--======================================-->
-<form name="examples_Clock_StopService_form" action="/examples/Clock/StopService" method="" onsubmit="setFormMethod(getFormValue('method'),'examples_Clock_StopService_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','examples_Clock_StopService_form'),'examples_Clock_StopService_form');">function bool <input type="submit" name="submit" value="examples/Clock/StopService">();<br>
+<form name="clock_RemoveTickEventListener_form" action="/restapp/examples/clock/RemoveTickEventListener" method="" onsubmit="setFormMethod(getFormValue('method'),'clock_RemoveTickEventListener_form');return setFormAction(getFormValue('scheme')+'://'+getFormValue('host')+':'+getFormValue('port')+'/'+getFormValue('submit','clock_RemoveTickEventListener_form'),'clock_RemoveTickEventListener_form');">int <input type="submit" name="submit" value="restapp/examples/clock/RemoveTickEventListener">();<br>
 </form>
 </body>
 </html>
