@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2014 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: restapi-to-xos-http-processors-implement-cxx.html              -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 1/2/2014                                                       -->
+<!--========================================================================-->
+<html>
+    <!--========================================================================-->
+    <!-- head                                                                   -->
+    <!--========================================================================-->
+    <head>
+        <title>RestAPI to Xos C++ processors implement</title>
+
+        <style>
+        </style>
+
+        <script type="text/javascript" src="restapi-to.js">
+        </script>
+        <script type="text/javascript">
+            function onFormLoad(on_form) {
+                if (!on_form) on_form = 'on_form';
+                setFormValue('file_ifndef', (getFormValue('framework')+'_'+getFormValue('application')+'_'+getFormValue('section')+'_server_implement').toUpperCase(), on_form);
+                setFormValue('include_base', getFormValue('application').toLowerCase()+'/'+getFormValue('section').toLowerCase()+'/server/'+getFormValue('file_base', on_form), on_form);
+                setFormValue('include_cxx_path', getFormValue('application').toLowerCase()+'/'+getFormValue('section').toLowerCase()+'/server/implement/', on_form);
+                setFormValue('namespace', (getFormValue('framework')).toLowerCase(), on_form);
+                setFormValue('processor_path', ('/'+getFormValue('framework')+'/'+getFormValue('application')+'/'+getFormValue('section')).toLowerCase(), on_form);
+                return false;
+            }
+        </script>
+    </head>
+
+    <!--========================================================================-->
+    <!-- body                                                                   -->
+    <!--========================================================================-->
+    <body onLoad="onToLoad();onFormLoad()">
+        <h2>RestAPI to Xos C++ processors implement</h2>
+
+        <form name="form" onSubmit="return onFormLoad()">
+            framework <input name="framework" value="RestApp"/><br/>
+            application <input name="application" value="Examples"/><br/>
+            section <input name="section" value="Clock"/><br/>
+            <input type="hidden" name="platform" value="Xos"/>
+            <input type="submit" value="Update RestAPI to Xos C++ processors implement parameters"/><br/>
+            <br/>
+        </form>
+
+        <form name="on_form" method="post" action=""
+         onSubmit="return onToSubmit('on_form', toActionPrefix())">
+
+            Output <input name="file_base" value="Processors"/>
+            <input name="file_extension" type="radio" value=".hpp" checked="checked">.hpp</input>
+            <input name="file_extension" type="radio" value=".cpp">.cpp</input>
+            <input name="file_extension" type="radio" value="">no</input></br>
+
+            #ifndef _<input name="file_ifndef" value=""/>_&lt;OUTPUT&gt;_H<br/>
+
+            #include "<input name="include_base" value=""/>
+            <input name="include_extension" type="radio" value=".hpp" checked="checked">.hpp</input>
+            <input name="include_extension" type="radio" value=".h">.h</input>
+            <input name="include_extension" type="radio" value="">no</input>"</br>
+
+            #include "<input name="include_cxx_path" value="">&lt;Output&gt;</include>
+            <input name="include_cxx_extension" type="radio" value=".hpp" checked="checked">.hpp</input>
+            <input name="include_cxx_extension" type="radio" value=".h">.h</input>
+            <input name="include_cxx_extension" type="radio" value="">no</input>"</br>
+
+            namespace <input name="namespace" value="restapp"/>{}<br/>
+            processor("<input name="processor_path" value=""/>/...");<br/>
+
+            action <input size="48" name="form_action" value="restapi-to-xos-http-processors-implement-cxx.xslt"/><br/>
+
+            <input type="submit" value="RestAPI to Xos C++ processors implement"/><br/>
+
+            <input type="hidden" name="content_type" value="text/plain"/>
+            <input type="hidden" name="framework" value=""/>
+            <input type="hidden" name="application" value=""/>
+            <input type="hidden" name="section" value=""/>
+            <input type="hidden" name="platform" value=""/>
+        </form>
+    </body>
+</html>
+        
+

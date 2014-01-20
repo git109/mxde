@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2014 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: restapi-to-html-js.html                                        -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 1/17/2014                                                      -->
+<!--========================================================================-->
+<html>
+    <!--========================================================================-->
+    <!-- head                                                                   -->
+    <!--========================================================================-->
+    <head>
+        <title>RestAPI to HTML JavaScript Test</title>
+
+        <style>
+        </style>
+
+        <script type="text/javascript" src="restapi-to.js">
+        </script>
+        <script type="text/javascript">
+            function onFormLoad(on_form) {
+                if (!on_form) on_form = 'on_form';
+                setFormValue('file_base', getFormValue('section')+'-test-js', on_form);
+                return false;
+            }
+        </script>
+    </head>
+
+    <!--========================================================================-->
+    <!-- body                                                                   -->
+    <!--========================================================================-->
+    <body onLoad="onToLoad();onFormLoad()">
+        <h2>RestAPI to HTML JavaScript Test</h2>
+
+        <form name="form" onSubmit="return onFormLoad()">
+            framework <input name="framework" value="RestApp"/><br/>
+            application <input name="application" value="Examples"/><br/>
+            section <input name="section" value="Clock"/><br/>
+            <input type="hidden" name="platform" value="Xos"/>
+            <input type="submit" value="Update RestAPI to HTML JavaScript Test parameters"/><br/>
+            <br/>
+        </form>
+
+        <form name="on_form" method="post" action=""
+         onSubmit="return onToSubmit('on_form', toActionPrefix())">
+
+            Output <input name="file_base" value=""/>
+            <input name="file_extension" type="radio" value=".html" checked="checked">.html</input>
+            <input name="file_extension" type="radio" value=".htm">.htm</input>
+            <input name="file_extension" type="radio" value="">no</input></br>
+
+            action <input size="48" name="form_action" value="restapi-to-html-js.xslt"/><br/>
+
+            Content-Type:<input type="radio" name="content_type" value="text/html" checked="checked">text/html</input>
+            <input type="radio" name="content_type" value="text/plain">text/plain</input><br/>
+
+            <input type="submit" value="RestAPI to HTML JavaScript Test"/><br/>
+
+            <input type="hidden" name="framework" value=""/>
+            <input type="hidden" name="application" value=""/>
+            <input type="hidden" name="section" value=""/>
+            <input type="hidden" name="platform" value=""/>
+        </form>
+    </body>
+</html>
+        
+
