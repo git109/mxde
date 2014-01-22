@@ -23,7 +23,7 @@
 
 #include "iXosWindowMain.hh"
 #include "xos/gui/opengl/cocoa/Context.hh"
-#include "xos/webrtc/peerconnection/client/cocoa/OpenGL.hh"
+#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
 
 #define DEFAULT_IXOSHELLO_VIEW_BG_COLOR redColor
 
@@ -40,7 +40,7 @@
     const char* m_imageFile;
     unsigned m_imageWidth, m_imageHeight, m_imageDepth, m_imageSize;
     xos::gui::opengl::cocoa::Context openglContext;
-    xos::webrtc::peerconnection::client::cocoa::OpenGL::VideoRenderer openglRenderer;
+    xos::gui::opengl::cocoa::ImageRenderer openglRenderer;
     }
     - (id)init:(NSRect)rect;
     - (void)prepareOpenGL;

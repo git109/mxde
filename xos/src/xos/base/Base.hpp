@@ -30,6 +30,9 @@
 
 namespace xos {
 
+class ImplementBase {
+};
+
 class Base {
 public:
     virtual ~Base(){}

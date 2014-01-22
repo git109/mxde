@@ -101,6 +101,52 @@ protected:
     bool m_isCreated;
 };
 
-} // namespace xos 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+template
+<class TExtend = ExportBase,
+ class TImplement = InterfaceBase>
+
+class _EXPORT_CLASS CreatedBaseT: virtual public TImplement, public TExtend {
+public:
+    typedef TImplement Implements;
+    typedef TExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    CreatedBaseT(bool isCreated=false)
+    : m_isCreated(isCreated) {
+    }
+    virtual ~CreatedBaseT() {
+        if (!(Destroyed())) {
+            Error error = xos::Error::Failed;
+            throw(error);
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Destroyed(){
+        if ((m_isCreated))
+            return Destroy();
+        return true;
+    }
+    virtual bool Destroy(){
+        m_isCreated = false;
+        return true;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool SetIsCreated(bool isTrue=true){
+        return m_isCreated = isTrue;
+    }
+    virtual bool IsCreated() const {
+        return m_isCreated;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    bool m_isCreated;
+};
+
+} // namespace xos
 
 #endif // _XOS_CREATED_HPP 
