@@ -49,18 +49,18 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Initialize(const void* key = 0, ssize_t keylen = -1) {
-        if (0 <= (keylen = (ssize_t)(m_hash.Initialize((BYTE*)(key), (TLENGTH)(keylen)))))
+        if (0 <= (keylen = (ssize_t)(m_hash.Initialize((uint8_t*)(key), (TLENGTH)(keylen)))))
             return keylen;
         return -Error::Failed;
     }
     virtual ssize_t Finalize(void* out, size_t outsize) {
         ssize_t outlen;
-        if (0 <= (outlen = (ssize_t)(m_hash.Finalize((BYTE*)(out), (TLENGTH)(outsize)))))
+        if (0 <= (outlen = (ssize_t)(m_hash.Finalize((uint8_t*)(out), (TLENGTH)(outsize)))))
             return outlen;
         return -Error::Failed;
     }
     virtual ssize_t Hash(const void* in, ssize_t inlen = -1) {
-        if (0 <= (inlen = (ssize_t)(m_hash.Hash((BYTE*)(in), (TLENGTH)(inlen)))))
+        if (0 <= (inlen = (ssize_t)(m_hash.Hash((uint8_t*)(in), (TLENGTH)(inlen)))))
             return inlen;
         return -Error::Failed;
     }

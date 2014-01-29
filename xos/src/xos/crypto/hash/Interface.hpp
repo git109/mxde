@@ -21,13 +21,13 @@
 #ifndef _XOS_CRYPTO_HASH_INTERFACE_HPP
 #define _XOS_CRYPTO_HASH_INTERFACE_HPP
 
-#include "xos/base/Base.hpp"
+#include "xos/crypto/Base.hpp"
 
 namespace xos {
 namespace crypto {
 namespace hash {
 
-typedef InterfaceBase InterfaceImplement;
+typedef crypto::BaseImplement InterfaceImplement;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Interface
 ///////////////////////////////////////////////////////////////////////
@@ -49,6 +49,8 @@ public:
     virtual ssize_t HashSize() const {
         return -Error::NotImplemented;
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 };
 
 } // namespace hash 

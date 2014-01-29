@@ -42,14 +42,55 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
 }
 
 ///////////////////////////////////////////////////////////////////////
+/// Implentation: iXosHelloButton
+///
+///       Author: $author$
+///         Date: 1/23/2014
+///////////////////////////////////////////////////////////////////////
+@implementation iXosHelloButton
+    - (id)init:(NSRect)frame target:(NSObject*)target {
+        if (([super initWithFrame:frame])) {
+            XOS_LOG_DEBUG("x = " << frame.origin.x << ", y= " << frame.origin.y << ", width = " << frame.size.width << ", height = " << frame.size.height);
+            [self setTitle:@DEFAULT_IXOSHELLO_BUTTON_TITLE];
+            [self setAction:@selector(helloClicked:)];
+            [self setTarget:target];
+            [self setHidden:NO];
+        }
+        return self;
+    }
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Implentation: iXosHelloControlView
+///
+///       Author: $author$
+///         Date: 1/23/2014
+///////////////////////////////////////////////////////////////////////
+@implementation iXosHelloControlView
+    - (id)init:(NSRect)frame target:(NSObject*)target {
+        m_helloButton  = 0;
+        if (([super initWithFrame:frame])) {
+            XOS_LOG_DEBUG("x = " << frame.origin.x << ", y= " << frame.origin.y << ", width = " << frame.size.width << ", height = " << frame.size.height);
+            if ((m_helloButton = [[iXosHelloButton alloc] init:[self frame] target:target])) {
+                XOS_LOG_DEBUG("created m_helloButton...");
+                [m_helloButton setAutoresizingMask:(NSViewHeightSizable|NSViewWidthSizable)];
+                [self addSubview:m_helloButton];
+            }
+            [self setHidden:NO];
+        }
+        return self;
+    }
+@end
+
+///////////////////////////////////////////////////////////////////////
 /// Implentation: iXosHelloMainView
 ///
 ///       Author: $author$
 ///         Date: 12/20/2012
 ///////////////////////////////////////////////////////////////////////
 @implementation iXosHelloMainView
-    - (id)init:(NSRect)rect {
-        [super initWithFrame:rect pixelFormat:[NSOpenGLView defaultPixelFormat]];
+    - (id)init:(NSRect)frame {
+        [super initWithFrame:frame pixelFormat:[NSOpenGLView defaultPixelFormat]];
         m_preparedOpenGL = false;
         m_image = 0;
         m_imageFile = XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_FILE;
@@ -65,12 +106,12 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
         if (!(m_image = [self ReadImageFile]))
             return;
 
-        if ((openglRenderer.Init(openglContextImpl))) {
-            openglRenderer.Prepare();
+        if ((m_openglRenderer.Init(openglContextImpl))) {
+            m_openglRenderer.Prepare();
             return;
         }
 
-        openglContext.Init(openglContextImpl);
+        m_openglContext.Init(openglContextImpl);
 
         glGenTextures(1, &m_texture);
         glBindTexture(GL_TEXTURE_2D, m_texture);
@@ -92,10 +133,11 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
     }
     - (void)reshape {
         NSRect rect = [self bounds];
+        XOS_LOG_DEBUG("reshape...");
         if ((m_preparedOpenGL)) {
             glViewport( 0, 0, rect.size.width, rect.size.height);
         } else {
-            openglRenderer.Reshape(rect.size.width, rect.size.height);
+            m_openglRenderer.Reshape(rect.size.width, rect.size.height);
         }
         [super reshape];
     }
@@ -130,7 +172,7 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
             [[self openGLContext ] flushBuffer ];
         } else {
             if ((m_image)) {
-                openglRenderer.Render
+                m_openglRenderer.Render
                 (m_image, m_imageWidth, m_imageHeight,
                  m_image, m_imageWidth, m_imageHeight);
             } else {
@@ -172,18 +214,51 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
 ///         Date: 12/21/2012
 ///////////////////////////////////////////////////////////////////////
 @implementation iXosHelloMainWindow
+    - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle
+                      backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation {
+        [super initWithContentRect:contentRect styleMask:windowStyle
+                           backing:bufferingType defer:deferCreation];
+        m_imageFile = 0;
+        m_currentView = 0;
+        m_mainView = 0;
+        m_controlView = 0;
+        return self;
+    }
     - (NSView*)CreateMainView:(int)argc argv:(char**)argv env:(char**)env {
-        iXosHelloMainView* view = 0;
-        if ((view = [[iXosHelloMainView alloc] init:[self frame]])) {
+        NSRect rect = [self frame];
+        rect.origin.x = 0;
+        rect.origin.y = 0;
+        if ((m_currentView = (m_mainView = [[iXosHelloMainView alloc] init:rect]))) {
             if ((m_imageFile)) {
-                [view SetImageFile:m_imageFile];
+                [m_mainView SetImageFile:m_imageFile];
             }
+            if (!(m_currentView = (m_controlView = [[iXosHelloControlView alloc] init:rect target:self])))
+                m_currentView = m_mainView;
         }
-        return view;
+        return m_currentView;
     }
     - (void)SetImageFile:(const char*)chars {
         m_imageFile = chars;
     }
+    - (void)helloClicked:(id)sender {
+        XOS_LOG_DEBUG("helloClicked...");
+        [self switchView:nil];
+    }
+    - (void)mouseUp:(NSEvent*)theEvent {
+        XOS_LOG_DEBUG("leftMouseUp...");
+        [self switchView:nil];
+    }
+- (void)switchView:(NSObject*)arg {
+    if ((m_mainView && (m_mainView != m_currentView))) {
+        [self setContentView:m_mainView];
+        m_currentView = m_mainView;
+    } else {
+        if ((m_controlView && (m_controlView != m_currentView))) {
+            [self setContentView:m_controlView];
+            m_currentView = m_controlView;
+        }
+    }
+}
 @end
 
 ///////////////////////////////////////////////////////////////////////

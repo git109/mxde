@@ -26,6 +26,30 @@
 #include "xos/gui/opengl/cocoa/ImageRenderer.hh"
 
 #define DEFAULT_IXOSHELLO_VIEW_BG_COLOR redColor
+#define DEFAULT_IXOSHELLO_BUTTON_TITLE "Hello"
+
+///////////////////////////////////////////////////////////////////////
+/// Interface: iXosHelloButton
+///
+///    Author: $author$
+///      Date: 1/23/2014
+///////////////////////////////////////////////////////////////////////
+@interface iXosHelloButton: NSButton {
+    }
+    - (id)init:(NSRect)frame target:(NSObject*)target;
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Interface: iXosHelloControlView
+///
+///    Author: $author$
+///      Date: 1/23/2014
+///////////////////////////////////////////////////////////////////////
+@interface iXosHelloControlView: NSView {
+    iXosHelloButton* m_helloButton;
+    }
+    - (id)init:(NSRect)frame target:(NSObject*)target;
+@end
 
 ///////////////////////////////////////////////////////////////////////
 /// Interface: iXosHelloMainView
@@ -39,10 +63,10 @@
     void* m_image;
     const char* m_imageFile;
     unsigned m_imageWidth, m_imageHeight, m_imageDepth, m_imageSize;
-    xos::gui::opengl::cocoa::Context openglContext;
-    xos::gui::opengl::cocoa::ImageRenderer openglRenderer;
+    xos::gui::opengl::cocoa::Context m_openglContext;
+    xos::gui::opengl::cocoa::ImageRenderer m_openglRenderer;
     }
-    - (id)init:(NSRect)rect;
+    - (id)init:(NSRect)frame;
     - (void)prepareOpenGL;
     - (void)reshape;
     - (void)drawRect:(NSRect)rect;
@@ -58,9 +82,17 @@
 ///////////////////////////////////////////////////////////////////////
 @interface iXosHelloMainWindow: iXosMainWindow {
     const char* m_imageFile;
+    NSView* m_currentView;
+    iXosHelloMainView* m_mainView;
+    iXosHelloControlView* m_controlView;
     }
+    - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle
+                      backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation;
     - (NSView*)CreateMainView:(int)argc argv:(char**)argv env:(char**)env;
     - (void)SetImageFile:(const char*)chars;
+    - (void)helloClicked:(id)sender;
+    - (void)mouseUp:(NSEvent*)theEvent;
+    - (void)switchView;
 @end
 
 ///////////////////////////////////////////////////////////////////////
@@ -75,4 +107,4 @@
     - (iXosMainWindow*)CreateMainWindow:(int)argc argv:(char**)argv env:(char**)env;
 @end
 
-#endif // _XOS_GUI_COCOA_IXOSHELLO_HH 
+#endif // _XOS_GUI_COCOA_IXOSHELLO_HH
