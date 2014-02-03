@@ -53,7 +53,8 @@
 @interface iXosMainWindow: NSWindow <NSWindowDelegate> {
     }
     - (NSView*)CreateMainView:(int)argc argv:(char**)argv env:(char**)env;
-    -(void)windowWillClose:(NSNotification*)notification;
+    - (NSApplication*)Application;
+    - (void)windowWillClose:(NSNotification*)notification;
 @end
 
 ///////////////////////////////////////////////////////////////////////
@@ -79,6 +80,7 @@
     NSApplication *m_app;
     iXosMainWindow *m_window;
     }
+    - (iXosWindowMain*)init;
     - (iXosMainWindow*)CreateMainWindow:(int)argc argv:(char**)argv env:(char**)env;
     - (int)BeforeRun:(int)argc argv:(char**)argv env:(char**)env;
     - (int)AfterRun:(int)argc argv:(char**)argv env:(char**)env;

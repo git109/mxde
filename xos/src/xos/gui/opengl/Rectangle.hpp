@@ -21,15 +21,15 @@
 #ifndef _XOS_GUI_OPENGL_RECTANGLE_HPP
 #define _XOS_GUI_OPENGL_RECTANGLE_HPP
 
+#include "xos/gui/opengl/namespace.hpp"
 #include "xos/gui/opengl/Size.hpp"
 #include "xos/gui/opengl/Point.hpp"
 #include "xos/gui/Rectangle.hpp"
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
-typedef RectangleT<float, Point, Size> RectangleExtend;
+typedef gui::RectangleT<float, Point, Size> RectangleExtend;
 struct Rectangle: public RectangleExtend {
     typedef RectangleExtend Extends;
     Rectangle(const Size& fromSize, const Size& toSize): Extends(fromSize, toSize) {
@@ -38,7 +38,6 @@ struct Rectangle: public RectangleExtend {
 };
 
 } // namespace opengl 
-} // namespace gui 
 } // namespace xos 
 
 #endif // _XOS_GUI_OPENGL_RECTANGLE_HPP 

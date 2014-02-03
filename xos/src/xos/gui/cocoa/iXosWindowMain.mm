@@ -47,7 +47,14 @@
         }
         return view;
     }
+    - (NSApplication*)Application {
+        return 0;
+    }
     -(void)windowWillClose:(NSNotification*)notification {
+        NSApplication* app;
+        if ((app = [self Application]))
+            [app stop:self];
+        else
         [[NSApplication sharedApplication] stop:self];
     }
 @end
@@ -59,6 +66,13 @@
 ///         Date: 12/20/2012
 ///////////////////////////////////////////////////////////////////////
 @implementation iXosWindowMain
+    - (iXosWindowMain*)init {
+        [super init];
+        m_pool = 0;
+        m_app = 0;
+        m_window = 0;
+        return self;
+    }
     - (iXosMainWindow*)CreateMainWindow:(int)argc argv:(char**)argv env:(char**)env {
         NSRect rect = NSMakeRect(DEFAULT_IXOSWINDOWMAIN_WINWOW_X,DEFAULT_IXOSWINDOWMAIN_WINWOW_Y, DEFAULT_IXOSWINDOWMAIN_WINWOW_WIDTH, DEFAULT_IXOSWINDOWMAIN_WINWOW_HEIGHT);
         NSUInteger style = NSTitledWindowMask| NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;

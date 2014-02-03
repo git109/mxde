@@ -13,17 +13,16 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: ImageRenderer.mm
+///   File: iOsX.hh
 ///
 /// Author: $author$
-///   Date: 1/22/2014
+///   Date: 1/31/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
+#ifndef _XOS_GUI_COCOA_OS_IOSX_HH
+#define _XOS_GUI_COCOA_OS_IOSX_HH
 
-namespace xos {
-namespace gui {
-namespace cocoa {
+#include "xos/gui/cocoa/os/Os.hh"
 
-} // namespace cocoa 
-} // namespace gui 
-} // namespace xos 
+#endif // _XOS_GUI_COCOA_OS_IOSX_HH 
+        
+

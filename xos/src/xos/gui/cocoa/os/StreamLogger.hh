@@ -13,17 +13,31 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: ImageRenderer.mm
+///   File: StreamLogger.hh
 ///
 /// Author: $author$
-///   Date: 1/22/2014
+///   Date: 2/1/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
+#ifndef _XOS_GUI_COCOA_OS_STREAMLOGGER_HH
+#define _XOS_GUI_COCOA_OS_STREAMLOGGER_HH
+
+#include "xos/gui/cocoa/os/LoggerStream.hh"
+#include "xos/gui/cocoa/os/Os.hh"
+
+#if defined(APPLE_IOS)
+#include "xos/gui/cocoa/ios/StreamLogger.hh"
+#else // defined(APPLE_IOS)
+#include "xos/gui/cocoa/osx/StreamLogger.hh"
+#endif // defined(APPLE_IOS)
 
 namespace xos {
-namespace gui {
 namespace cocoa {
+namespace os {
 
+typedef os::StreamLogger StreamLogger;
+
+} // namespace os
 } // namespace cocoa 
-} // namespace gui 
 } // namespace xos 
+
+#endif // _XOS_GUI_COCOA_OS_STREAMLOGGER_HH 

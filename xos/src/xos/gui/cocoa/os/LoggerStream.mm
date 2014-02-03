@@ -13,17 +13,23 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: ImageRenderer.mm
+///   File: LoggerStream.mm
 ///
 /// Author: $author$
-///   Date: 1/22/2014
+///   Date: 2/1/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
+#include "xos/gui/cocoa/os/LoggerStream.hh"
+
+#if defined(APPLE_IOS)
+#include "xos/gui/cocoa/ios/LoggerStream.mm"
+#else // defined(APPLE_IOS)
+#include "xos/gui/cocoa/osx/LoggerStream.mm"
+#endif // defined(APPLE_IOS)
 
 namespace xos {
-namespace gui {
 namespace cocoa {
+namespace os {
 
+} // namespace os 
 } // namespace cocoa 
-} // namespace gui 
 } // namespace xos 

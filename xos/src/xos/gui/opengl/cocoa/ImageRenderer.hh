@@ -21,11 +21,11 @@
 #ifndef _XOS_GUI_OPENGL_COCOA_IMAGERENDERER_HH
 #define _XOS_GUI_OPENGL_COCOA_IMAGERENDERER_HH
 
+#include "xos/gui/opengl/namespace.hpp"
 #include "xos/gui/opengl/ImageRenderer.hpp"
 #include "xos/gui/opengl/cocoa/Context.hh"
 
 namespace xos {
-namespace gui {
 namespace opengl {
 namespace cocoa {
 
@@ -73,7 +73,6 @@ protected:
 
 } // namespace cocoa 
 } // namespace opengl 
-} // namespace gui 
 } // namespace xos 
 
 #endif // _XOS_GUI_OPENGL_COCOA_IMAGERENDERER_HH 

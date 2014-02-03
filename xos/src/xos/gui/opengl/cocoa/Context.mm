@@ -21,7 +21,6 @@
 #include "xos/gui/opengl/cocoa/Context.hh"
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
 ///////////////////////////////////////////////////////////////////////
@@ -158,5 +157,4 @@ NSOpenGLContext* Context::GetContext() const {
 }
 } // namespace cocoa 
 } // namespace opengl 
-} // namespace gui 
 } // namespace xos 

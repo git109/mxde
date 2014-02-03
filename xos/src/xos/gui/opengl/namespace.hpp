@@ -13,17 +13,23 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: ImageRenderer.mm
+///   File: namespace.hpp
 ///
 /// Author: $author$
-///   Date: 1/22/2014
+///   Date: 2/2/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
+#ifndef _XOS_GUI_OPENGL_NAMESPACE_HPP
+#define _XOS_GUI_OPENGL_NAMESPACE_HPP
+
+#include "xos/base/Base.hpp"
 
 namespace xos {
+namespace opengl { }
 namespace gui {
-namespace cocoa {
-
-} // namespace cocoa 
+namespace opengl = xos::opengl;
 } // namespace gui 
 } // namespace xos 
+
+#endif // _XOS_GUI_OPENGL_NAMESPACE_HPP 
+        
+

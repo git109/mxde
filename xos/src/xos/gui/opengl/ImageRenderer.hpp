@@ -21,6 +21,7 @@
 #ifndef _XOS_GUI_OPENGL_IMAGERENDERER_HPP
 #define _XOS_GUI_OPENGL_IMAGERENDERER_HPP
 
+#include "xos/gui/opengl/namespace.hpp"
 #include "xos/gui/ImageRenderer.hpp"
 #include "xos/gui/opengl/Context.hpp"
 #include "xos/gui/opengl/Rectangle.hpp"
@@ -28,7 +29,6 @@
 #include "xos/gui/opengl/Point.hpp"
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
 typedef gui::ImageRendererInterface ImageRendererImplement;
@@ -207,7 +207,6 @@ protected:
 };
 
 } // namespace opengl 
-} // namespace gui 
 } // namespace xos 
 
 #endif // _XOS_GUI_OPENGL_IMAGERENDERER_HPP 

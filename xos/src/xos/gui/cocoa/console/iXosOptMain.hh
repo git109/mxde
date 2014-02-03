@@ -49,6 +49,7 @@
 @interface iXosOptMain: iXosBaseMain <iXosOptMain> {
     bool m_didUsage;
     }
+    - (iXosOptMain*)init;
     - (int)Run:(int)argc argv:(char**)argv env:(char**)env;
     - (int)Main:(int)argc argv:(char**)argv env:(char**)env;
     - (int)Usage:(int)argc argv:(char**)argv env:(char**)env;

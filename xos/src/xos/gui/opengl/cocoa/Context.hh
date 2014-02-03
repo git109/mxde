@@ -25,7 +25,6 @@
 #include <Cocoa/Cocoa.h>
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
 ///////////////////////////////////////////////////////////////////////
@@ -121,7 +120,6 @@ public:
 };
 
 } // namespace cocoa 
-} // namespace opengl 
 } // namespace gui 
 } // namespace xos 
 

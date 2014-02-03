@@ -21,13 +21,13 @@
 #ifndef _XOS_GUI_OPENGL_SIZE_HPP
 #define _XOS_GUI_OPENGL_SIZE_HPP
 
+#include "xos/gui/opengl/namespace.hpp"
 #include "xos/gui/Size.hpp"
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
-typedef SizeT<float> SizeExtend;
+typedef gui::SizeT<float> SizeExtend;
 struct Size: public SizeExtend {
     typedef SizeExtend Extends;
     Size(float width, float height): Extends(width, height) {}
@@ -36,7 +36,6 @@ struct Size: public SizeExtend {
 };
 
 } // namespace opengl 
-} // namespace gui 
 } // namespace xos 
 
 #endif // _XOS_GUI_OPENGL_SIZE_HPP 

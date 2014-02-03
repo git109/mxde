@@ -21,13 +21,13 @@
 #ifndef _XOS_GUI_OPENGL_POINT_HPP
 #define _XOS_GUI_OPENGL_POINT_HPP
 
+#include "xos/gui/opengl/namespace.hpp"
 #include "xos/gui/Point.hpp"
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
-typedef PointT<float> PointExtend;
+typedef gui::PointT<float> PointExtend;
 struct Point: public PointExtend {
     typedef PointExtend Extends;
     Point(float x, float y): Extends(x,y){}
@@ -36,7 +36,6 @@ struct Point: public PointExtend {
 };
 
 } // namespace opengl 
-} // namespace gui 
 } // namespace xos 
 
 #endif // _XOS_GUI_OPENGL_POINT_HPP 

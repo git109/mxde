@@ -13,17 +13,38 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: ImageRenderer.mm
+///   File: LoggerStream.hh
 ///
 /// Author: $author$
-///   Date: 1/22/2014
+///   Date: 2/1/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
+#ifndef _XOS_GUI_COCOA_OSX_LOGGERSTREAM_HH
+#define _XOS_GUI_COCOA_OSX_LOGGERSTREAM_HH
+
+#include "xos/os/FILEStream.hpp"
 
 namespace xos {
-namespace gui {
 namespace cocoa {
+namespace osx {
 
+typedef FILEStream LoggerStreamExtend;
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS LoggerStream: public LoggerStreamExtend {
+public:
+    typedef LoggerStreamExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    LoggerStream(FILE* file): Extends(file) {}
+    LoggerStream(): Extends(stderr) {}
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+
+} // namespace osx 
 } // namespace cocoa 
-} // namespace gui 
 } // namespace xos 
+
+#endif // _XOS_GUI_COCOA_OSX_LOGGERSTREAM_HH 
+        
+

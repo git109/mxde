@@ -19,6 +19,7 @@
 ///   Date: 12/21/2012
 ///////////////////////////////////////////////////////////////////////
 #include "iXosHello.hh"
+#include "../../../app/gui/hello/Image.hpp"
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -27,6 +28,11 @@
 #define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_WIDTH 352
 #define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_HEIGHT 288
 #define XOS_GUI_COCOA_IXOSHELLO_DEFAULT_IMAGE_DEPTH 4
+
+namespace xos {
+typedef xos::app::gui::hello::ImageT
+<xos::InterfaceBase, xos::ExportBase> Image;
+}
 
 NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
     NSRect N;
@@ -185,7 +191,10 @@ NSRect MakeNormalizedRect(const NSSize& F, const NSSize& W) {
         m_imageFile = chars;
     }
     - (void*)ReadImageFile {
+        xos::Image image;
         XOS_LOG_DEBUG(" read image file \"" << m_imageFile << "\"...");
+        if ((m_image = image.LoadImageFile(m_imageFile)))
+            return m_image;
         if ((m_image = malloc(m_imageSize=(m_imageWidth*m_imageHeight*m_imageDepth)))) {
             FILE* file = 0;
             size_t count = 0;

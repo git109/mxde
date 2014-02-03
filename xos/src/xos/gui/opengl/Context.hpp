@@ -21,6 +21,7 @@
 #ifndef _XOS_GUI_OPENGL_CONTEXT_HPP
 #define _XOS_GUI_OPENGL_CONTEXT_HPP
 
+#include "xos/gui/opengl/namespace.hpp"
 #include "xos/base/Base.hpp"
 #include "xos/base/Platform.hpp"
 
@@ -56,7 +57,6 @@ struct NSOpenGLView;
 #endif // defined(WINDOWS) 
 
 namespace xos {
-namespace gui {
 namespace opengl {
 
 class _EXPORT_CLASS ContextImplemented;
@@ -105,7 +105,6 @@ public:
     }
 };
 
-} // namespace opengl 
 } // namespace gui 
 } // namespace xos 
 

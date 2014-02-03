@@ -28,6 +28,11 @@
 ///         Date: 12/23/2012
 ///////////////////////////////////////////////////////////////////////
 @implementation iXosOptMain
+    - (iXosOptMain*)init {
+        [super init];
+        m_didUsage = false;
+        return self;
+    }
     - (int)Run:(int)argc argv:(char**)argv env:(char**)env {
         int err = 0;
         return err;

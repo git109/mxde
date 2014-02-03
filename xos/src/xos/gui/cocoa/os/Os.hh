@@ -13,17 +13,47 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: ImageRenderer.mm
+///   File: Os.hh
 ///
 /// Author: $author$
-///   Date: 1/22/2014
+///   Date: 2/1/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/cocoa/ImageRenderer.hh"
+#ifndef _XOS_GUI_COCOA_OS_OS_HH
+#define _XOS_GUI_COCOA_OS_OS_HH
+
+#include "xos/base/Base.hpp"
+
+#if defined(__APPLE__)
+#include "TargetConditionals.h"
+#if (TARGET_OS_IPHONE)
+#if !defined(APPLE_IOS)
+#define APPLE_IOS
+#endif // !defined(APPLE_IOS)
+#else // (TARGET_OS_IPHONE)
+#if defined(APPLE_IOS)
+#error APPLE_IOS already defined
+#endif // defined(APPLE_IOS)
+#endif // (TARGET_OS_IPHONE)
+#else // defined(__APPLE__)
+#error Unsupported Os
+#endif // defined(__APPLE__)
 
 namespace xos {
-namespace gui {
 namespace cocoa {
+namespace ios { }
+namespace osx { }
+namespace os {
 
+#if defined(APPLE_IOS)
+namespace os = ios;
+#else // defined(APPLE_IOS)
+namespace os = osx;
+#endif // defined(APPLE_IOS)
+
+} // namespace os
 } // namespace cocoa 
-} // namespace gui 
 } // namespace xos 
+
+#endif // _XOS_GUI_COCOA_OS_OS_HH 
+        
+
