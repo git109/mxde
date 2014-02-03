@@ -63,35 +63,32 @@
 %
 %)%)%%
 %%
-%%kk_%class%_kk% %CLASS_INTERFACE%%Full_class_name%
-%\\
-%\\ implements
-%\\
-%if(%Implements%%Extends%,%
+%%kk_%class%_kk% %CLASS_INTERFACE%%Full_class_name%%
+%%else(%is_kr_indent%,%(
+)%)%%
+%%if(%Implements%%Extends%,%
 %%(: %
-%%parse(%Implements%,;,,%(%(,)%
-%indent%  )%,,%(%
+%%parse(%Implements%,;,,%(%(,)%%else(%is_kr_indent%,%(
+%indent%  )%)%)%,,%(%
 %%kk_%virtual%_kk% %_implements_access_%%
 %%if(%class_template_parameter_implements%,%(TImplements)%,%(%
 %%if(%implements_pattern_tc%%implements_pattern_t%,%(T)%,%
 %%(%Implements_prefix%)%)%%Implements%%
 %)%)%%
 %)%,Implements)%%
-%%if(%and(%Implements%,%Extends%)%,%(%(,)%
-%indent%  )%)%%
-%%\
-%\\ extends
-%\\
-%parse(%Extends%,;,,%(%(,)%
-%indent%  )%,,%(%
+%%if(%and(%Implements%,%Extends%)%,%(%(,)%%else(%is_kr_indent%,%(
+%indent%  )%)%)%)%%
+%%
+%%parse(%Extends%,;,,%(%(,)%%else(%is_kr_indent%,%(
+%indent%  )%)%)%,,%(%
 %%_extends_access_%%
 %%if(%class_template_parameter_extends%,%(TExtends)%,%(%
 %%if(%extends_pattern_tc%%extends_pattern_t%,%(T)%,%
 %%(%Extends_prefix%)%)%%Extends%%
 %)%)%%
-%)%,Extends)%
-)%)%%
-%{
+%)%,Extends)%%else(%is_kr_indent%,%(
+)%)%)%)%%
+%%if(%is_kr_indent%,%( )%)%{
 %_class_access_%%
 %%apply(_indent,%indent%,indent,%indent%%indent_%,%(%
 %%parse(%Implements%,;,,,,%(%
@@ -102,6 +99,7 @@
 %%(%Implements_prefix%)%)%%Implements%%
 %)%)% %cImplements%;
 )%,Implements)%%
+%%
 %%parse(%Extends%,;,,,,%(%
 %%indent%%_typedef_% %
 %%if(%class_template_parameter_extends%,%(TExtends)%,%
@@ -110,10 +108,7 @@
 %%(%Extends_prefix%)%)%%Extends%%
 %)%)% %cExtends%;
 )%,Extends)%%
-%%\
-%\\ body
-%\\
-%
+%%
 %%if(%class_constructor%,%(%
 %%include(%filepath%/mxde-hxx-class-constructor.t)%%
 %)%)%%

@@ -21,8 +21,8 @@
 %#############################################################################
 %apply-x(%
 %comments,%(%else-then(%comments%,%(yes)%)%)%,%
-%copyright,%(%else(%equal(no,%copyright%)%,%(yes)%)%)%,%
-%open_source,%(%else(%equal(no,%open_source%)%,%(yes)%)%)%,%
+%copyright,%(%else(%equal(no,%copyright%)%,%(%else(%is_comment_fields%,yes,%(%comment_fields_copyright%)%)%)%)%)%,%
+%open_source,%(%else(%equal(no,%open_source%)%,%(%else(%is_comment_fields%,yes,%(%comment_fields_opensource%)%)%)%)%)%,%
 %right_separator,%(%else-then(%right_separator%,%(
 )%)%)%,%
 %%(%
@@ -37,9 +37,15 @@
 %%do(%left_separator%)%%padd(, ,%separator_padd%)%%do(%right_separator%)%%
 %)%)%%
 %%do(%left_separator%)%%padd(   File: %file%, ,%separator_padd%)%%do(%right_separator%)%%
+%%if(%and(%comment_fields_author%,%comment_fields_date%)%,%(%
 %%do(%left_separator%)%%padd(, ,%separator_padd%)%%do(%right_separator%)%%
+%)%)%%
+%%if(%comment_fields_author%,%(%
 %%do(%left_separator%)%%padd( Author: %author%, ,%separator_padd%)%%do(%right_separator%)%%
+%)%)%%
+%%if(%comment_fields_date%,%(%
 %%do(%left_separator%)%%padd(   Date: %date%, ,%separator_padd%)%%do(%right_separator%)%%
+%)%)%%
 %%if(%for%,%(%
 %%do(%left_separator%)%%padd(, ,%separator_padd%)%%do(%right_separator%)%%
 %%do(%left_separator%)%%padd( %for%, ,%separator_padd%)%%do(%right_separator%)%%

@@ -156,4 +156,42 @@
 	<cxx_function_comment>no</cxx_function_comment>
     </for-which>
 
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="eay"
+     target="eay"
+     href="/eay/">
+    <text>Eay</text>
+    <author>$author$</author>
+    <organization>Eay</organization>
+    <copyright>no</copyright>
+    <open_source>yes</open_source>
+    <cxx_file_type>hpp</cxx_file_type>
+    <cxx_file_is_case>nocase</cxx_file_is_case>
+    <cxx_class_comment>no</cxx_class_comment>
+    <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="gmp"
+     target="gmp"
+     href="/gmp/">
+    <text>Gmp</text>
+    <author>$author$</author>
+    <organization>Gmp</organization>
+    <copyright>no</copyright>
+    <open_source>yes</open_source>
+    <cxx_file_type>hpp</cxx_file_type>
+    <cxx_file_is_case>nocase</cxx_file_is_case>
+    <cxx_class_comment>no</cxx_class_comment>
+    <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
 </medusaxde:for>

@@ -116,6 +116,15 @@
 %Namespace,%(%else-then(%Namespace%,%(%namespace%)%)%)%,%
 %NAMESPACE,%(%else-then(%NAMESPACE%,%(%toupper(%Namespace%)%)%)%)%,%
 %namespace,%(%else-then(%_Namespace%,%(%tolower(%Namespace%)%)%)%)%,%
+%is_kr_indent,%(%if(%equal(kr,%code_style%)%,%(yes)%)%)%,%
+%comment_fields,%(%else(%is_comment_fields%,%(yes)%,%(%comment_fields_author%%comment_fields_date%)%)%)%,%
+%comment_fields_copyright,%(%else-then(%comment_fields_copyright%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%comment_fields_opensource,%(%else-then(%comment_fields_opensource%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%comment_fields_author,%(%else-then(%comment_fields_author%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%comment_fields_date,%(%else-then(%comment_fields_date%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%class_comment_fields,%(%else(%is_class_comment_fields%,%(yes)%,%(%class_comment_fields_author%%class_comment_fields_date%)%)%)%,%
+%class_comment_fields_author,%(%else-then(%class_comment_fields_author%,%(%else(%is_class_comment_fields%,%(yes)%)%)%)%)%,%
+%class_comment_fields_date,%(%else-then(%class_comment_fields_date%,%(%else(%is_class_comment_fields%,%(yes)%)%)%)%)%,%
 %class_comment,%(%else(%equal(no,%class_comment%)%,%(%else-then(%class_comment%,%(yes)%)%)%)%)%,%
 %class_constructor_comment,%(%else(%equal(no,%class_constructor_comment%)%,%(%else-then(%class_constructor_comment%,%(yes)%)%)%)%)%,%
 %class_destructor_comment,%(%else(%equal(no,%class_destructor_comment%)%,%(%else-then(%class_destructor_comment%,%(yes)%)%)%)%)%,%

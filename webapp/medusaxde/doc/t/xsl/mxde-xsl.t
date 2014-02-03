@@ -79,6 +79,7 @@
 %section,%(%(%do(%begin_separator%)%%do(%left_separator%)%%padd( %section_name%, ,%separator_padd%)%%do(%right_separator%)%%do(%end_separator%)%)%)%,%
 %template_separator,%(%(%do(%begin_separator%)%%do(%end_separator%)%)%)%,%
 %xml_version,%(%else-then(%xml_version%,%(1.0)%)%)%,%
+%xsl_ns,%(%else-then(%xsl_ns%,%()%)%)%,%
 %xslns,%(%else-then(%xslns%,%(xsl)%)%)%,%
 %exslns,%(%else-then(%exslns%,%(exsl)%)%)%,%
 %xslxns,%(%else-then(%xslxns%,%(xalan)%)%)%,%
@@ -87,6 +88,7 @@
 %mxdens,%(%else-then(%mxdens%,%(mxde)%)%)%,%
 %medusadens,%(%else-then(%medusadens%,%(medusade)%)%)%,%
 %medusaxdens,%(%else-then(%medusaxdens%,%(medusaxde)%)%)%,%
+%xsl_ns_uri,%(%else-then(%xsl_ns_uri%,%()%)%)%,%
 %xslns_uri,%(%else-then(%xslns_uri%,%(http://www.w3.org/1999/XSL/Transform)%)%)%,%
 %exslns_uri,%(%else-then(%exslns_uri%,%(http://exslt.org/common)%)%)%,%
 %xslxns_uri,%(%else-then(%xslxns_uri%,%(http://xml.apache.org/xalan)%)%)%,%
@@ -96,19 +98,24 @@
 %medusadens_uri,%(%else-then(%medusadens_uri%,%(Medusa-Xos-Development-Environment)%)%)%,%
 %medusaxdens_uri,%(%else-then(%medusaxdens_uri%,%(Medusa-Xos-Development-Environment)%)%)%,%
 %xslns_list,%(%else-then(%xslns_list%,%(xslns;exslns)%)%)%,%
+%xsl_ns_list,%(%else-then(%xsl_ns_list%,%(xsl_ns)%)%)%,%
 %xsl_exclude_prefixes_xslns_list,%(%else-then(%xsl_exclude_prefixes_xslns_list%,%(xslxns;msxslns;xdens;mxdens;medusadens;medusaxdens)%)%)%,%
 %xsl_version,%(%else-then(%xsl_version%,%(1.0)%)%)%,%
 %xsl_version_attr,%(
  version=%ss_%"%xsl_version%"%_ss%)%,%
 %xsl_expr_and,%(%else-then(%xsl_expr_and%,%( and )%)%)%,%
+%xsl_sections,%(%else(%equal(no,%xsl_sections%)%,%(yes)%)%)%,%
 %xsl_output_method,%(%else(%equal(no,%xsl_output_method%)%,%(%else-then(%xsl_output_method%,%()%)%)%)%)%,%
 %xsl_output_indent,%(%else-then(%xsl_output_indent%,%(yes)%)%)%,%
 %xsl_output_version,%(%else-then(%xsl_output_version%,%(yes)%)%)%,%
 %xsl_output,%(%else(%equal(no,%xsl_output%)%,%(%xsl_output_method%)%)%)%,%
 %xsl_params,%(%else(%equal(no,%xsl_params%)%,%(%xsl_param%)%)%)%,%
+%xsl_param_section,%(%else(%equal(no,%xsl_param_section%)%,%(%xsl_sections%)%)%)%,%
 %xsl_variables,%(%else(%equal(no,%xsl_variables%)%,%(%xsl_variable%)%)%)%,%
 %xsl_template,%(%else(%equal(no,%xsl_template%)%,%(%xsl_template%)%)%)%,%
 %xsl_templates,%(%else(%equal(no,%xsl_templates%)%,%(%xsl_template_name%)%)%)%,%
+%xsl_template_indent,%(%else(%equal(yes,%xsl_template_indent%)%,%()%)%)%,%
+%xsl_template_sections,%(%else(%equal(yes,%xsl_template_sections%)%,%()%)%)%,%
 %xsl_template_params,%(%else(%equal(no,%xsl_template_params%)%,%(%xsl_template_param%)%)%)%,%
 %xsl_template_variables,%(%else(%equal(no,%xsl_template_variables%)%,%(%xsl_template_variable%)%)%)%,%
 %xsl_include,%(%if-then(%xsl_include%,%(%if(%xsl_include_list%,%(;)%)%)%)%%parameters(xsl_include_list,,;,)%)%,%

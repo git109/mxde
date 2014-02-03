@@ -21,24 +21,19 @@
 %with(%
 %%(%
 %%else-no(%class_function_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)% Function: %f_name%
-%do(%left_separator%)%
-%do(%left_separator%)%   Author: %author%
-%do(%left_separator%)%     Date: %date%
-%do(%end_separator%)%%
+%%include(%filepath%/mxde-%if-then(%style%,%(-)%)%objc-function-comment-hxx.t)%%
 %)%)%%
 %%indent%%f_type%%f_return%%f_name%%
 %%if(%Class_function_parameters%,%(%
 %%with(%
 %first_parameter,%(yes)%,%
-%parameters,%(%else-then(%left(%Class_function_parameters%,;)%,%(%Class_function_parameters%)%)%)%,%
+%parameters,%(%else-then(%else-then(%left(%Class_function_parameters%,;)%,%(%left(%Class_function_parameters%,%(,)%)%)%)%,%(%Class_function_parameters%)%)%)%,%
 %%(%
 %%if(%parameters%,%(:)%)%%
 %%include(%filepath%/mxde-objc-parameters-hxx.t)%%
 %)%)%%
 %%with(%
-%parameters,%(%right-of-left(%Class_function_parameters%,;)%)%,%
+%parameters,%(%else-then(%right-of-left(%Class_function_parameters%,;)%,%(%right-of-left(%Class_function_parameters%,%(,)%)%)%)%)%,%
 %%(%
 %%if(%parameters%,%( )%)%%
 %%include(%filepath%/mxde-objc-parameters-hxx.t)%%

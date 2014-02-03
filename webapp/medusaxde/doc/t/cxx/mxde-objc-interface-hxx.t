@@ -23,12 +23,7 @@
 %%else(%no_before_separator_lf%,%(
 )%)%%
 %%else-no(%class_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)% Interface: %Class%
-%do(%left_separator%)%
-%do(%left_separator%)%    Author: %author%
-%do(%left_separator%)%      Date: %date%
-%do(%end_separator%)%%
+%%include(%filepath%/mxde-%if-then(%style%,%(-)%)%objc-interface-comment-hxx.t)%%
 %)%)%%
 %%_@interface_% %Class%%
 %%then-if(%Extends%,%(: )%)%%
@@ -44,6 +39,40 @@
 %f_return_value,%(%right(%Class_function_return%,=)%)%,%
 %f_return,%(%if(%f_return_type%,%(%(()%%do(%f_return_type%)%%())%)%)%)%,%
 %%(%
+%%if(%Class_init%,%(%
+%%with(%
+%class_function_comment,%(%class_init_comment%)%,%
+%Class_function_parameters,%(%class_init_parameters%)%,%
+%Class_function_body,%(%class_init_body%)%,%
+%f_name,%(init)%,%
+%f_type,%(%if-then(%pp_%%if(%equal(class,%Class_init%)%,%(+)%,%(-)%)%%_pp%,%( )%)%)%,%
+%f_return_type,%(%else-then(%left(%Class_init_return%, )%,%(%else(%right(%Class_init_return%,=)%,%(%Class_init_return%)%)%)%)%)%,%
+%f_return_name,%(%else-then(%left(%right-of-left(%Class_init_return%, )%,=)%,%(%right-of-left(%Class_init_return%, )%)%)%)%,%
+%f_return_value,%(%right(%Class_init_return%,=)%)%,%
+%f_return,%(%if(%f_return_type%,%(%(()%%do(%f_return_type%)%%())%)%)%)%,%
+%%(%
+%%include(%filepath%/mxde-objc-function-proto-hxx.t)%%
+%;
+%
+%)%)%%
+%)%)%%
+%%if(%Class_dealloc%,%(%
+%%with(%
+%class_function_comment,%(%class_dealloc_comment%)%,%
+%Class_function_parameters,%(%class_dealloc_parameters%)%,%
+%Class_function_body,%(%class_dealloc_body%)%,%
+%f_name,%(dealloc)%,%
+%f_type,%(%if-then(%pp_%%if(%equal(class,%Class_dealloc%)%,%(+)%,%(-)%)%%_pp%,%( )%)%)%,%
+%f_return_type,%(%else-then(%left(%Class_dealloc_return%, )%,%(%else(%right(%Class_dealloc_return%,=)%,%(%Class_dealloc_return%)%)%)%)%)%,%
+%f_return_name,%(%else-then(%left(%right-of-left(%Class_dealloc_return%, )%,=)%,%(%right-of-left(%Class_dealloc_return%, )%)%)%)%,%
+%f_return_value,%(%right(%Class_dealloc_return%,=)%)%,%
+%f_return,%(%if(%f_return_type%,%(%(()%%do(%f_return_type%)%%())%)%)%)%,%
+%%(%
+%%include(%filepath%/mxde-objc-function-proto-hxx.t)%%
+%;
+%
+%)%)%%
+%)%)%%
 %%if(%Class_function%,%(%
 %%parse(%Class_function_name%,;,,,%(%
 %%include(%filepath%/mxde-objc-function-proto-hxx.t)%%

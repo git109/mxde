@@ -46,12 +46,7 @@
 %Full_class_name,%(%Class_prefix%%Class%%Class_suffix%%Template_class_suffix%)%,%
 %%(%
 %%if(%class_function_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)%  Function: %Full_class_name%::%Class_function_name%
-%do(%left_separator%)%
-%do(%left_separator%)%    Author: %author%
-%do(%left_separator%)%      Date: %date%
-%do(%end_separator%)%%
+%%include(%filepath%/mxde-%if-then(%style%,%(-)%)%cxx-class-function-comment.t)%%
 %)%)%%
 %%indent%%if-then(%Class_function_return_type%, )%%Full_class_name%::%Class_function_name%%
 %%if(%class_function_parameters%,%(
@@ -68,8 +63,8 @@
 %)%)%%
 %%())%%
 %%if(%class_function_const%,%( %_const_%)%)%%
-%
-%indent%{
+%%else(%is_kr_indent%,%(
+%indent%)%,%( )%)%{
 %if(%Class_function_return_name%,%(%indent%%indent_%%Class_function_return_type% %Class_function_return_name%%then-if(%Class_function_return_value%, = )%;
 )%)%%
 %%if(%Class_function_return_name%,%(%indent%%indent_%%kk_%return%_kk% %Class_function_return_name%;

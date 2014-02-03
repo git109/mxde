@@ -115,6 +115,8 @@
     <xsl:param name="is_param_xsl_separators" select="''"/>
     <xsl:param name="is_param_xsl_is_stylesheet_separator" select="''"/>
     <xsl:param name="is_param_xsl_is_stylesheet" select="''"/>
+    <xsl:param name="is_param_xsl_ns" select="''"/>
+    <xsl:param name="is_param_xsl_ns_uri" select="$is_param_xsl_ns"/>
     <xsl:param name="is_param_xsl_exclude_prefixes" select="''"/>
     <xsl:param name="is_param_xsl_version" select="''"/>
     <xsl:param name="is_param_xsl_output_method" select="''"/>
@@ -166,6 +168,18 @@
     </xsl:param>
     <xsl:param name="xsl_is_stylesheet_param" select="'xsl_is_stylesheet'"/>
     <xsl:param name="xsl_is_stylesheet" select="''"/>
+
+    <xsl:param name="xsl_ns_text" select="''"/>
+    <xsl:param name="xsl_ns_text_before" select="'xmlns:'"/>
+    <xsl:param name="xsl_ns_text_after" select="''"/>
+    <xsl:param name="xsl_ns_param" select="'xsl_ns'"/>
+    <xsl:param name="xsl_ns" select="''"/>
+
+    <xsl:param name="xsl_ns_uri_text" select="''"/>
+    <xsl:param name="xsl_ns_uri_text_before" select="'=&quot;'"/>
+    <xsl:param name="xsl_ns_uri_text_after" select="'&quot;'"/>
+    <xsl:param name="xsl_ns_uri_param" select="'xsl_ns_uri'"/>
+    <xsl:param name="xsl_ns_uri" select="''"/>
 
     <xsl:param name="xsl_exclude_prefixes_text" select="''"/>
     <xsl:param name="xsl_exclude_prefixes_text_before">
@@ -429,6 +443,24 @@
             <xsl:with-param name="value" select="$xsl_is_stylesheet"/>
             <xsl:with-param name="option" select="$xsl_is_stylesheet_options/*"/>
         </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xsl_ns)) or ('yes' = $is_param_xsl_ns)">
+    <xsl:call-template name="input_row">
+        <xsl:with-param name="text" select="$xsl_ns_text"/>
+        <xsl:with-param name="text_before" select="$xsl_ns_text_before"/>
+        <xsl:with-param name="text_after" select="$xsl_ns_text_after"/>
+        <xsl:with-param name="name" select="$xsl_ns_param"/>
+        <xsl:with-param name="value" select="$xsl_ns"/>
+    </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xsl_ns_uri)) or ('yes' = $is_param_xsl_ns_uri)">
+    <xsl:call-template name="input_row">
+        <xsl:with-param name="text" select="$xsl_ns_uri_text"/>
+        <xsl:with-param name="text_before" select="$xsl_ns_uri_text_before"/>
+        <xsl:with-param name="text_after" select="$xsl_ns_uri_text_after"/>
+        <xsl:with-param name="name" select="$xsl_ns_uri_param"/>
+        <xsl:with-param name="value" select="$xsl_ns_uri"/>
+    </xsl:call-template>
     </xsl:if>
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_xsl_exclude_prefixes)) or ('yes' = $is_param_xsl_exclude_prefixes)">
     <xsl:call-template name="checkboxes_row">

@@ -58,6 +58,8 @@
     <xsl:param name="is_param_begin_separator" select="'no'"/>
     <xsl:param name="is_param_end_separator" select="'no'"/>
     <xsl:param name="is_param_class_comment" select="$is_param_"/>
+    <xsl:param name="is_param_class_comment_fields" select="$is_param_class_comment"/>
+    <xsl:param name="is_param_is_class_comment_fields" select="$is_param_class_comment_fields"/>
     <xsl:param name="is_param_class_type" select="$is_param_"/>
     <xsl:param name="is_param_class" select="$is_param_"/>
     <xsl:param name="is_param_extends" select="$is_param_"/>
@@ -85,6 +87,15 @@
     <xsl:param name="class_comment_text_after" select="''"/>
     <xsl:param name="class_comment_param" select="'class_comment'"/>
     <xsl:param name="class_comment" select="'yes'"/>
+
+    <xsl:param name="is_class_comment_fields_param" select="'is_class_comment_fields'"/>
+    <xsl:param name="is_class_comment_fields" select="'yes'"/>
+
+    <xsl:param name="class_comment_fields_text" select="''"/>
+    <xsl:param name="class_comment_fields_text_before" select="'//...'"/>
+    <xsl:param name="class_comment_fields_text_after" select="''"/>
+    <xsl:param name="class_comment_fields_options" select="$cxx_class_comment_fields"/>
+    <xsl:param name="class_comment_fields_param" select="'class_comment_fields_'"/>
 
     <xsl:param name="class_type_text" select="''"/>
     <xsl:param name="class_type_text_before" select="''"/>
@@ -218,6 +229,23 @@
             <xsl:with-param name="name" select="$class_comment_param"/>
             <xsl:with-param name="value" select="$class_comment"/>
         </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_is_class_comment_fields)) or ('yes' = $is_param_is_class_comment_fields)">
+    <xsl:call-template name="hidden">
+        <xsl:with-param name="name" select="$is_class_comment_fields_param"/>
+        <xsl:with-param name="value" select="$is_class_comment_fields"/>
+    </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_comment_fields)) or ('yes' = $is_param_class_comment_fields)">
+    <xsl:call-template name="checkboxes_row">
+        <xsl:with-param name="text" select="$class_comment_fields_text"/>
+        <xsl:with-param name="text_before" select="$class_comment_fields_text_before"/>
+        <xsl:with-param name="text_after" select="$class_comment_fields_text_after"/>
+        <xsl:with-param name="name" select="$class_comment_fields_param"/>
+        <xsl:with-param name="option" select="$class_comment_fields_options/*"/>
+    </xsl:call-template>
     </xsl:if>
 
     <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_class_type)) or ('yes' = $is_param_class_type)">

@@ -64,6 +64,9 @@
     <xsl:param name="is_param_hxx_file_type" select="'no'"/>
     <xsl:param name="is_param_cxx_file_type" select="'no'"/>
     <xsl:param name="is_param_comment_type" select="''"/>
+    <xsl:param name="is_param_comment_fields" select="$is_param_comment_type"/>
+    <xsl:param name="is_param_is_comment_fields" select="$is_param_comment_fields"/>
+    <xsl:param name="is_param_code_style" select="$is_param_comment_type"/>
     <xsl:param name="is_param_module" select="'no'"/>
     <xsl:param name="is_param_style" select="'no'"/>
     <xsl:param name="is_param_include_system" select="''"/>
@@ -161,6 +164,22 @@
     <xsl:param name="comment_type_param" select="'comment_type'"/>
     <xsl:param name="comment_type" select="''"/>
     <xsl:param name="comment_types" select="$cxx_comment_types"/>
+
+    <xsl:param name="is_comment_fields_param" select="'is_comment_fields'"/>
+    <xsl:param name="is_comment_fields" select="''"/>
+
+    <xsl:param name="comment_fields_text" select="''"/>
+    <xsl:param name="comment_fields_text_before" select="'//...'"/>
+    <xsl:param name="comment_fields_text_after" select="''"/>
+    <xsl:param name="comment_fields_options" select="$cxx_comment_fields"/>
+    <xsl:param name="comment_fields_param" select="'comment_fields_'"/>
+
+    <xsl:param name="code_style_text" select="''"/>
+    <xsl:param name="code_style_text_before" select="'...{...}'"/>
+    <xsl:param name="code_style_text_after" select="''"/>
+    <xsl:param name="code_style_options" select="$cxx_code_styles"/>
+    <xsl:param name="code_style_param" select="'code_style'"/>
+    <xsl:param name="code_style" select="$cxx_code_style"/>
 
     <xsl:param name="module_text" select="''"/>
     <xsl:param name="module_text_before" select="'#ifndef _'"/>
@@ -431,6 +450,33 @@
         <xsl:with-param name="name" select="$comment_type_param"/>
         <xsl:with-param name="value" select="$comment_type"/>
         <xsl:with-param name="option" select="$comment_types/*"/>
+    </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_is_comment_fields)) or ('yes' = $is_param_is_comment_fields)">
+    <xsl:call-template name="hidden">
+        <xsl:with-param name="name" select="$is_comment_fields_param"/>
+        <xsl:with-param name="value" select="$is_comment_fields"/>
+    </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_comment_fields)) or ('yes' = $is_param_comment_fields)">
+    <xsl:call-template name="checkboxes_row">
+        <xsl:with-param name="text" select="$comment_fields_text"/>
+        <xsl:with-param name="text_before" select="$comment_fields_text_before"/>
+        <xsl:with-param name="text_after" select="$comment_fields_text_after"/>
+        <xsl:with-param name="name" select="$comment_fields_param"/>
+        <xsl:with-param name="option" select="$comment_fields_options/*"/>
+    </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="(('no' != $is_param_) and ('no' != $is_param_code_style)) or ('yes' = $is_param_code_style)">
+    <xsl:call-template name="radios_row">
+        <xsl:with-param name="text" select="$code_style_text"/>
+        <xsl:with-param name="text_before" select="$code_style_text_before"/>
+        <xsl:with-param name="text_after" select="$code_style_text_after"/>
+        <xsl:with-param name="name" select="$code_style_param"/>
+        <xsl:with-param name="value" select="$code_style"/>
+        <xsl:with-param name="option" select="$code_style_options/*"/>
     </xsl:call-template>
     </xsl:if>
 
@@ -774,6 +820,7 @@
     <xsl:param name="file_type_param" select="'file_type'"/>
     <xsl:param name="is_param_comment_type" select="$is_param_file"/>
     <xsl:param name="comment_type" select="$cxx_comment"/>
+    <xsl:param name="is_param_code_style" select="$is_param_file"/>
 
     <!--========================================================================-->
     <!-- Template Body                                                          -->
@@ -797,6 +844,7 @@
         <xsl:with-param name="file_extension_param" select="$file_extension_param"/>
         <xsl:with-param name="is_param_comment_type" select="$is_param_comment_type"/>
         <xsl:with-param name="comment_type" select="$comment_type"/>
+        <xsl:with-param name="is_param_code_style" select="$is_param_code_style"/>
     </xsl:call-template>
     <xsl:call-template name="file_form_fields">
         <xsl:with-param name="is_param_" select="'no'"/>

@@ -125,6 +125,28 @@
     </xsl:choose>
 </xsl:param>
     
+<xsl:param name="default_cxx_code_style" select="''"/>
+<xsl:param name="form_cxx_code_style" select="$default_cxx_code_style"/>
+<xsl:param name="cxx_code_style">
+    <xsl:variable name="select" select="$xde_for_parameters"/>
+    <xsl:variable name="select_for" select="$select[$for = @for]"/>
+    <xsl:variable name="select_default" select="$select['' = @for]"/>
+    <xsl:choose>
+        <xsl:when test="'' != $form_cxx_code_style">
+            <xsl:value-of select="$form_cxx_code_style"/>
+        </xsl:when>
+        <xsl:when test="$select_for">
+            <xsl:value-of select="$select_for/mxde:cxx_code_style"/>
+        </xsl:when>
+        <xsl:when test="$select_default">
+            <xsl:value-of select="$select_default/mxde:cxx_code_style"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="$default_cxx_code_style"/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:param>
+
 <xsl:param name="default_cxx_function_proto" select="''"/>
 <xsl:param name="form_cxx_function_proto" select="$default_cxx_function_proto"/>
 <xsl:param name="cxx_function_proto">
@@ -318,6 +340,22 @@
 <xsl:variable name="cxx_comment_types"
  select="exsl:node-set($cxx_comment_types_tree)"/>
 
+<xsl:variable name="cxx_comment_fields_tree">
+    <field name="copyright" value="copyright" default="yes">Copyright...</field>
+    <field name="opensource" value="opensource" default="yes">This software...</field>
+    <field name="author" value="author" default="yes">Author:...</field>
+    <field name="date" value="date" default="yes">Date:...</field>
+</xsl:variable>
+<xsl:variable name="cxx_comment_fields"
+ select="exsl:node-set($cxx_comment_fields_tree)"/>
+
+<xsl:variable name="cxx_code_styles_tree">
+    <style value="kr">K&amp;R</style>
+    <style default="yes" value="no">no</style>
+</xsl:variable>
+<xsl:variable name="cxx_code_styles"
+ select="exsl:node-set($cxx_code_styles_tree)"/>
+
 <xsl:variable name="cxx_include_system_item_tree">
     <item></item>
     <item>stdio.h</item>
@@ -337,6 +375,13 @@
  select="exsl:node-set($cxx_include_item_tree)"/>
 
 <!--========================================================================-->
+
+<xsl:variable name="cxx_class_comment_fields_tree">
+    <field name="author" value="author" default="yes">Author:...</field>
+    <field name="date" value="date" default="yes">Date:...</field>
+</xsl:variable>
+<xsl:variable name="cxx_class_comment_fields"
+ select="exsl:node-set($cxx_class_comment_fields_tree)"/>
 
 <xsl:variable name="cxx_class_bases_prefixes_tree">
     <prefix default="yes" value="c">c</prefix>

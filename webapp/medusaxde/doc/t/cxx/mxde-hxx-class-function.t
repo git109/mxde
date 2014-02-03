@@ -52,12 +52,7 @@
 %)%)%%
 %)%)%%
 %%if(%class_function_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)%  Function: %Class_function_name%
-%do(%left_separator%)%
-%do(%left_separator%)%    Author: %author%
-%do(%left_separator%)%      Date: %date%
-%do(%end_separator%)%%
+%%include(%filepath%/mxde-%if-then(%style%,%(-)%)%hxx-class-function-comment.t)%%
 %)%)%%
 %%indent%%class_function_type%%if-then(%do(%Class_function_return_type%)%, )%%Class_function_name%%
 %%if(%class_function_parameters%,%(
@@ -73,7 +68,7 @@
 %%if(%class_function_abstract%,%( = 0)%)%;
 %
 %)%,%(%
-%%else(%Class_style_KnR%,%(
+%%else(%is_kr_indent%,%(
 )%)%%
 %%if(%class_member_funcs_interface_ifdefs%,%(%
 %%kk_%#if%_kk% %class_member_funcs_interface_ifdef%
@@ -83,7 +78,7 @@
 %%kk_%#else%_kk% %class_member_funcs_interface_ifdef_cc%
 %
 %)%)%%
-%%else(%Class_style_KnR%,%(%indent%)%,%( )%)%{
+%%else(%is_kr_indent%,%(%indent%)%,%( )%)%{
 %if(%Class_function_return_name%,%(%indent%%indent_%%do(%Class_function_return_type%)% %do(%Class_function_return_name%)%%then-if(%do(%Class_function_return_value%)%, = )%;
 )%)%%
 %%if(%class_member_funcs_implement_ifndefs%,%(%

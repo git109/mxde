@@ -29,6 +29,17 @@
 %%xx_%xmlns:%xmlns%%_xx%=%ss_%"%xmlns_uri%"%_ss%%
 %)%)%%
 %)%,xmlns)%%
+%%parse(%xsl_ns_list%,;,,,,%(%
+%%with(%
+%xmlns_uri,%(%do(%%%xmlns%_uri%%)%)%,%
+%xmlns,%(%do(%%%xmlns%%%)%)%,%
+%%(%
+%%if(%and(%xmlns%,%xmlns_uri%)%,%(%
+%
+ %xx_%xmlns:%xmlns%%_xx%=%ss_%"%xmlns_uri%"%_ss%%
+%)%)%%
+%)%)%%
+%)%,xmlns)%%
 %%parse(%xsl_exclude_prefixes_xslns_list%,;,,,,%(%
 %%if(%do(%%xsl_exclude_prefixes_%do(%%%xmlns%%%)%%%)%,%(%
 %%with(%
@@ -40,9 +51,21 @@
 %)%)%%
 %)%)%%
 %)%,xmlns)%%
-%%if(%xslns_list%%xsl_exclude_prefixes_xslns_list%,%(
+%%if(%xslns_list%%xsl_ns_list%%xsl_exclude_prefixes_xslns_list%,%(
  exclude-result-prefixes=%ss_%"%
-%%parse(%xslns_list%,;,, ,,%(%do(%%%xmlns%%%)%)%,xmlns)%%
+%%parse(%xslns_list%,;,, ,,%(%
+%%do(%%%xmlns%%%)%%
+%)%,xmlns)%%
+%%parse(%xsl_ns_list%,;,,,,%(%
+%%with(%
+%xmlns_uri,%(%do(%%%xmlns%_uri%%)%)%,%
+%xmlns,%(%do(%%%xmlns%%%)%)%,%
+%%(%
+%%if(%and(%xmlns%,%xmlns_uri%)%,%(%
+% %xmlns%%
+%)%)%%
+%)%)%%
+%)%,xmlns)%%
 %%parse(%xsl_exclude_prefixes_xslns_list%,;,,,,%(%
 %%if(%do(%%xsl_exclude_prefixes_%do(%%%xmlns%%%)%%%)%,%(%
 % %do(%%%xmlns%%%)%%

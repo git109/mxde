@@ -23,7 +23,9 @@
 %xsl_param_select_nodeset_type,%(%else-then(%xsl_param_select_nodeset_type%,%(%xslxns%:%xsl_nodeset%)%)%)%,%
 %%(%
 %%if(%xsl_params%,%(%
+%%if(%xsl_param_section%,%(%
 %%do(%section%)%%
+%)%)%%
 %%parse(%xsl_param%,;,,,,%(%
 %%with(%
 %prefix,%(%xsl_param_prefix%)%,%

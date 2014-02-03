@@ -22,12 +22,7 @@
 %Full_class_name,%(%Class_prefix%%Class%%Class_suffix%%Template_class_suffix%)%,%
 %%(%
 %%if(%class_constructor_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)%  Constructor: %Full_class_name%::%Full_class_name%
-%do(%left_separator%)%
-%do(%left_separator%)%       Author: %author%
-%do(%left_separator%)%         Date: %date%
-%do(%end_separator%)%%
+%%include(%filepath%/mxde-%if-then(%style%,%(-)%)%cxx-class-constructor-comment.t)%%
 %)%)%%
 %%indent%%Full_class_name%::%Full_class_name%%
 %%if(%class_constructor_parameters%,%(
@@ -45,8 +40,8 @@
 %indent%)%)%%
 %: %parse(%class_constructor_construct%,;,,%(, %if(%class_constructor_parameters%,%(
 %indent%  )%)%)%)%%
-%)%,%()%)%
-%indent%{
+%)%,%()%)%%else(%is_kr_indent%,%(
+%indent%)%,%( )%)%{
 %apply(_indent,%indent%,indent,%indent%%indent_%,%(%
 %)%)%%
 %%indent%}

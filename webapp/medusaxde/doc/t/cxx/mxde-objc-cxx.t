@@ -31,9 +31,11 @@
 %%if(%class_implementation%,%(%
 %%include(%filepath%/mxde-objc-implementation-hxx.t)%%
 %%include(%filepath%/mxde-objc-implementation-cxx.t)%%
+%%else-no(%function_main%,%(%
 %%include(%filepath%/mxde-objc-main-cxx.t)%%
+%)%)%%
 %)%,%(%
-%%include(%filepath%/mxde-objc-interface-hxx.t)%%
+%%include(%filepath%/mxde-objc-interface-cxx.t)%%
 %%include(%filepath%/mxde-objc-implementation-cxx.t)%%
 %%else-no(%function_main%,%(%
 %%include(%filepath%/mxde-objc-main-cxx.t)%%

@@ -23,12 +23,7 @@
 %%else(%no_before_separator_lf%,%(
 )%)%%
 %%else-no(%class_comment%,%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)% Protocol: %Class%
-%do(%left_separator%)%
-%do(%left_separator%)%   Author: %author%
-%do(%left_separator%)%     Date: %date%
-%do(%end_separator%)%%
+%%include(%filepath%/mxde-%if-then(%style%,%(-)%)%objc-protocol-comment-hxx.t)%%
 %)%)%%
 %%_@protocol_% %Class%%
 %%then-if(%if-then(%parse(%Implements%,;,,%(, )%)%,%(%gt%)%)%,%( %lt%)%)%

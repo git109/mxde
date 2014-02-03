@@ -46,7 +46,8 @@
 %%gt%
 %with(%
 %_indent,%(%indent%)%,%
-%indent,%(%indent%%indent_%)%,%
+%indent,%(%indent%%if(%xsl_template_indent%,%(%indent_%)%)%)%,%
+%xsl_param_section,%(%xsl_template_sections%)%,%
 %xsl_params,%(%xsl_template_params%)%,%
 %xsl_param,%(%xsl_template_param%)%,%
 %xsl_param_expr_type,%(%xsl_template_param_expr_type%)%,%
@@ -71,7 +72,9 @@
 %%with(%
 %section_name,%(Template Body)%,%
 %%(%
+%%if(%xsl_template_sections%,%(%
 %%do(%section%)%%
+%)%)%%
 %)%)%%
 %)%)%%
 %%lt%/%xsl:template%%gt%
