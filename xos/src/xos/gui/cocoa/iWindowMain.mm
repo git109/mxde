@@ -78,6 +78,11 @@
         iMainWindow* mainWindow = [[iMainWindow alloc] initWithRect:contentRect];
         return mainWindow;
     }
+    - (int)runApplication:(iApplication*)app argc:(int)argc argv:(char**)argv env:(char**)env {
+        int err = 0;
+        [app run];
+        return err;
+    }
     - (int)run:(int)argc argv:(char**)argv env:(char**)env {
         iRect contentRect = iMakeRect(XOS_GUI_COCOA_IWINDOWMAIN_WINWOW_X,XOS_GUI_COCOA_IWINDOWMAIN_WINWOW_Y, XOS_GUI_COCOA_IWINDOWMAIN_WINWOW_WIDTH, XOS_GUI_COCOA_IWINDOWMAIN_WINWOW_HEIGHT);
         iView* mainView;
@@ -90,7 +95,7 @@
                         [m_mainWindow setApplication:m_app];
                         [m_mainWindow setContentView:mainView];
                         [m_mainWindow makeKeyAndOrderFront: nil];
-                        [m_app run];
+                        err = [self runApplication:m_app argc:argc argv:argv env:env];
                     } else {
                         XOS_LOG_ERROR("failed on [m_mainWindow createMainView:...]");
                         [m_mainWindow release];

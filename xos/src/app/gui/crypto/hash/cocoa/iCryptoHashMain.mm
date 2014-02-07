@@ -447,13 +447,14 @@ bool MainWindow::PostUpdateFileHashEvent() {
 /// Implentation: iCryptoHashMainWindow
 ///////////////////////////////////////////////////////////////////////
 @implementation iCryptoHashMainWindow
-    - (id)initWithSize:(NSSize)size {
+    - (id)initWithSize:(NSSize)size app:(NSApplication*)app {
         NSRect superRect = [[NSScreen mainScreen] visibleFrame];
         NSRect contentRect = NSMakeRect(superRect.origin.x, superRect.origin.y+superRect.size.height-size.height, size.width, size.height);
         NSUInteger windowStyle = NSTitledWindowMask| NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;
         NSBackingStoreType bufferingType = NSBackingStoreBuffered;
         BOOL deferCreation = NO;
         const char* nameChars = 0;
+        m_app = app;
         m_mainView = 0;
         if (([super initWithContentRect:contentRect styleMask:windowStyle backing:bufferingType defer:deferCreation])) {
             [self setTitle:@XOS_GUI_CRYPTO_HASH_COCOA_ICRYPTOHASH_WINWOW_TITLE];
@@ -544,6 +545,9 @@ bool MainWindow::PostUpdateFileHashEvent() {
         }
         return NO;
     }
+    - (NSApplication*)Application {
+        return m_app;
+    }
 @end
 
 ///////////////////////////////////////////////////////////////////////
@@ -553,7 +557,7 @@ bool MainWindow::PostUpdateFileHashEvent() {
     - (iXosMainWindow*)CreateMainWindow:(int)argc argv:(char**)argv env:(char**)env {
         NSSize size = NSMakeSize(DEFAULT_IXOSWINDOWMAIN_WINWOW_WIDTH, DEFAULT_IXOSWINDOWMAIN_WINWOW_HEIGHT);
         iCryptoHashMainWindow* mainWindow;
-        if ((mainWindow = [[iCryptoHashMainWindow alloc] initWithSize:size])) {
+        if ((mainWindow = [[iCryptoHashMainWindow alloc] initWithSize:size app:m_app])) {
             if ((xos::gui::crypto::hash::cocoa::the_threadRun = new xos::gui::crypto::hash::cocoa::ThreadRun(mainWindow))) {
                 xos::gui::crypto::hash::cocoa::the_thread = new xos::gui::crypto::hash::cocoa::Thread(*xos::gui::crypto::hash::cocoa::the_threadRun);
             }

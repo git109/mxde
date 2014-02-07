@@ -21,6 +21,7 @@
 #ifndef _XOS_GUI_COCOA_IWINDOWMAIN_HH
 #define _XOS_GUI_COCOA_IWINDOWMAIN_HH
 
+#include "xos/gui/cocoa/iCocoa.hh"
 #include "xos/gui/cocoa/iOptMain.hh"
 
 #define XOS_GUI_COCOA_IWINDOWMAIN_WINWOW_TITLE "iWindowMain"
@@ -73,6 +74,7 @@
     }
     - (id)init;
     - (iMainWindow*)createMainWindow:(iRect)contentRect argc:(int)argc argv:(char**)argv env:(char**)env;
+    - (int)runApplication:(iApplication*)app argc:(int)argc argv:(char**)argv env:(char**)env;
     - (int)run:(int)argc argv:(char**)argv env:(char**)env;
 @end
 

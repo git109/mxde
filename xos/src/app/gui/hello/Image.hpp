@@ -80,20 +80,19 @@ public:
 
         if ((m_imageFile)) {
             FILE* file = 0;
+            XOS_LOG_TRACE("fopen(\"" << m_imageFile << "\", \"rb\")...");
             if ((file = fopen(m_imageFile, "rb"))) {
-                /*m_imageSize = (m_imageWidth*m_imageHeight*m_imageDepth);
-                if ((m_image = malloc(m_imageSize))) {*/
+                XOS_LOG_TRACE("...fopen(\"" << m_imageFile << "\", \"rb\")");
                 if ((AllocateImage(m_imageWidth, m_imageHeight, m_imageDepth))) {
                     size_t count = 0;
+                    XOS_LOG_TRACE("fread(...," << m_imageSize << ", 1, ...)...");
                     count = fread(m_image, m_imageSize, 1, file);
+                    XOS_LOG_TRACE("..." << count << " = fread(...," << m_imageSize << ", 1, ...)...");
                     fclose(file);
                     if (1 > (count)) {
                         XOS_LOG_ERROR("failed on fread() of \"" << m_imageFile << "\"");
                         FreeImage();
                     }
-                /*} else {
-                    XOS_LOG_ERROR("failed on malloc(" << m_imageSize << ")");
-                    InitImage();*/
                 }
             } else {
                 XOS_LOG_ERROR("failed on fopen(\"" << m_imageFile << "\",...)");
@@ -110,6 +109,7 @@ public:
             FreeImage();
             if ((image = malloc(imageSize))) {
                 m_image = image;
+                m_imageSize = imageSize;
                 m_imageWidth = imageWidth;
                 m_imageHeight = imageHeight;
                 m_imageDepth = imageDepth;

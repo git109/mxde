@@ -254,16 +254,18 @@ protected:
 /// Interface: iCryptoHashMainWindow
 ///////////////////////////////////////////////////////////////////////
 @interface iCryptoHashMainWindow: iXosMainWindow {
+    NSApplication* m_app;
     iCryptoHashMainView* m_mainView;
     xos::gui::crypto::hash::cocoa::MainWindow m_mainWindow;
     }
-    - (id)initWithSize:(NSSize)size;
+    - (id)initWithSize:(NSSize)size app:(NSApplication*)app;
     - (void)okClicked:(id)sender;
     - (void)cancelClicked:(id)sender;
     - (void)upperClicked:(id)sender;
     - (void)updateFileHash:(id)sender;
     - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender;
     - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender;
+    - (NSApplication*)Application;
 @end
 
 ///////////////////////////////////////////////////////////////////////

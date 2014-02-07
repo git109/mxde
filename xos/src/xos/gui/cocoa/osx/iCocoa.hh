@@ -27,7 +27,10 @@
 #define iMakeSize NSMakeSize
 #define iMakeOrigin NSMakeOrigin
 
+typedef NSArray iArray;
 typedef NSRect iRect;
+typedef NSSize iSize;
+typedef NSPoint iPoint;
 typedef NSString iString;
 typedef NSObject iObject;
 typedef NSView iView;
@@ -41,6 +44,42 @@ typedef NSOpenGLView iOpenGLView;
 typedef NSOpenGLPixelFormat iOpenGLPixelFormat;
 typedef NSOpenGLPixelFormatAttribute iOpenGLPixelFormatAttribute;
 typedef NSOpenGLContext iOpenGLContext;
+
+typedef NSTextField iTextField;
+typedef NSButton iPushButton;
+typedef NSProgressIndicator iProgressIndicator;
+typedef NSCell iCell;
+
+typedef NSPasteboard iPasteboard;
+#define iFilenamesPboardType NSFilenamesPboardType
+typedef NSDragOperation iDragOperation;
+@protocol iDraggingInfo <NSDraggingInfo>
+@end
+enum {
+    iDragOperationNone = NSDragOperationNone,
+    iDragOperationCopy = NSDragOperationCopy,
+    iDragOperationLink = NSDragOperationLink,
+    iDragOperationGeneric = NSDragOperationGeneric,
+    iDragOperationPrivate = NSDragOperationPrivate,
+    iDragOperationAll_Obsolete = NSDragOperationAll_Obsolete,
+    iDragOperationMove = NSDragOperationMove,
+    iDragOperationDelete = NSDragOperationDelete,
+    iDragOperationEvery = NSDragOperationEvery
+};
+
+enum {
+    iProgressIndicatorBarStyle = NSProgressIndicatorBarStyle
+};
+
+enum  {
+    iSwitchButton = NSSwitchButton
+};
+
+enum {
+    iMixedState = NSMixedState,
+    iOffState   = NSOffState,
+    iOnState    = NSOnState
+};
 
 enum {
     iTitledWindowMask = NSTitledWindowMask,
