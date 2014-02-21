@@ -245,10 +245,8 @@ public:
     StringT& AppendX(const uint8_t* bytes, size_t length, char A='A') {
         TChar x[2];
         uint8_t b;
-        if (0 < length)
-        {
-            for (; 0 < length; --length)
-            {
+        if (0 < length) {
+            for (; 0 < length; --length) {
                 b = (*bytes++);
                 x[0] = DToX(b >> 4, A);
                 x[1] = DToX(b & 15, A);
@@ -256,8 +254,7 @@ public:
             }
         }
         else
-        for (; (b = (*bytes++)); )
-        {
+        for (; (b = (*bytes++)); ) {
             x[0] = DToX(b >> 4, A);
             x[1] = DToX(b & 15, A);
             Append(x, 2);

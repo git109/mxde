@@ -130,6 +130,50 @@
 @end
 
 ///////////////////////////////////////////////////////////////////////
+/// Implentation: iPullDown
+///////////////////////////////////////////////////////////////////////
+@implementation iPullDown
+- (id)initWithFrame:(iRect)frame
+               text:(const std::string&)text
+              target:(iObject*)target
+              action:(SEL)action {
+        iString* string = 0;
+        const char* chars;
+        if (([super initWithFrame:frame])) {
+            [self setPullsDown:YES];
+            [self setTarget:target];
+            [self setAction:action];
+            if ((chars = text.c_str())) {
+                if ((string = [NSString stringWithUTF8String:chars])) {
+                }
+            }
+        }
+        return self;
+}
+- (void)addItemWithText:(const std::string&)text {
+    iString* string = 0;
+    const char* chars;
+    if ((chars = text.c_str())) {
+        if ((string = [NSString stringWithUTF8String:chars])) {
+            [self addItemWithTitle:string];
+        }
+    }
+}
+- (void)getSelectedItemText:(std::string&)text {
+    iMenuItem* menuItem;
+    if ((menuItem = [self selectedItem])) {
+        iString* string;
+        if ((string = [menuItem title])) {
+            const char* chars;
+            if ((chars = [string UTF8String])) {
+                text.assign(chars);
+            }
+        }
+    }
+}
+@end
+
+///////////////////////////////////////////////////////////////////////
 /// Implentation: iProgress
 ///////////////////////////////////////////////////////////////////////
 @implementation iProgress

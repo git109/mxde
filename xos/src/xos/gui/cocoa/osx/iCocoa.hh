@@ -47,8 +47,11 @@ typedef NSOpenGLContext iOpenGLContext;
 
 typedef NSTextField iTextField;
 typedef NSButton iPushButton;
+typedef NSPopUpButton iPopUpButton;
 typedef NSProgressIndicator iProgressIndicator;
 typedef NSCell iCell;
+
+typedef NSMenuItem iMenuItem;
 
 typedef NSPasteboard iPasteboard;
 #define iFilenamesPboardType NSFilenamesPboardType

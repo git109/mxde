@@ -83,6 +83,28 @@
 //
 #endif // defined(WINDOWS)
 
+#if defined(__MSC__)
+//
+// Visual C++
+// ...
+#define PACKED_STRUCT
+// ...
+// Visual C++
+//
+#else // defined(__MSC__)
+#if defined(__GNUC__)
+//
+// Gcc
+// ...
+#define PACKED_STRUCT __attribute__ ((packed))
+// ...
+// Gcc
+//
+#else // defined(__GNUC__)
+#error Compiler not supported
+#endif // defined(__GNUC__)
+#endif // defined(__MSC__)
+
 //
 // Generic
 // ...

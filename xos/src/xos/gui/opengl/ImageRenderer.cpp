@@ -22,8 +22,6 @@
 
 namespace xos {
 namespace gui {
-namespace opengl {
 
-} // namespace opengl 
 } // namespace gui 
 } // namespace xos 

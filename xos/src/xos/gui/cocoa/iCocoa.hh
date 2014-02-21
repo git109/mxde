@@ -73,6 +73,19 @@
 @end
 
 ///////////////////////////////////////////////////////////////////////
+/// Interface: iPullDown
+///////////////////////////////////////////////////////////////////////
+@interface iPullDown: iPopUpButton {
+    }
+    - (id)initWithFrame:(iRect)frame
+                   text:(const std::string&)text
+                  target:(iObject*)target
+                  action:(SEL)action;
+    - (void)addItemWithText:(const std::string&)text;
+    - (void)getSelectedItemText:(std::string&)text;
+@end
+
+///////////////////////////////////////////////////////////////////////
 /// Interface: iProgress
 ///////////////////////////////////////////////////////////////////////
 @interface iProgress: iProgressIndicator {
