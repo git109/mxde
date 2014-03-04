@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2013 $organization$
+/// Copyright (c) 1988-2014 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,26 +13,21 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Processor_instance.cpp
+///   File: HttpServletRequest.cpp
 ///
 /// Author: $author$
-///   Date: 12/1/2013
+///   Date: 2/25/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/inet/http/server/hello/Processor.hpp"
-#include "xos/inet/http/server/Processor.hpp"
-#include "xos/inet/http/server/Daemon.hpp"
+#include "xos/jdk/javax/servlet/http/HttpServletRequest.hpp"
 
 namespace xos {
-namespace http {
-namespace server {
-namespace hello {
-} // namespace hello
+namespace javax {
+namespace servlet {
 
-Processor& Processor::GetTheInstance() {
-    static hello::Processor the_processor;
-    return the_processor;
-}
+///////////////////////////////////////////////////////////////////////
+///  Class: HttpServletRequest
+///////////////////////////////////////////////////////////////////////
 
-} // namespace server 
-} // namespace http 
+} // namespace servlet 
+} // namespace javax 
 } // namespace xos 

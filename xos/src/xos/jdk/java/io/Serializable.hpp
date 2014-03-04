@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2013 $organization$
+/// Copyright (c) 1988-2014 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,26 +13,31 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Processor_instance.cpp
+///   File: Serializable.hpp
 ///
 /// Author: $author$
-///   Date: 12/1/2013
+///   Date: 2/23/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/inet/http/server/hello/Processor.hpp"
-#include "xos/inet/http/server/Processor.hpp"
-#include "xos/inet/http/server/Daemon.hpp"
+#ifndef _XOS_JAVA_IO_SERIALIZABLE_HPP
+#define _XOS_JAVA_IO_SERIALIZABLE_HPP
+
+#include "xos/base/Base.hpp"
 
 namespace xos {
-namespace http {
-namespace server {
-namespace hello {
-} // namespace hello
+namespace java {
+namespace io {
 
-Processor& Processor::GetTheInstance() {
-    static hello::Processor the_processor;
-    return the_processor;
-}
+typedef InterfaceBase SerializableImplement;
+///////////////////////////////////////////////////////////////////////
+///  Class: Serializable
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS Serializable: virtual public SerializableImplement {
+public:
+    typedef SerializableImplement Implements;
+};
 
-} // namespace server 
-} // namespace http 
+} // namespace io 
+} // namespace java 
 } // namespace xos 
+
+#endif // _XOS_JAVA_IO_SERIALIZABLE_HPP 

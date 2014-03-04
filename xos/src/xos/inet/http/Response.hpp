@@ -206,6 +206,20 @@ public:
         return m_line.reason();
     }
     ///////////////////////////////////////////////////////////////////////
+    virtual String SetContentType(const String& to) {
+        return m_headers.SetContentType(to);
+    }
+    virtual String GetContentType() const {
+        return m_headers.GetContentType();
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t SetContentLengthNo(ssize_t to) {
+        return m_headers.SetContentLengthNo(to);
+    }
+    virtual ssize_t GetContentLengthNo() const {
+        return m_headers.GetContentLengthNo();
+    }
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual Line& line() const {
         return (Line&)(m_line);

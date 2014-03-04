@@ -45,8 +45,10 @@
 #define XOS_HTTP_REQUEST_METHOD_NAME_POST "POST"
 #define XOS_HTTP_REQUEST_METHOD_NAME_PUT "PUT"
 #define XOS_HTTP_REQUEST_METHOD_NAME_DELETE "DELETE"
+#define XOS_HTTP_REQUEST_METHOD_NAME_TRACE "TRACE"
+#define XOS_HTTP_REQUEST_METHOD_NAME_CONNECT "CONNECT"
 #define XOS_HTTP_REQUEST_METHOD_NAME_OPTIONS "OPTIONS"
-#define XOS_HTTP_REQUEST_METHOD_NAME_HEADERS "HEADERS"
+#define XOS_HTTP_REQUEST_METHOD_NAME_HEAD "HEAD"
 
 namespace xos {
 namespace http {
@@ -194,6 +196,26 @@ public:
         return value;
     }
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t SetContentLengthNo(ssize_t to) {
+        String value((int)(to));
+        const Header* h;
+        if ((h = Set(XOS_HTTP_CONTENT_LENGTH_NAME, value))) {
+            value = h->GetValue();
+            to = value.ToInt();
+        }
+        return to;
+    }
+    virtual ssize_t GetContentLengthNo() const {
+        ssize_t length = -1;
+        String value;
+        const Header* h;
+        if ((h = Get(XOS_HTTP_CONTENT_LENGTH_NAME))) {
+            value = h->GetValue();
+            length = value.ToInt();
+        }
+        return length;
+    }
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual const Header* Set(const String& name,const String& value) {
         const Header* header = 0;
@@ -267,6 +289,24 @@ public:
     public:
         typedef MethodImplement Implements;
         typedef MethodExtend Extends;
+        typedef int Which;
+        enum {
+            none = 0,
+
+            Get,
+            Post,
+            Put,
+            Delete,
+            Trace,
+            Connect,
+            Options,
+            Head,
+
+            next,
+            first = (none + 1),
+            last  = (next - 1),
+            count = (last - (first + 1))
+        };
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         Method(const String& value): Extends(value) {
@@ -274,6 +314,19 @@ public:
         Method() {
         }
         virtual ~Method() {
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual Which ToWhich() const {
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_GET))) return Get;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_POST))) return Post;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_PUT))) return Put;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_DELETE))) return Delete;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_TRACE))) return Trace;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_CONNECT))) return Connect;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_OPTIONS))) return Options;
+            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_HEAD))) return Head;
+            return none;
         }
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
