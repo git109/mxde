@@ -30,6 +30,8 @@ namespace xos {
 typedef Stream FILEStreamImplement;
 typedef Attached<FILE*, int> FILEStreamExtend;
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 template
 <class TImplement = FILEStreamImplement,
  class TExtend = FILEStreamExtend,
@@ -40,15 +42,21 @@ template
  typename TStatus = LockedInterface::Status,
  TStatus VSuccess = LockedInterface::Success>
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS FILEStreamT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     FILEStreamT(FILE* detached=0, LockedInterface* locked=0, bool noLogging=false)
     : Extends(detached),m_locked(locked),m_noLogging(noLogging){}
     virtual ~FILEStreamT(){}
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Read(TWhat* what, size_t size){
         ssize_t count = -Error::Failed;
         if ((this->m_attachedTo))
@@ -127,6 +135,8 @@ public:
     virtual TStatus TryLock(){ return m_locked.TryLock(); }
     virtual TStatus TimedLock(mseconds_t waitMilliseconds){
         return m_locked.TimedLock(waitMilliseconds); }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
     LockedAttached m_locked;
     bool m_noLogging;

@@ -25,7 +25,7 @@
 #include "xos/os/Logger.hpp"
 #include <getopt.h>
 
-#define XOS_MAIN_2STRING_(id) #id
+#define XOS_MAIN_2STRING_(id) "" #id ""
 #define XOS_MAIN_2STRING(id) XOS_MAIN_2STRING_(id)
 
 #define XOS_MAIN_LOGGING_OPT "logging-level"

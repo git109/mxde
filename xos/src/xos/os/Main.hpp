@@ -25,6 +25,15 @@
 #include "xos/os/MainOpt.hpp"
 #include "xos/os/StreamLogger.hpp"
 
+#if !defined(XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID)
+#if defined(XOS_DEFAULT_LOGGING_LEVELS_ID)
+#define XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID() \
+    xos::Main::OnLoggingLevel(XOS_MAIN_2STRING(XOS_DEFAULT_LOGGING_LEVELS_ID))
+#else // defined(XOS_DEFAULT_LOGGING_LEVELS_ID)
+#define XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID()
+#endif // defined(XOS_DEFAULT_LOGGING_LEVELS_ID)
+#endif // !defined(XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID)
+
 namespace xos {
 
 typedef MainBaseImplement MainImplement;

@@ -23,7 +23,11 @@
 namespace xos {
 
 static Logger* s_logger = 0;
-Logger* Logger::GetDefault(){ return s_logger; }
-void Logger::SetDefault(Logger* logger){ s_logger = logger; }
+Logger* Logger::GetDefault(){
+    return s_logger;
+}
+void Logger::SetDefault(Logger* logger){
+    s_logger = logger;
+}
 
 } // namespace xos

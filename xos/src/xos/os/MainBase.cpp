@@ -23,20 +23,11 @@
 namespace xos {
 
 static MainBase* theMain = 0;
-int MainBase::TheMain(int argc, char** argv, char** env)
-{
+int MainBase::TheMain(int argc, char** argv, char** env) {
     int err = 1;
-    if ((theMain))
-    if (!(err = theMain->BeforeMain(argc, argv, env)))
-    if (!(theMain->DidMain()))
-    {
-        int err2;
-
-        err = theMain->Main(argc, argv, env);
-
-        if ((err2 = theMain->AfterMain(argc, argv, env)))
-        if (!(err))
-            err = err2;
+    if ((theMain)) {
+        MainBase& main = *theMain;
+        err = main(argc, argv, env);
     }
     return err;
 }
