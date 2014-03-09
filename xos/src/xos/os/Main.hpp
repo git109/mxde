@@ -157,12 +157,17 @@ public:
         const char* optstring;
         int optvalue;
 
+        //printf("GetOptions\n");for (int a = 0; a < argc; a++)
+        //printf("argv[%d] = \"%s\"\n", a, argv[a]);
+
         if ((optstring = Options(longopts)) && (longopts))
         while (0 <= (optvalue = getopt_long
                (argc, argv, optstring, longopts, &longindex)))
         {
             optvaluename[0] = optvalue;
             optname = (longindex)?(longopts[longindex].name):(optvaluename);
+
+            //printf("optvalue = %d optname = \"%s\"\n", optvalue, optname);
 
             if ((err = OnOption
                (optvalue, optarg, optname, longindex, argc, argv, env)))

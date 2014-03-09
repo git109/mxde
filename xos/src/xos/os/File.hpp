@@ -26,6 +26,20 @@
 #include "xos/base/Attached.hpp"
 #include "xos/os/Logger.hpp"
 
+#define XOS_FILE_MODE_READ "r"
+#define XOS_FILE_MODE_WRITE "w"
+
+#define XOS_FILE_MODE_BINARY "b"
+#define XOS_FILE_MODE_APPEND "+"
+
+#define XOS_FILE_MODE_READ_BINARY \
+    XOS_FILE_MODE_READ \
+    XOS_FILE_MODE_BINARY
+
+#define XOS_FILE_MODE_WRITE_BINARY \
+    XOS_FILE_MODE_WRITE \
+    XOS_FILE_MODE_BINARY
+
 namespace xos {
 
 //
@@ -72,12 +86,12 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool Open(const char* fileName, const char* fileMode = "rb") {
-        if (!(Closed()))
+        if (!(this->Closed()))
             return false;
         if ((fileName) && (fileMode)) {
             FILE* detached;
             if ((detached = fopen(fileName, fileMode))) {
-                AttachOpened(detached);
+                this->AttachOpened(detached);
                 return true;
             } else {
                 if (!(m_noLogging))
@@ -88,7 +102,7 @@ public:
     }
     virtual bool Close() {
         FILE* detached;
-        if ((detached = Detach())) {
+        if ((detached = this->Detach())) {
             int err;
             if (!(err = fclose(detached))) {
                 return true;
@@ -103,20 +117,20 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Read(WhatT* what, size_t size){
         ssize_t count = -Error::Failed;
-        if ((m_attachedTo))
-        if (0 >= (count = fread(what, sizeof(TWhat), size, m_attachedTo))){
+        if ((this->m_attachedTo))
+        if (0 >= (count = fread(what, sizeof(TWhat), size, this->m_attachedTo))){
             if (!(m_noLogging))
-                XOS_LOG_ERROR("failed on fread()");
+                XOS_LOG_TRACE("failed " << count << " on fread()");
             count = -Error::Failed;
         }
         return count;
     }
     virtual ssize_t Write(const WhatT* what, ssize_t size = -1){
         ssize_t count = -Error::Failed;
-        if ((m_attachedTo)){
+        if ((this->m_attachedTo)){
             if (0 > (size))
                 size = Count(what);
-            if (0 >= (count = fwrite(what, sizeof(TWhat), size, m_attachedTo))){
+            if (0 >= (count = fwrite(what, sizeof(TWhat), size, this->m_attachedTo))){
                 if (!(m_noLogging))
                     XOS_LOG_ERROR("failed on fwrite()");
                 count = -Error::Failed;
@@ -130,8 +144,8 @@ public:
     virtual ssize_t Flush(){
         ssize_t count = -Error::Failed;
         int err;
-        if ((m_attachedTo))
-        if ((err = fflush(m_attachedTo))){
+        if ((this->m_attachedTo))
+        if ((err = fflush(this->m_attachedTo))){
             if (!(m_noLogging))
                 XOS_LOG_ERROR("failed " << err << " on fflush()");
         } else {
@@ -145,8 +159,8 @@ public:
         int origin = (VFromBegin != whence)?((VFromEnd != whence)?(SEEK_CUR):(SEEK_END)):(SEEK_SET);
         ssize_t count = -Error::Failed;
         int err;
-        if ((m_attachedTo))
-        if ((err = fseek(m_attachedTo, sizeof(TWhat)*size, origin))){
+        if ((this->m_attachedTo))
+        if ((err = fseek(this->m_attachedTo, sizeof(TWhat)*size, origin))){
             if (!(m_noLogging))
                 XOS_LOG_ERROR("failed " << err << " on fseek()");
         } else {
@@ -156,8 +170,8 @@ public:
     }
     virtual ssize_t Tell() const{
         ssize_t count = -Error::Failed;
-        if ((m_attachedTo))
-        if (0 > (count = ftell(m_attachedTo))){
+        if ((this->m_attachedTo))
+        if (0 > (count = ftell(this->m_attachedTo))){
             if (!(m_noLogging))
                 XOS_LOG_ERROR("failed on ftell()");
             count = -Error::Failed;
@@ -200,9 +214,8 @@ typedef FileBaseT<void, int, 0, FileExtend, FileImplement> FileBase;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: FileT
 ///////////////////////////////////////////////////////////////////////
-template <class TExtend=FileBase>
-class c_EXPORT_CLASS FileT
-: virtual public TImplement, public TExtend {
+template <class TExtend = FileBase, class TImplement = FileImplement>
+class c_EXPORT_CLASS FileT: virtual public TImplement, public TExtend {
 public:
     typedef TExtend Extends;
     ///////////////////////////////////////////////////////////////////////
@@ -218,9 +231,9 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t WriteFormattedV(const char* format, va_list va) {
         ssize_t count = -Error::Failed;
-        if ((m_attachedTo)){
-            if (0 > (count = vfprintf(m_attachedTo, format, va))) {
-                if (!(m_noLogging))
+        if ((this->m_attachedTo)){
+            if (0 > (count = vfprintf(this->m_attachedTo, format, va))) {
+                if (!(this->m_noLogging))
                     XOS_LOG_ERROR("failed on vfprintf()");
                 count = -Error::Failed;
             }

@@ -133,6 +133,10 @@ public:
         ssize_t count = Out(StdOut(), out, length);
         return count;
     }
+    virtual ssize_t OutFlush() {
+        ssize_t count = OutFlush(StdOut());
+        return count;
+    }
 
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t ErrFormatted(const char* format, ...) {
@@ -172,6 +176,10 @@ public:
         ssize_t count = Out(StdErr(), out, length);
         return count;
     }
+    virtual ssize_t ErrFlush() {
+        ssize_t count = OutFlush(StdErr());
+        return count;
+    }
 
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t InFormatted(const char* format, ...) {
@@ -194,6 +202,13 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutFlush(FILE* f) {
+        ssize_t count = 0;
+        if ((f)) {
+            fflush(f);
+        }
+        return count;
+    }
     virtual ssize_t Out(FILE* f, const char* out, ssize_t length = -1) {
         ssize_t count = 0;
         if ((out) && (f)) {

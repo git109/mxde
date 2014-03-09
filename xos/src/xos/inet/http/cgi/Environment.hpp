@@ -22,6 +22,7 @@
 #define _XOS_INET_HTTP_CGI_ENVIRONMENT_HPP
 
 #include "xos/os/Logger.hpp"
+#include "xos/os/File.hpp"
 #include "xos/base/String.hpp"
 #include "xos/base/Wrapped.hpp"
 #include "xos/base/Base.hpp"
@@ -222,6 +223,11 @@ public:
                 Get(which);
                 return *this;
             }
+            virtual Value& operator = (const String& chars) {
+                m_chars = chars;
+                m_wrapped = m_chars.Chars();
+                return *this;
+            }
             ///////////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////////
             inline ssize_t Length() const {
@@ -271,6 +277,190 @@ public:
     };
 
     ///////////////////////////////////////////////////////////////////////
+    ///  Class: ReaderEvents
+    ///////////////////////////////////////////////////////////////////////
+    class _EXPORT_CLASS ReaderEvents {
+    public:
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual bool OnReadInit() {
+            return true;
+        }
+        virtual bool OnReadFinish() {
+            return true;
+        }
+        virtual bool OnReadVariable(const String& name, const String& value) {
+            return true;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+    };
+    ///////////////////////////////////////////////////////////////////////
+    ///  Class: EventsReader
+    ///////////////////////////////////////////////////////////////////////
+    class _EXPORT_CLASS EventsReader {
+    public:
+        typedef EventsReader Derives;
+        typedef char char_t;
+        typedef CharStreamBase Stream;
+        typedef CharFileBase File;
+        typedef bool (Derives::*MOnChar)(const char_t& c);
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        EventsReader(ReaderEvents& events): m_events(events), m_onChar(0) {
+        }
+        virtual ~EventsReader() {
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual ssize_t Read(const String& fileName) {
+            ssize_t count = -1;
+            File file;
+            if ((file.Open(fileName.Chars(), XOS_FILE_MODE_READ_BINARY))) {
+                count = Read(file);
+                file.Close();
+            }
+            return count;
+        }
+        virtual ssize_t Read(Stream& stream, ssize_t length = -1) {
+            ssize_t count = -1;
+
+            if ((Init())) {
+                ssize_t read;
+                char_t c;
+
+                if ((count = 0) <= (length)) {
+                    for (int i = 0; i < length; ++i) {
+                        if (0 < (read = stream.Read(&c, 1))) {
+                            if ((OnChar(c))) {
+                                count += read;
+                                continue;
+                            }
+                            return -1;
+                        }
+                        break;
+                    }
+                } else {
+                    do {
+                        if (0 < (read = stream.Read(&c, 1))) {
+                            if ((OnChar(c))) {
+                                count += read;
+                                continue;
+                            }
+                            return -1;
+                        }
+                    } while (0 < read);
+                }
+
+                if (!(Finish()))
+                    count = -1;
+            }
+            return count;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual bool Init() {
+            m_onChar = 0;
+            if ((m_events.OnReadInit())) {
+                m_name.Clear();
+                m_onChar = &Derives::OnNameChar;
+                return true;
+            }
+            return false;
+        }
+        virtual bool Finish() {
+            bool success = true;
+            if ((&Derives::OnNameChar == m_onChar)) {
+                XOS_LOG_TRACE("value = \"" << m_value << "\"");
+                success = m_events.OnReadVariable(m_name, m_value);
+            }
+            m_onChar = 0;
+            if (!(m_events.OnReadFinish()))
+                success = false;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual bool OnChar(const char_t& c) {
+            if ((m_onChar))
+                return (this->*m_onChar)(c);
+            return false;
+        }
+        virtual bool OnNameChar(const char_t& c) {
+            if ((c == '=')) {
+                XOS_LOG_TRACE("name = \"" << m_name << "\"");
+                m_value.Clear();
+                m_onChar = &Derives::OnValueChar;
+            } else {
+                m_name.Append(&c, 1);
+            }
+            return true;
+        }
+        virtual bool OnValueChar(const char_t& c) {
+            bool success = true;
+            if (c == '\n') {
+                XOS_LOG_TRACE("value = \"" << m_value << "\"");
+                success = m_events.OnReadVariable(m_name, m_value);
+                m_name.Clear();
+                m_onChar = &Derives::OnNameChar;
+            } else {
+                if (c != '\r')
+                m_value.Append(&c, 1);
+            }
+            return success;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+    protected:
+        ReaderEvents& m_events;
+        MOnChar m_onChar;
+        String m_name, m_value;
+    };
+    ///////////////////////////////////////////////////////////////////////
+    ///  Class: Reader
+    ///////////////////////////////////////////////////////////////////////
+    class _EXPORT_CLASS Reader: virtual public ReaderEvents {
+    public:
+        typedef ReaderEvents Implements;
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        Reader(Environment& e): m_e(e) {
+        }
+        virtual ~Reader() {
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual ssize_t Read(const String& fileName) {
+            EventsReader r(*this);
+            ssize_t count = r.Read(fileName);
+            return count;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual bool OnReadInit() {
+            m_e.Clear();
+            return true;
+        }
+        virtual bool OnReadFinish() {
+            return true;
+        }
+        virtual bool OnReadVariable(const String& name, const String& value) {
+            const char* of;
+            if ((of = name.Chars())) {
+                Environment::Variable::Which which;
+                if (Environment::Variable::None != (which = Environment::Variable::Name::WhichOf(of))) {
+                    XOS_LOG_TRACE("got \"" << name << "\" = \"" << value << "\"");
+                    m_e.Got(which, value);
+                }
+            }
+            return true;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+    protected:
+        Environment& m_e;
+    };
+
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     Environment() {
     }
@@ -278,6 +468,16 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool Got(Variable::Which which, const String& value) {
+        bool success = false;
+        if ((which >= Variable::First) && (which <= Variable::Last)) {
+            Variable& variable = m_variable[which-Variable::First];
+            variable.name() = which;
+            variable.value() = value;
+            success = true;
+        }
+        return success;
+    }
     virtual bool Get() {
         bool success = false;
         for (Variable::Which which = Variable::First; which <= Variable::Last; ++which) {
@@ -290,6 +490,13 @@ public:
             }
         }
         return success;
+    }
+    virtual void Clear() {
+        for (Variable::Which which = Variable::First; which <= Variable::Last; ++which) {
+            Variable& variable = m_variable[which-Variable::First];
+            variable.name() = 0;
+            variable.value() = 0;
+        }
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////

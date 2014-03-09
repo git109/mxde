@@ -25,6 +25,7 @@
 #include "xos/base/FormattedStream.hpp"
 #include "xos/base/StreamStream.hpp"
 #include "xos/inet/http/cgi/Environment.hpp"
+#include "xos/inet/http/cgi/Arguments.hpp"
 
 #define XOS_HTTP_HEADER_NAME_CONTENT_TYPE "Content-type"
 #define XOS_HTTP_HEADER_VALUE_SEPARATOR ":"
@@ -36,6 +37,15 @@
 
 #define XOS_HTTP_CGI_CONTENT_TYPE_NAME \
     XOS_HTTP_CONTENT_TYPE_NAME_TEXT
+
+#define XOS_HTTP_CGICATCH_ENV_NAME "cgienv.txt"
+#define XOS_HTTP_CGICATCH_ARGV_NAME "cgiargv.txt"
+#define XOS_HTTP_CGICATCH_STDIN_NAME "cgistdin.txt"
+#define XOS_HTTP_CGICATCH_STDOUT_NAME "cgistdout.txt"
+
+#define XOS_HTTP_CGI_MAIN_ENV_NAME XOS_HTTP_CGICATCH_ENV_NAME
+#define XOS_HTTP_CGI_MAIN_ARGV_NAME XOS_HTTP_CGICATCH_ARGV_NAME
+#define XOS_HTTP_CGI_MAIN_STDIN_NAME XOS_HTTP_CGICATCH_STDIN_NAME
 
 namespace xos {
 namespace http {
@@ -57,22 +67,60 @@ class _EXPORT_CLASS Main: virtual public MainImplement, public MainExtend {
 public:
     typedef MainImplement Implements;
     typedef MainExtend Extends;
+    typedef cgi::Arguments Arguments;
+    typedef cgi::Environment Environment;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     Main()
-    : m_outputContentType(0),
-      m_contentType(XOS_HTTP_CGI_CONTENT_TYPE_NAME) {
+    : m_envFileName(XOS_HTTP_CGI_MAIN_ENV_NAME),
+      m_argvFileName(XOS_HTTP_CGI_MAIN_ARGV_NAME),
+      m_stdinFileName(XOS_HTTP_CGI_MAIN_ENV_NAME),
+      m_outputContentType(0),
+      m_contentType(XOS_HTTP_CGI_CONTENT_TYPE_NAME),
+      m_eReader(m_e),
+      m_aReader(m_a) {
     }
     virtual ~Main() {
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual int RunCgi(int argc, char** argv, char** env) {
+        int err = 0;
+        OutContentFlush();
+        return err;
+    }
+    virtual int BeforeRunCgi(int argc, char** argv, char** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int AfterRunCgi(int argc, char** argv, char** env) {
+        int err = 0;
+        return err;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int CgiRun(int argc, char** argv, char** env) {
+        int err = 0;
+        if (!(err = BeforeRunCgi(argc, argv, env))) {
+            int err2;
+            err = RunCgi(argc, argv, env);
+            if ((err2 = AfterRunCgi(argc, argv, env)) && (!err))
+                err = err2;
+        }
+        return err;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int CgiMain(int argc, char** argv, char** env) {
         int err = 0;
+        m_e.Get();
+        err = CgiRun(argc, argv, env);
         return err;
     }
     virtual int ConsoleMain(int argc, char** argv, char** env) {
         int err = 0;
+        m_eReader.Read(m_envFileName);
+        err = CgiRun(argc, argv, env);
         return err;
     }
     ///////////////////////////////////////////////////////////////////////
@@ -80,25 +128,43 @@ public:
     virtual int Run(int argc, char** argv, char** env) {
         int err = 0;
         Environment::Variable::Value e;
-        if (0 < (e.Get(Environment::Variable::GATEWAY_INTERFACE).Length()))
+        if (0 < (e.Get(Environment::Variable::GATEWAY_INTERFACE).Length())) {
+            XOS_LOG_TRACE("running as CGI");
             err = CgiMain(argc, argv, env);
-        else err = ConsoleMain(argc, argv, env);
+        }
+        else {
+            XOS_LOG_TRACE("running on console");
+            err = ConsoleMain(argc, argv, env);
+        }
         return err;
     }
    virtual int operator()(int argc, char** argv, char** env) {
         xos::StreamStream loggerStream(*this);
         xos::Main::Logger logger(&loggerStream);
+        int ac = 0; char** av = 0;
         XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID();
+        m_aReader.NameValueRead(m_argvFileName);
+        if ((0 < (ac = m_a.c())) && (0 != (av = m_a.v()))) {
+            argc = ac; argv = av;
+        }
         return Extends::operator()(argc, argv, env);
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutContentFlush() {
+        ssize_t count = OutContentType();
+        ssize_t count2;
+        if (0 > (count2 = Extends::OutFlush()))
+            return count2;
+        count += count2;
+        return count;
+    }
     virtual ssize_t OutContent(const char* chars, ssize_t length = -1) {
         ssize_t count = 0;
         ssize_t count2;
         if (0 > (count = OutContentType()))
             return count;
-        if (0 > (count2 = Out(chars, length)))
+        if (0 > (count2 = Extends::Out(chars, length)))
             return count2;
         count += count2;
         return count;
@@ -111,7 +177,7 @@ public:
                 length = m_contentType.Length();
             }
             if ((chars) && (length)) {
-                if (count = OutL
+                if (count = Extends::OutL
                     (XOS_HTTP_HEADER_NAME_CONTENT_TYPE,
                      XOS_HTTP_HEADER_VALUE_SEPARATOR,
                      chars, XOS_HTTP_HEADER_END,
@@ -124,14 +190,29 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutFormattedV(const char* format, va_list va) {
+        ssize_t count = 0;
+        OutContentType();
+        count = Extends::OutFormattedV(format, va);
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Write(const char* what, ssize_t length = -1) {
         return OutContent((const char*)(what), length);
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
+    String m_envFileName;
+    String m_argvFileName;
+    String m_stdinFileName;
     const char* m_outputContentType;
     String m_contentType;
+    Environment m_e;
+    Environment::Reader m_eReader;
+    Arguments m_a;
+    Arguments::Reader m_aReader;
 };
 
 } // namespace cgi 

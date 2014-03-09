@@ -35,10 +35,8 @@ typedef ExportBase StringBaseExtend;
 template 
 <typename TChar, 
  size_t VDefaultSize = XOS_BASE_STRINGBASE_DEFAULT_SIZE,
- typename TEndChar = TChar,
- TEndChar VEndChar = 0,
- class TExtend = StringBaseExtend, 
- class TImplement = StringBaseImplement>
+ typename TEndChar = TChar, TEndChar VEndChar = 0,
+ class TExtend = StringBaseExtend, class TImplement = StringBaseImplement>
 
 class _EXPORT_CLASS StringBaseT: virtual public TImplement, public TExtend {
 public:
@@ -60,6 +58,10 @@ public:
         Construct();
         append(chars);
     }
+    StringBaseT(const StringBaseT& copy) {
+        Construct();
+        append(copy.c_str(), copy.length());
+    }
     StringBaseT(){
         Construct();
     }
@@ -72,11 +74,20 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     StringBaseT& assign(const TChar* chars, size_t length) {
+        clear();
         return append(chars, length);
     }
     StringBaseT& assign(const TChar* chars) {
+        clear();
         return append(chars);
     }
+    StringBaseT& assign(const StringBaseT& copy) {
+        clear();
+        return append(copy.c_str(), copy.length());
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringBaseT& append(const TChar* chars, size_t length) {
         if ((chars) && (0 < length)) {
             size_t newSize = (m_tell+length);
@@ -99,12 +110,21 @@ public:
     StringBaseT& append(const TChar* chars) {
         return append(chars, _length_of(chars));
     }
+    StringBaseT& append(const StringBaseT& copy) {
+        return append(copy.c_str(), copy.length());
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     StringBaseT& clear() {
         if ((m_writeBuffer))
         if (m_size > (m_length = (m_tell = 0)))
             m_writeBuffer[m_tell] = (tChar)(vEndChar);
         return *this;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int compare(const StringBaseT& to) {
         return compare(to.c_str(), to.length());
     }
@@ -139,6 +159,16 @@ public:
     virtual int compare(const tChar* toChars) {
         return compare(toChars, _length_of(toChars));
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual StringBaseT& operator = (const StringBaseT& copy) {
+        assign(copy.c_str(), copy.length());
+        return *this;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     TChar* str() const {
         return m_writeBuffer;
     }
@@ -213,6 +243,16 @@ protected:
         delete[] buffer;
     }
     virtual size_t _new_size_of(size_t size) const {
+        // Lets increase the buffer size by default buffer
+        // sized chunks. Note the desired new size is always
+        // needed size + 1. The size in chunks is calculated
+        // as (new size + (chunk size - 1)) / chunk size.
+        // since new size = needed size + 1 then we have
+        // chunks = (needed size + chunk size) / chunk size.
+        // Finally we need bytes which is chunks * chunk size
+        // which can be reduced to
+        // ((needed size / chunk size) + 1) * chunk size
+        //
         return ((size/vDefaultSize)+1)*vDefaultSize;
     }
     virtual size_t _copy_to(TChar* to, const TChar* from, size_t size) const {
@@ -230,9 +270,9 @@ protected:
         return length;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
     bool m_freeBuffer;
     bool m_fixedSize;
 
@@ -249,6 +289,10 @@ typedef StringBaseT<char> StringBase;
 typedef StringBaseT<wchar_t> WStringBase;
 typedef StringBaseT<tchar_t> TStringBase;
 
-} // namespace xos 
+typedef StringBaseT<uint8_t> ByteStringBase;
+typedef StringBaseT<uint16_t> WordtSringBase;
+typedef StringBaseT<uint32_t> LongWordSringBase;
+
+} // namespace xos
 
 #endif // _XOS_BASE_STRINGBASE_HPP 
