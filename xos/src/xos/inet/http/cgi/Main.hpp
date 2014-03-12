@@ -21,31 +21,27 @@
 #ifndef _XOS_INET_HTTP_CGI_MAIN_HPP
 #define _XOS_INET_HTTP_CGI_MAIN_HPP
 
-#include "xos/os/Main.hpp"
-#include "xos/base/FormattedStream.hpp"
-#include "xos/base/StreamStream.hpp"
 #include "xos/inet/http/cgi/Environment.hpp"
 #include "xos/inet/http/cgi/Arguments.hpp"
-
-#define XOS_HTTP_HEADER_NAME_CONTENT_TYPE "Content-type"
-#define XOS_HTTP_HEADER_VALUE_SEPARATOR ":"
-#define XOS_HTTP_HEADER_END "\r\n"
-
-#define XOS_HTTP_CONTENT_TYPE_NAME_TEXT "text/plain"
-#define XOS_HTTP_CONTENT_TYPE_NAME_HTML "text/html"
-#define XOS_HTTP_CONTENT_TYPE_NAME_XML "text/xml"
+#include "xos/inet/http/cgi/Catch.hpp"
+#include "xos/inet/http/Header.hpp"
+#include "xos/inet/http/Content.hpp"
+#include "xos/os/Main.hpp"
+#include "xos/os/os/Mutex.cpp"
+#include "xos/base/FormattedStream.hpp"
+#include "xos/base/StreamStream.hpp"
 
 #define XOS_HTTP_CGI_CONTENT_TYPE_NAME \
     XOS_HTTP_CONTENT_TYPE_NAME_TEXT
 
-#define XOS_HTTP_CGICATCH_ENV_NAME "cgienv.txt"
-#define XOS_HTTP_CGICATCH_ARGV_NAME "cgiargv.txt"
-#define XOS_HTTP_CGICATCH_STDIN_NAME "cgistdin.txt"
-#define XOS_HTTP_CGICATCH_STDOUT_NAME "cgistdout.txt"
+#define XOS_HTTP_CGI_MAIN_ENV_FILENAME \
+    XOS_HTTP_CGI_CATCH_ENV_FILENAME
 
-#define XOS_HTTP_CGI_MAIN_ENV_NAME XOS_HTTP_CGICATCH_ENV_NAME
-#define XOS_HTTP_CGI_MAIN_ARGV_NAME XOS_HTTP_CGICATCH_ARGV_NAME
-#define XOS_HTTP_CGI_MAIN_STDIN_NAME XOS_HTTP_CGICATCH_STDIN_NAME
+#define XOS_HTTP_CGI_MAIN_ARGV_FILENAME \
+    XOS_HTTP_CGI_CATCH_ARGV_FILENAME
+
+#define XOS_HTTP_CGI_MAIN_STDIN_FILENAME \
+    XOS_HTTP_CGI_CATCH_STDIN_FILENAME
 
 namespace xos {
 namespace http {
@@ -72,13 +68,19 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     Main()
-    : m_envFileName(XOS_HTTP_CGI_MAIN_ENV_NAME),
-      m_argvFileName(XOS_HTTP_CGI_MAIN_ARGV_NAME),
-      m_stdinFileName(XOS_HTTP_CGI_MAIN_ENV_NAME),
-      m_outputContentType(0),
+    : m_envFileName(XOS_HTTP_CGI_MAIN_ENV_FILENAME),
+      m_argvFileName(XOS_HTTP_CGI_MAIN_ARGV_FILENAME),
+      m_stdinFileName(XOS_HTTP_CGI_MAIN_STDIN_FILENAME),
+      m_outContentHeaders(false),
+      m_outContentLength(-1),
+      m_outContentType(0),
+      m_inContentLength(-1),
+      m_inContentType(0),
+      m_contentLength(-1),
       m_contentType(XOS_HTTP_CGI_CONTENT_TYPE_NAME),
-      m_eReader(m_e),
-      m_aReader(m_a) {
+      m_envReader(m_env),
+      m_argReader(m_arg),
+      m_mainArgReader(m_mainArg) {
     }
     virtual ~Main() {
     }
@@ -113,13 +115,14 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual int CgiMain(int argc, char** argv, char** env) {
         int err = 0;
-        m_e.Get();
+        m_env.Get();
+        m_arg.Get(argc, argv, env);
         err = CgiRun(argc, argv, env);
         return err;
     }
     virtual int ConsoleMain(int argc, char** argv, char** env) {
         int err = 0;
-        m_eReader.Read(m_envFileName);
+        m_envReader.Read(m_envFileName);
         err = CgiRun(argc, argv, env);
         return err;
     }
@@ -138,40 +141,77 @@ public:
         }
         return err;
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
    virtual int operator()(int argc, char** argv, char** env) {
-        xos::StreamStream loggerStream(*this);
+        xos::os::Mutex locker;
+        xos::StreamStream loggerStream(*this, &locker, true);
         xos::Main::Logger logger(&loggerStream);
-        int ac = 0; char** av = 0;
+
         XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID();
-        m_aReader.NameValueRead(m_argvFileName);
-        if ((0 < (ac = m_a.c())) && (0 != (av = m_a.v()))) {
-            argc = ac; argv = av;
+
+        if (0 < (m_argReader.NameValueRead(m_argvFileName))) {
+            int ac = 0; char** av = 0;
+
+            if ((0 < (ac = m_arg.c())) && (0 != (av = m_arg.v()))) {
+                m_mainArg.Get(argc, argv, env);
+                argc = ac; argv = av;
+            }
         }
         return Extends::operator()(argc, argv, env);
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual ssize_t OutContentFlush() {
-        ssize_t count = OutContentType();
-        ssize_t count2;
-        if (0 > (count2 = Extends::OutFlush()))
-            return count2;
-        count += count2;
+    virtual ssize_t OutContentL(const char* what, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, what);
+        count = OutContentV(what, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t OutContentV(const char* what, va_list va) {
+        ssize_t count = 0;
+        ssize_t length = 0;
+        for (count = 0; what; count += length) {
+            if (0 > (length = OutContent(what)))
+                return count;
+            what = va_arg(va, const char*);
+        }
         return count;
     }
     virtual ssize_t OutContent(const char* chars, ssize_t length = -1) {
         ssize_t count = 0;
         ssize_t count2;
-        if (0 > (count = OutContentType()))
+        if (0 > (count = OutContentHeaders()))
             return count;
         if (0 > (count2 = Extends::Out(chars, length)))
             return count2;
         count += count2;
         return count;
     }
+    virtual ssize_t OutContentFlush() {
+        ssize_t count = OutContentHeaders();
+        ssize_t count2;
+        if (0 > (count2 = Extends::OutFlush()))
+            return count2;
+        count += count2;
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutContentHeaders() {
+        ssize_t count = 0;
+        if (!(m_outContentHeaders)) {
+            if (0 > (count = OutContentType()))
+                return count;
+            m_outContentHeaders = true;
+        }
+        return count;
+    }
     virtual ssize_t OutContentType(const char* chars = 0, ssize_t length =- 1) {
         ssize_t count = 0;
-        if (!(m_outputContentType)) {
+        if (!(m_outContentHeaders) && !(m_outContentType)) {
             if (!(chars)) {
                 chars = m_contentType.Chars();
                 length = m_contentType.Length();
@@ -179,10 +219,34 @@ public:
             if ((chars) && (length)) {
                 if (count = Extends::OutL
                     (XOS_HTTP_HEADER_NAME_CONTENT_TYPE,
-                     XOS_HTTP_HEADER_VALUE_SEPARATOR,
+                     XOS_HTTP_HEADER_NAME_VALUE_SEPARATOR,
                      chars, XOS_HTTP_HEADER_END,
                      XOS_HTTP_HEADER_END, (const char*)(0))) {
-                    m_outputContentType = chars;
+                    m_outContentType = chars;
+                }
+            }
+        }
+        return count;
+    }
+    virtual ssize_t OutContentLength(int contentLength =- 1) {
+        ssize_t count = 0;
+        if (!(m_outContentHeaders) && (0 > (m_outContentLength))) {
+            if (0 > (contentLength)) {
+                contentLength = m_contentLength;
+            }
+            if (0 <= (contentLength)) {
+                String s(contentLength);
+                ssize_t length = s.Length();
+                const char* chars = s.Chars();
+
+                if ((chars) && (length)) {
+                    if (count = Extends::OutL
+                        (XOS_HTTP_HEADER_NAME_CONTENT_LENGTH,
+                         XOS_HTTP_HEADER_NAME_VALUE_SEPARATOR,
+                         chars, XOS_HTTP_HEADER_END,
+                         XOS_HTTP_HEADER_END, (const char*)(0))) {
+                        m_outContentLength = contentLength;
+                    }
                 }
             }
         }
@@ -190,9 +254,17 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual const char* SetContentType(const char* to) {
+        return 0;
+    }
+    virtual const char* GetContentType() const {
+        return 0;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t OutFormattedV(const char* format, va_list va) {
         ssize_t count = 0;
-        OutContentType();
+        OutContentHeaders();
         count = Extends::OutFormattedV(format, va);
         return count;
     }
@@ -207,12 +279,19 @@ protected:
     String m_envFileName;
     String m_argvFileName;
     String m_stdinFileName;
-    const char* m_outputContentType;
+    bool m_outContentHeaders;
+    int m_outContentLength;
+    const char* m_outContentType;
+    int m_inContentLength;
+    const char* m_inContentType;
+    int m_contentLength;
     String m_contentType;
-    Environment m_e;
-    Environment::Reader m_eReader;
-    Arguments m_a;
-    Arguments::Reader m_aReader;
+    Environment m_env;
+    Environment::Reader m_envReader;
+    Arguments m_arg;
+    Arguments::Reader m_argReader;
+    Arguments m_mainArg;
+    Arguments::Reader m_mainArgReader;
 };
 
 } // namespace cgi 

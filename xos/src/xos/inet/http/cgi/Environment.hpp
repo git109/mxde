@@ -99,6 +99,8 @@ public:
         typedef VariableImplement Implements;
         typedef VariableExtend Extends;
 
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
         typedef int Which;
         enum {
             None = 0,
@@ -316,6 +318,8 @@ public:
         virtual ssize_t Read(const String& fileName) {
             ssize_t count = -1;
             File file;
+            if (!(file.Find(fileName.Chars())))
+                return count;
             if ((file.Open(fileName.Chars(), XOS_FILE_MODE_READ_BINARY))) {
                 count = Read(file);
                 file.Close();
@@ -500,8 +504,17 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual Variable& operator[](Variable::Which which) const {
+        if ((which >= Variable::First) && (which <= Variable::Last)) {
+            return (Variable&)(m_variable[which-Variable::First]);
+        }
+        return (Variable&)(m_variableNone);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
     Variable m_variable[Variable::Count];
+    Variable m_variableNone;
 };
 
 } // namespace cgi

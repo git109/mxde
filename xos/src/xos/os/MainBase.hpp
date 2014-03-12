@@ -227,6 +227,13 @@ public:
     }
     virtual ssize_t In(FILE* f, char* in, size_t size) {
         ssize_t count = 0;
+        if ((in) && (f)) {
+            ssize_t read;
+            if (0 < (size)) {
+                if (0 < (read = fread(in, sizeof(char), size, f)))
+                    count += read;
+            }
+        }
         return count;
     }
 

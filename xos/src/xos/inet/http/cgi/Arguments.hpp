@@ -81,6 +81,8 @@ public:
         virtual ssize_t Read(const String& fileName) {
             ssize_t count = -1;
             File file;
+            if (!(file.Find(fileName.Chars())))
+                return count;
             if ((file.Open(fileName.Chars(), XOS_FILE_MODE_READ_BINARY))) {
                 count = Read(file);
                 file.Close();
@@ -269,8 +271,20 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual int Get(int argc, char** argv, char** env) {
+        Clear();
+        for (int a = 0; a < argc; ++a) {
+            Append(argv[a]);
+        }
+        return argc;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual void Append(const String& value) {
-        const StringBase s(value.Chars());
+        Append(value.Chars());
+    }
+    virtual void Append(const char* value) {
+        const StringBase s(value);
         //printf("s = \"%s\"\n", s.c_str());
         if (0 < (m_s.Append(&s, 1))) {
             char* v = m_s[m_s.Length()-1].str();

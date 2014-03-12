@@ -41,6 +41,10 @@ int main(int argc, char** argv, char** env) {
     XOS_LOGGING_LEVELS levels;
     XOS_LOGGING_LEVELS mainLevels;
 
+    // initialize cgi main
+    //
+    XOS_HTTP_CGI_MAIN_MAIN_INIT();
+
     // initialize logger
     //
     XOS_LOGGER_INIT();

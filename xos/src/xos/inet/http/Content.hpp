@@ -13,29 +13,24 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main_main.hpp
+///   File: Content.hpp
 ///
 /// Author: $author$
-///   Date: 3/6/2014
+///   Date: 3/9/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_INET_HTTP_CGI_MAIN_MAIN_HPP
-#define _XOS_INET_HTTP_CGI_MAIN_MAIN_HPP
+#ifndef _XOS_HTTP_CONTENT_HPP
+#define _XOS_HTTP_CONTENT_HPP
 
-#include "xos/os/Main_main.hpp"
+#include "xos/base/Base.hpp"
 
-#if defined(WINDOWS)
-#define XOS_HTTP_CGI_MAIN_MAIN_INIT() \
-    _setmode(_fileno(stdin), _O_BINARY)
-#else // defined(WINDOWS)
-#define XOS_HTTP_CGI_MAIN_MAIN_INIT()
-#endif // defined(WINDOWS)
+#define XOS_HTTP_CONTENT_TYPE_NAME_TEXT "text/plain"
+#define XOS_HTTP_CONTENT_TYPE_NAME_HTML "text/html"
+#define XOS_HTTP_CONTENT_TYPE_NAME_XML "text/xml"
 
 namespace xos {
 namespace http {
-namespace cgi {
 
-} // namespace cgi 
 } // namespace http 
 } // namespace xos 
 
-#endif // _XOS_INET_HTTP_CGI_MAIN_MAIN_HPP 
+#endif // _XOS_HTTP_CONTENT_HPP 

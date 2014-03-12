@@ -41,6 +41,36 @@
 #define XOS_HTTP_SERVER_MONGOOSE_DAEMON_OPTION_CGI_PATTERN "cgi_pattern"
 #define XOS_HTTP_SERVER_MONGOOSE_DAEMON_OPTION_CGI_INTREPRETER "cgi_interpreter"
 
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPT "cgi-pattern"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTARG "pattern (**.ex1$|**.ex2$|...)"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTUSE "File pattern for CGI processing"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTVAL_S "c:"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTVAL_C 'c'
+
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPT "cgi-executable"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTARG "filename"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTUSE "Filename of CGI executable"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTVAL_S "g:"
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTVAL_C 'g'
+
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_OPTIONS_CHARS \
+    XOS_HTTP_SERVER_DAEMON_OPTIONS_CHARS_BEGIN \
+    XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTVAL_S \
+    XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTVAL_S \
+    XOS_HTTP_SERVER_DAEMON_OPTIONS_CHARS_END
+
+#define XOS_HTTP_SERVER_MONGOOSE_DAEMON_OPTIONS_OPTIONS \
+    XOS_HTTP_SERVER_DAEMON_OPTIONS_OPTIONS_BEGIN \
+    {XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPT, \
+     XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTARG_REQUIRED, 0, \
+     XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTVAL_C}, \
+    {XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPT, \
+     XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTARG_REQUIRED, 0, \
+     XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTVAL_C}, \
+    XOS_HTTP_SERVER_DAEMON_OPTIONS_OPTIONS_END
+
 namespace xos {
 namespace http {
 namespace server {
@@ -101,11 +131,11 @@ protected:
     String m_contentRead;
 };
 
-typedef server::Daemon DaemonExtend;
-typedef server::DaemonImplement DaemonImplement;
+typedef server::Daemon DaemonTExtend;
+typedef server::DaemonImplement DaemonTImplement;
 template
-<class TExtend = DaemonExtend,
- class TImplement = DaemonImplement>
+<class TExtend = DaemonTExtend,
+ class TImplement = DaemonTImplement>
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS DaemonT: virtual public TImplement, public TExtend {
@@ -435,7 +465,79 @@ protected:
     MgStopSemaphore m_mgStopSemaphore;
 };
 
-typedef DaemonT<> Daemon;
+typedef DaemonTImplement DaemonImplement;
+typedef DaemonT<DaemonTExtend, DaemonImplement> DaemonExtend;
+///////////////////////////////////////////////////////////////////////
+///  Class: Daemon
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS Daemon: virtual public DaemonImplement,public DaemonExtend {
+public:
+    typedef DaemonImplement Implements;
+    typedef DaemonExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    Daemon(Processor& delegatedToProcessor): Extends(delegatedToProcessor) {
+    }
+    Daemon() {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnOption
+    (int optval, const char* optarg,
+     const char* optname, int optind,
+     int argc, char**argv, char**env) {
+        int err = 0;
+        switch(optval) {
+        case XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTVAL_C:
+            if ((optarg)) {
+                if ((optarg[0])) {
+                    SetCgiExecutable(optarg);
+                }
+            }
+            break;
+        case XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTVAL_C:
+            if ((optarg)) {
+                if ((optarg[0])) {
+                    SetCgiPattern(optarg);
+                }
+            }
+            break;
+        default:
+            err = Extends::OnOption
+            (optval, optarg, optname, optind, argc, argv, env);
+        }
+        return err;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual const char* OptionUsage
+    (const char*& optarg, const struct option* longopt) {
+        const char* chars = "";
+        switch(longopt->val) {
+        case XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTVAL_C:
+            optarg = XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTARG;
+            chars = XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_PATTERN_OPTUSE;
+            break;
+        case XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTVAL_C:
+            optarg = XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTARG;
+            chars = XOS_HTTP_SERVER_MONGOOSE_DAEMON_CGI_EXECUTABLE_OPTUSE;
+            break;
+        default:
+            chars = Extends::OptionUsage(optarg, longopt);
+        }
+        return chars;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual const char* Options(const struct option*& longopts) {
+        static const char* chars = XOS_HTTP_SERVER_MONGOOSE_DAEMON_OPTIONS_CHARS;
+        static struct option optstruct[]= {
+            XOS_HTTP_SERVER_MONGOOSE_DAEMON_OPTIONS_OPTIONS
+            {0, 0, 0, 0}};
+        longopts = optstruct;
+        return chars;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
 
 } // namespace mongoose 
 } // namespace server 

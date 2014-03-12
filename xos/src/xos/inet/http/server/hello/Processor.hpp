@@ -49,6 +49,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual bool Process(Response& response, const Request& request) {
         String contentType("text/html");
+        String action;
         http::Form::Field formField;
 
         XOS_LOG_TRACE("in...");
@@ -63,7 +64,19 @@ public:
         }
 
         response.headers().SetContentType(contentType);
-        response.message().Assign("<b>Hello</b>");
+
+        if ((request.form().GetField(formField, "action"))) {
+            const String& fieldValue(formField.GetValue());
+
+            if (0 < (fieldValue.Length())) {
+                XOS_LOG_TRACE("action = \"" << fieldValue << "\"");
+                action.Assign(fieldValue);
+            }
+        }
+
+        if (!(action.Compare("stop")))
+            response.message().Assign("<b>Bye</b>");
+        else response.message().Assign("<b>Hello</b>");
 
         if ((request.form().GetField(formField, "who"))) {
             const String& fieldValue(formField.GetValue());
@@ -76,31 +89,26 @@ public:
             }
         }
 
-        if ((request.form().GetField(formField, "action"))) {
-            const String& fieldValue(formField.GetValue());
+        if (!(action.Compare("true"))) {
+            XOS_LOG_TRACE("...return true");
+            return true;
+        } else
+        if (!(action.Compare("false"))) {
+            XOS_LOG_TRACE("...return false");
+            return false;
+        } else {
             xos::Daemon& daemon = xos::Daemon::GetTheInstance();
 
-            if (0 < (fieldValue.Length())) {
-                XOS_LOG_TRACE("action = \"" << fieldValue << "\"");
-
-                if (!(fieldValue.Compare("true"))) {
-                    XOS_LOG_TRACE("...return true");
-                    return true;
-                } else
-                if (!(fieldValue.Compare("false"))) {
-                    XOS_LOG_TRACE("...return false");
-                    return false;
-                } else
-                if (!(fieldValue.Compare("restart"))) {
-                    XOS_LOG_TRACE("restart...");
-                    daemon.Restart();
-                } else
-                if (!(fieldValue.Compare("stop"))) {
-                    XOS_LOG_TRACE("stop...");
-                    daemon.Stop();
-                }
+            if (!(action.Compare("restart"))) {
+                XOS_LOG_TRACE("restart...");
+                daemon.Restart();
+            } else
+            if (!(action.Compare("stop"))) {
+                XOS_LOG_TRACE("stop...");
+                daemon.Stop();
             }
         }
+
         XOS_LOG_TRACE("...out");
         return true;
     }

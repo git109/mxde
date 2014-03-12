@@ -23,6 +23,7 @@
 
 #include "xos/inet/http/Form.hpp"
 #include "xos/base/Named.hpp"
+#include "xos/base/Types.hpp"
 
 #define XOS_HTTP_VERSION_PROTOCOL "HTTP"
 #define XOS_HTTP_VERSION_MAJOR_NO 1
@@ -49,6 +50,15 @@
 #define XOS_HTTP_REQUEST_METHOD_NAME_CONNECT "CONNECT"
 #define XOS_HTTP_REQUEST_METHOD_NAME_OPTIONS "OPTIONS"
 #define XOS_HTTP_REQUEST_METHOD_NAME_HEAD "HEAD"
+
+#define XOS_HTTP_REQUEST_METHOD_NAMES \
+    XOS_HTTP_REQUEST_METHOD_NAME_GET, \
+    XOS_HTTP_REQUEST_METHOD_NAME_POST, \
+    XOS_HTTP_REQUEST_METHOD_NAME_PUT, \
+    XOS_HTTP_REQUEST_METHOD_NAME_DELETE, \
+    XOS_HTTP_REQUEST_METHOD_NAME_TRACE, \
+    XOS_HTTP_REQUEST_METHOD_NAME_CONNECT, \
+    XOS_HTTP_REQUEST_METHOD_NAME_OPTIONS
 
 namespace xos {
 namespace http {
@@ -289,24 +299,23 @@ public:
     public:
         typedef MethodImplement Implements;
         typedef MethodExtend Extends;
+
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
         typedef int Which;
         enum {
-            none = 0,
-
-            Get,
-            Post,
-            Put,
-            Delete,
-            Trace,
-            Connect,
-            Options,
-            Head,
-
-            next,
-            first = (none + 1),
-            last  = (next - 1),
-            count = (last - (first + 1))
+            None = 0,
+            GET, POST, PUT, DELETE, TRACE, CONNECT, OPTIONS, HEAD,
+            Next, First = (None + 1), Last = (Next - 1),
+            Count = ((Last - First) + 1)
         };
+        enum {
+            none = 0,
+            Get, Post, Put, Delete, Trace, Connect, Options, Head,
+            next, first = (none + 1), last  = (next - 1),
+            count = ((last - first) + 1)
+        };
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         Method(const String& value): Extends(value) {
@@ -318,15 +327,29 @@ public:
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual Which ToWhich() const {
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_GET))) return Get;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_POST))) return Post;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_PUT))) return Put;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_DELETE))) return Delete;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_TRACE))) return Trace;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_CONNECT))) return Connect;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_OPTIONS))) return Options;
-            if (!(Compare(XOS_HTTP_REQUEST_METHOD_NAME_HEAD))) return Head;
-            return none;
+            return WhichOf(Chars());
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        static const char* OfWhich(Which which) {
+            static const char* of[Count] = {
+                XOS_HTTP_REQUEST_METHOD_NAMES
+            };
+            if ((which >= First) && (which <= Last))
+                return of[which - First];
+            return 0;
+        }
+        static Which WhichOf(const char* of) {
+            if ((of)) {
+                const char* toOf;
+                for (Which which = First; which <= Last; ++which) {
+                    if ((toOf = OfWhich(which))) {
+                        if (!(xos::Chars::Compare(of, toOf)))
+                            return which;
+                    }
+                }
+            }
+            return None;
         }
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////

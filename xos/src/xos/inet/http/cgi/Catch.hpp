@@ -13,22 +13,24 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main_main.hpp
+///   File: Catch.hpp
 ///
 /// Author: $author$
-///   Date: 3/6/2014
+///   Date: 3/9/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_INET_HTTP_CGI_MAIN_MAIN_HPP
-#define _XOS_INET_HTTP_CGI_MAIN_MAIN_HPP
+#ifndef _XOS_INET_HTTP_CGI_CATCH_HPP
+#define _XOS_INET_HTTP_CGI_CATCH_HPP
 
-#include "xos/os/Main_main.hpp"
+#include "xos/base/Base.hpp"
 
-#if defined(WINDOWS)
-#define XOS_HTTP_CGI_MAIN_MAIN_INIT() \
-    _setmode(_fileno(stdin), _O_BINARY)
-#else // defined(WINDOWS)
-#define XOS_HTTP_CGI_MAIN_MAIN_INIT()
-#endif // defined(WINDOWS)
+#define XOS_HTTP_CGI_CATCH_ENV_FILENAME "cgienv.txt"
+#define XOS_HTTP_CGI_CATCH_ARGV_FILENAME "cgiargv.txt"
+#define XOS_HTTP_CGI_CATCH_STDIN_FILENAME "cgistdin.txt"
+#define XOS_HTTP_CGI_CATCH_STDOUT_FILENAME "cgistdout.txt"
+
+#define XOS_HTTP_CGI_CATCH_ENV_FILE_PATTERN "GATEWAY_INTERFACE="
+#define XOS_HTTP_CGI_CATCH_ARGV_FILE_PATTERN "argv[0]="
+#define XOS_HTTP_CGI_CATCH_STDIN_FILE_PATTERN "CONTENT_LENGTH="
 
 namespace xos {
 namespace http {
@@ -38,4 +40,4 @@ namespace cgi {
 } // namespace http 
 } // namespace xos 
 
-#endif // _XOS_INET_HTTP_CGI_MAIN_MAIN_HPP 
+#endif // _XOS_INET_HTTP_CGI_CATCH_HPP

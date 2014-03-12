@@ -85,7 +85,33 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Open(const char* fileName, const char* fileMode = "rb") {
+    virtual bool OpenSafe
+    (const TWhat* pattern, const char* fileName,
+     const char* fileMode = XOS_FILE_MODE_READ_BINARY) {
+        bool cantOpen = false;
+        if ((cantOpen = (Open(fileName, XOS_FILE_MODE_READ_BINARY)))) {
+            if ((pattern)) {
+                TWhat p, t;
+                while ((p = *(pattern++))) {
+                    if (!(cantOpen = (1 != (Read(&t, 1))))) {
+                        if ((cantOpen = (p != t)))
+                            break;
+                    }
+                }
+            }
+            Close();
+        }
+        if ((cantOpen)) {
+            if (!(m_noLogging))
+            {   XOS_LOG_ERROR("can't safe open(\"" << fileName << "\", " << fileMode << "\")"); }
+            return false;
+        }
+        return Open(fileName, fileMode);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Open
+    (const char* fileName, const char* fileMode = XOS_FILE_MODE_READ_BINARY) {
         if (!(this->Closed()))
             return false;
         if ((fileName) && (fileMode)) {
@@ -95,7 +121,7 @@ public:
                 return true;
             } else {
                 if (!(m_noLogging))
-                {   XOS_LOG_ERROR("failed on fopen(\"" << fileName << "\", " << fileMode << "\")"); }
+                {   XOS_LOG_ERROR("failed "<< errno << " on fopen(\"" << fileName << "\", " << fileMode << "\")"); }
             }
         }
         return false;
@@ -108,10 +134,45 @@ public:
                 return true;
             } else {
                 if (!(m_noLogging))
-                {   XOS_LOG_ERROR("failed on fclose()"); }
+                {   XOS_LOG_ERROR("failed "<< errno << " on fclose()"); }
             }
         }
         return false;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Find(const char* fileName) const {
+        if ((fileName)) {
+            int err;
+            struct stat st;
+            if (!(err = stat(fileName, &st))) {
+                return true;
+            } else {
+                if (!(m_noLogging))
+                XOS_LOG_TRACE("failed " << errno << " on stat(\"" << fileName << "\",...)");
+            }
+        }
+        return false;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t WriteL(const char* what, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, what);
+        count = WriteV(what, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t WriteV(const WhatT* what, va_list va) {
+        ssize_t count = 0;
+        ssize_t length = 0;
+        for (count = 0; what; count += length) {
+            if (0 > (length = Write(what)))
+                return count;
+            what = va_arg(va, const WhatT*);
+        }
+        return count;
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -128,11 +189,13 @@ public:
     virtual ssize_t Write(const WhatT* what, ssize_t size = -1){
         ssize_t count = -Error::Failed;
         if ((this->m_attachedTo)){
-            if (0 > (size))
-                size = Count(what);
+            if (0 > (size)) {
+                if (0 >= (size = Count(what)))
+                    return size;
+            }
             if (0 >= (count = fwrite(what, sizeof(TWhat), size, this->m_attachedTo))){
                 if (!(m_noLogging))
-                    XOS_LOG_ERROR("failed on fwrite()");
+                    XOS_LOG_ERROR("failed " << count << " on fwrite(..., " << sizeof(TWhat) << ", " << size << ",...)");
                 count = -Error::Failed;
             }
         }

@@ -91,6 +91,8 @@
 #endif // defined(MACOSX) 
 
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>
 #include <unistd.h>
 #include <stdint.h>
 #include <stdlib.h>
