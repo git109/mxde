@@ -63,6 +63,11 @@
 %%do(%left_separator%)%%padd( %section_name%, ,%separator_padd%)%%do(%right_separator%)%%
 %%do(%left_separator%)%%padd( , ,%separator_padd%)%%do(%right_separator%)%%
 %%do(%end_separator%)%)%)%,%
+%comment_fields,%(%else(%is_comment_fields%,%(yes)%,%(%comment_fields_author%%comment_fields_date%)%)%)%,%
+%comment_fields_copyright,%(%else-then(%comment_fields_copyright%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%comment_fields_opensource,%(%else-then(%comment_fields_opensource%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%comment_fields_author,%(%else-then(%comment_fields_author%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%comment_fields_date,%(%else-then(%comment_fields_date%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
 %xml_version,%(%else-then(%xml_version%,%(1.0)%)%)%,%
 %xml_encoding,%(%else(%equal(no,%xml_encoding%)%,%(%xml_encoding%)%)%)%,%
 %xml_stylesheet,%(%else(%equal(no,%xml_stylesheet%)%,%(%xml_stylesheet%)%)%)%,%

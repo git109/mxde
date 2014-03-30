@@ -1,5 +1,5 @@
 %########################################################################
-%# Copyright (c) 1988-2011 $organization$  
+%# Copyright (c) 1988-2014 $organization$
 %#
 %# This software is provided by the author and contributors ``as is'' 
 %# and any express or implied warranties, including, but not limited to, 
@@ -13,23 +13,13 @@
 %# or otherwise) arising in any way out of the use of this software, 
 %# even if advised of the possibility of such damage.
 %#
-%#   File: mxde-httpd-conf-autoindex.t
+%#   File: mxde-do-http-method-hpp-hpp.t
 %#
-%# Author: $author$     
-%#   Date: 6/9/2011
+%# Author: $author$
+%#   Date: 2/23/2014
 %########################################################################
 %with(%
+%filepath,%(%else-then(%filepath%,%(%filepath(%input%)%)%)%)%,%
 %%(%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)% Autoindex %do(%right_separator%)%%
-%%do(%left_separator%)% ... %do(%right_separator%)%%
-%%do(%end_separator%)%%
-%%lt%%kk_%IfModule%_kk% mod_autoindex.c%gt%
-IndexOptions FancyIndexing FoldersFirst NameWidth=*
-%lt%/%kk_%IfModule%_kk%%gt%
-%
-%%do(%begin_separator%)%%
-%%do(%left_separator%)% ... %do(%right_separator%)%%
-%%do(%left_separator%)% Autoindex %do(%right_separator%)%%
-%%do(%end_separator%)%%
+%%include(%filepath%/mxde-do-http-method-hxx-hxx.t)%%
 %)%)%
