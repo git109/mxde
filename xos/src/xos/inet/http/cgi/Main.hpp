@@ -21,6 +21,7 @@
 #ifndef _XOS_INET_HTTP_CGI_MAIN_HPP
 #define _XOS_INET_HTTP_CGI_MAIN_HPP
 
+#include "xos/inet/http/cgi/Content.hpp"
 #include "xos/inet/http/cgi/Environment.hpp"
 #include "xos/inet/http/cgi/Arguments.hpp"
 #include "xos/inet/http/cgi/Catch.hpp"
@@ -117,13 +118,29 @@ public:
         int err = 0;
         m_env.Get();
         m_arg.Get(argc, argv, env);
+        SetStdInIsBinary();
+        m_inContent.Attach(StdIn());
         err = CgiRun(argc, argv, env);
         return err;
     }
     virtual int ConsoleMain(int argc, char** argv, char** env) {
         int err = 0;
+        FILE* inFile;
+        char c;
         m_envReader.Read(m_envFileName);
+        if ((inFile = m_stdinFile.OpenAttached(m_stdinFileName.Chars(), XOS_FILE_MODE_READ_BINARY))) {
+            m_inContent.Attach(inFile);
+            // skip first line containing content length
+            while (0 < (fread(&c, 1,1, inFile))) {
+                if ('\n' == c)
+                    break;
+            }
+        }
         err = CgiRun(argc, argv, env);
+        if ((inFile)) {
+            m_inContent.Detach();
+            m_stdinFile.Close();
+        }
         return err;
     }
     ///////////////////////////////////////////////////////////////////////
@@ -205,6 +222,8 @@ public:
         if (!(m_outContentHeaders)) {
             if (0 > (count = OutContentType()))
                 return count;
+            if (0 > (count = OutContentLength()))
+                return count;
             m_outContentHeaders = true;
         }
         return count;
@@ -279,11 +298,13 @@ protected:
     String m_envFileName;
     String m_argvFileName;
     String m_stdinFileName;
+    FileOpened m_stdinFile;
     bool m_outContentHeaders;
     int m_outContentLength;
     const char* m_outContentType;
     int m_inContentLength;
     const char* m_inContentType;
+    Content m_inContent;
     int m_contentLength;
     String m_contentType;
     Environment m_env;

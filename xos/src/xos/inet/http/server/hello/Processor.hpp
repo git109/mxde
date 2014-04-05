@@ -23,6 +23,7 @@
 
 #include "xos/inet/http/server/Processor.hpp"
 #include "xos/inet/http/server/Daemon.hpp"
+#include "xos/inet/http/Content.hpp"
 
 namespace xos {
 namespace http {
@@ -48,7 +49,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool Process(Response& response, const Request& request) {
-        String contentType("text/html");
+        String contentType(XOS_HTTP_CONTENT_TYPE_NAME_HTML);
         String action;
         http::Form::Field formField;
 

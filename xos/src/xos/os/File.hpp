@@ -42,6 +42,70 @@
 
 namespace xos {
 
+typedef InterfaceBase FileOpenedImplement;
+typedef Attached<FILE*, int, 0> FileOpenedAttached;
+typedef Opened<FILE*, int, 0, FileOpenedAttached> FileOpenedExtend;
+///////////////////////////////////////////////////////////////////////
+///  Class: FileOpenedT
+///////////////////////////////////////////////////////////////////////
+template <class TExtend = FileOpenedExtend, class TImplement = FileOpenedImplement>
+class _EXPORT_CLASS FileOpenedT: virtual public TImplement, public TExtend {
+public:
+    typedef TImplement Implements;
+    typedef TExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    FileOpenedT() {
+    }
+    virtual ~FileOpenedT() {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Open
+    (const char* fileName, const char* fileMode = XOS_FILE_MODE_READ_BINARY) {
+        if ((OpenAttached(fileName, fileMode)))
+            return true;
+        return false;
+    }
+    virtual bool Close() {
+        FILE* detached;
+        if ((detached = this->Detach())) {
+            int err;
+            if (!(err = fclose(detached))) {
+                return true;
+            } else {
+                if (!(noLogging()))
+                {   XOS_LOG_ERROR("failed "<< errno << " on fclose()"); }
+            }
+        }
+        return false;
+    }
+    virtual FILE* OpenAttached
+    (const char* fileName, const char* fileMode = XOS_FILE_MODE_READ_BINARY) {
+        if (!(this->Closed()))
+            return false;
+        if ((fileName) && (fileMode)) {
+            FILE* detached;
+            if ((detached = fopen(fileName, fileMode))) {
+                this->AttachOpened(detached);
+                return detached;
+            } else {
+                if (!(noLogging()))
+                {   XOS_LOG_ERROR("failed "<< errno << " on fopen(\"" << fileName << "\", " << fileMode << "\")"); }
+            }
+        }
+        return 0;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool noLogging() const {
+        return false;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef FileOpenedT<FileOpenedExtend, FileOpenedImplement> FileOpened;
+
 //
 // void
 //

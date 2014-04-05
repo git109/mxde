@@ -254,12 +254,12 @@ public:
                     XOS_LOG_TRACE("query = \"" << request.GetQuery() << "\"");
                 }
 
-                if ((chars = mg_get_header(mgConnection, XOS_HTTP_CONTENT_TYPE_NAME))) {
+                if ((chars = mg_get_header(mgConnection, XOS_HTTP_HEADER_NAME_CONTENT_TYPE))) {
                     request.SetContentType(chars);
                     XOS_LOG_TRACE("content-type = \"" << request.GetContentType() << "\"");
                 }
 
-                if ((chars = mg_get_header(mgConnection, XOS_HTTP_CONTENT_LENGTH_NAME))) {
+                if ((chars = mg_get_header(mgConnection, XOS_HTTP_HEADER_NAME_CONTENT_LENGTH))) {
                     request.SetContentLength(chars);
                     XOS_LOG_TRACE("content-length = \"" << request.GetContentLength() << "\"");
                 }

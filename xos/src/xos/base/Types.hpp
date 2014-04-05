@@ -66,6 +66,30 @@ public:
     enum { vEndWhat = VEndWhat };
     enum { vUndefinedLength = VUndefinedLength };
 
+    XOS_TYPES_MEMBERS_STATIC const tWhat* Find
+    (const tWhat* inWhat, tWhat what,
+     tLength length=vUndefinedLength,
+     tEndWhat endWhat=vEndWhat) XOS_TYPES_MEMBERS_CONST {
+        if (inWhat) {
+            tWhat c;
+            if (0 > length) {
+                while ((c = (*inWhat)) != endWhat) {
+                    if (c == what)
+                        return inWhat;
+                    ++inWhat;
+                }
+            } else {
+                while (0 < length) {
+                    if ((c = (*inWhat)) == what)
+                        return inWhat;
+                    ++inWhat;
+                    --length;
+                }
+            }
+        }
+        return 0;
+    }
+
     XOS_TYPES_MEMBERS_STATIC tLength Set
     (void* toWhat, tWhat what,
      tLength length=vUndefinedLength,
@@ -207,6 +231,79 @@ public:
         unequal = -1;
 
         return unequal;
+    }
+
+    XOS_TYPES_MEMBERS_STATIC int CompareCase
+    (const tWhat* what,
+     const tWhat* toWhat,
+     tLength length=vUndefinedLength,
+     tEndWhat endWhat=vEndWhat) XOS_TYPES_MEMBERS_CONST {
+        int unequal = CompareCase
+        (what, length, toWhat, length, endWhat);
+        return unequal;
+    }
+
+    XOS_TYPES_MEMBERS_STATIC int CompareCase
+    (const tWhat* what,
+     tLength length,
+     const tWhat* toWhat,
+     tLength toLength=vUndefinedLength,
+     tEndWhat endWhat=vEndWhat) XOS_TYPES_MEMBERS_CONST {
+        int unequal = 0;
+
+        if (what != toWhat)
+        if (what) {
+            if (toWhat) {
+                if (0 > length)
+                    length = Count(what, endWhat);
+
+                if (0 > toLength)
+                    toLength = Count(toWhat, endWhat);
+
+                if (length > toLength) {
+                    unequal = 1;
+                    length = toLength;
+                }
+                else
+                if (toLength > length)
+                    unequal = -1;
+                else
+                unequal = 0;
+
+                for (; 0 < length; --length, what++, toWhat++) {
+                    tWhat u = ToLower(*what);
+                    tWhat toU = ToLower(*toWhat);
+                    if (u > toU)
+                        return 1;
+                    else
+                    if (u < toU)
+                        return -1;
+                }
+            }
+            else
+            unequal = 1;
+        }
+        else
+        unequal = -1;
+
+        return unequal;
+    }
+
+    XOS_TYPES_MEMBERS_STATIC XOS_TYPES_MEMBERS_INLINE tWhat ToLower(tWhat what) XOS_TYPES_MEMBERS_CONST {
+        static const tWhat A = ((tWhat)'A');
+        static const tWhat Z = ((tWhat)'Z');
+        static const tWhat a = ((tWhat)'a');
+        if ((what >= A) && (what <= Z))
+            what = a + (what - A);
+        return what;
+    }
+    XOS_TYPES_MEMBERS_STATIC XOS_TYPES_MEMBERS_INLINE tWhat ToUpper(tWhat what) XOS_TYPES_MEMBERS_CONST {
+        static const tWhat A = ((tWhat)'A');
+        static const tWhat a = ((tWhat)'a');
+        static const tWhat z = ((tWhat)'z');
+        if ((what >= a) && (what <= z))
+            what = A + (what - a);
+        return what;
     }
 #if !defined(XOS_TYPES_MEMBERS_ONLY)
 };

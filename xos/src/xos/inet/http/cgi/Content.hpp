@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2013 $organization$
+/// Copyright (c) 1988-2014 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,49 +13,47 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Reader.hpp
+///   File: Content.hpp
 ///
 /// Author: $author$
-///   Date: 11/25/2013
+///   Date: 4/4/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_BASE_READER_HPP
-#define _XOS_BASE_READER_HPP
+#ifndef _XOS_INET_HTTP_CGI_CONTENT_HPP
+#define _XOS_INET_HTTP_CGI_CONTENT_HPP
 
-#include "xos/base/Stream.hpp"
+#include "xos/inet/http/Content.hpp"
+#include "xos/os/FILEReader.hpp"
 
 namespace xos {
+namespace http {
+namespace cgi {
 
-template
-<typename TWhat = void,
- class TImplement = Stream,
- typename TWhence = StreamLockedInterface::Whence,
- TWhence VFromBegin = StreamLockedInterface::FromBegin>
+typedef FILEReaderImplement ContentImplement;
+typedef FILEReader ContentExtend;
 ///////////////////////////////////////////////////////////////////////
+///  Class: Content
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS ReaderT: virtual public TImplement {
+class _EXPORT_CLASS Content: virtual public ContentImplement, public ContentExtend {
 public:
-    typedef TImplement Implements;
-    typedef TWhat WhatT;
+    typedef ContentImplement Implements;
+    typedef ContentExtend Extends;
+    typedef http::Content::Type Type;
+    typedef http::Content::Reader Reader;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual ssize_t Read(WhatT* what, size_t size) { return -1; }
-    virtual ssize_t Write(const WhatT* what, ssize_t size = -1) { return -1; }
-
-    virtual ssize_t Fill() { return -1; }
-    virtual ssize_t Flush() { return -1; }
-
-    virtual ssize_t Reset() { return Seek(0); }
-    virtual ssize_t Seek(size_t size, TWhence whence = VFromBegin) { return -1; }
-    virtual ssize_t Tell() const { return -1; }
+    Content(FILE* detached = 0): Extends(detached) {
+    }
+    virtual ~Content() {
+    }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
 
-typedef ReaderT<void, Stream> Reader;
-typedef ReaderT<char, CharStream> CharReader;
-typedef ReaderT<wchar_t, WCharStream> WCharReader;
-typedef ReaderT<tchar_t, TCharStream> TCharReader;
-
+} // namespace cgi 
+} // namespace http 
 } // namespace xos 
 
-#endif // _XOS_BASE_READER_HPP 
+
+#endif // _XOS_INET_HTTP_CGI_CONTENT_HPP 
+        
+
