@@ -25,10 +25,13 @@
 #include "xos/inet/http/cgi/Environment.hpp"
 #include "xos/inet/http/cgi/Arguments.hpp"
 #include "xos/inet/http/cgi/Catch.hpp"
+#include "xos/inet/http/Request.hpp"
 #include "xos/inet/http/Header.hpp"
 #include "xos/inet/http/Content.hpp"
+#include "xos/inet/http/FormReader.hpp"
 #include "xos/os/Main.hpp"
 #include "xos/os/os/Mutex.cpp"
+#include "xos/base/StringReader.hpp"
 #include "xos/base/FormattedStream.hpp"
 #include "xos/base/StreamStream.hpp"
 
@@ -179,6 +182,119 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool GetMethodFormData(const Environment& env) {
+        const Environment::Variable& variable = env[Environment::Variable::REQUEST_METHOD];
+        const Environment::Variable::Value& value = variable.value();
+        const char* chars;
+        ssize_t length;
+        if ((chars = value.wrapped()) && (0 < (length = value.Length()))) {
+            const String method(chars, length);
+
+            XOS_LOG_TRACE("method = \"" << method << "\"");
+
+            switch(Request::Method::WhichOf(method.Chars())) {
+            case Request::Method::POST:
+                return GetContentFormData(env);
+            }
+        }
+        return false;
+    }
+    virtual bool GetContentFormData(const Environment& env) {
+        const Environment::Variable& variable = env[Environment::Variable::CONTENT_TYPE];
+        const Environment::Variable::Value& value = variable.value();
+        const char* chars;
+        ssize_t length;
+        if ((chars = value.wrapped()) && (0 < (length = value.Length()))) {
+            const Content::Type type(chars, length);
+
+            XOS_LOG_TRACE("content type = \"" << type << "\"");
+
+            switch(type.ToWhich()) {
+            case Content::Type::UrlEncodedFormData:
+                return GetUrlEncodedFormData(env);
+
+            case Content::Type::MultipartFormData:
+                return GetMultipartFormData(env);
+            }
+        }
+        return false;
+    }
+    virtual bool GetUrlEncodedFormData(const Environment& env) {
+        const Environment::Variable& variable = env[Environment::Variable::CONTENT_LENGTH];
+        const Environment::Variable::Value& value = variable.value();
+        const char* chars;
+        ssize_t length;
+        if ((chars = value.wrapped()) && (0 < (length = value.Length()))) {
+            const String s(chars, length);
+            length = s.ToInt();
+        } else {
+            length = 0;
+        }
+        if ((length)) {
+            http::Content::Reader reader(m_inContent, length);
+
+            XOS_LOG_TRACE("reading form from content...");
+
+            return GetUrlEncodedFormData(reader);
+        }
+        return false;
+    }
+    virtual bool GetMultipartFormData(const Environment& env) {
+        return false;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool GetQueryFormData(const Environment& env) {
+        const Environment::Variable& variable = env[Environment::Variable::QUERY_STRING];
+        const Environment::Variable::Value& value = variable.value();
+        const char* chars;
+        ssize_t length;
+        if ((chars = value.wrapped()) && (0 < (length = value.Length()))) {
+            const String query(chars, length);
+
+            XOS_LOG_TRACE("query = \"" << query << "\"");
+
+            return GetQueryFormData(query);
+        }
+        return false;
+    }
+    virtual bool GetQueryFormData(const String& query) {
+        if (0 < (query.Length())) {
+            StringReader reader(query);
+
+            XOS_LOG_TRACE("reading form from query...");
+
+            return GetUrlEncodedFormData(reader);
+        }
+        return false;
+    }
+    virtual bool GetUrlEncodedFormData(CharReader& reader) {
+        UrlEncodedReader uReader(reader);
+        return GetUrlEncodedFormData(uReader);
+    }
+    virtual bool GetUrlEncodedFormData(UrlEncodedReader& reader) {
+        return false;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutContentFormatted(const char* format, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        count = OutContentFormattedV(format, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t OutContentFormattedV(const char* format, va_list va) {
+        ssize_t count = 0;
+        ssize_t count2;
+        if (0 > (count = OutContentHeaders()))
+            return count;
+        if (0 > (count2 = Extends::OutFormattedV(format, va)))
+            return count2;
+        count += count2;
+        return count;
+    }
     virtual ssize_t OutContentL(const char* what, ...) {
         ssize_t count = 0;
         va_list va;
@@ -273,11 +389,20 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual const char* SetContentType(const String& to) {
+        return SetContentType(to.Chars());
+    }
     virtual const char* SetContentType(const char* to) {
+        if ((to)) {
+            if ((to[0])) {
+                m_contentType.Assign(to);
+                return m_contentType.Chars();
+            }
+        }
         return 0;
     }
     virtual const char* GetContentType() const {
-        return 0;
+        return m_contentType.Chars();
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////

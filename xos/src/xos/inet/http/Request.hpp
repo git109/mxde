@@ -23,6 +23,7 @@
 
 #include "xos/inet/http/Version.hpp"
 #include "xos/inet/http/Header.hpp"
+#include "xos/inet/http/Message.hpp"
 #include "xos/inet/http/Form.hpp"
 #include "xos/base/Named.hpp"
 #include "xos/base/Types.hpp"
@@ -54,26 +55,6 @@
 
 namespace xos {
 namespace http {
-
-typedef String::Implements MessageImplement;
-typedef String MessageExtend;
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Message: virtual public MessageImplement, public MessageExtend {
-public:
-    typedef MessageImplement Implements;
-    typedef MessageExtend Extends;
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    Message(const String& value): Extends(value) {
-    }
-    Message() {
-    }
-    virtual ~Message() {
-    }
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-};
 
 typedef InterfaceBase RequestImplement;
 typedef Base RequestExtend;

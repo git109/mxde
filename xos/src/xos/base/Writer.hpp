@@ -26,14 +26,11 @@
 namespace xos {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: WriterT
+///  Class: WriterBaseT
 ///////////////////////////////////////////////////////////////////////
-template
-<typename TWhat,
- typename TEnd = TWhat, TEnd VEnd = 0,
- class TImplement = InterfaceBase>
+template <typename TWhat, class TImplement = InterfaceBase>
 
-class _EXPORT_CLASS WriterT: virtual public TImplement {
+class _EXPORT_CLASS WriterBaseT: virtual public TImplement {
 public:
     typedef TImplement Implements;
     typedef TWhat What;
@@ -43,6 +40,30 @@ public:
         ssize_t count = -Error::NotImplemented;
         return count;
     }
+    virtual ssize_t Flush() {
+        ssize_t count = 0;
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+
+typedef WriterBaseT<void> WriterBase;
+
+///////////////////////////////////////////////////////////////////////
+///  Class: WriterT
+///////////////////////////////////////////////////////////////////////
+template
+<typename TWhat,
+ typename TEnd = TWhat, TEnd VEnd = 0,
+ class TImplement = WriterBaseT<TWhat, InterfaceBase> >
+
+class _EXPORT_CLASS WriterT: virtual public TImplement {
+public:
+    typedef TImplement Implements;
+    typedef TWhat What;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Writex(const uint8_t* bytes, ssize_t length=-1, char a = 'a', char between = 0) {
         ssize_t count = WriteX(bytes, length, a, between);
         return count;
@@ -99,6 +120,26 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t WriteFormatted(const What* format, ...) {
+        ssize_t count = -Error::NotImplemented;
+        return count;
+    }
+    virtual ssize_t WriteFormattedV(const What* format, va_list va) {
+        ssize_t count = -Error::NotImplemented;
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Write(const What* what, ssize_t length=-1) {
+        ssize_t count = -Error::NotImplemented;
+        return count;
+    }
+    virtual ssize_t Flush() {
+        ssize_t count = 0;
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -116,7 +157,7 @@ template
  class TImplement = WriterT<TChar, TEnd, VEnd>,
  class TExtend = ExportBase>
 
-class _EXPORT_CLASS StringWriterT: virtual public TImplement {
+class _EXPORT_CLASS StringWriterT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;

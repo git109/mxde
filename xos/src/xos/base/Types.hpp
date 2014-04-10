@@ -89,6 +89,28 @@ public:
         }
         return 0;
     }
+    XOS_TYPES_MEMBERS_STATIC const tWhat* FindReverse
+    (const tWhat* inWhat, tWhat what,
+     tLength length=vUndefinedLength,
+     tEndWhat endWhat=vEndWhat) XOS_TYPES_MEMBERS_CONST {
+        if (inWhat) {
+            const tWhat* inWhatEnd = inWhat;
+            tWhat c;
+            if (0 > length) {
+                while ((c = (*inWhatEnd)) != endWhat) {
+                    ++inWhatEnd;
+                }
+            } else {
+                inWhatEnd += length;
+            }
+            while (inWhatEnd != inWhat) {
+                --inWhatEnd;
+                if ((c = (*inWhatEnd)) == what)
+                    return inWhatEnd;
+            }
+        }
+        return 0;
+    }
 
     XOS_TYPES_MEMBERS_STATIC tLength Set
     (void* toWhat, tWhat what,

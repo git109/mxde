@@ -286,6 +286,16 @@ public:
     const TChar* Chars() const {
         return this->c_str();
     }
+    const TChar* HasChars(size_t& length) const {
+        if (0 < (length = this->length()))
+            return this->c_str();
+        return 0;
+    }
+    const TChar* HasChars() const {
+        if (0 < (this->length()))
+            return this->c_str();
+        return 0;
+    }
     size_t Length() const  {
         return this->length();
     }

@@ -78,6 +78,9 @@ public:
     typedef CharStream Reader;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    UrlEncodedFormReader(Reader& reader, Observer& observer) {
+        Read(reader, observer);
+    }
     UrlEncodedFormReader() {
     }
     virtual ~UrlEncodedFormReader() {
