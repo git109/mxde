@@ -51,21 +51,16 @@ public:
     virtual int RunCgi(int argc, char** argv, char** env) {
         http::server::Processor& processor = http::server::Processor::GetTheInstance();
         int err = 0;
+
+        GetContext(m_request, m_env);
+        GetQueryFormData(m_request, m_env);
+        GetMethodFormData(m_request, m_env);
+
         if ((processor.Process(m_response, m_request))) {
             OutContentHeaders(m_response);
             OutContent(m_response);
         }
         OutContentFlush();
-        return err;
-    }
-    virtual int BeforeRunCgi(int argc, char** argv, char** env) {
-        int err = 0;
-        GetQueryFormData(m_request, m_env);
-        GetMethodFormData(m_request, m_env);
-        return err;
-    }
-    virtual int AfterRunCgi(int argc, char** argv, char** env) {
-        int err = 0;
         return err;
     }
     ///////////////////////////////////////////////////////////////////////
@@ -114,6 +109,26 @@ public:
             && (0 < (length = response.message().Length()))) {
             if (0 < (Extends::OutContent(chars, length)))
                 return true;
+        }
+        return false;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool GetContext(Request& request, const Environment& env) {
+        GetPathTranslated(request, env);
+        return true;
+    }
+    virtual bool GetPathTranslated(Request& request, const Environment& env) {
+        const Environment::Variable& variable = env[Environment::Variable::PATH_TRANSLATED];
+        const Environment::Variable::Value& value = variable.value();
+        const char* chars;
+        ssize_t length;
+        if ((chars = value.wrapped()) && (0 < (length = value.Length()))) {
+            const String path(chars, length);
+
+            XOS_LOG_TRACE("path translated = \"" << path << "\"");
+            request.SetPathTranslated(path);
+            return true;
         }
         return false;
     }

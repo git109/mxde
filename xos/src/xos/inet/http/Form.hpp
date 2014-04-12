@@ -69,6 +69,9 @@ public:
         }
         return false;
     }
+    virtual Fields& fields() const {
+        return (Fields&)(m_fields);
+    }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual Form& operator = (const Form& copy) {

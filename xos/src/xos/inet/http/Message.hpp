@@ -80,6 +80,8 @@ public:
     ///////////////////////////////////////////////////////////////////////
     Message(const String& value): Extends(value) {
     }
+    Message(const Message& copy): Extends(copy) {
+    }
     Message() {
     }
     virtual ~Message() {

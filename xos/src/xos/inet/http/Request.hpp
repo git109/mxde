@@ -276,8 +276,50 @@ public:
         Version m_version;
     };
 
+    typedef InterfaceBase ContextImplement;
+    typedef ExportBase ContextExtend;
+    ///////////////////////////////////////////////////////////////////////
+    ///  Class: Context
+    ///////////////////////////////////////////////////////////////////////
+    class _EXPORT_CLASS Context: virtual public ContextImplement, public ContextExtend {
+    public:
+        typedef ContextImplement Implements;
+        typedef ContextExtend Extends;
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        Context(const String& pathTranslated): m_pathTranslated(pathTranslated) {
+        }
+        Context(const Context& copy): m_pathTranslated(copy.m_pathTranslated) {
+        }
+        Context() {
+        }
+        virtual ~Context() {
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual const String& SetPathTranslated(const String& to) {
+            m_pathTranslated.Assign(to);
+            return m_pathTranslated;
+        }
+        virtual const String& GetPathTranslated() const {
+            return m_pathTranslated;
+        }
+        virtual String& pathTranslated() const {
+            return (String&)(m_pathTranslated);
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+    protected:
+        String m_pathTranslated;
+    };
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    Request
+    (const Line& line, const Headers& headers,
+     const Message& message, const Context& context)
+    : m_line(line), m_headers(headers), m_message(message), m_context(context) {
+    }
     Request(const Line& line, const Headers& headers, const Message& message)
     : m_line(line), m_headers(headers), m_message(message) {
     }
@@ -288,7 +330,8 @@ public:
     : m_line(method, uri) {
     }
     Request(const Request& copy)
-    : m_line(copy.m_line), m_headers(copy.m_headers), m_message(copy.m_message) {
+    : m_line(copy.m_line), m_headers(copy.m_headers),
+      m_message(copy.m_message), m_context(copy.m_context) {
     }
     Request() {
     }
@@ -357,7 +400,7 @@ public:
         return -1;
     }
     ///////////////////////////////////////////////////////////////////////
-    virtual int SetContent(String& value) {
+    virtual int SetContent(const String& value) {
         int length = -1;
         return length;
     }
@@ -378,11 +421,35 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual const String& SetPathTranslated(const String& to) {
+        m_context.pathTranslated().Assign(to);
+        return m_context.pathTranslated();
+    }
+    virtual const String& GetPathTranslated() const {
+        return m_context.pathTranslated();
+    }
+    virtual String& pathTranslated() const {
+        return (String&)(m_context.pathTranslated());
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual Context& SetContext(const Context& to) {
+        m_context = to;
+        return m_context;
+    }
+    virtual const Context& GetContext() const {
+        return m_context;
+    }
+    virtual Context& context() const {
+        return (Context&)(m_context);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
     Line m_line;
     Headers m_headers;
     Message m_message;
     Form m_form;
+    Context m_context;
 };
 
 } // namespace http 
