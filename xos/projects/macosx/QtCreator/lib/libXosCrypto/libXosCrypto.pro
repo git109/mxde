@@ -23,23 +23,51 @@
 include(../../../../QtCreator/lib/libXosCore.pri)
 
 TARGET = XosCrypto
-
 TEMPLATE = lib
-
 CONFIG += staticlib
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
-$${XosMxde_INCLUDEPATH} \
+$${libXosCrypto_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
 
+HEADERS += \
+$${XOS_SRC}/xos/base/Types.hpp \
+$${XOS_SRC}/xos/crypto/Base.hpp \
+$${XOS_SRC}/xos/crypto/hash/Base.hpp \
+$${XOS_SRC}/xos/crypto/hash/Mac.hpp \
+$${XOS_SRC}/xos/crypto/hash/Md5.hpp \
+$${XOS_SRC}/xos/crypto/hash/Sha1.hpp \
+$${XOS_SRC}/xos/crypto/hash/Sha256.hpp \
+$${XOS_SRC}/xos/crypto/hash/Sha512.hpp \
+
 SOURCES += \
-$${XOS_SRC}/xos/crypto/hash/mxde/Hash.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Md5.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Sha1.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Sha256.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Sha512.cpp \
+$${XOS_SRC}/xos/base/Types.cpp \
+$${XOS_SRC}/xos/crypto/hash/Base.cpp \
+$${XOS_SRC}/xos/crypto/hash/Mac.cpp \
+$${XOS_SRC}/xos/crypto/hash/Md5.cpp \
+$${XOS_SRC}/xos/crypto/hash/Sha1.cpp \
+$${XOS_SRC}/xos/crypto/hash/Sha256.cpp \
+$${XOS_SRC}/xos/crypto/hash/Sha512.cpp \
 
+########################################################################
+# RSA
 
+HEADERS += \
+$${XOS_SRC}/xos/crypto/rsa/Key.hpp \
+$${XOS_SRC}/xos/crypto/rsa/bn/Key.hpp \
+$${XOS_SRC}/xos/crypto/rsa/bn/PublicKey.hpp \
+$${XOS_SRC}/xos/crypto/rsa/bn/PrivateKey.hpp \
+$${XOS_SRC}/xos/crypto/rsa/bn/bn_msb.h \
+$${XOS_SRC}/xos/crypto/rsa/mp/Key.hpp \
+$${XOS_SRC}/xos/crypto/rsa/mp/PublicKey.hpp \
+$${XOS_SRC}/xos/crypto/rsa/mp/PrivateKey.hpp \
+$${XOS_SRC}/xos/crypto/rsa/mp/mpz_msb.h \
+
+SOURCES += \
+$${XOS_SRC}/xos/crypto/rsa/bn/bn_Keys.cpp \
+$${XOS_SRC}/xos/crypto/rsa/mp/mp_Keys.cpp \
+$${XOS_SRC}/xos/crypto/rsa/bn/bn_msb.c \
+$${XOS_SRC}/xos/crypto/rsa/mp/mpz_msb.c \

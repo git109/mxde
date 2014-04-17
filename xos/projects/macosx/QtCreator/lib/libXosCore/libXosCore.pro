@@ -32,8 +32,28 @@ $${libXosCore_INCLUDEPATH} \
 DEFINES += \
 $${libXosCore_DEFINES} \
 
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/base/Coded.hpp \
+$${XOS_SRC}/xos/base/Branch.hpp \
+$${XOS_SRC}/xos/base/Tree.hpp \
+$${XOS_SRC}/xos/base/AvlBranch.hpp \
+$${XOS_SRC}/xos/base/RedblackBranch.hpp \
+$${XOS_SRC}/xos/base/AvlTree.hpp \
+$${XOS_SRC}/xos/base/RedblackTree.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/base/Coded.cpp \
+$${XOS_SRC}/xos/base/Branch.cpp \
+$${XOS_SRC}/xos/base/Tree.cpp \
+$${XOS_SRC}/xos/base/AvlBranch.cpp \
+$${XOS_SRC}/xos/base/RedblackBranch.cpp \
+$${XOS_SRC}/xos/base/AvlTree.cpp \
+$${XOS_SRC}/xos/base/RedblackTree.cpp \
+
 HEADERS += \
 $${libXosCore_HEADERS} \
+$${XOS_SRC}/xos/inet/json/Node.hpp \
+$${XOS_SRC}/xos/inet/json/Text.hpp \
 $${XOS_SRC}/xos/os/Time.hpp \
 $${XOS_SRC}/xos/os/os/Time.hpp \
 $${XOS_SRC}/xos/os/unix/Time.hpp \
@@ -44,6 +64,8 @@ $${XOS_SRC}/xos/os/unix/Mutexes.hpp \
 
 SOURCES += \
 $${libXosCore_SOURCES} \
+$${XOS_SRC}/xos/inet/json/Node.cpp \
+$${XOS_SRC}/xos/inet/json/Text.cpp \
 $${XOS_SRC}/xos/os/unix/Mutexes.cpp \
 $${XOS_SRC}/xos/os/unix/Processes.cpp \
 $${XOS_SRC}/xos/os/unix/Semaphores.cpp \

@@ -19,6 +19,7 @@
 #   Date: 11/23/2013
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../../../QtCreator/lib/libXosLibxslt.pri)
 
 Mongoose_PKG = ../../../../../../mongoose/mongoose
 Mongoose_SRC = $${Mongoose_PKG}
@@ -30,6 +31,7 @@ TARGET = mgXosHttpd
 INCLUDEPATH += \
 $${Mongoose_SRC} \
 $${libXosCore_INCLUDEPATH} \
+$${libXosLibxslt_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
@@ -40,8 +42,12 @@ $${XOS_SRC}/xos/inet/http/UrlEncodedReader.hpp \
 $${XOS_SRC}/xos/inet/http/FormReader.hpp \
 $${XOS_SRC}/xos/inet/http/Request.hpp \
 $${XOS_SRC}/xos/inet/http/Response.hpp \
+$${XOS_SRC}/xos/inet/http/server/path/Processor.hpp \
 $${XOS_SRC}/xos/inet/http/server/Processor.hpp \
+$${XOS_SRC}/xos/inet/http/server/Processors.hpp \
 $${XOS_SRC}/xos/inet/http/server/mongoose/Daemon.hpp \
+
+#$${XOS_SRC}/xos/inet/http/server/hello/Processor.hpp \
 
 SOURCES += \
 $${XOS_SRC}/xos/inet/http/Form.cpp \
@@ -49,15 +55,22 @@ $${XOS_SRC}/xos/inet/http/UrlEncodedReader.cpp \
 $${XOS_SRC}/xos/inet/http/FormReader.cpp \
 $${XOS_SRC}/xos/inet/http/Request.cpp \
 $${XOS_SRC}/xos/inet/http/Response.cpp \
-$${XOS_SRC}/xos/inet/http/server/Processor.cpp \
-$${XOS_SRC}/xos/inet/http/server/hello/Processor_instance.cpp \
+$${XOS_SRC}/xos/inet/http/server/path/HelloProcessor.cpp \
+$${XOS_SRC}/xos/inet/http/server/path/XsltProcessor.cpp \
+$${XOS_SRC}/xos/inet/http/server/path/Processor.cpp \
+$${XOS_SRC}/xos/inet/http/server/Processors.cpp \
+$${XOS_SRC}/xos/inet/http/server/Processors_instance.cpp \
 $${XOS_SRC}/xos/inet/http/server/mongoose/Daemon.cpp \
 $${XOS_SRC}/xos/inet/http/server/mongoose/Daemon_instance.cpp \
 $${XOS_SRC}/xos/os/Main_main.cpp \
 
+#$${XOS_SRC}/xos/inet/http/server/hello/Processor.cpp \
+#$${XOS_SRC}/xos/inet/http/server/hello/Processor_instance.cpp \
+
 LIBS += \
 -L$${Mongoose_LIB} \
 -lmongoose \
+$${libXosLibxslt_LIBS} \
 $${libXosCore_LIBS} \
 -lpthread \
 -ldl \

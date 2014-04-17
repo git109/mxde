@@ -18,11 +18,12 @@
 # Author: $author$
 #   Date: 6/8/2013
 ########################################################################
-XOS_PRJ = ../../../../..
+XOS_PKG = ../../../../..
 XOS_BLD = ../..
+XOS_PRJ = $${XOS_PKG}
 XOS_BIN = $${XOS_BLD}/bin
 XOS_LIB = $${XOS_BLD}/lib
-XOS_SRC = $${XOS_PRJ}/src
+XOS_SRC = $${XOS_PKG}/src
 
 libXosCore_INCLUDEPATH += \
 $${XOS_SRC} \
@@ -40,6 +41,8 @@ $${XOS_SRC}/xos/base/ExportBase.hpp \
 $${XOS_SRC}/xos/base/InterfaceBase.hpp \
 $${XOS_SRC}/xos/base/Join.hpp \
 $${XOS_SRC}/xos/base/List.hpp \
+$${XOS_SRC}/xos/base/Literal.hpp \
+$${XOS_SRC}/xos/base/Variant.hpp \
 $${XOS_SRC}/xos/base/Locked.hpp \
 $${XOS_SRC}/xos/base/Locker.hpp \
 $${XOS_SRC}/xos/base/Named.hpp \
@@ -84,6 +87,8 @@ $${XOS_SRC}/xos/base/ExportBase.cpp \
 $${XOS_SRC}/xos/base/InterfaceBase.cpp \
 $${XOS_SRC}/xos/base/Join.cpp \
 $${XOS_SRC}/xos/base/List.cpp \
+$${XOS_SRC}/xos/base/Literal.cpp \
+$${XOS_SRC}/xos/base/Variant.cpp \
 $${XOS_SRC}/xos/base/Locked.cpp \
 $${XOS_SRC}/xos/base/Locker.cpp \
 $${XOS_SRC}/xos/base/Named.cpp \
@@ -117,12 +122,15 @@ $${XOS_SRC}/xos/gui/opengl/Context.cpp \
 
 libXosCore_LIBS += \
 -L$${XOS_LIB}/libXosCore \
-
-libXosCore_LIBS += \
 -lXosCore \
 
-XOS_MXDE_SRC += \
+########################################################################
+
+XOS_MXDE_SRC = \
 $${XOS_PRJ}/../mxde/c/src \
+
+XOS_MXDE_LIB = \
+$${XOS_BLD}/../../../../../mxde/c/build/macosx/QtCreator/Debug/lib \
 
 XosMxde_INCLUDEPATH += \
 $${XOS_SRC}/xos/mxde \
@@ -130,3 +138,50 @@ $${XOS_MXDE_SRC}/clib/ccrypto \
 $${XOS_MXDE_SRC}/clib/cos/cplatform \
 $${XOS_MXDE_SRC}/clib/cos \
 $${XOS_MXDE_SRC}/clib/cbase \
+
+########################################################################
+
+XOS_BN_SRC = \
+
+XOS_BN_BLD = \
+
+XosBn_INCLUDEPATH += \
+$${XOS_MXDE_SRC}/clib/cmpint/bn \
+
+XosBn_LIBS += \
+-L$${XOS_MXDE_LIB}/libbn \
+-lbn \
+
+########################################################################
+
+XosGmp_INCLUDEPATH += \
+$${XOS_PRJ}/../gmp/gmp-5.1.3 \
+
+#$${XOS_MXDE_SRC}/clib/cmpint/mp \
+
+XosGmp_LIBS += \
+-L$${XOS_BLD}/../../../../../../../build/gmp-5.1.3/lib \
+-lgmp \
+
+#-L$${XOS_MXDE_LIB}/libmp \
+#-L$${XOS_MXDE_LIB}/libmpn \
+#-L$${XOS_MXDE_LIB}/libmpz \
+#-lmp \
+#-lmpn \
+#-lmpz \
+
+########################################################################
+
+libXosCrypto_INCLUDEPATH += \
+$${XosMxde_INCLUDEPATH} \
+$${XosBn_INCLUDEPATH} \
+$${XosGmp_INCLUDEPATH} \
+
+libXosCrypto_LIBS += \
+-L$${XOS_LIB}/libXosCrypto \
+-lXosCrypto \
+-L$${XOS_LIB}/libXosMxdeCrypto \
+-lXosMxdeCrypto \
+$${XosBn_LIBS} \
+$${XosGmp_LIBS} \
+

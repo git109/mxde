@@ -109,6 +109,7 @@ $(PKG)/$(SRC)/xos/gui/cocoa/console/iXosOptMain.mm \
 $(PKG)/$(SRC)/xos/gui/cocoa/iXosWindowMain.mm \
 $(PKG)/$(SRC)/xos/gui/cocoa/iXosHello.mm \
 $(PKG)/$(SRC)/xos/gui/opengl/cocoa/Context.mm \
+$(PKG)/$(SRC)/xos/gui/opengl/cocoa/ImageRenderer.mm \
 $(PKG)/$(SRC)/xos/webrtc/peerconnection/client/cocoa/OpenGL.mm \
 
 #$(PKG)/$(SRC)/xos/gui/cocoa/console/iXosHello.mm \
