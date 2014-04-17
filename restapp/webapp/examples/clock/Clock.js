@@ -30,6 +30,54 @@ examples.Clock = new Object();
 ////////////////////////////////////////////////////////////////////////
 
 ///
+/// function examples.Clock.RestartService
+///
+examples.Clock.RestartService = function(callbacks) {
+    var url = makeAjaxUrl("/restapp/examples/clock/RestartService");
+    var async = false;
+    var result = false;
+    if (callbacks) {
+    if ('onSuccess' in callbacks) {
+        async = true;
+        result = true;
+    }}
+    AjaxRequest.get
+    ({'url': url,
+      'onSuccess': function(req){ onAjaxRequestSuccess("\"" + url + "\"", req, true, callbacks); if (!async) {
+        result = getAjaxRequestResponse(req);
+       }},
+      'onError': function(req){ onAjaxRequestError("\"" + url + "\"", req, callbacks); if (async) { result = false; }},
+      'onTimeout': function(req){ onAjaxRequestTimeout("\"" + url + "\"", req, callbacks); if (async) { result = false; }},
+      'timeout': ajaxRequestTimeout,
+      'async': async});
+    return result;
+}
+
+///
+/// function examples.Clock.StopService
+///
+examples.Clock.StopService = function(callbacks) {
+    var url = makeAjaxUrl("/restapp/examples/clock/StopService");
+    var async = false;
+    var result = false;
+    if (callbacks) {
+    if ('onSuccess' in callbacks) {
+        async = true;
+        result = true;
+    }}
+    AjaxRequest.get
+    ({'url': url,
+      'onSuccess': function(req){ onAjaxRequestSuccess("\"" + url + "\"", req, true, callbacks); if (!async) {
+        result = getAjaxRequestResponse(req);
+       }},
+      'onError': function(req){ onAjaxRequestError("\"" + url + "\"", req, callbacks); if (async) { result = false; }},
+      'onTimeout': function(req){ onAjaxRequestTimeout("\"" + url + "\"", req, callbacks); if (async) { result = false; }},
+      'timeout': ajaxRequestTimeout,
+      'async': async});
+    return result;
+}
+
+///
 /// function examples.Clock.Start
 ///
 examples.Clock.Start = function(callbacks) {
