@@ -158,6 +158,14 @@ public:
     }
     ////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////
+    virtual bool RestartService() {
+        bool result = false;
+        return result;
+    }
+    virtual bool StopService() {
+        bool result = false;
+        return result;
+    }
     virtual bool Start() {
         bool result = false;
         return result;

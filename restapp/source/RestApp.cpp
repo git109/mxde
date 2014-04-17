@@ -40,7 +40,7 @@ bool Processor::Remove() {
     Processors::iterator b = p.begin();
     Processors::iterator e = p.end();
     Processors::iterator i;
-    for (i = b; i != b; ++i) {
+    for (i = b; i != e; ++i) {
         if ((*i) == this) {
             p.erase(i, i);
             break;

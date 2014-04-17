@@ -26,6 +26,8 @@ namespace clock {
 namespace server {
 namespace implement {
 
+static RestartServiceProcessor the_RestartServiceProcessor;
+static StopServiceProcessor the_StopServiceProcessor;
 static StartProcessor the_StartProcessor;
 static StopProcessor the_StopProcessor;
 static TickProcessor the_TickProcessor;
@@ -35,6 +37,8 @@ static AddTickEventListenerProcessor the_AddTickEventListenerProcessor;
 static RemoveTickEventListenerProcessor the_RemoveTickEventListenerProcessor;
 
 
+static RestartServiceProcessor the_RestartServiceProcessor2("/examples/Clock/RestartService");
+static StopServiceProcessor the_StopServiceProcessor2("/examples/Clock/StopService");
 static StartProcessor the_StartProcessor2("/examples/Clock/Start");
 static StopProcessor the_StopProcessor2("/examples/Clock/Stop");
 static TickProcessor the_TickProcessor2("/examples/Clock/OnTickEvent");

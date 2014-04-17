@@ -59,6 +59,16 @@ public:
     }
     ////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////
+    virtual bool RestartService() {
+        Daemon& daemon = Daemon::GetTheInstance();
+        bool result = daemon.Restart();
+        return result;
+    }
+    virtual bool StopService() {
+        Daemon& daemon = Daemon::GetTheInstance();
+        bool result = daemon.Stop();
+        return result;
+    }
     virtual bool Start() {
         bool result = false;
         try {
