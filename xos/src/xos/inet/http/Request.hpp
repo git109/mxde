@@ -297,6 +297,13 @@ public:
         }
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
+        virtual const String& SetPathTranslated
+        (const String& root, const String& path, char directorySeparator = '/') {
+            m_pathTranslated.Assign(root);
+            m_pathTranslated.Append(&directorySeparator,1);
+            m_pathTranslated.Append(path);
+            return m_pathTranslated;
+        }
         virtual const String& SetPathTranslated(const String& to) {
             m_pathTranslated.Assign(to);
             return m_pathTranslated;
@@ -421,6 +428,13 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual const String& SetPathTranslated
+    (const String& root, const String& path, char directorySeparator = '/') {
+        m_context.pathTranslated().Assign(root);
+        m_context.pathTranslated().Append(&directorySeparator,1);
+        m_context.pathTranslated().Append(path);
+        return m_context.pathTranslated();
+    }
     virtual const String& SetPathTranslated(const String& to) {
         m_context.pathTranslated().Assign(to);
         return m_context.pathTranslated();

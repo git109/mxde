@@ -25,6 +25,8 @@
 #include "xos/inet/http/server/Daemon.hpp"
 #include "xos/inet/http/Content.hpp"
 
+#define XOS_INET_HTTP_SERVER_HELLO_PATH "/hello"
+
 namespace xos {
 namespace http {
 namespace server {

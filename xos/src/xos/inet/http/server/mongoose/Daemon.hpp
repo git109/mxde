@@ -245,8 +245,12 @@ public:
                 }
 
                 if ((chars = mgRequestInfo->uri)) {
-                    request.SetPath(chars);
-                    XOS_LOG_TRACE("path = \"" << request.GetPath() << "\"");
+                    const String& path = request.SetPath(chars);
+                    XOS_LOG_TRACE("path = \"" << path << "\"");
+                    if ((0 < (this->m_documentRoot.Length())) && (0 < (path.Length()))) {
+                        const String& pathTranslated = request.SetPathTranslated(this->m_documentRoot, path);
+                        XOS_LOG_TRACE("path translated = \"" << pathTranslated << "\"");
+                    }
                 }
 
                 if ((chars = mgRequestInfo->query_string)) {

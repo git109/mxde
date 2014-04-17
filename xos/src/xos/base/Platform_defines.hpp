@@ -156,6 +156,11 @@
 #endif // !defined(NO_IMPLEMENT_CLASS)
 
 #define INSTANCE_CLASS PLATFORM_EXPORT
+
+#if defined(DELETE)
+#define PLATFORM_DELETE DELETE
+#undef DELETE
+#endif // defined(DELETE)
 // ...
 // Generic
 //
