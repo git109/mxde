@@ -257,7 +257,7 @@ public:
             success = true;
         } else {
             if (Params::ErrorAddDuplicate == error) {
-                XOS_LOG_ERROR("duplicate literal parameter \"" << name << "\" = \"" << value << "\"");
+                XOS_LOG_WARN("duplicate literal parameter \"" << name << "\" = \"" << value << "\"");
                 success = m_ignoreDuplicateParameterErrors;
             } else {
                 XOS_LOG_ERROR("failed to add literal parameter \"" << name << "\" = \"" << value << "\"");

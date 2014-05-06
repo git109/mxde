@@ -26,6 +26,7 @@
 #define iMakeRect NSMakeRect
 #define iMakeSize NSMakeSize
 #define iMakeOrigin NSMakeOrigin
+#define iApp NSApp
 
 typedef NSArray iArray;
 typedef NSRect iRect;
@@ -37,6 +38,7 @@ typedef NSView iView;
 typedef NSWindow iWindow;
 typedef NSApplication iApplication;
 typedef NSAutoreleasePool iAutoreleasePool;
+typedef NSProcessInfo iProcessInfo;
 typedef NSUInteger iWindowStyleMask;
 typedef NSBackingStoreType iBackingStoreType;
 typedef NSNotification iNotification;
@@ -45,6 +47,8 @@ typedef NSOpenGLPixelFormat iOpenGLPixelFormat;
 typedef NSOpenGLPixelFormatAttribute iOpenGLPixelFormatAttribute;
 typedef NSOpenGLContext iOpenGLContext;
 
+typedef NSMenu iMenu;
+typedef NSMenuItem iMenuItem;
 typedef NSTextField iTextField;
 typedef NSButton iPushButton;
 typedef NSPopUpButton iPopUpButton;
@@ -74,9 +78,8 @@ enum {
     iProgressIndicatorBarStyle = NSProgressIndicatorBarStyle
 };
 
-enum  {
-    iSwitchButton = NSSwitchButton
-};
+#define iSwitchButton NSSwitchButton
+#define iRoundedBezelStyle NSRoundedBezelStyle
 
 enum {
     iMixedState = NSMixedState,

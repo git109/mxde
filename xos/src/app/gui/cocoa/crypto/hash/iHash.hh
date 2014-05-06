@@ -54,6 +54,7 @@ class _EXPORT_CLASS MainWindow;
     iButton* m_cancel;
 
     iProgress* m_progress;
+    iButton* m_quit;
     }
     - (id)initWithFrameAndTarget:(iRect)frame target:(iObject*)target;
     - (void)setHash:(const xos::String&)text;
@@ -89,6 +90,7 @@ class _EXPORT_CLASS MainWindow;
     - (iView*)createMainView:(int)argc argv:(char**)argv env:(char**)env;
     - (void)okClicked:(id)sender;
     - (void)cancelClicked:(id)sender;
+    - (void)quitClicked:(id)sender;
     - (void)upperClicked:(id)sender;
     - (void)updateFileHash:(id)sender;
     - (iDragOperation)draggingEntered:(id <iDraggingInfo>)sender;

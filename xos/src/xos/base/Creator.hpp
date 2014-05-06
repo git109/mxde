@@ -42,6 +42,7 @@ public:
     virtual bool IsCreated() const = 0;
     virtual bool Destroyed() = 0;
     virtual bool Destroy() = 0;
+    virtual bool Create() = 0;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
@@ -62,10 +63,40 @@ public:
             return Destroy();
         return true; }
     virtual bool Destroy() { return false; }
+    virtual bool Create() { return false; }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
 typedef CreatorImplementT<> CreatorImplement;
+
+///////////////////////////////////////////////////////////////////////
+///  Class: CreatorExtendT
+///////////////////////////////////////////////////////////////////////
+template <class TImplement = CreatorImplement, class TExtend = ExportBase>
+class _EXPORT_CLASS CreatorExtendT: virtual public TImplement, public TExtend {
+public:
+    typedef TImplement Implements;
+    typedef TExtend Extends;
+    typedef typename Implements::Exception Exception;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    CreatorExtendT(bool isCreated = false): m_isCreated(isCreated) {}
+    virtual ~CreatorExtendT() {
+        if (!(this->Destroyed())) {
+            Exception e(Implements::FailedToDestroy);
+            throw(e);
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool SetIsCreated(bool isTrue = true) { return m_isCreated = isTrue; }
+    virtual bool IsCreated() const { return m_isCreated; }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    bool m_isCreated;
+};
+typedef CreatorExtendT<> CreatorExtend;
 
 } // namespace xos
 

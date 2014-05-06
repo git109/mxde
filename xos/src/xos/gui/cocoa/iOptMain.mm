@@ -26,7 +26,7 @@
 ///////////////////////////////////////////////////////////////////////
 @implementation iOptMain
     - (id)init {
-        [super init:self];
+        self = [super init];
         m_didUsage = false;
         return self;
     }

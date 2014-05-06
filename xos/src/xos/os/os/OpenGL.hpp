@@ -26,7 +26,10 @@
 #if defined(WINDOWS)
 #include "xos/os/windows/OpenGL.hpp"
 #else // defined(WINDOWS)
+#if defined(MACOSX)
+#else // defined(MACOSX)
 #include "xos/os/unix/OpenGL.hpp"
+#endif // defined(MACOSX
 #endif // defined(WINDOWS)
 
 namespace xos {

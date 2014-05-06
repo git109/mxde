@@ -78,6 +78,21 @@ public:
         m_elementsLength += (count = elementsLength);
         return count;
     }
+    virtual size_t Set(const TWhat& element, size_t elementsLength){
+        size_t count = 0;
+        size_t newElementsLength;
+
+        if ((!m_elements) || (elementsLength < 1))
+            return 0;
+
+        if (m_elementsSize < (newElementsLength = (elementsLength)))
+        if (0 >= (count = AdjustToSize(NewSize(newElementsLength))))
+            return count;
+
+        SetElements(m_elements, element, elementsLength);
+        m_elementsLength = (count = elementsLength);
+        return count;
+    }
     virtual size_t Clear(){
         size_t count = m_elementsLength;
         if (m_elements)
@@ -155,6 +170,14 @@ protected:
         m_elements = elements;
         m_elementsSize = size;
         count = m_elementsSize;
+        return count;
+    }
+    virtual size_t SetElements
+    (TWhat* to, const TWhat& from, size_t size) const {
+        size_t count = 0;
+        if ((to))
+        for (count = 0; size > 0; --size, count++)
+            (*to++) = from;
         return count;
     }
     virtual size_t CopyElements

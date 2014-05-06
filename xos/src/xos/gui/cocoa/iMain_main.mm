@@ -23,6 +23,10 @@
 #include "xos/gui/cocoa/os/LoggerStream.hh"
 #include "xos/os/MainOpt.hpp"
 #include "xos/os/FILEStream.hpp"
+#include "xos/base/Array.hpp"
+#include "xos/base/Types.hpp"
+
+#define XOS_GUI_COCOA_IMAIN_MAIN_ARGS_LONGOPT "--args"
 
 static const char* options(const struct option*& longopts) {
     static const char* chars = XOS_MAIN_OPTIONS_CHARS;
@@ -83,6 +87,7 @@ int main(int argc, char** argv, char** env) {
     xos::cocoa::os::LoggerStream loggerStream;
     volatile xos::cocoa::os::StreamLogger logger(&loggerStream);
     int err = 1;
+    xos::Array<char*>arguments;
     XOS_LOGGING_LEVELS oldLevels;
     XOS_LOGGING_LEVELS newLevels;
     XOS_LOGGER_INIT();
@@ -90,6 +95,22 @@ int main(int argc, char** argv, char** env) {
     xos::OnLoggingLevel(XOS_MAIN_2STRING(XOS_DEFAULT_LOGGING_LEVELS_ID));
 #endif // defined(XOS_DEFAULT_LOGGING_LEVELS_ID)
     XOS_GET_LOGGING_LEVEL(oldLevels);
+    if (2 <= (argc)) {
+        if (!(xos::Chars::Compare(argv[1], XOS_GUI_COCOA_IMAIN_MAIN_ARGS_LONGOPT))) {
+            arguments.Append(argv, 1);
+            if (2 < (argc)) {
+                arguments.Append(argv+2, argc-2);
+            }
+        }
+    }
+    if ((0 < (arguments.Length())) && (arguments.Elements())) {
+        argc = (int)arguments.Length();
+        argv = arguments.Elements();
+    } else {
+        if (1 <= (argc)) {
+            argc = 1;
+        }
+    }
     getOptions(argc, argv, env);
     XOS_GET_LOGGING_LEVEL(newLevels);
     try {

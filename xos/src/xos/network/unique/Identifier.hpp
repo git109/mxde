@@ -24,7 +24,7 @@
 #include "xos/network/unique/actual/Identifier.hpp"
 #include "xos/network/ethernet/actual/Address.hpp"
 #include "xos/crypto/hash/Interface.hpp"
-#include "xos/crypto/random/Interface.hpp"
+#include "xos/crypto/random/Generator.hpp"
 #include "xos/base/Writer.hpp"
 #include "xos/base/Wrapped.hpp"
 
@@ -68,7 +68,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
     class _EXPORT_CLASS From {
     public:
-        typedef xos::crypto::random::Interface Random;
+        typedef xos::crypto::random::Generator Random;
         typedef xos::crypto::hash::Interface Md5;
         typedef xos::crypto::hash::Interface Sha1;
         typedef xos::network::ethernet::actual::Address MacAddress;
@@ -163,7 +163,7 @@ protected:
         ToMsb(*m_wrapped.m_timeLow.m_b, m_wrapped.m_timeLow.m_l, sizeof(m_wrapped.m_timeLow.m_l));
         ToMsb(*m_wrapped.m_timeMid.m_b, m_wrapped.m_timeMid.m_w, sizeof(m_wrapped.m_timeMid.m_w));
         ToMsb(*m_wrapped.m_timeHiAndVersion.m_b, m_wrapped.m_timeHiAndVersion.m_w, sizeof(m_wrapped.m_timeHiAndVersion.m_w));
-        m_wrapped.m_b;
+        return *m_wrapped.m_b;
     }
     virtual uint8_t& ToMsb(uint8_t& to, unsigned long value, size_t size) const {
         unsigned long msbValue = 0;

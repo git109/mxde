@@ -18,7 +18,7 @@
 /// Author: $author$
 ///   Date: Sep 2, 2012
 ///////////////////////////////////////////////////////////////////////
-#include "xos/os/ipc/unix/MessageQueue.hpp"
+#include "xos/os/unix/MessageQueue.hpp"
 
 namespace xos {
 namespace ipc {

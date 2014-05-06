@@ -274,11 +274,9 @@ template
 
 class _EXPORT_CLASS ExportTree: virtual public TImplement, public TExtend {
 #define _XOS_TREE_MEMBERS_ONLY
-#define _XOS_TREE_MEMBERS_EXPORT _EXPORT_CLASS
 #define Tree ExportTree
 #include "xos/base/Tree.hpp"
 #undef Tree
-#undef _XOS_TREE_MEMBERS_EXPORT
 #undef _XOS_TREE_MEMBERS_ONLY
 };
 

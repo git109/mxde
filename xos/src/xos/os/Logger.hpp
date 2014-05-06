@@ -134,6 +134,59 @@ public:
         }
     };
 
+    class EXPORT_CLASS ClassName: public String {
+    public:
+        ClassName(const String& fullyQualifiedFunctionName) {
+            Assign(ClassNameOf(fullyQualifiedFunctionName));
+        }
+        virtual String ClassNameOf(const String& fullyQualifiedFunctionName) {
+            String className;
+            String name;
+            const char* chars;
+            size_t length;
+            if ((chars = fullyQualifiedFunctionName.Chars())
+                && (length = fullyQualifiedFunctionName.Length())) {
+                for (int state = 0, i = 0; i < length; ++i) {
+                    char c=chars[i];
+                    switch(state) {
+                    case 1:
+                        switch(c) {
+                        case '(':
+                            return className;
+                        case ' ':
+                            name.Clear();
+                            break;
+                        case ':':
+                            className.Append(name);
+                            name.Assign("::");
+                            state = 0;
+                            break;
+                        default:
+                            state = 0;
+                            name.Append(":");
+                            name.Append(&c,1);
+                        }
+                        break;
+                    default:
+                        switch(c) {
+                        case '(':
+                            return className;
+                        case ' ':
+                            name.Clear();
+                            break;
+                        case ':':
+                            state = 1;
+                            break;
+                        default:
+                            name.Append(&c,1);
+                        }
+                    }
+                }
+            }
+            return className;
+        }
+    };
+
     virtual ~Logger() {}
 
     virtual bool Init() = 0;
@@ -171,6 +224,9 @@ protected:
 #endif // (_MSC_VER >= 1300)
 #if !defined(__XOS_LOGGER_FUNC__)
 #define __XOS_LOGGER_FUNC__ ""
+#define __XOS_LOGGER_CLASS__ ""
+#else // !defined(__XOS_LOGGER_FUNC__)
+#define __XOS_LOGGER_CLASS__ ::xos::Logger::ClassName(__XOS_LOGGER_FUNC__)
 #endif // !defined(__XOS_LOGGER_FUNC__)
 #define XOS_LOGGER_LOCATION ::xos::Logger::Location(__XOS_LOGGER_FUNC__, __FILE__, __LINE__)
 #endif // !defined(XOS_LOGGER_LOCATION)

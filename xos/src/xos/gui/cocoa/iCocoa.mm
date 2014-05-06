@@ -28,7 +28,7 @@
     - (id)initWithFrame:(iRect)frame text:(const std::string&)text {
         const char* chars = 0;
         iString* string = 0;
-        [super initWithFrame:frame];
+        self = [super initWithFrame:frame];
         [self setBezeled:NO];
         [self setDrawsBackground:NO];
         [self setEditable:NO];
@@ -82,7 +82,7 @@
 ///////////////////////////////////////////////////////////////////////
 @implementation iText
     - (id)initWithFrame:(iRect)frame {
-        [super initWithFrame:frame];
+        self = [super initWithFrame:frame];
         [self setEditable:NO];
         [self setSelectable:YES];
         return self;
@@ -122,7 +122,7 @@
               action:(SEL)action {
         if (([super initWithFrame:frame text:text target:target action:action])) {
             [self setButtonType:iSwitchButton];
-            [self setBezelStyle:0];
+            [self setBezelStyle:iRoundedBezelStyle];
             [self setState:iOffState];
         }
         return self;

@@ -42,14 +42,16 @@ typedef xos::Waiter<Semaphore> Waiter;
 class _EXPORT_CLASS ThreadRun: public Thread::Run {
 public:
     typedef Thread::Run Extends;
-    ThreadRun(iHashMainWindow* mainWindow): m_mainWindow(mainWindow) {
+    ThreadRun(iHashMainWindow* mainWindow): m_mainWindow(mainWindow), m_done(false) {
     }
     virtual void operator()() {
         for (bool done = false; !done;) {
             try {
                 volatile Waiter waitr(m_updateFileHash);
                 XOS_LOG_DEBUG("...waited on m_updateFileHash");
-                [m_mainWindow performSelectorOnMainThread:@selector(updateFileHash:) withObject:m_mainWindow waitUntilDone:NO];
+                if (!(done = m_done)) {
+                    [m_mainWindow performSelectorOnMainThread:@selector(updateFileHash:) withObject:m_mainWindow waitUntilDone:NO];
+                }
             } catch (const WaitInterface::Status& status) {
                 XOS_LOG_DEBUG("...failed wait m_updateFileHash");
                 done = true;
@@ -60,6 +62,8 @@ public:
         }
     }
     void Stop() {
+        m_done = true;
+        m_updateFileHash.Release();
         m_updateFileHash.Destroy();
     }
     void UpdateFileHash() {
@@ -67,6 +71,7 @@ public:
     }
 protected:
     iHashMainWindow* m_mainWindow;
+    bool m_done;
     Semaphore m_updateFileHash;
 };
 

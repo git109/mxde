@@ -41,7 +41,7 @@
         BOOL defer = XOS_GUI_COCOA_IWINDOWMAIN_WINDOW_DEFER;
         m_mainView = 0;
         m_app = 0;
-        [super initWithContentRect:contentRect styleMask:style backing:backing defer:defer];
+        self = [super initWithContentRect:contentRect styleMask:style backing:backing defer:defer];
         [self setTitle:[iString stringWithUTF8String:XOS_GUI_COCOA_IWINDOWMAIN_WINWOW_TITLE]];
         [self setDelegate:self];
         return self;

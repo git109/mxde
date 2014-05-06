@@ -39,6 +39,11 @@
 #define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_LOWER_LABEL "Lower"
 #define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_OK_LABEL "Ok"
 #define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_CANCEL_LABEL "Cancel"
+#define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_QUIT_LABEL "Quit"
+
+#define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_MENU_QUIT_KEY "q"
+#define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_MENU_QUIT_LABEL \
+    XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_QUIT_LABEL " "
 
 #define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_HASH_SIZE 20
 #define XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_HASH_SIZE_MAX 48
@@ -58,10 +63,12 @@
     m_text = 0;
     m_cancel = 0;
     m_progress = 0;
+    m_quit = 0;
     if (([super initWithFrame:frame])) {
         iRect rect = [self bounds];
         const char* okLabel = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_OK_LABEL;
         const char* cancelLabel = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_CANCEL_LABEL;
+        const char* quitLabel = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_QUIT_LABEL;
         const char* upperLabel = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_UPPER_LABEL;
         const char* textLabel = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_TEXT_LABEL;
         const char* fileLabel = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_FILE_LABEL;
@@ -93,6 +100,15 @@
             if (width < (rowWidth += frame.size.width))
                 width = rowWidth;
             height += frame.size.height;
+
+            frame.origin.x += frame.size.width+2;
+            frame.size.width = charWidth*buttonLabelLength;
+
+            if ((m_quit = [[iButton alloc] initWithFrame:frame text:quitLabel target:target action:@selector(quitClicked:)])) {
+                [self addSubview:m_quit];
+                if (width < (rowWidth += frame.size.width))
+                    width = rowWidth;
+            }
             y += frame.size.height;
             rowWidth = XOS_GUI_COCOA_CRYPTO_HASH_IHASH_CONTROL_BORDER*2;
         }
@@ -310,6 +326,21 @@
         if ((m_mainWindow))
             m_mainWindow->HashCancel();
     }
+    - (void)quitClicked:(id)sender {
+        iApplication* app;
+        XOS_LOG_DEBUG("Quit...");
+        if ((m_mainWindow))
+            m_mainWindow->HashCancel();
+        if ((app = [self application]))
+            [app stop:self];
+    }
+    -(void)windowWillClose:(iNotification*)notification {
+        iApplication* app;
+        if ((m_mainWindow))
+            m_mainWindow->HashCancel();
+        if ((app = [self application]))
+            [app stop:self];
+    }
     - (void)upperClicked:(id)sender {
         iCheck* check;
         XOS_LOG_DEBUG("Upper...");
@@ -371,7 +402,20 @@
 @implementation iHashMain
     - (iMainWindow*)createMainWindow:(iRect)contentRect argc:(int)argc argv:(char**)argv env:(char**)env {
         static xos::gui::crypto::hash::cocoa::MainWindow mainWindow;
-        return [[iHashMainWindow alloc] initWithRect:contentRect mainWindow:&mainWindow];
+        iMainWindow* window;
+        if ((window = [[iHashMainWindow alloc] initWithRect:contentRect mainWindow:&mainWindow])) {
+            iMenu* menubar = [[iMenu new] autorelease];
+            iMenuItem* appMenuItem = [[iMenuItem new] autorelease];
+            iMenu* appMenu = [[iMenu new] autorelease];
+            iString* appName = [[iProcessInfo processInfo] processName];
+            iString* quitTitle = [@XOS_GUI_COCOA_CRYPTO_HASH_IHASH_MENU_QUIT_LABEL stringByAppendingString:appName];
+            iMenuItem* quitMenuItem = [[[iMenuItem alloc] initWithTitle:quitTitle action:@selector(terminate:) keyEquivalent:@XOS_GUI_COCOA_CRYPTO_HASH_IHASH_MENU_QUIT_KEY] autorelease];
+            [appMenu addItem:quitMenuItem];
+            [appMenuItem setSubmenu:appMenu];
+            [menubar addItem:appMenuItem];
+            [m_app setMainMenu:menubar];
+        }
+        return window;
     }
 @end
 

@@ -76,7 +76,7 @@ public:
     }
 };
 
-typedef HexStringT<'A'> XString;
+//typedef HexStringT<'A'> XString;
 typedef HexStringT<'a'> xString;
 
 } // namespace xos 
