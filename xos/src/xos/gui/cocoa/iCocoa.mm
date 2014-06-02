@@ -122,7 +122,22 @@
               action:(SEL)action {
         if (([super initWithFrame:frame text:text target:target action:action])) {
             [self setButtonType:iSwitchButton];
-            [self setBezelStyle:iRoundedBezelStyle];
+            [self setState:iOffState];
+        }
+        return self;
+}
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Implentation: iRadio
+///////////////////////////////////////////////////////////////////////
+@implementation iRadio
+- (id)initWithFrame:(iRect)frame
+               text:(const std::string&)text
+              target:(iObject*)target
+              action:(SEL)action {
+        if (([super initWithFrame:frame text:text target:target action:action])) {
+            [self setButtonType:iRadioButton];
             [self setState:iOffState];
         }
         return self;

@@ -30,6 +30,7 @@
 #define XOS_HTTP_SERVER_DAEMON_NUM_THREADS XOS_STRING(XOS_HTTP_SERVER_DAEMON_NUM_THREADSNO)
 #define XOS_HTTP_SERVER_DAEMON_LISTEN_PORTNO 8080
 #define XOS_HTTP_SERVER_DAEMON_LISTEN_PORT XOS_STRING(XOS_HTTP_SERVER_DAEMON_LISTEN_PORTNO)
+#define XOS_HTTP_SERVER_DAEMON_LISTEN_HOST "localhost"
 #define XOS_HTTP_SERVER_DAEMON_DOCUMENT_ROOT "."
 #define XOS_HTTP_SERVER_DAEMON_CGI_PATTERN ""
 #define XOS_HTTP_SERVER_DAEMON_CGI_EXECUTABLE ""
@@ -126,6 +127,7 @@ public:
       m_numThreads(XOS_HTTP_SERVER_DAEMON_NUM_THREADS),
       m_listenPortNo(XOS_HTTP_SERVER_DAEMON_LISTEN_PORTNO),
       m_listenPort(XOS_HTTP_SERVER_DAEMON_LISTEN_PORT),
+      m_listenHost(XOS_HTTP_SERVER_DAEMON_LISTEN_HOST),
       m_documentRoot(XOS_HTTP_SERVER_DAEMON_DOCUMENT_ROOT),
       m_cgiPattern(XOS_HTTP_SERVER_DAEMON_CGI_PATTERN),
       m_cgiExecutable(XOS_HTTP_SERVER_DAEMON_CGI_EXECUTABLE),
@@ -138,6 +140,7 @@ public:
       m_numThreads(XOS_HTTP_SERVER_DAEMON_NUM_THREADS),
       m_listenPortNo(XOS_HTTP_SERVER_DAEMON_LISTEN_PORTNO),
       m_listenPort(XOS_HTTP_SERVER_DAEMON_LISTEN_PORT),
+      m_listenHost(XOS_HTTP_SERVER_DAEMON_LISTEN_HOST),
       m_documentRoot(XOS_HTTP_SERVER_DAEMON_DOCUMENT_ROOT),
       m_cgiPattern(XOS_HTTP_SERVER_DAEMON_CGI_PATTERN),
       m_cgiExecutable(XOS_HTTP_SERVER_DAEMON_CGI_EXECUTABLE) {
@@ -300,6 +303,7 @@ protected:
     String m_numThreads;
     ushort m_listenPortNo;
     String m_listenPort;
+    String m_listenHost;
     String m_documentRoot, m_cgiPattern, m_cgiExecutable;
     String m_defaultContentFile, m_defaultContentType;
 };

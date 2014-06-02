@@ -92,7 +92,7 @@ public:
             if (!(err = pthread_mutexattr_init(&m_mutexattr))) {
                 bool isCreated = false;
                 if ((isCreated = !(err = pthread_mutex_init(&m_mutex, &m_mutexattr)))) {
-                    Attach(&m_mutex, isCreated);
+                    this->Attach(&m_mutex, isCreated);
                     if ((err = pthread_mutexattr_destroy(&m_mutexattr))) {
                         if ((Logging()))
                         { XOS_LOG_ERROR("failed err = " << err << " on pthread_mutexattr_destroy()"); }

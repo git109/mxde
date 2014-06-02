@@ -96,6 +96,25 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutFormattedLn(const char* format, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        if ((format))
+        count = OutFormattedVLn(format, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t OutFormattedVLn(const char* format, va_list va) {
+        ssize_t count = OutFormattedV(format, va);
+        if (0 <= (count)) {
+            ssize_t amount;
+            if (0 <= (amount = OutLn()))
+                count += amount;
+            else count = amount;
+        }
+        return count;
+    }
     virtual ssize_t OutFormatted(const char* format, ...) {
         ssize_t count = 0;
         va_list va;
@@ -109,6 +128,25 @@ public:
         ssize_t count = 0;
         if ((format))
         count = vfprintf(StdOut(), format, va);
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutLLn(const char* what, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, what);
+        count = OutVLn(what, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t OutVLn(const char* what, va_list va) {
+        ssize_t count = OutV(what, va);
+        if (0 <= (count)) {
+            ssize_t amount;
+            if (0 <= (amount = OutLn()))
+                count += amount;
+            else count = amount;
+        }
         return count;
     }
     virtual ssize_t OutL(const char* what, ...) {
@@ -129,6 +167,36 @@ public:
         }
         return count;
     }
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t OutLn(const char* out, ssize_t length = -1) {
+        ssize_t count;
+        if (0 <= (count = Out(out, length))) {
+            const char* lineFeed;
+            ssize_t amount;
+            if ((lineFeed = LineFeed(amount))) {
+                if (0 > (amount = Out(lineFeed, amount))) {
+                    return amount;
+                } else {
+                    count += amount;
+                }
+            }
+        }
+        return count;
+    }
+    virtual ssize_t OutLn() {
+        ssize_t count = 0;
+        const char* lineFeed;
+        ssize_t amount;
+        if ((lineFeed = LineFeed(amount))) {
+            if (0 > (amount = Out(lineFeed, amount))) {
+                return amount;
+            } else {
+                count += amount;
+            }
+        }
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Out(const char* out, ssize_t length = -1) {
         ssize_t count = Out(StdOut(), out, length);
         return count;
@@ -139,6 +207,26 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t ErrFormattedLn(const char* format, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        if ((format))
+        count = ErrFormattedVLn(format, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t ErrFormattedVLn(const char* format, va_list va) {
+        ssize_t count = ErrFormattedV(format, va);
+        if (0 <= (count)) {
+            ssize_t amount;
+            if (0 <= (amount = ErrLn()))
+                count += amount;
+            else count = amount;
+        }
+        return count;
+    }
     virtual ssize_t ErrFormatted(const char* format, ...) {
         ssize_t count = 0;
         va_list va;
@@ -152,6 +240,25 @@ public:
         ssize_t count = 0;
         if ((format))
         count = vfprintf(StdErr(), format, va);
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t ErrLLn(const char* what, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, what);
+        count = ErrVLn(what, va);
+        va_end(va);
+        return count;
+    }
+    virtual ssize_t ErrVLn(const char* what, va_list va) {
+        ssize_t count = ErrV(what, va);
+        if (0 <= (count)) {
+            ssize_t amount;
+            if (0 <= (amount = ErrLn()))
+                count += amount;
+            else count = amount;
+        }
         return count;
     }
     virtual ssize_t ErrL(const char* what, ...) {
@@ -172,6 +279,36 @@ public:
         }
         return count;
     }
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t ErrLn(const char* out, ssize_t length = -1) {
+        ssize_t count;
+        if (0 <= (count = Err(out, length))) {
+            const char* lineFeed;
+            ssize_t amount;
+            if ((lineFeed = LineFeed(amount))) {
+                if (0 > (amount = Err(lineFeed, amount))) {
+                    return amount;
+                } else {
+                    count += amount;
+                }
+            }
+        }
+        return count;
+    }
+    virtual ssize_t ErrLn() {
+        ssize_t count = 0;
+        const char* lineFeed;
+        ssize_t amount;
+        if ((lineFeed = LineFeed(amount))) {
+            if (0 > (amount = Err(lineFeed, amount))) {
+                return amount;
+            } else {
+                count += amount;
+            }
+        }
+        return count;
+    }
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Err(const char* out, ssize_t length = -1) {
         ssize_t count = Out(StdErr(), out, length);
         return count;
@@ -181,6 +318,7 @@ public:
         return count;
     }
 
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t InFormatted(const char* format, ...) {
         ssize_t count = 0;
@@ -225,6 +363,7 @@ public:
         }
         return count;
     }
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t In(FILE* f, char* in, size_t size) {
         ssize_t count = 0;
         if ((in) && (f)) {
@@ -255,6 +394,14 @@ public:
     }
     virtual FILE* StdIn() const {
         return stdin;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual const char* LineFeed(ssize_t& length) const {
+        static const char lineFeed = '\n';
+        length = 1;
+        return &lineFeed;
     }
 
     ///////////////////////////////////////////////////////////////////////

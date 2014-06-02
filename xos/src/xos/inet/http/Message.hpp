@@ -78,16 +78,49 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    Message(const String& value): Extends(value) {
+    Message(const String& value)
+    : Extends(value), m_thisReader(*this), m_thisWriter(*this),
+      m_reader(m_thisReader), m_writer(m_thisWriter) {
     }
-    Message(const Message& copy): Extends(copy) {
+    Message(const Message& copy)
+    : Extends(copy), m_thisReader(*this), m_thisWriter(*this),
+      m_reader(m_thisReader), m_writer(m_thisWriter) {
     }
-    Message() {
+    Message(CharReader& reader, CharWriter& writer)
+    : m_thisReader(*this), m_thisWriter(*this),
+      m_reader(reader), m_writer(writer) {
+    }
+    Message(CharReader& reader)
+    : m_thisReader(*this), m_thisWriter(*this),
+      m_reader(reader), m_writer(m_thisWriter) {
+    }
+    Message(CharWriter& writer)
+    : m_thisReader(*this), m_thisWriter(*this),
+      m_reader(m_thisReader), m_writer(m_writer) {
+    }
+    Message()
+    : m_thisReader(*this), m_thisWriter(*this),
+      m_reader(m_thisReader), m_writer(m_thisWriter) {
     }
     virtual ~Message() {
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual CharReader& GetReader() const {
+        return ((CharReader&)m_reader);
+    }
+    virtual CharWriter& GetWriter() const {
+        return ((CharWriter&)m_writer);
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    Reader m_thisReader;
+    Writer m_thisWriter;
+    CharReader& m_reader;
+    CharWriter& m_writer;
 };
 
 } // namespace http

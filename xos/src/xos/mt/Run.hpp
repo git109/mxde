@@ -26,10 +26,12 @@
 namespace xos {
 namespace mt {
 
+typedef InterfaceBase RunImplement;
+typedef ExportBase RunExtend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: RunT
 ///////////////////////////////////////////////////////////////////////
-template <class TExtend = ExportBase, class TImplement = InterfaceBase>
+template <class TExtend = RunExtend, class TImplement = RunImplement>
 class _EXPORT_CLASS RunT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;

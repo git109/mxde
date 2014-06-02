@@ -160,6 +160,13 @@ public:
         }
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
+        virtual const String& Set(const String& to) {
+            Assign(to);
+            Separate();
+            return *this;
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
         virtual bool Combine() {
             return false;
         }
@@ -245,6 +252,15 @@ public:
             return m_method;
         }
         ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual const String& SetUri(const String& to) {
+            m_uri.Set(to);
+            return m_uri;
+        }
+        virtual const String& GetUri() const {
+            return m_uri;
+        }
+        ///////////////////////////////////////////////////////////////////////
         virtual const String& SetPath(const String& to) {
             m_uri.SetPath(to);
             return m_uri.GetPath();
@@ -267,6 +283,31 @@ public:
         }
         virtual const String& GetFragment() const {
             return m_uri.GetFragment();
+        }
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual const String& SetProtocol(const String& to) {
+            m_version.SetProtocol(to);
+            return m_version.GetProtocol();
+        }
+        virtual const String& GetProtocol() const {
+            return m_version.GetProtocol();
+        }
+        ///////////////////////////////////////////////////////////////////////
+        virtual const String& SetProtocolVersionMajor(const String& to) {
+            m_version.SetMajor(to);
+            return m_version.GetMajor();
+        }
+        virtual const String& GetProtocolVersionMajor() const {
+            return m_version.GetMajor();
+        }
+        ///////////////////////////////////////////////////////////////////////
+        virtual const String& SetProtocolVersionMinor(const String& to) {
+            m_version.SetMinor(to);
+            return m_version.GetMinor();
+        }
+        virtual const String& GetProtocolVersionMinor() const {
+            return m_version.GetMinor();
         }
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
@@ -340,11 +381,24 @@ public:
     : m_line(copy.m_line), m_headers(copy.m_headers),
       m_message(copy.m_message), m_context(copy.m_context) {
     }
+    Request(CharReader& messageReader): m_message(messageReader) {
+    }
     Request() {
     }
     virtual ~Request() {
     }
     ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual Line& SetLine(const Line& to) {
+        m_line = to;
+        return m_line;
+    }
+    virtual const Line& GetLine() const {
+        return m_line;
+    }
+    virtual Line& line() const {
+        return (Line&)(m_line);
+    }
     ///////////////////////////////////////////////////////////////////////
     virtual const String& SetMethod(const String& to) {
         m_line.SetMethod(to);
@@ -376,6 +430,31 @@ public:
     }
     virtual const String& GetFragment() const {
         return m_line.GetFragment();
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual Headers& SetHeaders(const Headers& to) {
+        m_headers = to;
+        return m_headers;
+    }
+    virtual const Headers& GetHeaders() const {
+        return m_headers;
+    }
+    virtual Headers& headers() const {
+        return (Headers&)(m_headers);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual String SetTransferEncoding(const String& to) {
+        return m_headers.SetTransferEncoding(to);
+    }
+    virtual String GetTransferEncoding() const {
+        return m_headers.GetTransferEncoding();
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual String SetContentEncoding(const String& to) {
+        return m_headers.SetContentEncoding(to);
+    }
+    virtual String GetContentEncoding() const {
+        return m_headers.GetContentEncoding();
     }
     ///////////////////////////////////////////////////////////////////////
     virtual String SetContentType(const String& to) {
@@ -455,6 +534,11 @@ public:
     }
     virtual Context& context() const {
         return (Context&)(m_context);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual CharReader& GetMessageReader() const {
+        return m_message.GetReader();
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////

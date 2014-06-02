@@ -49,6 +49,9 @@ typedef unsigned short UINT16;
 //
 #endif // defined(WINDOWS_MSC_VER_6)
 
+typedef BYTE byte_t;
+typedef WORD word_t;
+
 typedef TCHAR tchar_t;
 
 typedef INT8 int8_t;
@@ -127,6 +130,9 @@ typedef unsigned char uint8_t;
 #else // defined(MACOSX)
 typedef int BOOL;
 #endif // defined(MACOSX)
+
+typedef uint8_t byte_t;
+typedef uint16_t word_t;
 
 typedef char tchar_t;
 

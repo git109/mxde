@@ -73,6 +73,41 @@
 @end
 
 ///////////////////////////////////////////////////////////////////////
+/// Interface: iRadio
+///////////////////////////////////////////////////////////////////////
+@interface iRadio: iButton {
+    }
+    - (id)initWithFrame:(iRect)frame
+                   text:(const std::string&)text
+                  target:(iObject*)target
+                  action:(SEL)action;
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Interface: iSpin
+///////////////////////////////////////////////////////////////////////
+@interface iSpin: iStepper {
+    }
+    - (id)initWithFrame:(iRect)frame
+                   text:(const std::string&)text
+                  target:(iObject*)target
+                  action:(SEL)action;
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Interface: iCombo
+///////////////////////////////////////////////////////////////////////
+@interface iCombo: iComboBox {
+    }
+    - (id)initWithFrame:(iRect)frame
+                   text:(const std::string&)text
+                  target:(iObject*)target
+                  action:(SEL)action;
+    - (void)addItemWithText:(const std::string&)text;
+    - (void)getSelectedItemText:(std::string&)text;
+@end
+
+///////////////////////////////////////////////////////////////////////
 /// Interface: iPullDown
 ///////////////////////////////////////////////////////////////////////
 @interface iPullDown: iPopUpButton {
@@ -94,6 +129,25 @@
     - (void)setValue:(size_t)value;
     - (void)show;
     - (void)hide;
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Interface: iLevel
+///////////////////////////////////////////////////////////////////////
+@interface iLevel: iLevelIndicator {
+    }
+    - (id)initWithFrame:(iRect)frame;
+    - (void)setValue:(size_t)value;
+    - (void)show;
+    - (void)hide;
+@end
+
+///////////////////////////////////////////////////////////////////////
+/// Interface: iGroup
+///////////////////////////////////////////////////////////////////////
+@interface iGroup: iBox {
+    }
+    - (id)initWithFrame:(iRect)frame;
 @end
 
 #endif // _XOS_GUI_COCOA_ICOCOA_HH

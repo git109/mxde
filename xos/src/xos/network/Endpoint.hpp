@@ -87,6 +87,10 @@ public:
     virtual operator struct sockaddr* () const {
         return SocketAddress();
     }
+
+    static void Delete(Endpoint* instance) {
+        delete instance;
+    }
 };
 
 } // namespace xos 

@@ -333,6 +333,7 @@ public:
 typedef TypesT<char> Chars;
 typedef TypesT<tchar_t> TChars;
 typedef TypesT<wchar_t> WChars;
+typedef TypesT<unsigned char> UChars;
 
 typedef TypesT<uint8_t> Bytes;
 typedef TypesT<uint16_t> Words;

@@ -21,6 +21,16 @@
 #include "xos/network/Socket.hpp"
 
 namespace xos {
+///////////////////////////////////////////////////////////////////////
+/// Class: Reference<network::Socket>
+///////////////////////////////////////////////////////////////////////
+template<>
+void Reference<network::Socket>::Delete(network::Socket* instance) {
+    network::Socket::Delete(instance);
+}
+} // namespace xos
+
+namespace xos {
 namespace network {
 
 } // namespace network 

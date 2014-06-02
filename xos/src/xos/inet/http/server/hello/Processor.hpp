@@ -61,7 +61,7 @@ public:
             const String& fieldValue(formField.GetValue());
 
             if (0 < (fieldValue.Length())) {
-                XOS_LOG_TRACE("content_type = \"" << fieldValue << "\"");
+                XOS_LOG_DEBUG("content_type = \"" << fieldValue << "\"");
                 contentType.Assign(fieldValue);
             }
         }
@@ -72,7 +72,7 @@ public:
             const String& fieldValue(formField.GetValue());
 
             if (0 < (fieldValue.Length())) {
-                XOS_LOG_TRACE("action = \"" << fieldValue << "\"");
+                XOS_LOG_DEBUG("action = \"" << fieldValue << "\"");
                 action.Assign(fieldValue);
             }
         }
@@ -85,7 +85,7 @@ public:
             const String& fieldValue(formField.GetValue());
 
             if (0 < (fieldValue.Length())) {
-                XOS_LOG_TRACE("who = \"" << fieldValue << "\"");
+                XOS_LOG_DEBUG("who = \"" << fieldValue << "\"");
                 response.message().Append(" <b>");
                 response.message().Append(fieldValue);
                 response.message().Append("</b>");
@@ -93,21 +93,21 @@ public:
         }
 
         if (!(action.Compare("true"))) {
-            XOS_LOG_TRACE("...return true");
+            XOS_LOG_DEBUG("...return true");
             return true;
         } else
         if (!(action.Compare("false"))) {
-            XOS_LOG_TRACE("...return false");
+            XOS_LOG_DEBUG("...return false");
             return false;
         } else {
             xos::Daemon& daemon = xos::Daemon::GetTheInstance();
 
             if (!(action.Compare("restart"))) {
-                XOS_LOG_TRACE("restart...");
+                XOS_LOG_DEBUG("restart...");
                 daemon.Restart();
             } else
             if (!(action.Compare("stop"))) {
-                XOS_LOG_TRACE("stop...");
+                XOS_LOG_DEBUG("stop...");
                 daemon.Stop();
             }
         }

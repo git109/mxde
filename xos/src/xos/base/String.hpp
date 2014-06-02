@@ -261,6 +261,30 @@ public:
         }
         return *this; 
     }
+    StringT& AppendX(const uint8_t* bytes, size_t length, char A, char between) {
+        if ((between)) {
+            const uint8_t* b;
+            if ((b = bytes)) {
+                TChar t = (TChar)(between);
+                if ((length)) {
+                    do {
+                        if ((b != bytes))
+                            this->Append(&t, 1);
+                        this->AppendX(b++, 1, A);
+                    } while (--length);
+                } else {
+                    while (*b) {
+                        if ((b != bytes))
+                            this->Append(&t, 1);
+                        this->AppendX(b++, 1, A);
+                    }
+                }
+            }
+        } else {
+            this->AppendX(bytes, length, A);
+        }
+        return *this;
+    }
     TChar DToX(uint8_t d, char A='A') const {
         TChar x = (TChar)(0);
         if ((0 <= d) && (9 >= d))
@@ -463,31 +487,38 @@ typedef StringT<BYTE> BYTEString;
 typedef StringT<WORD> WORDString;
 
 ///////////////////////////////////////////////////////////////////////
+///  Class: XStringT
 ///////////////////////////////////////////////////////////////////////
 template
-<typename TChar,
+<char VA = 'A', typename TChar = char,
  class TExtend = StringT<TChar>,
  class TImplement = StringImplement>
 
-class EXPORT_CLASS XStringT: virtual public TImplement, public TExtend {
+class _EXPORT_CLASS XStringT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    XStringT(const uint8_t* bytes, size_t size, char A = 'A') {
-        this->AppendX(bytes, size, A);
+    XStringT(const uint8_t* bytes, size_t length, char A, char between) {
+        this->AppendX(bytes, length, A, between);
+    }
+    XStringT(const uint8_t* bytes, size_t length, char A) {
+        this->AppendX(bytes, length, A);
+    }
+    XStringT(const uint8_t* bytes, size_t length) {
+        this->AppendX(bytes, length, VA);
     }
     XStringT(const XStringT& copy): Extends(copy){}
     XStringT(){}
-    virtual ~XStringT(){}
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-typedef XStringT<char, String> XString;
+typedef XStringT<'A'> XString;
+typedef XStringT<'a'> xString;
 
 } // namespace xos
 

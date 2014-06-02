@@ -42,21 +42,29 @@ typedef NSProcessInfo iProcessInfo;
 typedef NSUInteger iWindowStyleMask;
 typedef NSBackingStoreType iBackingStoreType;
 typedef NSNotification iNotification;
+typedef NSTabView iTabView;
 typedef NSOpenGLView iOpenGLView;
 typedef NSOpenGLPixelFormat iOpenGLPixelFormat;
 typedef NSOpenGLPixelFormatAttribute iOpenGLPixelFormatAttribute;
 typedef NSOpenGLContext iOpenGLContext;
 
+typedef NSBox iBox;
 typedef NSMenu iMenu;
 typedef NSMenuItem iMenuItem;
 typedef NSTextField iTextField;
 typedef NSButton iPushButton;
+typedef NSComboBox iComboBox;
 typedef NSPopUpButton iPopUpButton;
 typedef NSProgressIndicator iProgressIndicator;
+typedef NSLevelIndicator iLevelIndicator;
+#define iDiscreteCapacityLevelIndicatorStyle NSDiscreteCapacityLevelIndicatorStyle
+#define iContinuousCapacityLevelIndicatorStyle NSContinuousCapacityLevelIndicatorStyle
+#define iRatingLevelIndicatorStyle NSRatingLevelIndicatorStyle
+#define iRelevancyLevelIndicatorStyle NSRelevancyLevelIndicatorStyle
 typedef NSCell iCell;
-
+typedef NSSlider iSlider;
 typedef NSMenuItem iMenuItem;
-
+typedef NSStepper iStepper;
 typedef NSPasteboard iPasteboard;
 #define iFilenamesPboardType NSFilenamesPboardType
 typedef NSDragOperation iDragOperation;
@@ -78,6 +86,7 @@ enum {
     iProgressIndicatorBarStyle = NSProgressIndicatorBarStyle
 };
 
+#define iRadioButton NSRadioButton
 #define iSwitchButton NSSwitchButton
 #define iRoundedBezelStyle NSRoundedBezelStyle
 

@@ -52,10 +52,14 @@ public:
 };
 
 typedef ReaderT<void, Stream> Reader;
+
 typedef ReaderT<char, CharStream> CharReader;
 typedef ReaderT<wchar_t, WCharStream> WCharReader;
 typedef ReaderT<tchar_t, TCharStream> TCharReader;
 
-} // namespace xos 
+typedef ReaderT<BYTE, BYTEStream> BYTEReader;
+typedef ReaderT<WORD, WORDStream> WORDReader;
+
+} // namespace xos
 
 #endif // _XOS_BASE_READER_HPP 

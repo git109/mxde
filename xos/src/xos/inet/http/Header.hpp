@@ -28,6 +28,9 @@
 #define XOS_HTTP_HEADER_NAME_CONTENT_LENGTH "Content-Length"
 #define XOS_HTTP_HEADER_NAME_CONTENT_ENCODING "Content-Encoding"
 
+#define XOS_HTTP_HEADER_NAME_TRANSFER_ENCODING "Transfer-Encoding"
+#define XOS_HTTP_TRANSFER_ENCODING_CHUNKED_NAME "chunked"
+
 #define XOS_HTTP_HEADER_NAMES \
     XOS_HTTP_HEADER_NAME_CONTENT_TYPE, \
     XOS_HTTP_HEADER_NAME_CONTENT_LENGTH, \
@@ -88,6 +91,23 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual String SetContentEncoding(const String& to) {
+        String value;
+        const Header* h;
+        if ((h = Set(XOS_HTTP_HEADER_NAME_CONTENT_ENCODING, to))) {
+            value = h->GetValue();
+        }
+        return value;
+    }
+    virtual String GetContentEncoding() const {
+        String value;
+        const Header* h;
+        if ((h = Get(XOS_HTTP_HEADER_NAME_CONTENT_ENCODING))) {
+            value = h->GetValue();
+        }
+        return value;
+    }
+    ///////////////////////////////////////////////////////////////////////
     virtual String SetContentType(const String& to) {
         String value;
         const Header* h;
@@ -143,6 +163,24 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual String SetTransferEncoding(const String& to) {
+        String value;
+        const Header* h;
+        if ((h = Set(XOS_HTTP_HEADER_NAME_TRANSFER_ENCODING, to))) {
+            value = h->GetValue();
+        }
+        return value;
+    }
+    virtual String GetTransferEncoding() const {
+        String value;
+        const Header* h;
+        if ((h = Get(XOS_HTTP_HEADER_NAME_TRANSFER_ENCODING))) {
+            value = h->GetValue();
+        }
+        return value;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual const Header* Set(const String& name,const String& value) {
         const Header* header = 0;
         if (!(header = Get(name))) {
@@ -173,6 +211,14 @@ public:
             }
         }
         return 0;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual void Add(const String& name, const String& value) {
+        push_back(Header(name, value));
+    }
+    virtual void Add(const Header& header) {
+        push_back(header);
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////

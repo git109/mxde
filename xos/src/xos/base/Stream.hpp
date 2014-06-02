@@ -77,6 +77,9 @@ typedef StreamBaseT<uint8_t> ByteStreamBase;
 typedef StreamBaseT<uint16_t> WordStreamBase;
 typedef StreamBaseT<uint32_t> LongWordStreamBase;
 
+typedef StreamBaseT<BYTE> BYTEStreamBase;
+typedef StreamBaseT<WORD> WORDStreamBase;
+
 template <class TImplement=StreamBase>
 class EXPORT_CLASS StreamT: virtual public TImplement {
 public:
@@ -104,6 +107,9 @@ typedef TCharStreamBase TCharStream;
 typedef ByteStreamBase ByteStream;
 typedef WordStreamBase WordStream;
 typedef LongWordStreamBase LongWordStream;
+
+typedef BYTEStreamBase BYTEStream;
+typedef WORDStreamBase WORDStream;
 
 } // namespace xos
 

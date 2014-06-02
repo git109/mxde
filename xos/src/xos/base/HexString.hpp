@@ -29,56 +29,36 @@ namespace xos {
 ///  Class: HexStringT
 ///////////////////////////////////////////////////////////////////////
 template
-<char VA, typename TChar = char,
- class TExtend = String, class TImplement = StringImplement>
+<char VA = 'A', typename TChar = char,
+ class TExtend = StringT<TChar>,
+ class TImplement = StringImplement>
 
 class _EXPORT_CLASS HexStringT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
-    using Extends::AppendX;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    HexStringT(const uint8_t* bytes, size_t length, char A, char between) {
-        this->AppendX(bytes, length, between, A);
+    HexStringT(const uint8_t* bytes, size_t length, char between, char A) {
+        this->AppendX(bytes, length, A, between);
     }
     HexStringT(const uint8_t* bytes, size_t length, char between) {
-        this->AppendX(bytes, length, between, VA);
+        this->AppendX(bytes, length, VA, between);
     }
     HexStringT(const uint8_t* bytes, size_t length) {
         this->AppendX(bytes, length, VA);
     }
+    HexStringT(const HexStringT& copy): Extends(copy){}
+    HexStringT(){}
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    HexStringT& AppendX(const uint8_t* bytes, size_t length, char between, char A) {
-        if ((between)) {
-            const uint8_t* b;
-            if ((b = bytes)) {
-                TChar t = (TChar)(between);
-                if ((length)) {
-                    do {
-                        if ((b != bytes))
-                            this->Append(&t, 1);
-                        this->AppendX(b++, 1, A);
-                    } while (--length);
-                } else {
-                    while (*b) {
-                        if ((b != bytes))
-                            this->Append(&t, 1);
-                        this->AppendX(b++, 1, A);
-                    }
-                }
-            }
-        } else {
-            this->AppendX(bytes, length, A);
-        }
-        return *this;
-    }
 };
 
-//typedef HexStringT<'A'> XString;
-typedef HexStringT<'a'> xString;
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+typedef HexStringT<'A'> HeXString;
+typedef HexStringT<'a'> HexString;
 
-} // namespace xos 
+} // namespace xos
 
 #endif // _XOS_BASE_HEXSTRING_HPP 

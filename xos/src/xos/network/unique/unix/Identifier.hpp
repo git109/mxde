@@ -100,7 +100,7 @@ public:
         //
         const From::MacAddress* macAddress = ethernet.Address();
         if ((macAddress)) {
-            XOS_LOG_TRACE("MAC address = " << xString(macAddress->m_b, sizeof(macAddress->m_b), ':'));
+            XOS_LOG_TRACE("MAC address = " << HexString(macAddress->m_b, sizeof(macAddress->m_b), ':'));
 
             // copy MAC address to node ID (network order).
             //
@@ -118,7 +118,7 @@ public:
             XOS_LOG_ERROR("failed " << count << " on md5()");
             return false;
         } else {
-            XOS_LOG_TRACE("MD5 hash = " << xString(hash, sizeof(hash)));
+            XOS_LOG_TRACE("MD5 hash = " << HexString(hash, sizeof(hash)));
             memcpy(m_wrapped.m_node.m_b, hash, sizeof(m_wrapped.m_node.m_b));
         }
 

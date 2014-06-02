@@ -40,6 +40,11 @@ public:
     typedef EndpointImplement Implements;
     typedef EndpointExtend Extends;
 
+    Endpoint(const String& host, u_short port) {
+        if (!(Implements::Init(host.Chars(), port))) {
+            throw Error(Error::Failed);
+        }
+    }
     Endpoint(const char* host, u_short port) {
         if (!(Implements::Init(host, port))) {
             throw Error(Error::Failed);

@@ -86,13 +86,40 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual String protocol() const {
+    virtual const String& SetProtocol(const String& to) {
+        m_protocol.Assign(to);
+        return m_protocol;
+    }
+    virtual const String& GetProtocol() const {
+        return m_protocol;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual const String& SetMajor(const String& to) {
+        m_major.Assign(to);
+        return m_major;
+    }
+    virtual const String& GetMajor() const {
+        return m_major;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual const String& SetMinor(const String& to) {
+        m_minor.Assign(to);
+        return m_minor;
+    }
+    virtual const String& GetMinor() const {
+        return m_minor;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual String& protocol() const {
         return (String&)(m_protocol);
     }
-    virtual String major() const {
+    virtual String& major() const {
         return (String&)(m_major);
     }
-    virtual String minor() const {
+    virtual String& minor() const {
         return (String&)(m_minor);
     }
     ///////////////////////////////////////////////////////////////////////

@@ -84,10 +84,71 @@ public:
             x = (SizedT)((A) + (d - 10));
         return x;
     }
+    inline int8_t XToD(const SizedT& x) const {
+        int8_t d = -1;
+        if (((SizedT)('A') <= x) && ((SizedT)('F') >= x))
+            d = ((x - (SizedT)('A')) + 10);
+        else
+        if (((SizedT)('a') <= x) && ((SizedT)('f') >= x))
+            d = ((x - (SizedT)('a')) + 10);
+        else
+        if (((SizedT)('0') <= x) && ((SizedT)('9') >= x))
+            d = ((x - (SizedT)('0')));
+        return d;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    inline SizedT DTo64(uint8_t d) const {
+        SizedT x = (SizedT)(0);
+        if ((0 <= d) && (25 >= d))
+            x = (SizedT)(('A') + d);
+        else
+        if ((26 <= d) && (51 >= d))
+            x = (SizedT)(('a') + (d - 26));
+        else
+        if ((52 <= d) && (61 >= d))
+            x = (SizedT)(('0') + (d - 52));
+        else
+        if ((62 == d))
+            x = (SizedT)(('+'));
+        else
+        if ((63 == d))
+            x = (SizedT)(('/'));
+        return x;
+    }
+    inline int8_t B64ToD(const SizedT& x) const {
+        int8_t d = -1;
+        if (((SizedT)('A') <= x) && ((SizedT)('Z') >= x))
+            d = (x - (SizedT)('A'));
+        else
+        if (((SizedT)('a') <= x) && ((SizedT)('z') >= x))
+            d = ((x - (SizedT)('a')) + 26);
+        else
+        if (((SizedT)('0') <= x) && ((SizedT)('9') >= x))
+            d = ((x - (SizedT)('0')) + 52);
+        else
+        if (((SizedT)('+') == x))
+            d = (62);
+        else
+        if (((SizedT)('/') == x))
+            d = (63);
+        return d;
+    }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
 typedef SequenceT<> Sequence;
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+typedef SequenceT<char, char> CharSequence;
+typedef SequenceT<wchar_t, wchar_t> WCharSequence;
+typedef SequenceT<tchar_t, tchar_t> TCharSequence;
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+typedef SequenceT<BYTE, BYTE> BYTESequence;
+typedef SequenceT<WORD, WORD> WORDSequence;
 
 } // namespace io 
 } // namespace xos 

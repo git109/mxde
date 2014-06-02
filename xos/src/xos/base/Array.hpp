@@ -78,6 +78,9 @@ public:
         m_elementsLength += (count = elementsLength);
         return count;
     }
+    virtual size_t Set(const TWhat& element){
+        return Set(element, m_elementsLength);
+    }
     virtual size_t Set(const TWhat& element, size_t elementsLength){
         size_t count = 0;
         size_t newElementsLength;
@@ -218,6 +221,9 @@ typedef Array<char> CharArray;
 typedef Array<uint8_t> ByteArray;
 typedef Array<uint16_t> WordArray;
 typedef Array<uint32_t> LongWordArray;
+
+typedef Array<BYTE> BYTEArray;
+typedef Array<WORD> WORDArray;
 
 } // namespace xos
 

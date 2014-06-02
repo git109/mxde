@@ -26,6 +26,30 @@
 namespace xos {
 namespace crypto {
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+enum {
+    ERROR_KEY_SIZE,
+    ERROR_KEY_SIZE_OVER,
+    ERROR_KEY_SIZE_UNDER,
+
+    ERROR_IV_SIZE,
+    ERROR_IV_SIZE_OVER,
+    ERROR_IV_SIZE_UNDER,
+
+    ERROR_BLOCK_SIZE,
+    ERROR_BLOCK_SIZE_OVER,
+    ERROR_BLOCK_SIZE_UNDER,
+
+    ERROR_IN_SIZE,
+    ERROR_IN_SIZE_OVER,
+    ERROR_IN_SIZE_UNDER,
+
+    ERROR_OUT_SIZE,
+    ERROR_OUT_SIZE_OVER,
+    ERROR_OUT_SIZE_UNDER
+};
+
 typedef InterfaceBase BaseImplement;
 typedef ExportBase BaseExtend;
 ///////////////////////////////////////////////////////////////////////
@@ -95,6 +119,30 @@ public:
         *(++bytes)=(BYTE)((value>>=8) & 0xFF);
         *(++bytes)=(BYTE)((value>>=8) & 0xFF);
         return bytes;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    inline BYTE *Copy8(BYTE *to, const BYTE *from) {
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        *(to++) = *(from++);
+        return to;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    inline BYTE* CopyRepeat
+    (BYTE* to, int tosize, const BYTE* from, int fromsize) {
+        for (int i=0; i<tosize; i+=fromsize)
+        for (int j=0,k=i; (k<tosize) && (j<fromsize); k++,j++)
+            to[k] = from[j];
+        return to;
     }
 };
 
