@@ -39,6 +39,7 @@
 #define XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_LOWER_LABEL "Lower"
 #define XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_OK_LABEL "Ok"
 #define XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_CANCEL_LABEL "Cancel"
+#define XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_QUIT_LABEL "Quit"
 
 #define XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_UUID_SIZE 20
 #define XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_UUID_SIZE_MAX 48
@@ -62,6 +63,7 @@
             iRect rect = [self bounds];
             const char* okLabel = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_OK_LABEL;
             const char* cancelLabel = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_CANCEL_LABEL;
+            const char* quitLabel = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_QUIT_LABEL;
             const char* upperLabel = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_UPPER_LABEL;
             const char* typeLabel = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_TYPE_LABEL;
             const char* macAddressLabel = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_MACADDRESS_LABEL;
@@ -93,6 +95,15 @@
                 if (width < (rowWidth += frame.size.width))
                     width = rowWidth;
                 height += frame.size.height;
+
+                frame.origin.x += frame.size.width+2;
+                frame.size.width = charWidth*buttonLabelLength;
+
+                if ((m_quit = [[iButton alloc] initWithFrame:frame text:quitLabel target:target action:@selector(quitClicked:)])) {
+                    [self addSubview:m_quit];
+                    if (width < (rowWidth += frame.size.width))
+                        width = rowWidth;
+                }
                 y += frame.size.height;
                 rowWidth = XOS_GUI_COCOA_NETWORK_UUID_IUUID_CONTROL_BORDER*2;
             }
@@ -320,6 +331,21 @@
         XOS_LOG_DEBUG("Cancel...");
         if ((m_mainWindow))
             m_mainWindow->UuidGenerateCancel();
+    }
+    - (void)quitClicked:(id)sender {
+        iApplication* app;
+        XOS_LOG_DEBUG("Quit...");
+        if ((m_mainWindow))
+            m_mainWindow->UuidGenerateCancel();
+        if ((app = [self application]))
+            [app stop:self];
+    }
+    -(void)windowWillClose:(iNotification*)notification {
+        iApplication* app;
+        if ((m_mainWindow))
+            m_mainWindow->UuidGenerateCancel();
+        if ((app = [self application]))
+            [app stop:self];
     }
     - (void)upperClicked:(id)sender {
         iCheck* check;

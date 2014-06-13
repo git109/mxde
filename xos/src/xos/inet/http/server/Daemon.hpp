@@ -119,6 +119,7 @@ class _EXPORT_CLASS Daemon
 public:
     typedef DaemonImplement Implements;
     typedef DaemonExtend Extends;
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     Daemon(Processor& delegatedToProcessor)
@@ -147,6 +148,8 @@ public:
     }
     virtual ~Daemon() {
     }
+
+protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool GetQueryFormData(Request& request) {
@@ -162,6 +165,7 @@ public:
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual ushort SetListenPortNo(const String& to) {
@@ -190,6 +194,8 @@ public:
     virtual const String& ListenPort() const {
         return m_listenPort;
     }
+
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual String& SetDocumentRoot(const String& to) {
         m_documentRoot = to;
@@ -198,6 +204,8 @@ public:
     virtual const String& DocumentRoot() const  {
         return m_documentRoot;
     }
+
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual String& SetCgiPattern(const String& to) {
         m_cgiPattern = to;
@@ -214,6 +222,7 @@ public:
     virtual const String& CgiExecutable() const {
         return m_cgiExecutable;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int OnOption
@@ -261,18 +270,22 @@ public:
             optarg = XOS_HTTP_SERVER_DAEMON_LISTEN_PORT_OPTARG;
             chars = XOS_HTTP_SERVER_DAEMON_LISTEN_PORT_OPTUSE;
             break;
+
         case XOS_HTTP_SERVER_DAEMON_DOCUMENT_ROOT_OPTVAL_C:
             optarg = XOS_HTTP_SERVER_DAEMON_DOCUMENT_ROOT_OPTARG;
             chars = XOS_HTTP_SERVER_DAEMON_DOCUMENT_ROOT_OPTUSE;
             break;
+
         case XOS_HTTP_SERVER_DAEMON_CONTENT_FILE_OPTVAL_C:
             optarg = XOS_HTTP_SERVER_DAEMON_CONTENT_FILE_OPTARG;
             chars = XOS_HTTP_SERVER_DAEMON_CONTENT_FILE_OPTUSE;
             break;
+
         case XOS_HTTP_SERVER_DAEMON_CONTENT_TYPE_OPTVAL_C:
             optarg = XOS_HTTP_SERVER_DAEMON_CONTENT_TYPE_OPTARG;
             chars = XOS_HTTP_SERVER_DAEMON_CONTENT_TYPE_OPTUSE;
             break;
+
         default:
             chars = Extends::OptionUsage(optarg, longopt);
         }
@@ -287,7 +300,22 @@ public:
         longopts = optstruct;
         return chars;
     }
+
     ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool OnProcess(Response& response, const Request& request) {
+        bool processed = false;
+        return processed;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Process(Response& response, const Request& request) {
+        bool processed = false;
+        Processor* delegatedToProcessor;
+        if ((delegatedToProcessor = DelegatedToProcessor()))
+            processed = delegatedToProcessor->Process(response, request);
+        else processed = OnProcess(response, request);
+        return processed;
+    }
     ///////////////////////////////////////////////////////////////////////
     virtual Processor* DelegateToProcessor(Processor* delegatedToProcessor) {
         return m_delegatedToProcessor = delegatedToProcessor;
@@ -295,6 +323,7 @@ public:
     virtual Processor* DelegatedToProcessor() const {
         return m_delegatedToProcessor;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

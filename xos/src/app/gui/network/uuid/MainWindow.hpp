@@ -154,7 +154,7 @@ public:
         ClearMacAddresses();
         if ((macAddress = from.FirstAddress())) {
             do {
-                xString macAddressX(macAddress->m_b, sizeof(macAddress->m_b), ':');
+                HexString macAddressX(macAddress->m_b, sizeof(macAddress->m_b), ':');
                 XOS_LOG_TRACE("add MAC address = " << macAddressX);
                 AddMacAddress(macAddressX);
             } while ((macAddress = from.NextAddress(macAddress)));

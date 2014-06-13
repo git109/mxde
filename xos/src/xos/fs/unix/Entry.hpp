@@ -34,17 +34,24 @@ namespace xos {
 namespace fs {
 
 typedef Wrapped<struct stat> EntryFoundExtend;
-
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS Entry::Found: public EntryFoundExtend {
 public:
     typedef EntryFoundExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Found() {
     }
     virtual ~Found() {
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     String& name() const {
         return (String&)(m_name);
     }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
     String m_name;
 };
@@ -53,17 +60,23 @@ namespace unix {
 
 typedef fs::EntryImplement EntryImplement;
 typedef fs::Entry EntryExtend;
-
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS Entry: virtual public EntryImplement, public EntryExtend {
 public:
     typedef EntryImplement Implements;
     typedef EntryExtend Extends;
+    using Extends::Exists;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Entry() {
     }
     virtual ~Entry() {
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual bool Exists(const char* chars) {
         struct stat& st = m_found.wrapped();
         int err = 0;
@@ -86,6 +99,8 @@ public:
         return Exists(name.Chars());
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual void SetType(const Found& found) {
         struct stat& st = found.wrapped();
         if ((S_IFDIR == (S_IFDIR & st.st_mode))) {
@@ -125,13 +140,16 @@ public:
     virtual void SetName(const Found& found) {
         m_name.Assign(found.name().Chars());
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual void SetTimes(const Found& found) {
         struct stat& st = found.wrapped();
         SetTime(Time::Changed, st.st_ctime, true);
         SetTime(Time::Modified, st.st_mtime, true);
         SetTime(Time::Accessed, st.st_atime, true);
     }
-    void SetTime(Time::When when, const time_t& fileTime, bool isLocal=false) {
+    virtual void SetTime(Time::When when, const time_t& fileTime, bool isLocal=false) {
         struct tm systemTime;
         if ((ToSystemTime(systemTime, fileTime, isLocal))) {
             Time time
@@ -141,7 +159,7 @@ public:
             m_times.push_back(time);
         }
     }
-    bool ToSystemTime(struct tm& systemTime, const time_t& fileTime, bool isLocal=false) {
+    virtual bool ToSystemTime(struct tm& systemTime, const time_t& fileTime, bool isLocal=false) {
         if ((isLocal)) {
             if ((localtime_r(&fileTime, &systemTime))) {
                 return true;
@@ -158,7 +176,9 @@ public:
         return false;
     }
 
-    Found& found() const {
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual Found& found() const {
         return (Found&)(m_found);
     }
 

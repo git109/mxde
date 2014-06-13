@@ -21,11 +21,11 @@
 #ifndef _XOS_INET_HTTP_SERVER_MEDUSA_SERVICE_HPP
 #define _XOS_INET_HTTP_SERVER_MEDUSA_SERVICE_HPP
 
+#include "xos/inet/http/server/medusa/ServerConfig.hpp"
 #include "xos/inet/http/server/medusa/request/HeadersReader.hpp"
 #include "xos/inet/http/server/medusa/request/HeaderReader.hpp"
 #include "xos/inet/http/server/medusa/request/LineReader.hpp"
-#include "xos/inet/http/server/medusa/Request.hpp"
-#include "xos/inet/http/server/Processor.hpp"
+#include "xos/inet/http/server/medusa/Processor.hpp"
 #include "xos/inet/http/Response.hpp"
 #include "xos/inet/http/Request.hpp"
 #include "xos/network/Sockets.hpp"
@@ -51,7 +51,9 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    Service() {
+    Service(Processor& processor, const ServerConfig& serverConfig)
+    : m_processor(processor),
+      m_serverConfig(serverConfig) {
     }
     virtual ~Service() {
     }
@@ -118,13 +120,22 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool Process(Response& response, Request& request) {
-        Processor& processor = Processor::GetTheInstance();
+        Processor& processor = GetProcessor();
+
+        XOS_LOG_DEBUG("get path translated...");
+        if ((GetPathTranslated(request))) {
+            XOS_LOG_DEBUG("...got path translated");
+        }
 
         XOS_LOG_DEBUG("get form data...");
-        GetFormData(request);
+        if ((GetFormData(request))) {
+            XOS_LOG_DEBUG("...got form data");
+        }
 
         XOS_LOG_DEBUG("get query form data...");
-        GetQueryFormData(request);
+        if ((GetQueryFormData(request))) {
+            XOS_LOG_DEBUG("...got query form data");
+        }
 
         XOS_LOG_DEBUG("process request...");
         if ((processor.Process(response, request))) {
@@ -135,6 +146,20 @@ public:
         }
         return false;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool GetPathTranslated(Request& request) {
+        const String& path = request.GetPath();
+        String& pathTranslated = request.pathTranslated();
+
+        XOS_LOG_DEBUG("path = \"" << path << "\"");
+        m_serverConfig.TranslatePath(pathTranslated, path);
+
+        XOS_LOG_DEBUG("path translated = \"" << pathTranslated << "\"");
+        return true;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -196,6 +221,7 @@ public:
 
         if (0 < (query.Length())) {
             StringReader reader(query);
+            XOS_LOG_DEBUG("query = \"" << query << "\"");
 
             XOS_LOG_DEBUG("reading form from query...");
             if ((GetUrlEncodedFormData(request, reader))) {
@@ -218,8 +244,19 @@ public:
         XOS_LOG_DEBUG("...read form");
         return true;
     }
+
+protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual Processor& GetProcessor() const {
+        return ((Processor&)m_processor);
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    const ServerConfig& m_serverConfig;
+    Processor& m_processor;
 };
 
 } // namespace medusa 

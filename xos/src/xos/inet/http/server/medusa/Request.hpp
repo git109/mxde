@@ -21,11 +21,8 @@
 #ifndef _XOS_INET_HTTP_SERVER_MEDUSA_REQUEST_HPP
 #define _XOS_INET_HTTP_SERVER_MEDUSA_REQUEST_HPP
 
-#include "xos/inet/http/server/medusa/request/HeadersReader.hpp"
-#include "xos/inet/http/server/medusa/request/HeaderReader.hpp"
-#include "xos/inet/http/server/medusa/request/LineReader.hpp"
+#include "xos/inet/http/server/medusa/ServerConfig.hpp"
 #include "xos/inet/http/Request.hpp"
-#include "xos/io/Reader2Reader.hpp"
 
 namespace xos {
 namespace http {
@@ -35,25 +32,33 @@ namespace medusa {
 typedef http::RequestImplement RequestImplement;
 typedef http::Request RequestExtend;
 ///////////////////////////////////////////////////////////////////////
-///  Class: RequestT
+///  Class: Request
 ///////////////////////////////////////////////////////////////////////
-template <class TExtend = RequestExtend, class TImplement = RequestImplement>
-
-class _EXPORT_CLASS RequestT: virtual public TImplement, public TExtend {
+class _EXPORT_CLASS Request: virtual public RequestImplement, public RequestExtend {
 public:
-    typedef TImplement Implements;
-    typedef TExtend Extends;
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    RequestT(CharReader& messageReader): Extends(messageReader) {
-    }
-    virtual ~RequestT() {
-    }
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-};
+    typedef RequestImplement Implements;
+    typedef RequestExtend Extends;
 
-typedef RequestT<> Request;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    Request
+    (CharReader& messageReader, const ServerConfig& serverConfig)
+    : Extends(messageReader), m_serverConfig(serverConfig) {
+    }
+    virtual ~Request() {
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual const ServerConfig& GetServerConfig() const {
+        return m_serverConfig;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    const ServerConfig& m_serverConfig;
+};
 
 } // namespace medusa 
 } // namespace server 

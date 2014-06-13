@@ -21,13 +21,14 @@
 #ifndef _XOS_INET_HTTP_SERVER_MEDUSA_TCPSERVER_HPP
 #define _XOS_INET_HTTP_SERVER_MEDUSA_TCPSERVER_HPP
 
-#include "xos/inet/http/server/medusa/Request.hpp"
 #include "xos/inet/http/server/medusa/request/HeadersReader.hpp"
 #include "xos/inet/http/server/medusa/request/HeaderReader.hpp"
 #include "xos/inet/http/server/medusa/request/LineReader.hpp"
+#include "xos/inet/http/server/medusa/TcpServerConfig.hpp"
 #include "xos/inet/http/server/medusa/TcpConnection.hpp"
 #include "xos/inet/http/server/medusa/TcpAccept.hpp"
 #include "xos/inet/http/server/medusa/TcpService.hpp"
+#include "xos/inet/http/server/medusa/Server.hpp"
 #include "xos/inet/http/server/medusa/Service.hpp"
 #include "xos/inet/http/server/Processor.hpp"
 #include "xos/inet/http/Response.hpp"
@@ -40,8 +41,8 @@ namespace http {
 namespace server {
 namespace medusa {
 
-typedef InterfaceBase TcpServerImplement;
-typedef ExportBase TcpServerExtend;
+typedef ServerImplement TcpServerImplement;
+typedef Server TcpServerExtend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: TcpServer
 ///////////////////////////////////////////////////////////////////////
@@ -50,16 +51,15 @@ public:
     typedef TcpServerImplement Implements;
     typedef TcpServerExtend Extends;
 
-    enum Exception {
-        FailedToStart,
-        FailedToFinish
-    };
-
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     TcpServer
-    (int ipVersion, const String& host, unsigned port, bool start = false)
-    : m_host(host), m_port(port), m_ipVersion(ipVersion) {
+    (Processor& processor, const TcpServerConfig& config, bool start = false)
+    : Extends(processor, config),
+      m_config(config),
+      m_host(config.ListenHost()),
+      m_port(config.ListenPort()),
+      m_ipVersion(config.ListenIpVersion()) {
         if (start) {
             if (!(Start())) {
                 Exception e = FailedToStart;
@@ -67,22 +67,27 @@ public:
             }
         }
     }
-    TcpServer
-    (const String& host, unsigned port, bool start = false)
-    : m_host(host), m_port(port), m_ipVersion(4) {
+    /*TcpServer
+    (const TcpServerConfig& config, bool start = false)
+    : Extends(config),
+      m_config(config),
+      m_host(config.ListenHost()),
+      m_port(config.ListenPort()),
+      m_ipVersion(config.ListenIpVersion()) {
         if (start) {
             if (!(Start())) {
                 Exception e = FailedToStart;
                 throw (e);
             }
         }
-    }
+    }*/
     virtual ~TcpServer() {
         if (!(Finish())) {
             Exception e = FailedToFinish;
             throw (e);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool Start() {
@@ -96,7 +101,7 @@ public:
             XOS_LOG_DEBUG("...endpoint");
             if ((ls = Listen(*ep))) {
                 XOS_LOG_DEBUG("...listen");
-                if ((sv = Service(m_connections))) {
+                if ((sv = Service(m_processor, m_connections, m_config))) {
                     XOS_LOG_DEBUG("...service");
                     if ((ac = Accept(m_connections, *sv, *ep, *ls))) {
                         XOS_LOG_DEBUG("...accept");
@@ -141,26 +146,31 @@ public:
         TcpService* sv;
         TcpAccept* ac;
         mt::Thread* t;
+        XOS_LOG_DEBUG("deleteing threads...");
         while (m_threads.begin() != m_threads.end()) {
             t = m_threads.back();
             m_threads.pop_back();
             mt::Thread::Delete(t);
         }
+        XOS_LOG_DEBUG("deleteing accepts...");
         while (m_accepts.begin() != m_accepts.end()) {
             ac = m_accepts.back();
             m_accepts.pop_back();
             TcpAccept::Delete(ac);
         }
+        XOS_LOG_DEBUG("deleteing services...");
         while (m_services.begin() != m_services.end()) {
             sv = m_services.back();
             m_services.pop_back();
             TcpService::Delete(sv);
         }
+        XOS_LOG_DEBUG("deleteing sockets...");
         while (m_sockets.begin() != m_sockets.end()) {
             ls = m_sockets.back();
             m_sockets.pop_back();
             network::Socket::Delete(ls);
         }
+        XOS_LOG_DEBUG("deleteing endpoints...");
         while (m_endpoints.begin() != m_endpoints.end()) {
             ep = m_endpoints.back();
             m_endpoints.pop_back();
@@ -168,6 +178,25 @@ public:
         }
         return success;
     }
+    virtual bool Stop() {
+        bool success = true;
+        TcpService* sv;
+        TcpAccept* ac;
+        XOS_LOG_DEBUG("stopping accepts...");
+        for (std::deque<TcpAccept*>::iterator i = m_accepts.begin(); i != m_accepts.end(); ++i) {
+            if ((ac = (*i))) {
+                ac->Stop();
+            }
+        }
+        XOS_LOG_DEBUG("stopping services...");
+        for (std::deque<TcpService*>::iterator i = m_services.begin(); i != m_services.end(); ++i) {
+            if ((sv = (*i))) {
+                sv->Stop();
+            }
+        }
+        return success;
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual mt::Thread* Thread(TcpService& sv) {
@@ -178,6 +207,7 @@ public:
         mt::Thread* t = new mt::os::Thread(ac);
         return t;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual TcpAccept* Accept
@@ -187,12 +217,15 @@ public:
         (connections, service, endpoint, listen);
         return accept;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual TcpService* Service(TcpConnections& connections) {
-        TcpService* service = new TcpService(connections);
+    virtual TcpService* Service
+    (Processor& processor, TcpConnections& connections, const TcpServerConfig& serverConfig) {
+        TcpService* service = new TcpService(processor, connections, serverConfig);
         return service;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual network::Socket* Listen(network::Endpoint& ep) {
@@ -207,6 +240,7 @@ public:
         }
         return 0;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual network::Endpoint* Endpoint(const String& host, unsigned port) {
@@ -222,9 +256,11 @@ public:
         network::Endpoint* ep = new network::ip::v6::Endpoint(host, port);
         return ep;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
+    const TcpServerConfig& m_config;
     String m_host;
     unsigned m_port;
     int m_ipVersion;

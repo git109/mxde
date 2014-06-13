@@ -28,14 +28,15 @@
 namespace xos {
 namespace fs {
 
-typedef InterfaceBase EntryImplement;
-typedef ExportBase EntryExtend;
-
 class _EXPORT_CLASS Directory;
 class _EXPORT_CLASS File;
 class _EXPORT_CLASS Link;
 class _EXPORT_CLASS SymbolicLink;
 
+typedef InterfaceBase EntryImplement;
+typedef ExportBase EntryExtend;
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS Entry: virtual public EntryImplement, public EntryExtend {
 public:
     typedef EntryImplement Implements;
@@ -70,6 +71,8 @@ public:
     };
     typedef TString Name;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     class _EXPORT_CLASS Time: public fs::Time {
     public:
         typedef fs::Time Extends;
@@ -103,11 +106,15 @@ public:
 
     class _EXPORT_CLASS Found;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Entry() {
     }
     virtual ~Entry() {
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     bool Exists(const std::string& string) {
         return Exists(string.c_str());
     }
@@ -135,6 +142,8 @@ public:
         return false;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual void SetProperties(const Found& found) {
         ClearProperties();
         SetType(found);
@@ -151,6 +160,8 @@ public:
         m_times.clear();
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual void SetType(const Found& found) {
     }
     virtual void SetSize(const Found& found) {
@@ -162,6 +173,8 @@ public:
     virtual void SetTimes(const Found& found) {
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Time GetTimeCreated() const {
         return GetTime(Time::Created);
     }
@@ -197,22 +210,26 @@ public:
         return false;
     }
 
-    inline Type GetType() const {
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    inline const Type& GetType() const {
         return m_type;
     }
-    inline Size GetSize() const {
+    inline const Size& GetSize() const {
         return m_size;
     }
-    inline Attributes GetAttributes() const {
+    inline const Attributes& GetAttributes() const {
         return m_attributes;
     }
-    inline Name GetName() const {
+    inline const Name& GetName() const {
         return m_name;
     }
-    inline Times GetTimes() const {
+    inline const Times& GetTimes() const {
         return m_times;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
     Type m_type;
     Size m_size;
@@ -221,11 +238,7 @@ protected:
     Times m_times;
 };
 
-
 } // namespace fs 
 } // namespace xos 
 
-
 #endif // _XOS_FS_ENTRY_HPP 
-        
-

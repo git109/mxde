@@ -36,6 +36,7 @@
 #define XOS_HTTP_CONTENT_TYPE_NAME_XML "text/xml"
 #define XOS_HTTP_CONTENT_TYPE_NAME_URLENCODED_FORM_DATA "application/x-www-form-urlencoded"
 #define XOS_HTTP_CONTENT_TYPE_NAME_MULTIPART_FORM_DATA "multipart/form-data"
+#define XOS_HTTP_CONTENT_TYPE_NAME_UNKNOWN "application/octet-stream"
 
 #define XOS_HTTP_CONTENT_TYPE_NAMES \
     XOS_HTTP_CONTENT_TYPE_NAME_TEXT, \

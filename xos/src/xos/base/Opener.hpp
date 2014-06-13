@@ -35,6 +35,10 @@ public:
     typedef TImplement Implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool Closed() {
+        if ((IsOpen()))
+            return Close();
+        return true; }
     virtual bool Close() { return false; }
     virtual bool SetIsOpen(bool isOpen = true) { return false; }
     virtual bool IsOpen() const { return false; }
@@ -50,17 +54,20 @@ template
  class TImplement = OpenerT<AttacherT<TAttached, TUnattached, VUnattached, InterfaceBase> >,
  class TExtend = AttachedT<TAttached, TUnattached, VUnattached, TImplement, ExportBase> >
 
-class _EXPORT_CLASS OpenedT: virtual public TImplement {
+class _EXPORT_CLASS OpenedT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
+
     typedef TAttached Attached;
-    static const TUnattached Unattached = VUnattached;
+    enum { Unattached = VUnattached };
+
     enum Exception {
         None = 0,
         FailedToOpen,
         FailedToClose
     };
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     OpenedT(Attached attachedTo = ((Attached)(Unattached)), bool isOpen=false)
@@ -72,10 +79,32 @@ public:
             throw(e);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool SetIsOpen(bool isOpen = true) { return false; }
-    virtual bool IsOpen() const { return false; }
+    virtual Attached AttachOpened(Attached attachedTo) {
+        m_isOpen = ((attachedTo = this->Attach(attachedTo)) != ((Attached)Unattached));
+        return attachedTo;
+    }
+    virtual Attached Detach(bool& isOpen) {
+        isOpen = m_isOpen;
+        return Detach();
+    }
+    virtual Attached Detach() {
+        m_isOpen = false;
+        return Extends::Detach();
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool SetIsOpen(bool isOpen = true) {
+        m_isOpen = isOpen;
+        return m_isOpen;
+    }
+    virtual bool IsOpen() const {
+        return m_isOpen;
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

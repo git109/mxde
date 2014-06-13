@@ -47,6 +47,8 @@ public:
         ///////////////////////////////////////////////////////////////////////
         Status(const String& value): Extends(value) {
         }
+        Status(const char* value): Extends(value) {
+        }
         Status() {
         }
         virtual ~Status() {
@@ -66,6 +68,8 @@ public:
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         Reason(const String& value): Extends(value) {
+        }
+        Reason(const char* value): Extends(value) {
         }
         Reason() {
         }
@@ -88,14 +92,26 @@ public:
         Line(const Version& version, const Status& status, const Reason& reason)
         : m_version(version), m_status(status), m_reason(reason) {
         }
+        Line(const Status& status, const Reason& reason)
+        : m_status(status), m_reason(reason) {
+        }
+        Line(const Version& version)
+        : m_version(version) {
+        }
         Line() {
         }
         virtual ~Line() {
         }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual bool Combine(const Version& version, const Status& status, const Reason& reason) {
             m_version = version;
+            m_status = status;
+            m_reason = reason;
+            return Combine();
+        }
+        virtual bool Combine(const Status& status, const Reason& reason) {
             m_status = status;
             m_reason = reason;
             return Combine();
@@ -125,6 +141,18 @@ public:
         virtual bool Separate() {
             return false;
         }
+
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual Line& Set(const Version& version, const Status& status, const Reason& reason) {
+            Combine(version, status, reason);
+            return *this;
+        }
+        virtual Line& Set(const Status& status, const Reason& reason) {
+            Combine(status, reason);
+            return *this;
+        }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual String SetVersion(const String& to) {
@@ -150,6 +178,7 @@ public:
         virtual String GetReason() const {
             return m_reason;
         }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual Version& version() const {
@@ -163,6 +192,7 @@ public:
         virtual Reason& reason() const {
             return (Reason&)(m_reason);
         }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
     protected:
@@ -173,13 +203,21 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    Response(CharWriter& messageWriter, const Request& request)
+    : m_line(request.GetLine().GetVersion()), m_message(messageWriter) {
+    }
+    Response(const Request& request): m_line(request.GetLine().GetVersion()) {
+    }
     Response(const Line& line, const Headers& headers, const Message& message)
     : m_line(line), m_headers(headers), m_message(message) {
+    }
+    Response(CharWriter& messageWriter): m_message(messageWriter) {
     }
     Response() {
     }
     virtual ~Response() {
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual String SetVersion (const String& to) {
@@ -205,6 +243,8 @@ public:
     virtual String GetReason() const {
         return m_line.reason();
     }
+
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual String SetContentType(const String& to) {
         return m_headers.SetContentType(to);
@@ -219,6 +259,13 @@ public:
     virtual ssize_t GetContentLengthNo() const {
         return m_headers.GetContentLengthNo();
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual CharWriter& GetMessageWriter() const {
+        return m_message.GetWriter();
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual Line& line() const {
@@ -232,6 +279,7 @@ public:
     virtual Message& message() const {
         return (Message&)(m_message);
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

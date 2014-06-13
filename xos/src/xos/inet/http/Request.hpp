@@ -32,6 +32,14 @@
 #define XOS_HTTP_STATUS_OK XOS_STRING(XOS_HTTP_STATUS_OK_NO)
 #define XOS_HTTP_STATUS_OK_REASON "OK"
 
+#define XOS_HTTP_STATUS_BAD_REQUEST_NO 400
+#define XOS_HTTP_STATUS_BAD_REQUEST XOS_STRING(XOS_HTTP_STATUS_BAD_REQUEST_NO)
+#define XOS_HTTP_STATUS_BAD_REQUEST_REASON "Bad Request"
+
+#define XOS_HTTP_STATUS_NOT_FOUND_NO 404
+#define XOS_HTTP_STATUS_NOT_FOUND XOS_STRING(XOS_HTTP_STATUS_NOT_FOUND_NO)
+#define XOS_HTTP_STATUS_NOT_FOUND_REASON "Not Found"
+
 #define XOS_HTTP_URI_QUERY_SEPARATOR "?"
 #define XOS_HTTP_URI_FRAGMENT_SEPARATOR "#"
 
@@ -185,8 +193,10 @@ public:
                 }
             } else {
                 if ((0 < (fragment = find(XOS_HTTP_URI_FRAGMENT_SEPARATOR))) && (fragment < Length())) {
+                    m_path.Assign(c_str(), fragment);
                     m_fragment.Assign(c_str()+fragment+1);
                 } else {
+                    m_path.Assign(c_str(), length());
                 }
             }
             return true;
@@ -242,6 +252,7 @@ public:
         }
         virtual ~Line() {
         }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual const String& SetMethod(const String& to) {
@@ -251,6 +262,10 @@ public:
         virtual const String& GetMethod() const {
             return m_method;
         }
+        virtual Method::Which GetMethodWhich() const {
+            return m_method.ToWhich();
+        }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual const String& SetUri(const String& to) {
@@ -284,6 +299,17 @@ public:
         virtual const String& GetFragment() const {
             return m_uri.GetFragment();
         }
+
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        virtual const Version& SetVersion(const Version& to) {
+            m_version.Set(to);
+            return m_version;
+        }
+        virtual const Version& GetVersion() const {
+            return m_version;
+        }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         virtual const String& SetProtocol(const String& to) {
@@ -309,6 +335,7 @@ public:
         virtual const String& GetProtocolVersionMinor() const {
             return m_version.GetMinor();
         }
+
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
     protected:
@@ -406,6 +433,9 @@ public:
     }
     virtual const String& GetMethod() const {
         return m_line.GetMethod();
+    }
+    virtual Method::Which GetMethodWhich() const {
+        return m_line.GetMethodWhich();
     }
     ///////////////////////////////////////////////////////////////////////
     virtual const String& SetPath(const String& to) {

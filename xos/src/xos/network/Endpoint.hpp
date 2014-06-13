@@ -48,7 +48,7 @@ public:
                 char addrHost[NI_MAXHOST];
                 if (!(err = getnameinfo(addr->ai_addr, addr->ai_addrlen, addrHost, sizeof(addrHost)-1, 0, 0, 0))) {
                     addrHost[sizeof(addrHost)-1] = 0;
-                    XOS_LOG_INFO("Host:\"" << addrHost << "\"");
+                    XOS_LOG_DEBUG("Host:\"" << addrHost << "\"");
                     if (GetFamily() == (addr->ai_family)) {
                         XOS_LOG_DEBUG("...found address");
                         Init(addr->ai_addr, addr->ai_addrlen, port);

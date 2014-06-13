@@ -40,9 +40,20 @@ class _EXPORT_CLASS Version: virtual public VersionImplement, public VersionExte
 public:
     typedef VersionImplement Implements;
     typedef VersionExtend Extends;
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     Version(const String& value): Extends(value) {
+        Separate();
+    }
+    Version(const char* value): Extends(value) {
+        Separate();
+    }
+    Version(const Version& copy)
+    : m_protocol(copy.m_protocol),
+      m_major(copy.m_major),
+      m_minor(copy.m_minor) {
+        Combine();
     }
     Version()
     : m_protocol(XOS_HTTP_VERSION_PROTOCOL),
@@ -52,6 +63,7 @@ public:
     }
     virtual ~Version() {
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool Combine(const String& protocol, const String& major, const String& minor) {
@@ -84,6 +96,22 @@ public:
     virtual bool Separate() {
         return false;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual Version& Set(const Version& copy) {
+        m_protocol.Assign(copy.m_protocol);
+        m_major.Assign(copy.m_major);
+        m_minor.Assign(copy.m_minor);
+        Combine();
+        return *this;
+    }
+    virtual Version& Set
+    (const String& protocol, const String& major, const String& minor) {
+        Combine(protocol, major, minor);
+        return *this;
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual const String& SetProtocol(const String& to) {
@@ -93,6 +121,7 @@ public:
     virtual const String& GetProtocol() const {
         return m_protocol;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual const String& SetMajor(const String& to) {
@@ -102,6 +131,7 @@ public:
     virtual const String& GetMajor() const {
         return m_major;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual const String& SetMinor(const String& to) {
@@ -111,6 +141,7 @@ public:
     virtual const String& GetMinor() const {
         return m_minor;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual String& protocol() const {
@@ -122,6 +153,7 @@ public:
     virtual String& minor() const {
         return (String&)(m_minor);
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

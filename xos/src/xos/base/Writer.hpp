@@ -171,7 +171,8 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Write(const CharT* what, ssize_t length=-1) {
         ssize_t count = m_string.Length();
-        m_string.Append(what, length);
+        if (0 > (length)) m_string.Append(what);
+        else m_string.Append(what, length);
         return m_string.Length() - count;
     }
     ///////////////////////////////////////////////////////////////////////

@@ -37,6 +37,8 @@
 
 #define XOS_HELLO_DEFAULT_HELLO "Hello"
 #define XOS_HELLO_DEFAULT_BYE "Bye"
+#define XOS_HELLO_DEFAULT_BETWEEN " "
+#define XOS_HELLO_DEFAULT_END "\n"
 
 #define XOS_HELLO_DEFAULT_PORTNO 7000
 #define XOS_HELLO_DEFAULT_PORT "" XOS_HELLO_2STRING(XOS_HELLO_DEFAULT_PORTNO) ""
@@ -48,9 +50,11 @@
 #define XOS_HELLO_DEFAULT_TRANSPORT "t"
 #define XOS_HELLO_DEFAULT_FAMILY "4"
 
-#define XOS_HELLO_OPTIONS_CHARS "m:c:s:r:wat:o:p:f:" XOS_MAIN_OPTIONS_CHARS
+#define XOS_HELLO_OPTIONS_CHARS "m:b:e:c:s:r:wat:o:p:f:" XOS_MAIN_OPTIONS_CHARS
 #define XOS_HELLO_OPTIONS_OPTIONS \
             {"message", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'm'},\
+            {"message-between", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'b'},\
+            {"message-end", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'e'},\
             {"client", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'c'},\
             {"server", MAIN_OPT_ARGUMENT_REQUIRED, 0, 's'},\
             {"start", MAIN_OPT_ARGUMENT_REQUIRED, 0, 'r'},\
@@ -216,6 +220,8 @@ public:
         network::Socket& m_s;
     };
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Hello()
     : m_runner(0),
       m_waitIsTrue(false),
@@ -226,9 +232,13 @@ public:
       m_family(XOS_HELLO_DEFAULT_FAMILY),
       m_hello(XOS_HELLO_DEFAULT_HELLO),
       m_bye(XOS_HELLO_DEFAULT_BYE),
-      m_host(XOS_HELLO_DEFAULT_HOST), 
+      m_between(XOS_HELLO_DEFAULT_BETWEEN),
+      m_end(XOS_HELLO_DEFAULT_END),
+      m_host(XOS_HELLO_DEFAULT_HOST),
       m_port(XOS_HELLO_DEFAULT_PORT),
       m_portNo(XOS_HELLO_DEFAULT_PORTNO) {}
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 
     virtual int Run(int argc, char** argv, char** env) { 
         printf("%s %s\n", m_hello.c_str(), (optind<argc)?(argv[optind]):(""));
@@ -284,9 +294,10 @@ public:
         network::Socket* s = 0;
         if (s = (network::Socket::New(ep->GetFamily(), network::ip::tcp::Transport::Type, network::ip::tcp::Transport::Protocol))) {
             if ((s->Connect(ep->SocketAddress(), ep->SocketAddressLen()))) {
-                std::string message(m_hello + " ");
+                std::string message(m_hello);
+                message.append((optind<argc)?(m_between):(""));
                 message.append((optind<argc)?(argv[optind]):(""));
-                message.append("\n");
+                message.append(m_end);
                 XOS_LOG_INFO("Sending \"" << message << "\"...");
                 if (0 < (s->Send((const void*)(message.c_str()), message.length(), 0))) {
                     XOS_LOG_INFO("...Sent \"" << message << "\"...");
@@ -502,6 +513,38 @@ public:
         case 'm':
             m_hello.assign(optarg);
             break;
+        case 'b':
+            switch(tolower(optarg[0])) {
+            case 'n':
+                m_between.assign("\n");
+                break;
+            case 'r':
+                m_between.assign("\r");
+                break;
+            case 'l':
+                m_between.assign("\n\r");
+                break;
+            case '\\':
+                m_between.assign(optarg+1);
+                break;
+            }
+            break;
+        case 'e':
+            switch(tolower(optarg[0])) {
+            case 'n':
+                m_end.assign("\n");
+                break;
+            case 'r':
+                m_end.assign("\r");
+                break;
+            case 'l':
+                m_end.assign("\n\r");
+                break;
+            case '\\':
+                m_end.assign(optarg+1);
+                break;
+            }
+            break;
         case 'o':
             m_host.assign(optarg);
             break;
@@ -552,6 +595,14 @@ public:
         case 'm':
             optarg = "message";
             chars = "Hello Message";
+            break;
+        case 'b':
+            optarg = "{(n)<lf> | (r)<cr> | (l)<cr><lf> | (\\)text}";
+            chars = "Hello Message Between";
+            break;
+        case 'e':
+            optarg = "{(n)<lf> | (r)<cr> | (l)<cr><lf> | (\\)text}";
+            chars = "Hello Message End";
             break;
         case 'c':
         case 'r':
@@ -617,6 +668,8 @@ protected:
     std::string m_family;
     std::string m_hello;
     std::string m_bye;
+    std::string m_between;
+    std::string m_end;
     std::string m_host;
     std::string m_port;
     u_short m_portNo;

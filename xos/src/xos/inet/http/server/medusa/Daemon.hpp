@@ -21,8 +21,11 @@
 #ifndef _XOS_INET_HTTP_SERVER_MEDUSA_DAEMON_HPP
 #define _XOS_INET_HTTP_SERVER_MEDUSA_DAEMON_HPP
 
+#include "xos/inet/http/server/medusa/method/GetProcessor.hpp"
+#include "xos/inet/http/server/medusa/method/Processor.hpp"
 #include "xos/inet/http/server/medusa/TcpServer.hpp"
 #include "xos/inet/http/server/medusa/TcpConnection.hpp"
+#include "xos/inet/http/server/medusa/Processor.hpp"
 #include "xos/inet/http/server/Daemon.hpp"
 #include "xos/inet/http/FormReader.hpp"
 #include "xos/inet/http/Response.hpp"
@@ -33,25 +36,34 @@ namespace http {
 namespace server {
 namespace medusa {
 
-typedef server::Daemon DaemonTExtend;
-typedef server::DaemonImplement DaemonTImplement;
+///////////////////////////////////////////////////////////////////////
+///  Class: DaemonImplement
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS DaemonImplement
+: virtual public server::DaemonImplement, virtual public medusa::Processor {
+};
+typedef server::Daemon DaemonExtend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: DaemonT
 ///////////////////////////////////////////////////////////////////////
 template
-<class TExtend = DaemonTExtend,
- class TImplement = DaemonTImplement>
+<class TExtend = DaemonExtend,
+ class TImplement = DaemonImplement>
 
 class _EXPORT_CLASS DaemonT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    DaemonT(server::Processor& delegatedToProcessor): Extends(delegatedToProcessor) {
+    }
     DaemonT() {
     }
     virtual ~DaemonT() {
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int RunServer(int argc, char** argv, char** env) {
@@ -68,19 +80,28 @@ public:
         }
         return err;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int RunMedusaServer(int argc, char** argv, char** env) {
         int err = 0;
-        TcpServer tcpServer(this->m_listenHost, this->m_listenPortNo);
+        TcpServerConfig tcpServerConfig(this->m_documentRoot, this->m_listenHost, this->m_listenPortNo);
+        TcpServer tcpServer(*this, tcpServerConfig);
+
         XOS_LOG_DEBUG("tcpServer.Start()...");
+
         if ((tcpServer.Start())) {
+            m_tcpServers.push_back(&tcpServer);
+
             XOS_LOG_DEBUG("tcpServer.Finish()...");
             if (!tcpServer.Finish()) {
-                XOS_LOG_DEBUG("...failed on tcpServer.Finish()");
+                XOS_LOG_ERROR("...failed on tcpServer.Finish()");
+            }
+            while (m_tcpServers.begin() != m_tcpServers.end()) {
+                m_tcpServers.pop_back();
             }
         } else {
-            XOS_LOG_DEBUG("...failed on tcpServer.Start()");
+            XOS_LOG_ERROR("...failed on tcpServer.Start()");
         }
         return err;
     }
@@ -92,10 +113,159 @@ public:
         int err = 0;
         return err;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Process(Response& response, const Request& request) {
+        bool processed = false;
+        server::Processor* delegatedToProcessor;
+        if ((delegatedToProcessor = this->DelegatedToProcessor()))
+            processed = delegatedToProcessor->Process(response, request);
+        if (!(processed))
+            processed = OnProcess(response, request);
+        return processed;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool OnProcess(Response& response, const Request& request) {
+        http::Request::Method::Which method = request.GetMethodWhich();
+        bool processed = false;
+        server::Processor* processor;
+
+        XOS_LOG_DEBUG("in...");
+
+        if ((processor = this->DelegatedToProcessor())) {
+            if ((processed = processor->Process(response, request))) {
+                return true;
+            }
+        }
+        switch(method) {
+        case http::Request::Method::Get:
+            processed = OnProcessGet(response, request);
+            break;
+        case http::Request::Method::Post:
+            processed = OnProcessPost(response, request);
+            break;
+        case http::Request::Method::Put:
+            processed = OnProcessPut(response, request);
+            break;
+        case http::Request::Method::Delete:
+            processed = OnProcessDelete(response, request);
+            break;
+        case http::Request::Method::Trace:
+            processed = OnProcessTrace(response, request);
+            break;
+        case http::Request::Method::Connect:
+            processed = OnProcessConnect(response, request);
+            break;
+        case http::Request::Method::Options:
+            processed = OnProcessOptions(response, request);
+            break;
+        case http::Request::Method::Head:
+            processed = OnProcessHead(response, request);
+            break;
+        default:
+            processed = OnProcessNone(response, request);
+        }
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool OnProcessGet(Response& response, const Request& request) {
+        method::Processor& get = method::GetProcessor::GetTheInstance();
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        if (!(processed = get.Process(response, request)))
+            processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessPost(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessPut(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessDelete(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessTrace(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessConnect(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessOptions(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessHead(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessAny(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessAny(Response& response, const Request& request) {
+        bool processed = false;
+        XOS_LOG_DEBUG("in...");
+        processed = OnProcessNone(response, request);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+    virtual bool OnProcessNone(Response& response, const Request& request) {
+        bool processed = true;
+        XOS_LOG_DEBUG("in...");
+        response.line().Set(XOS_HTTP_STATUS_BAD_REQUEST, XOS_HTTP_STATUS_BAD_REQUEST_REASON);
+        XOS_LOG_DEBUG("...out");
+        return processed;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool OnStop() {
+        TcpServer* s;
+        XOS_LOG_DEBUG("stopping severs...");
+        for (std::deque<TcpServer*>::iterator i = m_tcpServers.begin(); i != m_tcpServers.end(); ++i) {
+            if ((s = (*i))) {
+                s->Stop();
+            }
+        }
+        return true;
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
+    std::deque<TcpServer*> m_tcpServers;
 };
+
 typedef DaemonT<> Daemon;
 
 } // namespace medusa 
