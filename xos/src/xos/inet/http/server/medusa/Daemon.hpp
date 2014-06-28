@@ -54,6 +54,8 @@ class _EXPORT_CLASS DaemonT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
+    typedef xos::Daemon::Locker Locker;
+    using Extends::Process;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -85,33 +87,80 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual int RunMedusaServer(int argc, char** argv, char** env) {
         int err = 0;
-        TcpServerConfig tcpServerConfig(this->m_documentRoot, this->m_listenHost, this->m_listenPortNo);
-        TcpServer tcpServer(*this, tcpServerConfig);
-
-        XOS_LOG_DEBUG("tcpServer.Start()...");
-
-        if ((tcpServer.Start())) {
-            m_tcpServers.push_back(&tcpServer);
-
-            XOS_LOG_DEBUG("tcpServer.Finish()...");
-            if (!tcpServer.Finish()) {
-                XOS_LOG_ERROR("...failed on tcpServer.Finish()");
-            }
-            while (m_tcpServers.begin() != m_tcpServers.end()) {
-                m_tcpServers.pop_back();
-            }
-        } else {
-            XOS_LOG_ERROR("...failed on tcpServer.Start()");
-        }
         return err;
     }
     virtual int BeforeRunMedusaServer(int argc, char** argv, char** env) {
-        int err = 0;
+        int err = 1;
+        TcpServerConfig* tcpServerConfig;
+
+        if ((tcpServerConfig = new TcpServerConfig
+            (this->m_documentRoot, this->m_listenHost, this->m_listenPortNo))) {
+            TcpServer* tcpServer;
+
+            if ((tcpServer = new TcpServer(*this, *tcpServerConfig))) {
+
+                XOS_LOG_DEBUG("tcpServer->Start()...");
+                if ((tcpServer->Start())) {
+
+                    XOS_LOG_DEBUG("...tcpServer->Start()");
+                    m_tcpServerConfigs.push_back(tcpServerConfig);
+                    m_tcpServers.push_back(tcpServer);
+                    return 0;
+                } else {
+                    XOS_LOG_ERROR("...failed on tcpServer->Start()");
+                }
+                delete tcpServer;
+            }
+            delete tcpServerConfig;
+        }
         return err;
     }
     virtual int AfterRunMedusaServer(int argc, char** argv, char** env) {
         int err = 0;
+        TcpServer* tcpServer;
+
+        while ((tcpServer = BackTcpServer())) {
+            XOS_LOG_DEBUG("tcpServer->Finish()...");
+            if (tcpServer->Finish()) {
+                XOS_LOG_DEBUG("...tcpServer->Finish()");
+            } else {
+                XOS_LOG_ERROR("...failed on tcpServer->Finish()");
+            }
+            if ((tcpServer = PullTcpServer())) {
+                delete tcpServer;
+            }
+        }
+
+        while (m_tcpServerConfigs.begin() != m_tcpServerConfigs.end()) {
+            TcpServerConfig* tcpServerConfig = m_tcpServerConfigs.back();
+            m_tcpServerConfigs.pop_back();
+            delete tcpServerConfig;
+        }
         return err;
+    }
+    virtual TcpServer* BackTcpServer() {
+        try {
+            volatile Locker lockr(*this);
+            if (m_tcpServers.begin() != m_tcpServers.end()) {
+                return m_tcpServers.back();
+            }
+        } catch (const Error& error) {
+            XOS_LOG_ERROR("caught error " << error << " on  Locker(*this)");
+        }
+        return 0;
+    }
+    virtual TcpServer* PullTcpServer() {
+        try {
+            volatile Locker lockr(*this);
+            if (m_tcpServers.begin() != m_tcpServers.end()) {
+                TcpServer* tcpServer = m_tcpServers.back();
+                m_tcpServers.pop_back();
+                return tcpServer;
+            }
+        } catch (const Error& error) {
+            XOS_LOG_ERROR("caught error " << error << " on  Locker(*this)");
+        }
+        return 0;
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -250,9 +299,10 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool OnStop() {
+        TcpServers::iterator i;
         TcpServer* s;
         XOS_LOG_DEBUG("stopping severs...");
-        for (std::deque<TcpServer*>::iterator i = m_tcpServers.begin(); i != m_tcpServers.end(); ++i) {
+        for (i = m_tcpServers.begin(); i != m_tcpServers.end(); ++i) {
             if ((s = (*i))) {
                 s->Stop();
             }
@@ -263,7 +313,11 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
-    std::deque<TcpServer*> m_tcpServers;
+    typedef std::deque<TcpServerConfig*> TcpServerConfigs;
+    typedef std::deque<TcpServer*> TcpServers;
+protected:
+    TcpServerConfigs m_tcpServerConfigs;
+    TcpServers m_tcpServers;
 };
 
 typedef DaemonT<> Daemon;

@@ -176,20 +176,20 @@ public:
         lwsCreationInfo.uid = m_lwsGid;
         lwsCreationInfo.user = this;
 
-        XOS_LOG_TRACE("libwebsocket_create_context()...");
+        XOS_LOG_DEBUG("libwebsocket_create_context()...");
 
         if ((lwsContext = libwebsocket_create_context(&lwsCreationInfo))) {
 
-            XOS_LOG_TRACE("...libwebsocket_create_context()");
+            XOS_LOG_DEBUG("...libwebsocket_create_context()");
 
             while (LwsServiced(lwsContext, m_lwsTimeoutMs)) {
                 if (this->GetStop()) {
-                    XOS_LOG_TRACE("...GetStop() is true");
+                    XOS_LOG_DEBUG("...GetStop() is true");
                     break;
                 }
             }
 
-            XOS_LOG_TRACE("libwebsocket_context_destory()...");
+            XOS_LOG_DEBUG("libwebsocket_context_destory()...");
 
             libwebsocket_context_destroy(lwsContext);
             lwsContext = 0;
@@ -221,7 +221,7 @@ public:
      enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
         int result = -1;
 
-        XOS_LOG_TRACE("in...");
+        XOS_LOG_DEBUG("in...");
 
         if ((in) && (0 < len)) {
             Request::Method method(XOS_HTTP_REQUEST_METHOD_NAME_GET);
@@ -229,15 +229,15 @@ public:
             Request request(method, uri);
             Response response;
 
-            XOS_LOG_TRACE("uri = \"" << uri << "\" path = \"" << uri.GetPath() << "\" query = \"" << uri.GetQuery() << "\" fragment = \"" << uri.GetFragment() << "\"");
+            XOS_LOG_DEBUG("uri = \"" << uri << "\" path = \"" << uri.GetPath() << "\" query = \"" << uri.GetQuery() << "\" fragment = \"" << uri.GetFragment() << "\"");
 
             this->GetQueryFormData(request);
 
-            XOS_LOG_TRACE("processing request...");
+            XOS_LOG_DEBUG("processing request...");
 
             if ((this->Process(response, request))) {
 
-                XOS_LOG_TRACE("...processed request");
+                XOS_LOG_DEBUG("...processed request");
 
                 if (!(response.line().version().Length())) {
                     response.line().version().protocol().Assign(XOS_HTTP_VERSION_PROTOCOL);
@@ -257,7 +257,7 @@ public:
                             responseData.Append(response.message());
                         }
 
-                        XOS_LOG_TRACE("response = \"" << responseData << "\"");
+                        XOS_LOG_DEBUG("response = \"" << responseData << "\"");
 
                         if ((wsi)) {
                             libwebsocket_write_protocol lwsWrite = LWS_WRITE_HTTP;
@@ -267,10 +267,10 @@ public:
                                 && (lwsLen = responseData.Length())) {
                             }
 
-                            XOS_LOG_TRACE("libwebsocket_write()...");
+                            XOS_LOG_DEBUG("libwebsocket_write()...");
 
                             if (0 < (libwebsocket_write(wsi, lwsBuf, lwsLen, lwsWrite))) {
-                                XOS_LOG_TRACE("...libwebsocket_write()");
+                                XOS_LOG_DEBUG("...libwebsocket_write()");
                                 return 1;
                             } else {
                                 XOS_LOG_ERROR("failed on libwebsocket_write()");
@@ -290,7 +290,92 @@ public:
                 XOS_LOG_ERROR("failed on libwebsockets_serve_http_file(\"" << this->m_defaultContentFile << "\", \"" << this->m_defaultContentType << "\")");
             }
         }
-        XOS_LOG_TRACE("...out");
+        XOS_LOG_DEBUG("...out");
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_HTTP_WRITEABLE
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_HTTP_FILE_COMPLETION
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_CLOSED_HTTP
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_FILTER_NETWORK_CONNECTION
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_CLIENT_CONNECTION_ERROR
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_CLIENT_ESTABLISHED
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_ESTABLISHED
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_CLOSED
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        return result;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int OnLwsCallbackHttp_LWS_CALLBACK_RECEIVE
+    (struct libwebsocket_context *context, struct libwebsocket *wsi,
+     enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
+        int result = 0;
+        const char* chars;
+        if ((chars = ((const char*)in)) && (0 < len)) {
+            String message(chars, len);
+            XOS_LOG_DEBUG("...received \"" << message << "\"");
+        }
         return result;
     }
     ///////////////////////////////////////////////////////////////////////
@@ -304,47 +389,74 @@ public:
         // Http
         //
         case LWS_CALLBACK_HTTP:
-            XOS_LOG_TRACE("LWS_CALLBACK_HTTP...");
+            XOS_LOG_DEBUG("LWS_CALLBACK_HTTP...");
             result = OnLwsCallbackHttp_LWS_CALLBACK_HTTP(context, wsi, reason, user, in, len);
             break;
 
         case LWS_CALLBACK_HTTP_WRITEABLE:
-            XOS_LOG_TRACE("LWS_CALLBACK_HTTP_WRITEABLE...");
-            result = -1;
+            XOS_LOG_DEBUG("LWS_CALLBACK_HTTP_WRITEABLE...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_HTTP_WRITEABLE(context, wsi, reason, user, in, len);
             break;
 
         case LWS_CALLBACK_HTTP_FILE_COMPLETION:
-            XOS_LOG_TRACE("LWS_CALLBACK_HTTP_FILE_COMPLETION...");
-            result = -1;
+            XOS_LOG_DEBUG("LWS_CALLBACK_HTTP_FILE_COMPLETION...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_HTTP_FILE_COMPLETION(context, wsi, reason, user, in, len);
             break;
 
         case LWS_CALLBACK_CLOSED_HTTP:
-            XOS_LOG_TRACE("LWS_CALLBACK_CLOSED_HTTP...");
-            break;
-        //
-        // Other
-        //
-        case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
-            XOS_LOG_TRACE("LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION...");
-            break;
-        case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
-            XOS_LOG_TRACE("LWS_CALLBACK_FILTER_NETWORK_CONNECTION...");
-            break;
-        case LWS_CALLBACK_ESTABLISHED:
-            XOS_LOG_TRACE("LWS_CALLBACK_ESTABLISHED...");
+            XOS_LOG_DEBUG("LWS_CALLBACK_CLOSED_HTTP...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_CLOSED_HTTP(context, wsi, reason, user, in, len);
             break;
 
+        //
+        // Filter
+        //
+        case LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION:
+            XOS_LOG_DEBUG("LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION(context, wsi, reason, user, in, len);
+            break;
+
+        case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
+            XOS_LOG_DEBUG("LWS_CALLBACK_FILTER_NETWORK_CONNECTION...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_FILTER_NETWORK_CONNECTION(context, wsi, reason, user, in, len);
+            break;
+
+        //
+        // Client
+        //
         case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
-            XOS_LOG_TRACE("LWS_CALLBACK_CLIENT_CONNECTION_ERROR...");
+            XOS_LOG_DEBUG("LWS_CALLBACK_CLIENT_CONNECTION_ERROR...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_CLIENT_CONNECTION_ERROR(context, wsi, reason, user, in, len);
             break;
 
         case LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH:
-            XOS_LOG_TRACE("LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH...");
+            XOS_LOG_DEBUG("LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_CLIENT_FILTER_PRE_ESTABLISH(context, wsi, reason, user, in, len);
             break;
 
         case LWS_CALLBACK_CLIENT_ESTABLISHED:
-            XOS_LOG_TRACE("LWS_CALLBACK_CLIENT_ESTABLISHED...");
+            XOS_LOG_DEBUG("LWS_CALLBACK_CLIENT_ESTABLISHED...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_CLIENT_ESTABLISHED(context, wsi, reason, user, in, len);
             break;
+
+        //
+        // Other
+        //
+        case LWS_CALLBACK_ESTABLISHED:
+            XOS_LOG_DEBUG("LWS_CALLBACK_ESTABLISHED...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_ESTABLISHED(context, wsi, reason, user, in, len);
+            break;
+
+        case LWS_CALLBACK_CLOSED:
+            XOS_LOG_DEBUG("LWS_CALLBACK_CLOSED...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_CLOSED(context, wsi, reason, user, in, len);
+            break;
+
+        case LWS_CALLBACK_RECEIVE:
+            XOS_LOG_DEBUG("LWS_CALLBACK_RECEIVE...");
+            result = OnLwsCallbackHttp_LWS_CALLBACK_RECEIVE(context, wsi, reason, user, in, len);
+            break;
+
         }
         return result;
     }
