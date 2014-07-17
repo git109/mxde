@@ -22,7 +22,13 @@
 #define _XOS_INET_HTTP_SERVER_CATCHER_DAEMON_HPP
 
 #include "xos/inet/http/server/Daemon.hpp"
+#include "xos/inet/http/server/medusa/request/HeadersReader.hpp"
+#include "xos/inet/http/server/medusa/request/LineReader.hpp"
 #include "xos/network/Sockets.hpp"
+#include "xos/io/echoed/Reader.hpp"
+#include "xos/io/socket/Reader.hpp"
+#include "xos/io/file/Writer.hpp"
+#include "xos/io/Reader2Reader.hpp"
 
 #define XOS_INET_HTTP_SERVER_CATCHER_DAEMON_REQUEST_FILENAME "httprequest.txt"
 #define XOS_INET_HTTP_SERVER_CATCHER_DAEMON_IP_VERSION 4
@@ -77,6 +83,33 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual void Process(network::Socket& sock) {
+        io::socket::attached::Reader sockReader(&sock);
+        io::file::attached::Writer fileWriter(StdOut());
+        io::echoed::Reader reader(sockReader, fileWriter);
+        xos::http::Request::Line line;
+        xos::http::Headers headers;
+        xos::http::server::medusa::request::LineReader lineReader;
+        xos::http::server::medusa::request::HeadersReader headersReader;
+        ssize_t contentLength;
+        byte_t byte;
+        XOS_LOG_DEBUG("in...");
+        if (0 < (lineReader.Read(line, reader))) {
+            if (0 < (headersReader.Read(headers, reader))) {
+                if (0 < (contentLength = headers.GetContentLengthNo())) {
+                    for (ssize_t i = 0; i < contentLength; ++i) {
+                        if (1 > (reader.Read(&byte, 1)))
+                            break;
+                    }
+                }
+            }
+        }
+        fileWriter.Flush();
+        XOS_LOG_DEBUG("out...");
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual void Accept(network::Socket& ls, network::Endpoint& ep) {
         network::Socket* sock = 0;
         XOS_LOG_DEBUG("in...");
@@ -84,7 +117,7 @@ public:
             XOS_LOG_DEBUG("accept socket...");
             if ((sock = ls.Accept(ep.SocketAddress(), &ep.SocketAddressLen()))) {
                 XOS_LOG_DEBUG("...accepted socket");
-
+                Process(*sock);
                 network::Socket::Delete(sock);
                 sock = 0;
             } else {

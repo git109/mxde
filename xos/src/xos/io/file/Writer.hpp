@@ -109,7 +109,32 @@ public:
 };
 typedef WriterT<> Writer;
 
-} // namespace file 
+namespace attached {
+
+typedef AttacherT<FILE*, int, 0, file::Writer> WriterImplement;
+typedef AttachedT<FILE*, int, 0, WriterImplement> WriterExtend;
+///////////////////////////////////////////////////////////////////////
+///  Class: WriterT
+///////////////////////////////////////////////////////////////////////
+template
+<typename TWhat = void, typename TSized = char,
+ typename TEnd = int, TEnd VEnd = 0,
+ class TImplement = WriterImplement, class TExtend = WriterExtend>
+
+class _EXPORT_CLASS WriterT: virtual public TImplement, public TExtend {
+public:
+    typedef TImplement Implements;
+    typedef TExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    WriterT(FILE* attachedTo): Extends(attachedTo) {}
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef WriterT<> Writer;
+
+} // namespace attached
+} // namespace file
 } // namespace io 
 } // namespace xos 
 

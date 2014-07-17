@@ -27,12 +27,13 @@
 namespace xos {
 namespace io {
 
+typedef Sequence ReaderImplement;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: ReaderT
 ///////////////////////////////////////////////////////////////////////
 template
 <typename TWhat = void, typename TSized = char,
- typename TEnd = int, TEnd VEnd = 0, class TImplement = Sequence>
+ typename TEnd = int, TEnd VEnd = 0, class TImplement = ReaderImplement>
 
 class _EXPORT_CLASS ReaderT: virtual public TImplement {
 public:

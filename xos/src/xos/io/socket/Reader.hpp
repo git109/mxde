@@ -24,6 +24,7 @@
 #include "xos/io/Reader.hpp"
 #include "xos/io/socket/Sequence.hpp"
 #include "xos/network/Socket.hpp"
+#include "xos/base/Attacher.hpp"
 
 namespace xos {
 namespace io {
@@ -78,7 +79,32 @@ public:
 };
 typedef ReaderT<> Reader;
 
-} // namespace socket 
+namespace attached {
+
+typedef AttacherT<network::Socket*, int, 0, socket::Reader> ReaderImplement;
+typedef AttachedT<network::Socket*, int, 0, ReaderImplement> ReaderExtend;
+///////////////////////////////////////////////////////////////////////
+///  Class: ReaderT
+///////////////////////////////////////////////////////////////////////
+template
+<typename TWhat = void, typename TSized = char,
+ typename TEnd = int, TEnd VEnd = 0,
+ class TImplement = ReaderImplement, class TExtend = ReaderExtend>
+
+class _EXPORT_CLASS ReaderT: virtual public TImplement, public TExtend {
+public:
+    typedef TImplement Implements;
+    typedef TExtend Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    ReaderT(network::Socket* attachedTo): Extends(attachedTo) {}
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef ReaderT<> Reader;
+
+} // namespace attached
+} // namespace socket
 } // namespace io 
 } // namespace xos 
 
