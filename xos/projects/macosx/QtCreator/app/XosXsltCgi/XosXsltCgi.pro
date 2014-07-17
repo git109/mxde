@@ -22,9 +22,15 @@ include(../../../../QtCreator/lib/libXosCore.pri)
 
 TARGET = XosXsltCgi
 
+#XosLibXslt_VERSION = 1.2.26
+#XosLibXml2_VERSION = 2.7.8
+
+XosLibXslt_VERSION = 1.2.28
+XosLibXml2_VERSION = 2.9.1
+
 XosLibXslt_INCLUDEPATH += \
-$${XOS_PKG}/../libxml2/libxslt-1.2.26 \
-$${XOS_PKG}/../libxml2/libxml2-2.7.8/include \
+$${XOS_PKG}/../libxml2/libxslt-$${XosLibXslt_VERSION} \
+$${XOS_PKG}/../libxml2/libxml2-$${XosLibXml2_VERSION}/include \
 
 XosLibXslt_LIBS += \
 -L$${HOME}/build/lib \
@@ -38,6 +44,7 @@ $${XosLibXslt_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
+XOS_DEFAULT_LOGGING_LEVELS_ID=e \
 
 HEADERS += \
 $${XOS_SRC}/xos/xml/xslt/libxslt/cgi/Main.hpp \

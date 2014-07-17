@@ -13,16 +13,14 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libXosIo.pro
+#   File: XosIoHello.pro
 #
 # Author: $author$
-#   Date: 4/14/2014
+#   Date: 4/20/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
 
-TARGET = XosIo
-TEMPLATE = lib
-CONFIG += staticlib
+TARGET = XosIoHello
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
@@ -31,32 +29,14 @@ DEFINES += \
 $${libXosCore_DEFINES} \
 
 HEADERS += \
-$${XOS_SRC}/xos/io/file/Stream.hpp \
-$${XOS_SRC}/xos/io/file/IStream.hpp \
-$${XOS_SRC}/xos/io/file/OStream.hpp \
-$${XOS_SRC}/xos/io/file/Reader.hpp \
-$${XOS_SRC}/xos/io/file/Writer.hpp \
-$${XOS_SRC}/xos/io/file/Sequence.hpp \
-$${XOS_SRC}/xos/io/Locker.hpp \
-$${XOS_SRC}/xos/io/Reader.hpp \
-$${XOS_SRC}/xos/io/Writer.hpp \
-$${XOS_SRC}/xos/io/IStream.hpp \
-$${XOS_SRC}/xos/io/OStream.hpp \
-$${XOS_SRC}/xos/io/Stream.hpp \
-$${XOS_SRC}/xos/io/Sequence.hpp \
-$${XOS_SRC}/xos/base/Logged.hpp \
-$${XOS_SRC}/xos/base/Attacher.hpp \
-$${XOS_SRC}/xos/base/Opener.hpp \
+$${XOS_SRC}/xos/io/hello/Main.hpp \
 
 SOURCES += \
-$${XOS_SRC}/xos/io/file/Stream.cpp \
-$${XOS_SRC}/xos/io/file/IStream.cpp \
-$${XOS_SRC}/xos/io/file/OStream.cpp \
-$${XOS_SRC}/xos/io/file/Reader.cpp \
-$${XOS_SRC}/xos/io/file/Writer.cpp \
-$${XOS_SRC}/xos/io/file/Sequence.cpp \
-$${XOS_SRC}/xos/io/Locker.cpp \
-$${XOS_SRC}/xos/base/Logged.cpp \
-$${XOS_SRC}/xos/base/Opener.cpp \
-$${XOS_SRC}/xos/base/Attacher.cpp \
+$${XOS_SRC}/xos/io/hello/Main.cpp \
+$${XOS_SRC}/xos/io/hello/Main_instance.cpp \
+$${XOS_SRC}/xos/os/Main_main.cpp \
 
+LIBS += \
+$${libXosCore_LIBS} \
+-lpthread \
+-ldl \

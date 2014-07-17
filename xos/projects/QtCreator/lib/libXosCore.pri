@@ -134,54 +134,7 @@ $${XOS_BLD}/../../../../../mxde/c/build/macosx/QtCreator/Debug/lib \
 
 XosMxde_INCLUDEPATH += \
 $${XOS_SRC}/xos/mxde \
-$${XOS_MXDE_SRC}/clib/ccrypto \
 $${XOS_MXDE_SRC}/clib/cos/cplatform \
 $${XOS_MXDE_SRC}/clib/cos \
 $${XOS_MXDE_SRC}/clib/cbase \
-
-########################################################################
-
-XOS_BN_SRC = \
-
-XOS_BN_BLD = \
-
-XosBn_INCLUDEPATH += \
-$${XOS_MXDE_SRC}/clib/cmpint/bn \
-
-XosBn_LIBS += \
--L$${XOS_MXDE_LIB}/libbn \
--lbn \
-
-########################################################################
-
-XosGmp_INCLUDEPATH += \
-$${XOS_PRJ}/../gmp/gmp-5.1.3 \
-
-#$${XOS_MXDE_SRC}/clib/cmpint/mp \
-
-XosGmp_LIBS += \
--L$${XOS_BLD}/../../../../../../../build/gmp-5.1.3/lib \
--lgmp \
-
-#-L$${XOS_MXDE_LIB}/libmp \
-#-L$${XOS_MXDE_LIB}/libmpn \
-#-L$${XOS_MXDE_LIB}/libmpz \
-#-lmp \
-#-lmpn \
-#-lmpz \
-
-########################################################################
-
-libXosCrypto_INCLUDEPATH += \
-$${XosMxde_INCLUDEPATH} \
-$${XosBn_INCLUDEPATH} \
-$${XosGmp_INCLUDEPATH} \
-
-libXosCrypto_LIBS += \
--L$${XOS_LIB}/libXosCrypto \
--lXosCrypto \
--L$${XOS_LIB}/libXosMxdeCrypto \
--lXosMxdeCrypto \
-$${XosBn_LIBS} \
-$${XosGmp_LIBS} \
 
