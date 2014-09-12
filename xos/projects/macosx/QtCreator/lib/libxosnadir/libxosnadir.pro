@@ -13,39 +13,26 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: iSha1.pro
+#   File: libxosnadir.pro
 #
 # Author: $author$
-#   Date: 2/6/2014
+#   Date: 8/17/2014
 ########################################################################
-include(../../../../QtCreator/lib/libXosCore.pri)
-include(../../../../QtCreator/lib/libXosCocoa.pri)
-include(../../lib/libXosCrypto.pri)
+include(../../../../QtCreator/lib/libxosnadir.pri)
 
-TARGET = iSha1
+TARGET = xosnadir
+TEMPLATE = lib
+CONFIG += staticlib
 
 INCLUDEPATH += \
-$${libXosCore_INCLUDEPATH} \
+$${libxosnadir_INCLUDEPATH} \
 
 DEFINES += \
-$${libXosCore_DEFINES} \
-
-OBJECTIVE_HEADERS += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.hh \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.hh \
-
-OBJECTIVE_SOURCES += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iSha1.mm \
-$${XOS_SRC}/xos/gui/cocoa/iMain_main.mm \
+$${libxosnadir_DEFINES} \
 
 HEADERS += \
+$${libxosnadir_HEADERS} \
 
 SOURCES += \
+$${libxosnadir_SOURCES} \
 
-LIBS += \
--L$${XOS_LIB}/libiCocoa \
--liCocoa \
-$${libXosCore_LIBS} \
-$${libXosCrypto_LIBS} \

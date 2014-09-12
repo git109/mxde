@@ -19,14 +19,17 @@
 #   Date: 4/16/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../../../QtCreator/lib/libXosMt.pri)
 
 TARGET = XosMtHello
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
+$${libXosMt_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
+$${libXosMt_DEFINES} \
 
 HEADERS += \
 $${XOS_SRC}/xos/mt/hello/Main.hpp \
@@ -37,6 +40,7 @@ $${XOS_SRC}/xos/mt/hello/Main_instance.cpp \
 $${XOS_SRC}/xos/os/Main_main.cpp \
 
 LIBS += \
+$${libXosMt_LIBS} \
 $${libXosCore_LIBS} \
 -lpthread \
 -ldl \

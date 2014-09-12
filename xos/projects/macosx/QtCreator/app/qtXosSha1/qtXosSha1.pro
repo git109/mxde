@@ -21,6 +21,7 @@
 # QtCreator project for Executable qtXosSha1
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = qtXosSha1
 

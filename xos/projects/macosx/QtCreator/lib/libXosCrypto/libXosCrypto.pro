@@ -21,6 +21,7 @@
 # QtCreator project for Static Library libXosCrypto
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = XosCrypto
 TEMPLATE = lib

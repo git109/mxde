@@ -30,11 +30,88 @@ $${XOS_SRC} \
 
 libXosCore_DEFINES += \
 
+########################################################################
+# gui
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/gui/ImageRenderer.hpp \
+$${XOS_SRC}/xos/gui/qt/ImageRenderer.hpp \
+$${XOS_SRC}/xos/gui/opengl/Context.hpp \
+$${XOS_SRC}/xos/gui/opengl/ImageRenderer.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/gui/ImageRenderers.cpp \
+$${XOS_SRC}/xos/gui/opengl/Context.cpp \
+
+########################################################################
+# inet
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/inet/json/Node.hpp \
+$${XOS_SRC}/xos/inet/json/Text.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/inet/json/Node.cpp \
+$${XOS_SRC}/xos/inet/json/Text.cpp \
+
+########################################################################
+# network
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/network/Addresses.hpp \
+$${XOS_SRC}/xos/network/ip/v4/AddressString.hpp \
+$${XOS_SRC}/xos/network/Endpoints.hpp \
+$${XOS_SRC}/xos/network/Transports.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/network/Addresses.cpp \
+$${XOS_SRC}/xos/network/ip/v4/AddressString.cpp \
+$${XOS_SRC}/xos/network/Endpoints.cpp \
+$${XOS_SRC}/xos/network/Transports.cpp \
+
+########################################################################
+# fs
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/fs/Path.hpp \
+$${XOS_SRC}/xos/fs/PathDirectory.hpp \
+$${XOS_SRC}/xos/fs/PathDirectoryAppender.hpp \
+$${XOS_SRC}/xos/fs/PathParser.hpp \
+$${XOS_SRC}/xos/fs/PathParserEvents.hpp \
+$${XOS_SRC}/xos/fs/Time.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/fs/Path.cpp \
+$${XOS_SRC}/xos/fs/PathDirectory.cpp \
+$${XOS_SRC}/xos/fs/PathDirectoryAppender.cpp \
+$${XOS_SRC}/xos/fs/PathParser.cpp \
+$${XOS_SRC}/xos/fs/PathParserEvents.cpp \
+
+########################################################################
+# os
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/os/FILEStream.hpp \
+$${XOS_SRC}/xos/os/Logger.hpp \
+$${XOS_SRC}/xos/os/MainBase.hpp \
+$${XOS_SRC}/xos/os/MainOpt.hpp \
+$${XOS_SRC}/xos/os/StreamLogger.hpp \
+$${XOS_SRC}/xos/os/Mutex.hpp \
+$${XOS_SRC}/xos/os/Process.hpp \
+$${XOS_SRC}/xos/os/Semaphore.hpp \
+$${XOS_SRC}/xos/os/Thread.hpp \
+$${XOS_SRC}/xos/os/Time.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/os/FILEStream.cpp \
+$${XOS_SRC}/xos/os/Logger.cpp \
+$${XOS_SRC}/xos/os/MainBase.cpp \
+$${XOS_SRC}/xos/os/MainOpt.cpp \
+$${XOS_SRC}/xos/os/StreamLogger.cpp \
+
+########################################################################
+# base
 libXosCore_HEADERS += \
 $${XOS_SRC}/xos/base/Acquired.hpp \
 $${XOS_SRC}/xos/base/Array.hpp \
 $${XOS_SRC}/xos/base/Attached.hpp \
 $${XOS_SRC}/xos/base/Base.hpp \
+$${XOS_SRC}/xos/base/Coded.hpp \
 $${XOS_SRC}/xos/base/Created.hpp \
 $${XOS_SRC}/xos/base/Error.hpp \
 $${XOS_SRC}/xos/base/ExportBase.hpp \
@@ -56,31 +133,13 @@ $${XOS_SRC}/xos/base/String.hpp \
 $${XOS_SRC}/xos/base/StringBase.hpp \
 $${XOS_SRC}/xos/base/Wait.hpp \
 $${XOS_SRC}/xos/base/Wrapped.hpp \
-$${XOS_SRC}/xos/os/FILEStream.hpp \
-$${XOS_SRC}/xos/os/Logger.hpp \
-$${XOS_SRC}/xos/os/MainBase.hpp \
-$${XOS_SRC}/xos/os/MainOpt.hpp \
-$${XOS_SRC}/xos/os/StreamLogger.hpp \
-$${XOS_SRC}/xos/network/Addresses.hpp \
-$${XOS_SRC}/xos/network/ip/v4/AddressString.hpp \
-$${XOS_SRC}/xos/network/Endpoints.hpp \
-$${XOS_SRC}/xos/network/Transports.hpp \
-$${XOS_SRC}/xos/fs/Path.hpp \
-$${XOS_SRC}/xos/fs/PathDirectory.hpp \
-$${XOS_SRC}/xos/fs/PathDirectoryAppender.hpp \
-$${XOS_SRC}/xos/fs/PathParser.hpp \
-$${XOS_SRC}/xos/fs/PathParserEvents.hpp \
-$${XOS_SRC}/xos/fs/Time.hpp \
-$${XOS_SRC}/xos/gui/ImageRenderer.hpp \
-$${XOS_SRC}/xos/gui/qt/ImageRenderer.hpp \
-$${XOS_SRC}/xos/gui/opengl/Context.hpp \
-$${XOS_SRC}/xos/gui/opengl/ImageRenderer.hpp \
 
 libXosCore_SOURCES += \
 $${XOS_SRC}/xos/base/Acquired.cpp \
 $${XOS_SRC}/xos/base/Array.cpp \
 $${XOS_SRC}/xos/base/Attached.cpp \
 $${XOS_SRC}/xos/base/Base.cpp \
+$${XOS_SRC}/xos/base/Coded.cpp \
 $${XOS_SRC}/xos/base/Created.cpp \
 $${XOS_SRC}/xos/base/Error.cpp \
 $${XOS_SRC}/xos/base/ExportBase.cpp \
@@ -102,30 +161,30 @@ $${XOS_SRC}/xos/base/String.cpp \
 $${XOS_SRC}/xos/base/StringBase.cpp \
 $${XOS_SRC}/xos/base/Wait.cpp \
 $${XOS_SRC}/xos/base/Wrapped.cpp \
-$${XOS_SRC}/xos/os/FILEStream.cpp \
-$${XOS_SRC}/xos/os/Logger.cpp \
-$${XOS_SRC}/xos/os/MainBase.cpp \
-$${XOS_SRC}/xos/os/MainOpt.cpp \
-$${XOS_SRC}/xos/os/StreamLogger.cpp \
-$${XOS_SRC}/xos/network/Addresses.cpp \
-$${XOS_SRC}/xos/network/ip/v4/AddressString.cpp \
-$${XOS_SRC}/xos/network/Endpoints.cpp \
-$${XOS_SRC}/xos/network/Transports.cpp \
-$${XOS_SRC}/xos/fs/Path.cpp \
-$${XOS_SRC}/xos/fs/PathDirectory.cpp \
-$${XOS_SRC}/xos/fs/PathDirectoryAppender.cpp \
-$${XOS_SRC}/xos/fs/PathParser.cpp \
-$${XOS_SRC}/xos/fs/PathParserEvents.cpp \
-$${XOS_SRC}/xos/fs/Time.cpp \
-$${XOS_SRC}/xos/gui/ImageRenderers.cpp \
-$${XOS_SRC}/xos/gui/opengl/Context.cpp \
 
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/base/Branch.hpp \
+$${XOS_SRC}/xos/base/Tree.hpp \
+$${XOS_SRC}/xos/base/AvlBranch.hpp \
+$${XOS_SRC}/xos/base/RedblackBranch.hpp \
+$${XOS_SRC}/xos/base/AvlTree.hpp \
+$${XOS_SRC}/xos/base/RedblackTree.hpp \
+
+libXosCore_SOURCES += \
+$${XOS_SRC}/xos/base/Branch.cpp \
+$${XOS_SRC}/xos/base/Tree.cpp \
+$${XOS_SRC}/xos/base/AvlBranch.cpp \
+$${XOS_SRC}/xos/base/RedblackBranch.cpp \
+$${XOS_SRC}/xos/base/AvlTree.cpp \
+$${XOS_SRC}/xos/base/RedblackTree.cpp \
+
+########################################################################
 libXosCore_LIBS += \
 -L$${XOS_LIB}/libXosCore \
 -lXosCore \
 
 ########################################################################
-
+# mxde
 XOS_MXDE_SRC = \
 $${XOS_PRJ}/../mxde/c/src \
 

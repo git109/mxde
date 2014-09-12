@@ -20,6 +20,7 @@
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
 include(../../../../QtCreator/lib/libXosCocoa.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = iSha256
 

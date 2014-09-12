@@ -20,6 +20,7 @@
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
 include(../../../../QtCreator/lib/libXosCocoa.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = iUuid
 
@@ -40,6 +41,7 @@ $${XOS_SRC}/xos/gui/cocoa/iMain_main.mm \
 HEADERS += \
 $${XOS_SRC}/app/gui/network/uuid/MainWindow.hpp \
 $${XOS_SRC}/xos/crypto/random/Pseudo.hpp \
+$${XOS_SRC}/xos/base/HexString.hpp \
 
 SOURCES += \
 $${XOS_SRC}/app/gui/network/uuid/MainWindow.cpp \

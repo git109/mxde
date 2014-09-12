@@ -21,6 +21,7 @@
 # QtCreator project for Executable qtXosMd5
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = qtXosMd5
 

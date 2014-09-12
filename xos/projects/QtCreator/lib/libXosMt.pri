@@ -13,39 +13,38 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: iSha1.pro
+#   File: libXosMt.pri
 #
 # Author: $author$
-#   Date: 2/6/2014
+#   Date: 7/29/2014
 ########################################################################
-include(../../../../QtCreator/lib/libXosCore.pri)
-include(../../../../QtCreator/lib/libXosCocoa.pri)
-include(../../lib/libXosCrypto.pri)
 
-TARGET = iSha1
+libXosMt_INCLUDEPATH += \
 
-INCLUDEPATH += \
-$${libXosCore_INCLUDEPATH} \
+libXosMt_DEFINES += \
 
-DEFINES += \
-$${libXosCore_DEFINES} \
+libXosMt_HEADERS += \
+$${XOS_SRC}/xos/mt/os/Thread.hpp \
+$${XOS_SRC}/xos/mt/Thread.hpp \
+$${XOS_SRC}/xos/mt/os/Mutex.hpp \
+$${XOS_SRC}/xos/mt/Mutex.hpp \
+$${XOS_SRC}/xos/mt/os/Semaphore.hpp \
+$${XOS_SRC}/xos/mt/Semaphore.hpp \
+$${XOS_SRC}/xos/mt/os/Os.hpp \
+$${XOS_SRC}/xos/mt/Acquirer.hpp \
+$${XOS_SRC}/xos/mt/Locker.hpp \
+$${XOS_SRC}/xos/mt/Waiter.hpp \
+$${XOS_SRC}/xos/mt/Runner.hpp \
+$${XOS_SRC}/xos/mt/Run.hpp \
 
-OBJECTIVE_HEADERS += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.hh \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.hh \
+libXosMt_SOURCES += \
+$${XOS_SRC}/xos/mt/os/Os.cpp \
+$${XOS_SRC}/xos/mt/Acquirer.cpp \
+$${XOS_SRC}/xos/mt/Locker.cpp \
+$${XOS_SRC}/xos/mt/Waiter.cpp \
+$${XOS_SRC}/xos/mt/Runner.cpp \
+$${XOS_SRC}/xos/mt/Run.cpp \
 
-OBJECTIVE_SOURCES += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iSha1.mm \
-$${XOS_SRC}/xos/gui/cocoa/iMain_main.mm \
-
-HEADERS += \
-
-SOURCES += \
-
-LIBS += \
--L$${XOS_LIB}/libiCocoa \
--liCocoa \
-$${libXosCore_LIBS} \
-$${libXosCrypto_LIBS} \
+libXosMt_LIBS += \
+-L$${XOS_LIB}/libXosMt \
+-lXosMt \

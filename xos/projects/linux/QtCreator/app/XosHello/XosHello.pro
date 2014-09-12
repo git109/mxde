@@ -13,16 +13,14 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: iSha1.pro
+#   File: XosHello.pro
 #
 # Author: $author$
-#   Date: 2/6/2014
+#   Date: 9/8/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
-include(../../../../QtCreator/lib/libXosCocoa.pri)
-include(../../lib/libXosCrypto.pri)
 
-TARGET = iSha1
+TARGET = XosHello
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
@@ -30,22 +28,17 @@ $${libXosCore_INCLUDEPATH} \
 DEFINES += \
 $${libXosCore_DEFINES} \
 
-OBJECTIVE_HEADERS += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.hh \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.hh \
-
-OBJECTIVE_SOURCES += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iSha1.mm \
-$${XOS_SRC}/xos/gui/cocoa/iMain_main.mm \
-
 HEADERS += \
+$${XOS_SRC}/app/console/Hello/Hello.hpp \
 
 SOURCES += \
+$${XOS_SRC}/app/console/Hello/Hello.cpp \
+$${XOS_SRC}/xos/os/Main_main.cpp \
 
 LIBS += \
--L$${XOS_LIB}/libiCocoa \
--liCocoa \
 $${libXosCore_LIBS} \
-$${libXosCrypto_LIBS} \
+-lpthread \
+-ldl \
+-lrt \
+
+

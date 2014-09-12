@@ -13,39 +13,35 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: iSha1.pro
+#   File: libXosMt.pro
 #
 # Author: $author$
-#   Date: 2/6/2014
+#   Date: 7/29/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
-include(../../../../QtCreator/lib/libXosCocoa.pri)
-include(../../lib/libXosCrypto.pri)
+include(../../../../QtCreator/lib/libXosMt.pri)
 
-TARGET = iSha1
+TARGET = XosMt
+TEMPLATE = lib
+CONFIG += staticlib
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
+$${libXosMt_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
-
-OBJECTIVE_HEADERS += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.hh \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.hh \
-
-OBJECTIVE_SOURCES += \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/MainWindow.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iHash.mm \
-$${XOS_SRC}/app/gui/cocoa/crypto/hash/iSha1.mm \
-$${XOS_SRC}/xos/gui/cocoa/iMain_main.mm \
+$${libXosMt_DEFINES} \
 
 HEADERS += \
+$${libXosMt_HEADERS} \
+$${XOS_SRC}/xos/mt/unix/Thread.hpp \
+$${XOS_SRC}/xos/mt/unix/Mutex.hpp \
+$${XOS_SRC}/xos/mt/unix/Semaphore.hpp \
 
 SOURCES += \
+$${libXosMt_SOURCES} \
+$${XOS_SRC}/xos/mt/unix/Thread.cpp \
+$${XOS_SRC}/xos/mt/unix/Mutex.cpp \
+$${XOS_SRC}/xos/mt/unix/Semaphore.cpp \
 
-LIBS += \
--L$${XOS_LIB}/libiCocoa \
--liCocoa \
-$${libXosCore_LIBS} \
-$${libXosCrypto_LIBS} \

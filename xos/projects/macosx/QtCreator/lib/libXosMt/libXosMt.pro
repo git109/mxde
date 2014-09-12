@@ -19,6 +19,7 @@
 #   Date: 4/14/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../../../QtCreator/lib/libXosMt.pri)
 
 TARGET = XosMt
 TEMPLATE = lib
@@ -26,35 +27,22 @@ CONFIG += staticlib
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
+$${libXosMt_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
+$${libXosMt_DEFINES} \
 
 HEADERS += \
+$${libXosMt_HEADERS} \
 $${XOS_SRC}/xos/mt/macosx/Thread.hpp \
 $${XOS_SRC}/xos/mt/unix/Thread.hpp \
-$${XOS_SRC}/xos/mt/os/Thread.hpp \
-$${XOS_SRC}/xos/mt/Thread.hpp \
 $${XOS_SRC}/xos/mt/macosx/Mutex.hpp \
 $${XOS_SRC}/xos/mt/unix/Mutex.hpp \
-$${XOS_SRC}/xos/mt/os/Mutex.hpp \
-$${XOS_SRC}/xos/mt/Mutex.hpp \
 $${XOS_SRC}/xos/mt/macosx/Semaphore.hpp \
-$${XOS_SRC}/xos/mt/os/Semaphore.hpp \
-$${XOS_SRC}/xos/mt/Semaphore.hpp \
-$${XOS_SRC}/xos/mt/os/Os.hpp \
-$${XOS_SRC}/xos/mt/Acquirer.hpp \
-$${XOS_SRC}/xos/mt/Locker.hpp \
-$${XOS_SRC}/xos/mt/Waiter.hpp \
-$${XOS_SRC}/xos/base/Creator.hpp \
 
 SOURCES += \
-$${XOS_SRC}/xos/mt/os/Thread.cpp \
-$${XOS_SRC}/xos/mt/os/Mutex.cpp \
-$${XOS_SRC}/xos/mt/os/Semaphore.cpp \
-$${XOS_SRC}/xos/mt/os/Os.cpp \
-$${XOS_SRC}/xos/mt/Acquirer.cpp \
-$${XOS_SRC}/xos/mt/Locker.cpp \
-$${XOS_SRC}/xos/mt/Waiter.cpp \
-$${XOS_SRC}/xos/base/Creator.cpp \
-
+$${libXosMt_SOURCES} \
+$${XOS_SRC}/xos/mt/macosx/Thread.cpp \
+$${XOS_SRC}/xos/mt/macosx/Mutex.cpp \
+$${XOS_SRC}/xos/mt/macosx/Semaphore.cpp \
