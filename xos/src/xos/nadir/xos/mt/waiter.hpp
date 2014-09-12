@@ -13,63 +13,50 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: waiter.hpp
 ///
 /// Author: $author$
-///   Date: 4/14/2014
+///   Date: 8/14/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_SEMAPHORE_HPP
-#define _XOS_MT_SEMAPHORE_HPP
+#ifndef _XOS_NADIR_XOS_MT_WAITER_HPP
+#define _XOS_NADIR_XOS_MT_WAITER_HPP
 
-#include "xos/mt/Acquirer.hpp"
-#include "xos/mt/Waiter.hpp"
-#include "xos/base/Creator.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
 namespace mt {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreImplements
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS SemaphoreImplements
-: virtual public Waiter, virtual public Acquirer, virtual public Creator {
-public:
+enum wait_status {
+    wait_success,
+    wait_failed,
+    wait_busy,
+    wait_interrupted
 };
+
+typedef base::implement_base wait_implement;
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
+///  Class: waitert
 ///////////////////////////////////////////////////////////////////////
-template <class TImplement = SemaphoreImplements >
-class _EXPORT_CLASS SemaphoreT: virtual public TImplement {
+template <class TImplements = wait_implement>
+
+class _EXPORT_CLASS waitert: virtual public TImplements {
 public:
-    typedef TImplement Implements;
+    typedef TImplements Implements;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initialCount) = 0;
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool Wait() {
-        return this->Acquire();
-    }
-    virtual wait::Status TryWait() {
-        return this->TryAcquire();
-    }
-    virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) {
-        return this->TimedAcquire(waitMilliSeconds);
-    }
-
-protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool InitiallyCreated() const { return true; }
+    virtual bool wait() { return false; }
+    virtual wait_status try_wait() { return wait_failed; }
+    virtual wait_status timed_wait(mseconds_t milliseconds) { return wait_failed; }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef SemaphoreT<> Semaphore;
+typedef waitert<> waiter;
 
 } // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_MT_SEMAPHORE_HPP 
+#endif // _XOS_NADIR_XOS_MT_WAITER_HPP

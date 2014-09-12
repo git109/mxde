@@ -13,63 +13,60 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: acquire.hpp
 ///
 /// Author: $author$
-///   Date: 4/14/2014
+///   Date: 8/16/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_SEMAPHORE_HPP
-#define _XOS_MT_SEMAPHORE_HPP
+#ifndef _XOS_NADIR_XOS_MT_ACQUIRE_HPP
+#define _XOS_NADIR_XOS_MT_ACQUIRE_HPP
 
-#include "xos/mt/Acquirer.hpp"
-#include "xos/mt/Waiter.hpp"
-#include "xos/base/Creator.hpp"
+#include "xos/mt/acquirer.hpp"
 
 namespace xos {
 namespace mt {
 
+typedef base::implement_base acquire_implement;
+typedef base::base acquire_extend;
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreImplements
+///  Class: acquiret
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS SemaphoreImplements
-: virtual public Waiter, virtual public Acquirer, virtual public Creator {
+template
+<class TAcquirer = acquirer,
+ class TExtends = acquire_extend,
+ class TImplements = acquire_implement>
+
+class _EXPORT_CLASS acquiret: virtual public TImplements, public TExtends {
 public:
-};
-///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
-///////////////////////////////////////////////////////////////////////
-template <class TImplement = SemaphoreImplements >
-class _EXPORT_CLASS SemaphoreT: virtual public TImplement {
-public:
-    typedef TImplement Implements;
+    typedef TImplements Implements;
+    typedef TExtends Extends;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initialCount) = 0;
+    acquiret(TAcquirer& acquirer): acquirer_(acquirer) {
+        if (!(acquirer_.acquire())) {
+            acquirer_exception e = acquire_failed;
+            throw (e);
+        }
+    }
+    virtual ~acquiret() {
+        if (!(acquirer_.release())) {
+            acquirer_exception e = release_failed;
+            throw (e);
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Wait() {
-        return this->Acquire();
-    }
-    virtual wait::Status TryWait() {
-        return this->TryAcquire();
-    }
-    virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) {
-        return this->TimedAcquire(waitMilliSeconds);
-    }
-
 protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool InitiallyCreated() const { return true; }
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
+    TAcquirer& acquirer_;
 };
-typedef SemaphoreT<> Semaphore;
+typedef acquiret<> acquire;
 
 } // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_MT_SEMAPHORE_HPP 
+
+#endif // _XOS_NADIR_XOS_MT_ACQUIRE_HPP 
+        
+

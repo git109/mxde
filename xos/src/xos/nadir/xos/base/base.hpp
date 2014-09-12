@@ -13,63 +13,37 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: base.hpp
 ///
 /// Author: $author$
-///   Date: 4/14/2014
+///   Date: 8/12/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_SEMAPHORE_HPP
-#define _XOS_MT_SEMAPHORE_HPP
+#ifndef _XOS_NADIR_XOS_BASE_BASE_HPP
+#define _XOS_NADIR_XOS_BASE_BASE_HPP
 
-#include "xos/mt/Acquirer.hpp"
-#include "xos/mt/Waiter.hpp"
-#include "xos/base/Creator.hpp"
+#include "xos/base/platform.hpp"
 
 namespace xos {
-namespace mt {
+namespace base {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreImplements
+///  Class: implement_base
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS SemaphoreImplements
-: virtual public Waiter, virtual public Acquirer, virtual public Creator {
+class _EXPORT_CLASS implement_base {
 public:
 };
+
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
+///  Class: base
 ///////////////////////////////////////////////////////////////////////
-template <class TImplement = SemaphoreImplements >
-class _EXPORT_CLASS SemaphoreT: virtual public TImplement {
+class _EXPORT_CLASS base: virtual public implement_base {
 public:
-    typedef TImplement Implements;
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initialCount) = 0;
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool Wait() {
-        return this->Acquire();
-    }
-    virtual wait::Status TryWait() {
-        return this->TryAcquire();
-    }
-    virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) {
-        return this->TimedAcquire(waitMilliSeconds);
-    }
-
-protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool InitiallyCreated() const { return true; }
-
+    typedef implement_base Implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef SemaphoreT<> Semaphore;
 
-} // namespace mt 
+} // namespace base 
 } // namespace xos 
 
-#endif // _XOS_MT_SEMAPHORE_HPP 
+#endif // _XOS_NADIR_XOS_BASE_BASE_HPP

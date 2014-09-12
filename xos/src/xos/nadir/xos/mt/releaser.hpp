@@ -13,63 +13,40 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: releaser.hpp
 ///
 /// Author: $author$
-///   Date: 4/14/2014
+///   Date: 8/14/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_SEMAPHORE_HPP
-#define _XOS_MT_SEMAPHORE_HPP
+#ifndef _XOS_NADIR_XOS_MT_RELEASER_HPP
+#define _XOS_NADIR_XOS_MT_RELEASER_HPP
 
-#include "xos/mt/Acquirer.hpp"
-#include "xos/mt/Waiter.hpp"
-#include "xos/base/Creator.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
 namespace mt {
 
+typedef base::implement_base releaser_implement;
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreImplements
+///  Class: releasert
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS SemaphoreImplements
-: virtual public Waiter, virtual public Acquirer, virtual public Creator {
+template <class TImplements = releaser_implement>
+
+class _EXPORT_CLASS releasert: virtual public TImplements {
 public:
-};
-///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
-///////////////////////////////////////////////////////////////////////
-template <class TImplement = SemaphoreImplements >
-class _EXPORT_CLASS SemaphoreT: virtual public TImplement {
-public:
-    typedef TImplement Implements;
+    typedef TImplements Implements;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initialCount) = 0;
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool Wait() {
-        return this->Acquire();
-    }
-    virtual wait::Status TryWait() {
-        return this->TryAcquire();
-    }
-    virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) {
-        return this->TimedAcquire(waitMilliSeconds);
-    }
-
-protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool InitiallyCreated() const { return true; }
+    virtual bool release() { return false; }
+    virtual ssize_t release(size_t amount) { return 0; }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef SemaphoreT<> Semaphore;
+typedef releasert<> releaser;
 
 } // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_MT_SEMAPHORE_HPP 
+#endif // _XOS_NADIR_XOS_MT_RELEASER_HPP

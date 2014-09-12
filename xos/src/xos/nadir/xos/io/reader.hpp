@@ -13,63 +13,74 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: reader.hpp
 ///
 /// Author: $author$
-///   Date: 4/14/2014
+///   Date: 8/27/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_SEMAPHORE_HPP
-#define _XOS_MT_SEMAPHORE_HPP
+#ifndef _XOS_NADIR_XOS_IO_READER_HPP
+#define _XOS_NADIR_XOS_IO_READER_HPP
 
-#include "xos/mt/Acquirer.hpp"
-#include "xos/mt/Waiter.hpp"
-#include "xos/base/Creator.hpp"
+#include "xos/mt/locker.hpp"
 
 namespace xos {
-namespace mt {
+namespace io {
 
+typedef base::implement_base reader_implement;
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreImplements
+///  Class: readert
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS SemaphoreImplements
-: virtual public Waiter, virtual public Acquirer, virtual public Creator {
+template
+<typename TWhat = void, typename TSized = char,
+ typename TEnd = int, TEnd VEnd = 0,
+ class TImplements = reader_implement>
+
+class _EXPORT_CLASS readert: virtual public TImplements {
 public:
-};
-///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
-///////////////////////////////////////////////////////////////////////
-template <class TImplement = SemaphoreImplements >
-class _EXPORT_CLASS SemaphoreT: virtual public TImplement {
-public:
-    typedef TImplement Implements;
+    typedef TImplements Implements;
+
+    typedef TWhat what_t;
+    typedef TSized sized_t;
+    typedef TEnd end_t;
+    enum { end = VEnd };
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initialCount) = 0;
+    virtual ssize_t read(what_t* what, size_t size) { return 0; }
+    virtual ssize_t fill() { return 0; }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Wait() {
-        return this->Acquire();
+    virtual ssize_t readf(const what_t* format, ...) {
+        ssize_t count = 0;
+        va_list va;
+        va_start(va, format);
+        count = readfv(format, va);
+        va_end(va);
+        return count;
     }
-    virtual wait::Status TryWait() {
-        return this->TryAcquire();
+    virtual ssize_t readfv(const what_t* format, va_list va) {
+        ssize_t count = 0;
+        return count;
     }
-    virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) {
-        return this->TimedAcquire(waitMilliSeconds);
-    }
-
-protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool InitiallyCreated() const { return true; }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef SemaphoreT<> Semaphore;
+typedef readert<> reader;
 
-} // namespace mt 
-} // namespace xos 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+typedef readert<char, char, int, 0> char_reader;
+typedef readert<wchar_t, wchar_t, int, 0> wchar_reader;
+typedef readert<tchar_t, tchar_t, int, 0> tchar_reader;
 
-#endif // _XOS_MT_SEMAPHORE_HPP 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+typedef readert<byte_t, byte_t, int, 0> byte_reader;
+typedef readert<word_t, word_t, int, 0> word_reader;
+
+} // namespace io
+} // namespace xos
+
+#endif // _XOS_NADIR_XOS_IO_READER_HPP

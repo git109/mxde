@@ -13,63 +13,53 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: main.hpp
 ///
 /// Author: $author$
-///   Date: 4/14/2014
+///   Date: 9/7/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_SEMAPHORE_HPP
-#define _XOS_MT_SEMAPHORE_HPP
+#ifndef _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP
+#define _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP
 
-#include "xos/mt/Acquirer.hpp"
-#include "xos/mt/Waiter.hpp"
-#include "xos/base/Creator.hpp"
+#include "xos/base/main.hpp"
 
 namespace xos {
-namespace mt {
+namespace app {
+namespace console {
+namespace hello {
 
+typedef base::main_implement main_implement;
+typedef base::main main_extend;
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreImplements
+///  Class: main
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS SemaphoreImplements
-: virtual public Waiter, virtual public Acquirer, virtual public Creator {
+class _EXPORT_CLASS main: virtual public main_implement, public main_extend {
 public:
-};
-///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
-///////////////////////////////////////////////////////////////////////
-template <class TImplement = SemaphoreImplements >
-class _EXPORT_CLASS SemaphoreT: virtual public TImplement {
-public:
-    typedef TImplement Implements;
+    typedef main_implement Implements;
+    typedef main_extend Extends;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initialCount) = 0;
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool Wait() {
-        return this->Acquire();
+    main() {
     }
-    virtual wait::Status TryWait() {
-        return this->TryAcquire();
-    }
-    virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) {
-        return this->TimedAcquire(waitMilliSeconds);
+    virtual ~main() {
     }
 
 protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool InitiallyCreated() const { return true; }
+    virtual int run(int argc, char_t** argv, char_t** env) {
+        fprintf(stdout, "Hello\n");
+        return 0;
+    }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef SemaphoreT<> Semaphore;
 
-} // namespace mt 
+} // namespace hello 
+} // namespace console 
+} // namespace app 
 } // namespace xos 
 
-#endif // _XOS_MT_SEMAPHORE_HPP 
+#endif // _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP 
