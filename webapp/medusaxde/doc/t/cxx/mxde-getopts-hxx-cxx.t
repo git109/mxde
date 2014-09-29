@@ -26,7 +26,9 @@
 %CLASS_EXTENDS,%(%toupper(%class_extends%)%)%,%
 %CLASS_NAMESPACE,%(%toupper(%class_namespace%)%)%,%
 %%(%
-%%parse(%class_template_parameters%,;,,,,%(%
+%///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+%parse(%class_template_parameters%,;,,,,%(%
 %%with(%
 %c,%(%left(%p%,:)%)%,%
 %s,%(%right(%left(%p%,=)%,:)%)%,%
@@ -35,15 +37,23 @@
 %%(%
 %#define %CLASS_NAMESPACE%_%CLASS%_%N%_OPT "%s%"
 #define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTARG_RESULT 0
 #define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTARG ""
 #define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTUSE ""
 #define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTVAL_S "%c%:"
 #define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTVAL_C '%c%'
+#define %CLASS_NAMESPACE%_%CLASS%_%N%_OPTION \
+   {%CLASS_NAMESPACE%_%CLASS%_%N%_OPT, \
+    %CLASS_NAMESPACE%_%CLASS%_%N%_OPTARG_REQUIRED, \
+    %CLASS_NAMESPACE%_%CLASS%_%N%_OPTARG_RESULT, \
+    %CLASS_NAMESPACE%_%CLASS%_%N%_OPTVAL_C}, \
 
 %
 %)%)%%
 %)%,p)%%
-%#define %CLASS_NAMESPACE%_%CLASS%_OPTIONS_CHARS \
+%///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#define %CLASS_NAMESPACE%_%CLASS%_OPTIONS_CHARS \
 %
 %%parse(%class_template_parameters%,;,,,,%(%
 %%with(%
@@ -68,15 +78,34 @@
 %n,%(%right(%p%,=)%)%,%
 %N,%(%toupper(%n%)%)%,%
 %%(%
-%   {%CLASS_NAMESPACE%_%CLASS%_%N%_OPT, \
-    %CLASS_NAMESPACE%_%CLASS%_%N%_OPTARG_REQUIRED, 0, \
-    %CLASS_NAMESPACE%_%CLASS%_%N%_OPTVAL_C}, \
+%   %CLASS_NAMESPACE%_%CLASS%_%N%_OPTION \
 %
 %)%)%%
 %)%,p)%%
 %   %CLASS_NAMESPACE%_%CLASS_EXTENDS%_OPTIONS_OPTIONS
 %
 %
+///////////////////////////////////////////////////////////////////////
+%parse(%class_template_parameters%,;,,,,%(%
+%%with(%
+%c,%(%left(%p%,:)%)%,%
+%s,%(%right(%left(%p%,=)%,:)%)%,%
+%n,%(%right(%p%,=)%)%,%
+%N,%(%toupper(%n%)%)%,%
+%%(%
+%///////////////////////////////////////////////////////////////////////
+virtual int On%n%Option
+(int optval, const char* optarg,
+ const char* optname, int optind,
+ int argc, char**argv, char**env) {
+    int err = 0;
+    return err;
+}
+%
+%)%)%%
+%)%,p)%
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 virtual int OnOption
 (int optval, const char* optarg,
  const char* optname, int optind,
@@ -91,6 +120,8 @@ virtual int OnOption
 %N,%(%toupper(%n%)%)%,%
 %%(%
 %    case %CLASS_NAMESPACE%_%CLASS%_%N%_OPTVAL_C:
+        err = On%n%Option
+        (optval, optarg, optname, optind, argc, argv, env);
         break;
 %
 %)%)%%
@@ -101,6 +132,7 @@ virtual int OnOption
     }
     return err;
 }
+///////////////////////////////////////////////////////////////////////
 virtual const char* OptionUsage
 (const char*& optarg, const struct option* longopt) {
     const char* chars = "";
@@ -124,6 +156,7 @@ virtual const char* OptionUsage
     }
     return chars;
 }
+///////////////////////////////////////////////////////////////////////
 virtual const char* Options(const struct option*& longopts) {
     int err = 0;
     static const char* chars = %CLASS_NAMESPACE%_%CLASS%_OPTIONS_CHARS;
