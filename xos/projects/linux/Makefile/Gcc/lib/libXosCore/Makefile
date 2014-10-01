@@ -18,7 +18,7 @@
 # Author: $author$
 #   Date: 8/29/2012
 #
-# Linux Gcc Makefile for Xos libXosCore Shared Library
+# Linux Gcc Makefile for Xos libXosCore Static Library
 ########################################################################
 
 PKG = $(PWD)/../../../../../..
@@ -29,6 +29,8 @@ SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
 include $(PKG)/$(MAK)/lib/libXosCore/Makefile
+
+XOS_SRC = $(PKG)/$(SRC)
 
 #
 # user ld flags
@@ -63,67 +65,60 @@ USRLIBDIRS = \
 #
 # target
 #
-SLIBTARGET = libXosCore.so
+LIBTARGET = libXosCore.$(LIBEXT)
 
 #
-# Shared Library C sources
+# Static Library C sources
 #
-SLIB_C_SOURCES = \
+LIB_C_SOURCES = \
+${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
 
 #
-# Shared Library C++ .cc sources
+# Static Library C++ .cc sources
 #
-SLIB_CC_SOURCES = \
+LIB_CC_SOURCES = \
 
 #
-# Shared Library C++ .cxx sources
+# Static Library C++ .cxx sources
 #
-SLIB_CXX_SOURCES = \
+LIB_CXX_SOURCES = \
 
 #
-# Shared Library C++ .cpp sources
+# Static Library C++ .cpp sources
 #
-SLIB_CPP_SOURCES = \
-$(_libXosCore_SLIB_CPP_SOURCES) \
+LIB_CPP_SOURCES = \
+$(_libXosCore_LIB_CPP_SOURCES) \
 
 #
-# Shared Library Objective C .m sources
+# Static Library Objective C .m sources
 #
-SLIB_M_SOURCES = \
+LIB_M_SOURCES = \
 
 #
-# Shared Library Objective C++ .mm sources
+# Static Library Objective C++ .mm sources
 #
-SLIB_MM_SOURCES = \
+LIB_MM_SOURCES = \
 
 #
-# Shared Library libs
+# Static Library depends
 #
-#LIBS = \
-#-lsomelib
-#
-LIBS = \
-
-#
-# Shared Library depends
-#
-#SLIBDEP = \
+#LIBDEP = \
 #$(PKG)/$(BLD)/libsomelib \
 #
-SLIBDEP = \
+LIBDEP = \
 
 #
-# Shared Library depend dirs
+# Static Library depend dirs
 #
-#SLIBDEP_DIRS = \
+#LIBDEP_DIRS = \
 #../libsomelib
 #
-SLIBDEP_DIRS = \
+LIBDEP_DIRS = \
 
 include $(PKG)/$(PRJ)/Makerules
 
 #
-# Shared Library depend rules
+# Static Library depend rules
 #
 #$(PKG)/$(BLD)/libsomelib.a:
 #	@(echo Building libsomelib.a ...;\

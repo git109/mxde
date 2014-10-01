@@ -33,6 +33,10 @@ ifndef BLD
 BLD = build/linux/$(BUILD_TYPE)
 endif
 
+ifeq ($(PLATFORM_HAS_NO_EXECVPE),yes)
+PLATFORM_FLAGS += -DPLATFORM_HAS_NO_EXECVPE
+endif
+
 PKGROOT		=	$(PKG)
 PKGBLD      =   $(PKG)/$(BLD)
 BINDIR		=	$(PKGBLD)/bin
@@ -50,7 +54,9 @@ INCLUDES	= \
 LIBDIRS	= \
 -L$(LIBDIR) \
 
-DEFINES		= $(DBGFLAGS)
+DEFINES	= \
+$(DBGFLAGS) \
+$(PLATFORM_FLAGS) \
 
 #
 # C
@@ -77,7 +83,8 @@ AR			=	$(COMPILER_PATH)$(COMPILER_PREFIX)ar crs
 RANLIB		=	ranlib
 STRIP		=	strip
 LIBTOOL		=	
-LIBEXT		=	so
+LIBEXT		=	a
+SLIBEXT		=	so
 
 #
 # Filesystem

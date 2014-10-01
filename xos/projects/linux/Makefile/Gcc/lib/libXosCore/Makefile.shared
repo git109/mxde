@@ -16,21 +16,19 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 10/2/2012
+#   Date: 8/29/2012
 #
-# MacOSX Gcc Makefile for Xos libXosCore Static Library
+# Linux Gcc Makefile for Xos libXosCore Shared Library
 ########################################################################
 
 PKG = $(PWD)/../../../../../..
 
 MAK = projects/Makefile/Gcc
-PRJ = projects/macosx/Makefile/Gcc
+PRJ = projects/linux/Makefile/Gcc
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
 include $(PKG)/$(MAK)/lib/libXosCore/Makefile
-
-XOS_SRC = $(PKG)/$(SRC)
 
 #
 # user ld flags
@@ -65,60 +63,67 @@ USRLIBDIRS = \
 #
 # target
 #
-LIBTARGET = libXosCore.$(LIBEXT)
+SLIBTARGET = libXosCore.$(SLIBEXT)
 
 #
-# Static Library C sources
+# Shared Library C sources
 #
-LIB_C_SOURCES = \
-${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
+SLIB_C_SOURCES = \
 
 #
-# Static Library C++ .cc sources
+# Shared Library C++ .cc sources
 #
-LIB_CC_SOURCES = \
+SLIB_CC_SOURCES = \
 
 #
-# Static Library C++ .cxx sources
+# Shared Library C++ .cxx sources
 #
-LIB_CXX_SOURCES = \
+SLIB_CXX_SOURCES = \
 
 #
-# Static Library C++ .cpp sources
+# Shared Library C++ .cpp sources
 #
-LIB_CPP_SOURCES = \
-$(_libXosCore_LIB_CPP_SOURCES) \
+SLIB_CPP_SOURCES = \
+$(_libXosCore_SLIB_CPP_SOURCES) \
 
 #
-# Static Library Objective C .m sources
+# Shared Library Objective C .m sources
 #
-LIB_M_SOURCES = \
+SLIB_M_SOURCES = \
 
 #
-# Static Library Objective C++ .mm sources
+# Shared Library Objective C++ .mm sources
 #
-LIB_MM_SOURCES = \
+SLIB_MM_SOURCES = \
 
 #
-# Static Library depends
+# Shared Library libs
 #
-#LIBDEP = \
+#LIBS = \
+#-lsomelib
+#
+LIBS = \
+
+#
+# Shared Library depends
+#
+#SLIBDEP = \
 #$(PKG)/$(BLD)/libsomelib \
 #
-LIBDEP = \
+SLIBDEP = \
 
 #
-# Static Library depend dirs
+# Shared Library depend dirs
 #
-#LIBDEP_DIRS = \
+#SLIBDEP_DIRS = \
 #../libsomelib
 #
-LIBDEP_DIRS = \
+SLIBDEP_DIRS = \
 
 include $(PKG)/$(PRJ)/Makerules
 
 #
-# Static Library depend rules
+# Shared Library depend rules
 #
 #$(PKG)/$(BLD)/libsomelib.a:
 #	@(echo Building libsomelib.a ...;\

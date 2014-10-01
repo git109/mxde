@@ -33,10 +33,10 @@ ifndef BLD
 BLD = build/macosx
 endif
 
-PKGROOT		=	$(PKG)
-PKGBLD      =   $(PKG)/$(BLD)/$(BUILD_TYPE)
-BINDIR		=	$(PKGBLD)/bin
-LIBDIR		=	$(PKGBLD)/lib
+PKGROOT = $(PKG)
+PKGBLD = $(PKG)/$(BLD)/$(BUILD_TYPE)
+BINDIR = $(PKGBLD)/bin
+LIBDIR = $(PKGBLD)/lib
 
 COMPILER_PATH = 
 COMPILER_PREFIX = 
@@ -44,55 +44,58 @@ COMPILER_PREFIX =
 KCOMPILER_PATH = 
 KCOMPILER_PREFIX = 
 
-INCLUDES	= \
+INCLUDES = \
 -I$(PKG)/$(SRC) \
+-I$(PKG) \
 
 LIBDIRS	= \
 -L$(LIBDIR) \
 
-DEFINES		= $(DBGFLAGS)
+DEFINES = \
+$(DBGFLAGS)
 
 #
 # C
 #
-CC			=	$(COMPILER_PATH)$(COMPILER_PREFIX)gcc
-CCLD		=	$(CC)
-CCDSO		=	$(CCLD)
-OPTIM		= -fpic
-CFLAGS		= $(OPTIM) $(USRINCLUDES) $(INCLUDES) $(DEFINES) $(USRDEFINES) $(USRDEFS) $(OPTIONS) $(USRCFLAGS) $(USRFLAGS)
+CC = $(COMPILER_PATH)$(COMPILER_PREFIX)gcc
+CCLD = $(CC)
+CCDSO = $(CCLD)
+OPTIM = -fpic
+CFLAGS = $(OPTIM) $(USRINCLUDES) $(INCLUDES) $(DEFINES) $(USRDEFINES) $(USRDEFS) $(OPTIONS) $(USRCFLAGS) $(USRFLAGS)
 
 #
 # C++
 #
-CXX			=	$(COMPILER_PATH)$(COMPILER_PREFIX)g++
-CXXLD		=	$(CXX)
-CXXDSO		=	$(CXXLD)
-CXXOPTIM    = -fno-rtti
-CXXFLAGS	= $(OPTIM) $(CXXOPTIM) $(USRINCLUDES) $(INCLUDES) $(DEFINES) $(USRDEFINES) $(USRDEFS) $(OPTIONS) $(USRCXXFLAGS) $(USRFLAGS)
+CXX = $(COMPILER_PATH)$(COMPILER_PREFIX)g++
+CXXLD = $(CXX)
+CXXDSO = $(CXXLD)
+CXXOPTIM = -fno-rtti
+CXXFLAGS = $(OPTIM) $(CXXOPTIM) $(USRINCLUDES) $(INCLUDES) $(DEFINES) $(USRDEFINES) $(USRDEFS) $(OPTIONS) $(USRCXXFLAGS) $(USRFLAGS)
 
 #
 # Librarian
 #
-AR			=	$(COMPILER_PATH)$(COMPILER_PREFIX)ar
-RANLIB		=	ranlib
-STRIP		=	strip
-LIBTOOL		=	
-LIBEXT		=	dylib
+AR = $(COMPILER_PATH)$(COMPILER_PREFIX)ar
+RANLIB = ranlib
+STRIP = strip
+LIBTOOL =
+LIBEXT = a
+SLIBEXT = dylib
 
 #
 # Filesystem
 #
-CHMOD		=	chmod
-CP			=	cp
-LN			=	ln -sf
-MV			=	mv
-RM			=	rm -f
-MKDIR		=	mkdir -p
-D2U		    =	dos2unix
+CHMOD =	chmod
+CP =	cp
+LN =	ln -sf
+MV =	mv
+RM =	rm -f
+MKDIR =	mkdir -p
+D2U  =	dos2unix
 
-DSOFLAGS	= -shared $(USRDSOFLAGS)
-LDFLAGS		= $(LIBDIRS) $(USRLIBDIRS) $(USRLDFLAGS) $(OPTIM) $(CXXOPTIM)
-ARFLAGS		= crs $(USRARFLAGS)
+DSOFLAGS = -shared $(USRDSOFLAGS)
+LDFLAGS = $(LIBDIRS) $(USRLIBDIRS) $(USRLDFLAGS) $(OPTIM) $(CXXOPTIM)
+ARFLAGS = crs $(USRARFLAGS)
 
 OPTIONS := $(shell if [ "$(BUILD_TYPE)" = "Debug" ] ; then echo -g; fi)
 STRIP := $(shell if [ "$(BUILD_TYPE)" = "Debug" ] ; then echo "@echo Not Stripping"; else echo strip; fi)

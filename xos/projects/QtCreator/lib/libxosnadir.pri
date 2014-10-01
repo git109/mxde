@@ -28,10 +28,12 @@ XOS_SRC = $${XOS_PKG}/src
 
 libxosnadir_INCLUDEPATH += \
 $${XOS_SRC}/xos/nadir \
+$${XOS_SRC} \
 
 libxosnadir_DEFINES += \
 
 ########################################################################
+# io
 libxosnadir_HEADERS += \
 $${XOS_SRC}/xos/nadir/xos/io/file/writer.hpp \
 $${XOS_SRC}/xos/nadir/xos/io/logger.hpp \
@@ -44,6 +46,7 @@ $${XOS_SRC}/xos/nadir/xos/io/logger.cpp \
 $${XOS_SRC}/xos/nadir/xos/io/reader.cpp \
 
 ########################################################################
+# mt
 libxosnadir_HEADERS += \
 $${XOS_SRC}/xos/nadir/xos/mt/acquire.hpp \
 $${XOS_SRC}/xos/nadir/xos/mt/acquirer.hpp \
@@ -63,12 +66,18 @@ $${XOS_SRC}/xos/nadir/xos/mt/wait.cpp \
 $${XOS_SRC}/xos/nadir/xos/mt/waiter.cpp \
 
 ########################################################################
+# base
 libxosnadir_HEADERS += \
+$${XOS_SRC}/xos/nadir/xos/base/getopt/main_opt.hpp \
+$${XOS_SRC}/xos/nadir/xos/base/getopt/main.hpp \
+$${XOS_SRC}/xos/nadir/xos/base/main.hpp \
 $${XOS_SRC}/xos/nadir/xos/base/string.hpp \
 $${XOS_SRC}/xos/nadir/xos/base/attacher.hpp \
 $${XOS_SRC}/xos/nadir/xos/base/base.hpp \
 
 libxosnadir_SOURCES += \
+$${XOS_SRC}/xos/nadir/xos/base/getopt/main_opt.cpp \
+$${XOS_SRC}/xos/nadir/xos/base/getopt/main.cpp \
 $${XOS_SRC}/xos/nadir/xos/base/string.cpp \
 $${XOS_SRC}/xos/nadir/xos/base/attacher.cpp \
 $${XOS_SRC}/xos/nadir/xos/base/base.cpp \

@@ -104,6 +104,10 @@ $${XOS_SRC}/xos/os/MainBase.cpp \
 $${XOS_SRC}/xos/os/MainOpt.cpp \
 $${XOS_SRC}/xos/os/StreamLogger.cpp \
 
+libXosCore_HEADERS += \
+$${XOS_SRC}/xos/os/os/Times.hpp \
+$${XOS_SRC}/xos/os/os/Time.hpp \
+
 ########################################################################
 # base
 libXosCore_HEADERS += \
@@ -113,6 +117,7 @@ $${XOS_SRC}/xos/base/Attached.hpp \
 $${XOS_SRC}/xos/base/Base.hpp \
 $${XOS_SRC}/xos/base/Coded.hpp \
 $${XOS_SRC}/xos/base/Created.hpp \
+$${XOS_SRC}/xos/base/Creator.hpp \
 $${XOS_SRC}/xos/base/Error.hpp \
 $${XOS_SRC}/xos/base/ExportBase.hpp \
 $${XOS_SRC}/xos/base/InterfaceBase.hpp \
@@ -141,6 +146,7 @@ $${XOS_SRC}/xos/base/Attached.cpp \
 $${XOS_SRC}/xos/base/Base.cpp \
 $${XOS_SRC}/xos/base/Coded.cpp \
 $${XOS_SRC}/xos/base/Created.cpp \
+$${XOS_SRC}/xos/base/Creator.cpp \
 $${XOS_SRC}/xos/base/Error.cpp \
 $${XOS_SRC}/xos/base/ExportBase.cpp \
 $${XOS_SRC}/xos/base/InterfaceBase.cpp \

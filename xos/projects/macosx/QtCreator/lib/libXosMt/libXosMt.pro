@@ -35,6 +35,8 @@ $${libXosMt_DEFINES} \
 
 HEADERS += \
 $${libXosMt_HEADERS} \
+$${XOS_SRC}/xos/mt/macosx/Process.hpp \
+$${XOS_SRC}/xos/mt/unix/Process.hpp \
 $${XOS_SRC}/xos/mt/macosx/Thread.hpp \
 $${XOS_SRC}/xos/mt/unix/Thread.hpp \
 $${XOS_SRC}/xos/mt/macosx/Mutex.hpp \
@@ -43,6 +45,7 @@ $${XOS_SRC}/xos/mt/macosx/Semaphore.hpp \
 
 SOURCES += \
 $${libXosMt_SOURCES} \
+$${XOS_SRC}/xos/mt/macosx/Process.cpp \
 $${XOS_SRC}/xos/mt/macosx/Thread.cpp \
 $${XOS_SRC}/xos/mt/macosx/Mutex.cpp \
 $${XOS_SRC}/xos/mt/macosx/Semaphore.cpp \

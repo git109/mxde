@@ -35,8 +35,8 @@ include $(PKG)/$(PRJ)/Makedefines
 #$(PKG)/$(PRJ)/somedir \
 #
 SRC_DIRS = \
-$(PKG)/$(PRJ)/lib \
-$(PKG)/$(PRJ)/app \
+$(PKG)/$(PRJ)/lib/libXosCore \
+$(PKG)/$(PRJ)/app/XosHello \
 
 include $(PKG)/$(PRJ)/Makedirs
 

@@ -18,13 +18,13 @@
 # Author: $author$
 #   Date: 10/13/2012
 #
-# Gcc Makefile for Xos libXosCore Shared Library
+# Gcc Makefile for Xos libXosCore Static and Shared Library
 ########################################################################
 
 #
-# libXosCore Shared Library C++ .cpp sources
+# libXosCore C++ .cpp sources
 #
-_libXosCore_SLIB_CPP_SOURCES = \
+libXosCore_CPP_SOURCES = \
 $(PKG)/$(SRC)/xos/base/Platform.cpp \
 $(PKG)/$(SRC)/xos/base/Error.cpp \
 $(PKG)/$(SRC)/xos/base/Base.cpp \
@@ -54,6 +54,7 @@ $(PKG)/$(SRC)/xos/os/os/Mutexes.cpp \
 $(PKG)/$(SRC)/xos/os/os/Semaphores.cpp \
 $(PKG)/$(SRC)/xos/os/os/Threads.cpp \
 $(PKG)/$(SRC)/xos/os/os/Processes.cpp \
+$(PKG)/$(SRC)/xos/os/os/Times.cpp \
 $(PKG)/$(SRC)/xos/fs/Path.cpp \
 $(PKG)/$(SRC)/xos/fs/PathDirectory.cpp \
 $(PKG)/$(SRC)/xos/fs/PathDirectoryAppender.cpp \
@@ -65,11 +66,17 @@ $(PKG)/$(SRC)/xos/fs/os/Entry.cpp \
 $(PKG)/$(SRC)/xos/network/Addresses.cpp \
 $(PKG)/$(SRC)/xos/network/Endpoints.cpp \
 $(PKG)/$(SRC)/xos/network/Transports.cpp \
-$(PKG)/$(SRC)/xos/network/unix/Sockets.cpp \
+$(PKG)/$(SRC)/xos/network/os/Sockets.cpp \
 
 #
 # libXosCore Static Library C++ .cpp sources
 #
 _libXosCore_LIB_CPP_SOURCES = \
-$(_libXosCore_SLIB_CPP_SOURCES) \
+$(libXosCore_CPP_SOURCES) \
+
+#
+# libXosCore Shared Library C++ .cpp sources
+#
+_libXosCore_SLIB_CPP_SOURCES = \
+$(libXosCore_CPP_SOURCES) \
 

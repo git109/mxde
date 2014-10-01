@@ -39,6 +39,7 @@ $${XOS_SRC}/xos/os/unix/Time.hpp \
 $${XOS_SRC}/xos/os/unix/Mutex.hpp \
 $${XOS_SRC}/xos/os/unix/Process.hpp \
 $${XOS_SRC}/xos/os/unix/Thread.hpp \
+$${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.h \
 
 SOURCES += \
 $${libXosCore_SOURCES} \
@@ -48,6 +49,7 @@ $${XOS_SRC}/xos/os/unix/Mutexes.cpp \
 $${XOS_SRC}/xos/os/unix/Processes.cpp \
 $${XOS_SRC}/xos/os/unix/Threads.cpp \
 $${XOS_SRC}/xos/network/unix/Sockets.cpp \
+$${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
 
 QT += opengl
 

@@ -30,7 +30,6 @@ $${libxosnadir_DEFINES} \
 
 HEADERS += \
 $${XOS_SRC}/xos/nadir/xos/app/console/hello/main.hpp \
-$${XOS_SRC}/xos/nadir/xos/base/main.hpp \
 
 SOURCES += \
 $${XOS_SRC}/xos/nadir/xos/app/console/hello/main.cpp \

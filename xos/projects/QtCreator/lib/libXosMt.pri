@@ -24,6 +24,8 @@ libXosMt_INCLUDEPATH += \
 libXosMt_DEFINES += \
 
 libXosMt_HEADERS += \
+$${XOS_SRC}/xos/mt/os/Process.hpp \
+$${XOS_SRC}/xos/mt/Process.hpp \
 $${XOS_SRC}/xos/mt/os/Thread.hpp \
 $${XOS_SRC}/xos/mt/Thread.hpp \
 $${XOS_SRC}/xos/mt/os/Mutex.hpp \
@@ -34,6 +36,7 @@ $${XOS_SRC}/xos/mt/os/Os.hpp \
 $${XOS_SRC}/xos/mt/Acquirer.hpp \
 $${XOS_SRC}/xos/mt/Locker.hpp \
 $${XOS_SRC}/xos/mt/Waiter.hpp \
+$${XOS_SRC}/xos/mt/Joiner.hpp \
 $${XOS_SRC}/xos/mt/Runner.hpp \
 $${XOS_SRC}/xos/mt/Run.hpp \
 
@@ -42,6 +45,7 @@ $${XOS_SRC}/xos/mt/os/Os.cpp \
 $${XOS_SRC}/xos/mt/Acquirer.cpp \
 $${XOS_SRC}/xos/mt/Locker.cpp \
 $${XOS_SRC}/xos/mt/Waiter.cpp \
+$${XOS_SRC}/xos/mt/Joiner.cpp \
 $${XOS_SRC}/xos/mt/Runner.cpp \
 $${XOS_SRC}/xos/mt/Run.cpp \
 

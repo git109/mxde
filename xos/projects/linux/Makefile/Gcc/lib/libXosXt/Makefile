@@ -61,7 +61,7 @@ USRLIBDIRS = \
 #
 # target
 #
-SLIBTARGET = libXosXt.so
+SLIBTARGET = libXosXt.$(SLIBEXT)
 
 #
 # Shared Library C sources

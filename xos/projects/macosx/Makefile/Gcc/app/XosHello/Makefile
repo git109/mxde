@@ -101,9 +101,9 @@ EXE_MM_SOURCES = \
 #-lsomelib
 #
 LIBS = \
--ldl \
--lpthread \
 -lXosCore \
+-lpthread \
+-ldl \
 
 #
 # Executable depends

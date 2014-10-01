@@ -32,7 +32,12 @@ $${libxosnadir_DEFINES} \
 
 HEADERS += \
 $${libxosnadir_HEADERS} \
+$${XOS_SRC}/xos/nadir/xos/mt/unix/process.hpp \
+$${XOS_SRC}/xos/nadir/xos/mt/macosx/process.hpp \
+$${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.h \
 
 SOURCES += \
 $${libxosnadir_SOURCES} \
+$${XOS_SRC}/xos/nadir/xos/mt/macosx/process.cpp \
+$${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
 

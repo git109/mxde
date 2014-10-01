@@ -1,33 +1,36 @@
 ########################################################################
-# Copyright (c) 1988-$year$ $organization$
+# Copyright (c) 1988-2012 $organization$
 #
-# This software is provided by the author and contributors ``as is'' 
-# and any express or implied warranties, including, but not limited to, 
-# the implied warranties of merchantability and fitness for a particular 
-# purpose are disclaimed. In no event shall the author or contributors 
-# be liable for any direct, indirect, incidental, special, exemplary, 
-# or consequential damages (including, but not limited to, procurement 
-# of substitute goods or services; loss of use, data, or profits; or 
-# business interruption) however caused and on any theory of liability, 
-# whether in contract, strict liability, or tort (including negligence 
-# or otherwise) arising in any way out of the use of this software, 
+# This software is provided by the author and contributors ``as is''
+# and any express or implied warranties, including, but not limited to,
+# the implied warranties of merchantability and fitness for a particular
+# purpose are disclaimed. In no event shall the author or contributors
+# be liable for any direct, indirect, incidental, special, exemplary,
+# or consequential damages (including, but not limited to, procurement
+# of substitute goods or services; loss of use, data, or profits; or
+# business interruption) however caused and on any theory of liability,
+# whether in contract, strict liability, or tort (including negligence
+# or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
 #   File: Makefile
 #
 # Author: $author$
-#   Date: $date$
+#   Date: 10/2/2012
 #
-# Linux Gcc Makefile for Xos libXosXcb Shared Library
+# MacOSX Gcc Makefile for Xos libXosCore Shared Library
 ########################################################################
 
 PKG = $(PWD)/../../../../../..
 
-PRJ = projects/linux/Makefile/Gcc
+MAK = projects/Makefile/Gcc
+PRJ = projects/macosx/Makefile/Gcc
 SRC = src
 
 include $(PKG)/$(PRJ)/Makedefines
-include $(PKG)/$(PRJ)/Makedefines.xcb
+include $(PKG)/$(MAK)/lib/libXosCore/Makefile
+
+XOS_SRC = $(PKG)/$(SRC)
 
 #
 # user ld flags
@@ -53,7 +56,6 @@ USRDEFINES = \
 # user includes
 #
 USRINCLUDES = \
-$(_xcb_USRINCLUDES) \
 
 #
 # user libdirs
@@ -63,12 +65,13 @@ USRLIBDIRS = \
 #
 # target
 #
-SLIBTARGET = libXosXcb.$(SLIBEXT)
+SLIBTARGET = libXosCore.dylib
 
 #
 # Shared Library C sources
 #
 SLIB_C_SOURCES = \
+${XOS_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
 
 #
 # Shared Library C++ .cc sources
@@ -84,11 +87,9 @@ SLIB_CXX_SOURCES = \
 # Shared Library C++ .cpp sources
 #
 SLIB_CPP_SOURCES = \
-$(PKG)/$(SRC)/xos/gui/x11/xcb/Connection.cpp \
-$(PKG)/$(SRC)/xos/gui/x11/xcb/Screen.cpp \
-$(PKG)/$(SRC)/xos/gui/x11/xcb/Setup.cpp \
-$(PKG)/$(SRC)/xos/gui/x11/xcb/Main.cpp \
-
+$(_libXosCore_SLIB_CPP_SOURCES) \
+${XOS_SRC}/xos/os/unix/Times.cpp \
+${XOS_SRC}/xos/network/unix/Sockets.cpp \
 
 #
 # Shared Library Objective C .m sources
@@ -135,4 +136,3 @@ include $(PKG)/$(PRJ)/Makerules
 #	  ((make) || (exit 1));\
 #	  popd)
 #
-
