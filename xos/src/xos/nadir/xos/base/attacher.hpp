@@ -26,15 +26,15 @@
 namespace xos {
 namespace base {
 
-typedef base::implement_base attacher_implement;
+typedef base::implement_base attacher_implements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: attachert
 ///////////////////////////////////////////////////////////////////////
 template
-<typename TAttached,
+<typename TAttached = void*,
  typename TUnattached = int,
  TUnattached VUnattached = 0,
- class TImplements = attacher_implement>
+ class TImplements = attacher_implements>
 
 class _EXPORT_CLASS attachert: virtual public TImplements {
 public:
@@ -56,6 +56,8 @@ public:
         return (attached_t)(unattached);
     }
 };
+
+typedef attachert<> attacher;
 
 } // namespace base 
 } // namespace xos 

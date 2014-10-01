@@ -78,6 +78,18 @@
 #undef unix
 #endif //
 
+#if defined(MACOSX)
+//
+// MacOSX
+// ...
+#if !defined(PLATFORM_HAS_NO_EXECVPE)
+#define PLATFORM_HAS_NO_EXECVPE
+#endif /* !defined(PLATFORM_HAS_NO_EXECVPE) */
+// ...
+// MacOSX
+//
+#endif // defined(MACOSX)
+
 // ...
 // Unix
 //

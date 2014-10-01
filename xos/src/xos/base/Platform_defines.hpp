@@ -70,6 +70,20 @@
 #error Compiler other than Gcc not supported
 #endif // defined(__GNUC__)
 
+#if defined(MACOSX)
+//
+// Mac OSX
+// ...
+#if !defined(PLATFORM_HAS_NO_EXECVPE)
+#define PLATFORM_HAS_NO_EXECVPE
+#else // !defined(PLATFORM_HAS_NO_EXECVPE)
+#endif // !defined(PLATFORM_HAS_NO_EXECVPE)
+// ...
+// Mac OSX
+//
+#else // defined(MACOSX)
+#endif // defined(MACOSX)
+
 #define PLATFORM_EXPORT
 #define PLATFORM_IMPORT
 

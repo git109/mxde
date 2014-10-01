@@ -60,7 +60,7 @@ public:
             sync_policy_t syncPolicy = SYNC_POLICY_FIFO;
             bool isCreated = false;
             int err;
-            if (isCreated = (KERN_SUCCESS == (err = semaphore_create(task, &m_sem, syncPolicy, initialCount)))) {
+            if ((isCreated = (KERN_SUCCESS == (err = semaphore_create(task, &m_sem, syncPolicy, initialCount))))) {
                 Attach(&m_sem, isCreated);
                 return true;
             } else {

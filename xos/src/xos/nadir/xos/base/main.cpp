@@ -27,12 +27,11 @@ namespace base {
 ///  Class: maint
 ///////////////////////////////////////////////////////////////////////
 template
-<class TChar,
- class TImplements,
- class TExtends>
-maint<TChar, TImplements, TExtends>*&
-maint<TChar, TImplements, TExtends>::get_the_main() {
-    static maint<TChar, TImplements, TExtends>* the_main = 0;
+<typename TChar, typename TEnd, TEnd VEnd,
+ class TImplements, class TExtends>
+maint<TChar, TEnd, VEnd, TImplements, TExtends>*&
+maint<TChar, TEnd, VEnd, TImplements, TExtends>::get_the_main() {
+    static maint<TChar, TEnd, VEnd, TImplements, TExtends>* the_main = 0;
     return the_main;
 }
 

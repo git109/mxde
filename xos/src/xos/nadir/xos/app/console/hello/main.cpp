@@ -18,7 +18,7 @@
 /// Author: $author$
 ///   Date: 9/7/2014
 ///////////////////////////////////////////////////////////////////////
-#include "main.hpp"
+#include "xos/app/console/hello/main.hpp"
 
 namespace xos {
 namespace app {

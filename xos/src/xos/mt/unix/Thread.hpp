@@ -22,7 +22,8 @@
 #define _XOS_MT_UNIX_THREAD_HPP
 
 #include "xos/mt/Thread.hpp"
-#include "xos/base/Created.hpp"
+#include "xos/base/Creator.hpp"
+#include "xos/base/Attacher.hpp"
 #include "xos/os/Logger.hpp"
 
 #include <pthread.h>
@@ -42,17 +43,21 @@ namespace xos {
 namespace mt {
 namespace unix {
 
-typedef mt::Thread ThreadImplement;
+typedef CreatorImplementT<mt::Thread> ThreadAttacherImplement;
+typedef ExportBase ThreadAttachedExtend;
 typedef pthread_t* ThreadAttachedT;
-typedef Attached<ThreadAttachedT, int, 0, ExportBase, ThreadImplement> ThreadAttached;
-typedef Created<ThreadAttachedT, int, 0, ThreadAttached, ThreadImplement> ThreadExtend;
+typedef AttacherT<pthread_t*, int, 0, ThreadAttacherImplement> ThreadAttacher;
+typedef AttachedT<pthread_t*, int, 0, ThreadAttacher, ThreadAttachedExtend> ThreadAttached;
+typedef CreatedT<pthread_t*, int, 0, ThreadAttacher, ThreadAttached> ThreadCreated;
+typedef ThreadAttacher ThreadImplements;
+typedef ThreadCreated ThreadExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: ThreadT
 ///////////////////////////////////////////////////////////////////////
 template
 <class TAttached = ThreadAttachedT,
- class TExtend = ThreadExtend,
- class TImplement = ThreadImplement>
+ class TExtend = ThreadExtends,
+ class TImplement = ThreadImplements>
 
 class _EXPORT_CLASS ThreadT: virtual public TImplement, public TExtend {
 public:
@@ -100,7 +105,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual bool Create(bool initiallySuspended) {
         if (!(initiallySuspended))
-            return Create();
+            return this->Create();
         return false;
     }
     virtual bool Create() {
@@ -108,7 +113,7 @@ public:
             int err = 0;
             if (!(err = pthread_attr_init(&m_attr))) {
                 if (!(err = pthread_create(&m_thread, &m_attr, StartRoutine, (void*)(this)))) {
-                    this->Attach(&m_thread, m_forked = true);
+                    this->AttachCreated(&m_thread, m_forked = true);
                     if ((err = pthread_attr_destroy(&m_attr))) {
                         XOS_LOG_ERROR("failed " << err << " on pthread_attr_destroy()");
                     }
@@ -129,7 +134,7 @@ public:
         if ((Joined())) {
             pthread_t* thread = 0;
             bool isCreated = false;
-            if ((thread = this->Detach(isCreated))) {
+            if ((thread = this->DetachCreated(isCreated))) {
                 return true;
             }
         }

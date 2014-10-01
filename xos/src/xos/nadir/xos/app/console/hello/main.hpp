@@ -21,15 +21,15 @@
 #ifndef _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP
 #define _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP
 
-#include "xos/base/main.hpp"
+#include "xos/base/getopt/main.hpp"
 
 namespace xos {
 namespace app {
 namespace console {
 namespace hello {
 
-typedef base::main_implement main_implement;
-typedef base::main main_extend;
+typedef base::getopt::main_implement main_implement;
+typedef base::getopt::main main_extend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: main
 ///////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int run(int argc, char_t** argv, char_t** env) {
-        fprintf(stdout, "Hello\n");
+        outl("Hello" , "\n", 0);
         return 0;
     }
 

@@ -21,25 +21,31 @@
 #ifndef _XOS_BASE_CREATOR_HPP
 #define _XOS_BASE_CREATOR_HPP
 
+#include "xos/base/Attacher.hpp"
 #include "xos/base/Base.hpp"
 
 namespace xos {
 
+typedef InterfaceBase CreatorImplements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: CreatorT
 ///////////////////////////////////////////////////////////////////////
-template <class TImplement = InterfaceBase>
+template <class TImplement = CreatorImplements>
 class _EXPORT_CLASS CreatorT: virtual public TImplement {
 public:
     typedef TImplement Implements;
+    ///////////////////////////////////////////////////////////////////////
+    ///  Enum: Exception
+    ///////////////////////////////////////////////////////////////////////
     enum Exception {
-        None = 0,
         FailedToCreate,
         FailedToDestroy
     };
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool SetIsCreated(bool isTrue = true) = 0;
     virtual bool IsCreated() const = 0;
+    virtual bool IsDestroyed() const = 0;
     virtual bool Destroyed() = 0;
     virtual bool Destroy() = 0;
     virtual bool Create() = 0;
@@ -57,7 +63,9 @@ public:
     typedef TImplement Implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool SetIsCreated(bool isTrue = true) { return false; }
     virtual bool IsCreated() const { return false; }
+    virtual bool IsDestroyed() const { return !IsCreated(); }
     virtual bool Destroyed() {
         if ((IsCreated()))
             return Destroy();
@@ -77,26 +85,106 @@ class _EXPORT_CLASS CreatorExtendT: virtual public TImplement, public TExtend {
 public:
     typedef TImplement Implements;
     typedef TExtend Extends;
-    typedef typename Implements::Exception Exception;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     CreatorExtendT(bool isCreated = false): m_isCreated(isCreated) {}
     virtual ~CreatorExtendT() {
         if (!(this->Destroyed())) {
-            Exception e(Implements::FailedToDestroy);
+            Creator::Exception e(Creator::FailedToDestroy);
             throw(e);
         }
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool SetIsCreated(bool isTrue = true) { return m_isCreated = isTrue; }
-    virtual bool IsCreated() const { return m_isCreated; }
+    virtual bool SetIsCreated(bool isTrue = true) {
+        m_isCreated = isTrue;
+        return m_isCreated;
+    }
+    virtual bool IsCreated() const {
+        return m_isCreated;
+    }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
     bool m_isCreated;
 };
 typedef CreatorExtendT<> CreatorExtend;
+
+typedef CreatorImplement CreatedImplements;
+typedef ExportBase CreatedExtends;
+///////////////////////////////////////////////////////////////////////
+///  Class: CreatedT
+///////////////////////////////////////////////////////////////////////
+template
+<typename TAttached, typename TUnattached = TAttached, TUnattached VUnattached = 0,
+ class TImplement = AttacherT
+  <TAttached, TUnattached, VUnattached, CreatedImplements>,
+ class TExtend = AttachedT
+ <TAttached, TUnattached, VUnattached, TImplement, CreatedExtends> >
+
+class _EXPORT_CLASS CreatedT: virtual public TImplement, public TExtend {
+public:
+    typedef TImplement Implements;
+    typedef TExtend Extends;
+
+    typedef TAttached Attached;
+    static const TUnattached Unattached = VUnattached;
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    CreatedT
+    (Attached attachedTo=((Attached)(Unattached)), bool isCreated = false)
+    : Extends(attachedTo), m_isCreated(isCreated) {
+    }
+    virtual ~CreatedT() {
+        if (!(this->Destroyed())) {
+            Creator::Exception e = Creator::FailedToDestroy;
+            throw (e);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual Attached AttachCreated(Attached attachedTo, bool isCreated = true) {
+        attachedTo = this->Attach(attachedTo);
+        this->SetIsCreated(isCreated);
+        return attachedTo;
+    }
+    virtual Attached DetachCreated(bool& isCreated){
+        Attached detached = this->Detach();
+        isCreated = this->IsCreated();
+        this->SetIsCreated(false);
+        return detached;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual Attached Attach(Attached attachedTo) {
+        attachedTo = Extends::Attach(attachedTo);
+        this->SetIsCreated(false);
+        return attachedTo;
+    }
+    virtual Attached Detach(){
+        Attached detached = Extends::Detach();
+        this->SetIsCreated(false);
+        return detached;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool SetIsCreated(bool isTrue = true) {
+        m_isCreated = isTrue;
+        return m_isCreated;
+    }
+    virtual bool IsCreated() const {
+        return m_isCreated;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    bool m_isCreated;
+};
 
 } // namespace xos
 

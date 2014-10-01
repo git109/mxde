@@ -27,6 +27,8 @@
 #include "xos/base/Wrapped.hpp"
 #include "xos/base/String.hpp"
 #include "xos/base/Array.hpp"
+#include "thirdparty/gnu/glibc/posix/execvpe.h"
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -39,12 +41,16 @@ typedef xos::Process ProcessImplement;
 typedef ProcessImplement::Status ProcessStatus;
 typedef Attached<pid_t, int, -1, ExportBase, ProcessImplement> ProcessAttached;
 typedef Created<pid_t, int, -1, ProcessAttached, ProcessImplement> ProcessExtend;
-
+///////////////////////////////////////////////////////////////////////
+///  Class: Process
+///////////////////////////////////////////////////////////////////////
 class _EXPORT_CLASS Process: virtual public ProcessImplement, public ProcessExtend {
 public:
     typedef ProcessImplement Implements;
     typedef ProcessExtend Extends;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     Process(const char* path, char** argv, char** env, bool isDetached = false) {
         if (!(Create(path, argv, env, isDetached))) {
             XOS_LOG_ERROR("failed on Create()");
@@ -65,25 +71,25 @@ public:
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual bool Create(const char* path, char** argv, char** env, bool isDetached = false) {
         if ((Destroyed())) {
             pid_t pid = (pid_t)(-1);
             bool isCreated = false;
-            if ((isCreated = (0 < (pid = vfork())))) {
+
+            if ((isCreated = (0 < (pid = fork())))) {
                 Attach(pid, isCreated);
                 return true;
             } else {
                 if (0 == (pid)) {
                     int err = 0;
+
                     XOS_LOG_TRACE("chlid process...");
                     if ((env)) {
-#if defined(MACOSX)
-                        XOS_LOG_ERROR("execvpe not implemented on OS");
-#else // defined(MACOSX)
                         if ((err = execvpe(path, argv, env))) {
                             XOS_LOG_ERROR("failed " << errno << "on execvpe(\"" << path << "\",...)");
                         }
-#endif // defined(MACOSX)
                     } else {
                         if ((err = execvp(path, argv))) {
                             XOS_LOG_ERROR("failed " << errno << "on execvpe(\"" << path << "\",...)");
@@ -92,7 +98,7 @@ public:
                     XOS_LOG_TRACE("...chlid process");
                     exit(err);
                 } else {
-                    XOS_LOG_ERROR("failed " << errno << "on vfork()");
+                    XOS_LOG_ERROR("failed " << errno << "on fork()");
                 }
             }
         }
@@ -108,11 +114,15 @@ public:
         return false; 
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual bool Join() {
         pid_t pid = (pid_t)(-1);
+
         if (0 < (pid = m_attachedTo)) {
             int options = 0;
             int status = 0;
+
             XOS_LOG_TRACE("wait on waitpid()...");
             if (!(pid != waitpid(pid, &status, options))) {
                 XOS_LOG_TRACE("...waited on waitpid()");
@@ -123,16 +133,13 @@ public:
         }
         return false; 
     }
-    virtual bool Separate() {
-        Detach();
-        return true; 
-    }
-
     virtual Status TryJoin() {
         pid_t pid = (pid_t)(-1);
+
         if (0 < (pid = m_attachedTo)) {
             int options = WNOHANG;
             int status = 0;
+
             XOS_LOG_TRACE("wait on waitpid()...");
             if (!(pid != waitpid(pid, &status, options))) {
                 XOS_LOG_TRACE("...waited on waitpid()");
@@ -145,6 +152,13 @@ public:
     }
     virtual Status TimedJoin(mseconds_t waitMilliSeconds) {
         return Invalid; 
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Separate() {
+        Detach();
+        return true;
     }
 };
 

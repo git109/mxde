@@ -214,8 +214,6 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual void log
-    (const level& _level, const message& _message, const location& _location) {}
-    virtual void log
     (const level& _level, const location& _location, const message& _message) {}
     virtual void logf
     (const level& _level, const location& _location, const char* format, ...) {}
@@ -254,38 +252,40 @@ public:
 #define XOS_LOGGER_LOCATION ::xos::io::logger::location(__XOS_LOGGER_FUNC__, __FILE__, __LINE__)
 #endif // !defined(XOS_LOGGER_LOCATION)
 
-#define XOS_INIT_LOGGER(logger) { \
-if ((logger)) {\
-   logger->init(); } }
+#define XOS_INIT_LOGGER(logger_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) { logger->init(); } }
 
-#define XOS_FINI_LOGGER(logger) { \
-if ((logger)) {\
-   logger->fini(); } }
+#define XOS_FINI_LOGGER(logger_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) { logger->fini(); } }
 
-#define XOS_SET_LOGGER_LEVEL(logger, level) { \
-if ((logger)) {\
-    ::xos::io::logger::level logger_level(level);\
-   logger->enable_for(logger_level); } }
+#define XOS_SET_LOGGER_LEVEL(logger_, level_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) { logger->enable_for(level_); } }
 
-#define XOS_GET_LOGGER_LEVEL(logger) \
-    ((logger)?(logger->enabled_for()):(::xos::io::logger::level(::xos::io::logger::levels::none)))
+#define XOS_GET_LOGGER_LEVEL(logger_) \
+((logger_)?(logger_->enabled_for()):(::xos::io::logger::level\
+(::xos::io::logger::levels::none)))
 
-#define XOS_LOG(logger, level, message) { \
-if ((logger)?(logger->is_enabled_for(level)):(false)) {\
-   ::xos::io::logger::message msg_; \
-   logger->log(level, msg_ << message, XOS_LOGGER_LOCATION); } }
+#define XOS_LOG(logger_, level_, message_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
+   ::xos::io::logger::message message; \
+   logger->log(level_, XOS_LOGGER_LOCATION, message << message_); } }
 
-#define XOS_LOGF(logger, level, format, ...) { \
-if ((logger)?(logger->is_enabled_for(level)):(false)) {\
+#define XOS_LOGF(logger_, level_, format_, ...) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
    logger->logf(level, XOS_LOGGER_LOCATION, format, ##__VA_ARGS__); } }
 
 #if !defined(XOS_USE_LOG4CXX)
 // Use xos logging
 //
 #if !defined(XOS_USE_LOGGER)
-#define XOS_DEFAULT_LOGGER ::xos::io::logger::GetDefault()
+#define XOS_DEFAULT_LOGGER ::xos::io::logger::get_default()
 #else // !defined(XOS_USE_LOGGER)
-#define XOS_DEFAULT_LOGGER ::xos::io::logger::GetDefault()
+#define XOS_DEFAULT_LOGGER ::xos::io::logger::get_default()
 #endif // !defined(XOS_USE_LOGGER)
 
 #define XOS_LOGGER_INIT() XOS_INIT_LOGGER(XOS_DEFAULT_LOGGER)

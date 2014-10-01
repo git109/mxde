@@ -33,7 +33,7 @@ namespace macosx {
 template
 <class TAttached = unix::ThreadAttachedT,
  class TExtend = unix::Thread,
- class TImplement = unix::ThreadImplement>
+ class TImplement = unix::ThreadImplements>
 
 class _EXPORT_CLASS ThreadT: virtual public TImplement, public TExtend {
 public:

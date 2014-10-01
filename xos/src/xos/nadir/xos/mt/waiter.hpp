@@ -32,7 +32,8 @@ enum wait_status {
     wait_success,
     wait_failed,
     wait_busy,
-    wait_interrupted
+    wait_interrupted,
+    wait_invalid
 };
 
 typedef base::implement_base wait_implement;

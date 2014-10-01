@@ -59,22 +59,26 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Read(TWhat* what, size_t size){
         ssize_t count = -Error::Failed;
-        if ((this->m_attachedTo))
+        if ((this->m_attachedTo)) {
         if (0 >= (count = fread(what, 1, size, this->m_attachedTo))){
-            if (!(m_noLogging))
+            if (!(m_noLogging)) {
                 XOS_LOG_ERROR("failed on fread()");
+            }
             count = -Error::Failed;
+        }
         }
         return count;
     }
     virtual ssize_t Write(const TWhat* what, ssize_t size = -1){
         ssize_t count = -Error::Failed;
-        if ((this->m_attachedTo)){
-            if (0 > (size))
+        if ((this->m_attachedTo)) {
+            if (0 > (size)) {
                 size = strlen((const char*)(what));
+            }
             if (0 >= (count = fwrite(what, 1, size, this->m_attachedTo))){
-                if (!(m_noLogging))
+                if (!(m_noLogging)) {
                     XOS_LOG_ERROR("failed on fwrite()");
+                }
                 count = -Error::Failed;
             }
         }
@@ -82,10 +86,11 @@ public:
     }
     virtual ssize_t WriteFormattedV(const char* format, va_list va) {
         ssize_t count = -Error::Failed;
-        if ((this->m_attachedTo)){
+        if ((this->m_attachedTo)) {
             if (0 > (count = vfprintf(this->m_attachedTo, format, va))) {
-                if (!(m_noLogging))
+                if (!(m_noLogging)) {
                     XOS_LOG_ERROR("failed on vfprintf()");
+                }
                 count = -Error::Failed;
             }
         }
@@ -96,12 +101,14 @@ public:
     virtual ssize_t Flush(){
         ssize_t count = -Error::Failed;
         int err;
-        if ((this->m_attachedTo))
+        if ((this->m_attachedTo)) {
         if ((err = fflush(this->m_attachedTo))){
-            if (!(m_noLogging))
+            if (!(m_noLogging)) {
                 XOS_LOG_ERROR("failed " << err << " on fflush()");
+            }
         } else {
             count = 0;
+        }
         }
         return count;
     }
@@ -110,22 +117,26 @@ public:
         int origin = (VFromBegin != whence)?((VFromEnd != whence)?(SEEK_CUR):(SEEK_END)):(SEEK_SET);
         ssize_t count = -Error::Failed;
         int err;
-        if ((this->m_attachedTo))
+        if ((this->m_attachedTo)) {
         if ((err = fseek(this->m_attachedTo, size, origin))){
-            if (!(m_noLogging))
+            if (!(m_noLogging)) {
                 XOS_LOG_ERROR("failed " << err << " on fseek()");
+            }
         } else {
             count = size;
+        }
         }
         return count;
     }
     virtual ssize_t Tell() const{
         ssize_t count = -Error::Failed;
-        if ((this->m_attachedTo))
+        if ((this->m_attachedTo)) {
         if (0 > (count = ftell(this->m_attachedTo))){
-            if (!(m_noLogging))
+            if (!(m_noLogging)) {
                 XOS_LOG_ERROR("failed on ftell()");
+            }
             count = -Error::Failed;
+        }
         }
         return count;
     }
