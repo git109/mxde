@@ -24,7 +24,7 @@
 #include "xos/gui/opengl/Context.hpp"
 
 namespace xos {
-namespace gui {
+//namespace gui {
 namespace opengl {
 
 ///////////////////////////////////////////////////////////////////////
@@ -146,7 +146,7 @@ protected:
 
 } // namespace windows 
 } // namespace opengl 
-} // namespace gui 
+//} // namespace gui 
 } // namespace xos 
 
 #endif // _XOS_GUI_OPENGL_WINDOWS_CONTEXT_HPP 

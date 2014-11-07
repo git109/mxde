@@ -31,9 +31,9 @@ namespace macosx {
 ///  Class: MutexT
 ///////////////////////////////////////////////////////////////////////
 template
-<class TAttached = unix::MutextAttachedT,
+<class TAttached = unix::MutexAttachedT,
  class TExtend = unix::Mutex,
- class TImplement = unix::MutexImplement>
+ class TImplement = unix::MutexImplements>
 
 class _EXPORT_CLASS MutexT: virtual public TImplement, public TExtend {
 public:

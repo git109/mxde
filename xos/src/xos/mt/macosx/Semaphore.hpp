@@ -22,7 +22,8 @@
 #define _XOS_MT_MACOSX_SEMAPHORE_HPP
 
 #include "xos/mt/Semaphore.hpp"
-#include "xos/base/Created.hpp"
+#include "xos/base/Creator.hpp"
+#include "xos/base/Attacher.hpp"
 #include "xos/os/Logger.hpp"
 
 #include <mach/task.h>
@@ -33,15 +34,20 @@ namespace xos {
 namespace mt {
 namespace macosx {
 
-typedef mt::Semaphore SemaphoreImplement;
-typedef Attached<semaphore_t*, int, 0, ExportBase, SemaphoreImplement> SemaphoreAttached;
-typedef Created<semaphore_t*, int, 0, SemaphoreAttached, SemaphoreImplement> SemaphoreExtend;
+typedef CreatorImplementT<mt::Semaphore> SemaphoreAttacherImplement;
+typedef ExportBase SemaphoreAttachedExtend;
+typedef semaphore_t* SemaphoreAttachedT;
+typedef AttacherT<semaphore_t*, int, 0, SemaphoreAttacherImplement> SemaphoreAttacher;
+typedef AttachedT<semaphore_t*, int, 0, SemaphoreAttacher, SemaphoreAttachedExtend> SemaphoreAttached;
+typedef CreatedT<semaphore_t*, int, 0, SemaphoreAttacher, SemaphoreAttached> SemaphoreCreated;
+typedef SemaphoreAttacher SemaphoreImplements;
+typedef SemaphoreCreated SemaphoreExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: SemaphoreT
 ///////////////////////////////////////////////////////////////////////
 template
-<class TExtend = SemaphoreExtend,
- class TImplement = SemaphoreImplement>
+<class TExtend = SemaphoreExtends,
+ class TImplement = SemaphoreImplements>
 
 class _EXPORT_CLASS SemaphoreT: virtual public TImplement, public TExtend {
 public:
@@ -87,7 +93,7 @@ public:
             bool isCreated = false;
             int err;
             if (isCreated = (KERN_SUCCESS == (err = semaphore_create(task, &m_sem, syncPolicy, initialCount)))) {
-                this->Attach(&m_sem, isCreated);
+                this->AttachCreated(&m_sem);
                 return true;
             } else {
                 XOS_LOG_ERROR("failed " << err << " on semaphore_create()");

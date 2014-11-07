@@ -22,7 +22,8 @@
 #define _XOS_MT_UNIX_MUTEX_HPP
 
 #include "xos/mt/Mutex.hpp"
-#include "xos/base/Created.hpp"
+#include "xos/base/Creator.hpp"
+#include "xos/base/Attacher.hpp"
 #include "xos/os/Logger.hpp"
 
 #include <pthread.h>
@@ -39,17 +40,21 @@ namespace xos {
 namespace mt {
 namespace unix {
 
-typedef mt::Mutex MutexImplement;
-typedef pthread_mutex_t* MutextAttachedT;
-typedef Attached<MutextAttachedT, int, 0, ExportBase, MutexImplement> MutextAttached;
-typedef Created<MutextAttachedT, int, 0, MutextAttached, MutexImplement> MutexExtend;
+typedef CreatorImplementT<mt::Mutex> MutexAttacherImplement;
+typedef ExportBase MutexAttachedExtend;
+typedef pthread_mutex_t* MutexAttachedT;
+typedef AttacherT<pthread_mutex_t*, int, 0, MutexAttacherImplement> MutexAttacher;
+typedef AttachedT<pthread_mutex_t*, int, 0, MutexAttacher, MutexAttachedExtend> MutexAttached;
+typedef CreatedT<pthread_mutex_t*, int, 0, MutexAttacher, MutexAttached> MutexCreated;
+typedef MutexAttacher MutexImplements;
+typedef MutexCreated MutexExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: MutexT
 ///////////////////////////////////////////////////////////////////////
 template
-<class TAttached = MutextAttachedT,
- class TExtend = MutexExtend,
- class TImplement = MutexImplement>
+<class TAttached = MutexAttachedT,
+ class TExtend = MutexExtends,
+ class TImplement = MutexImplements>
 
 class _EXPORT_CLASS MutexT: virtual public TImplement, public TExtend {
 public:
@@ -83,7 +88,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual bool Create(bool initallyLocked) {
         if (!(initallyLocked))
-            return Create();
+            return this->Create();
         return false;
     }
     virtual bool Create() {
@@ -92,7 +97,7 @@ public:
             if (!(err = pthread_mutexattr_init(&m_mutexattr))) {
                 bool isCreated = false;
                 if ((isCreated = !(err = pthread_mutex_init(&m_mutex, &m_mutexattr)))) {
-                    this->Attach(&m_mutex, isCreated);
+                    this->AttachCreated(&m_mutex, isCreated);
                     if ((err = pthread_mutexattr_destroy(&m_mutexattr))) {
                         if ((Logging()))
                         { XOS_LOG_ERROR("failed err = " << err << " on pthread_mutexattr_destroy()"); }
@@ -110,7 +115,7 @@ public:
     virtual bool Destroy() {
         pthread_mutex_t* mutex = 0;
         bool isCreated = false;
-        if ((mutex = this->Detach(isCreated))) {
+        if ((mutex = this->DetachCreated(isCreated))) {
             int err = 0;
             if ((err = pthread_mutex_destroy(mutex))) {
                 if ((Logging()))

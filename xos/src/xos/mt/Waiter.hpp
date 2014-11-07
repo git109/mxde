@@ -33,7 +33,8 @@ typedef seconds_t Seconds;
 typedef mseconds_t MSeconds;
 typedef useconds_t USeconds;
 enum {
-    Forever = -1
+    Forever = -1,
+    Now = 0
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -77,6 +78,7 @@ public:
     typedef TImplement Implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool Continue() { return true; }
     virtual bool Wait() { return true; }
     virtual wait::Status TryWait() { return wait::Success; }
     virtual wait::Status TimedWait(mseconds_t waitMilliSeconds) { return wait::Success; }

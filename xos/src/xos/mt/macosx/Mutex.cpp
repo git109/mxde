@@ -18,19 +18,12 @@
 /// Author: $author$
 ///   Date: 4/15/2014
 ///////////////////////////////////////////////////////////////////////
-#include "Mutex.hpp"
+#include "xos/mt/macosx/Mutex.hpp"
 
 namespace xos {
 namespace mt {
 namespace macosx {
 
-
-
-
 } // namespace macosx 
 } // namespace mt 
 } // namespace xos 
-
-
-        
-

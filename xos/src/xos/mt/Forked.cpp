@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2012 $organization$
+/// Copyright (c) 1988-2014 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,26 +13,22 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Context.cpp
+///   File: Forked.cpp
 ///
 /// Author: $author$
-///   Date: 12/21/2012
+///   Date: 10/17/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/gui/opengl/windows/Context.hpp"
+#include "Forked.hpp"
 
 namespace xos {
-//namespace gui {
-namespace opengl {
-namespace windows {
+namespace mt {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: Context
-///
-/// Author: $author$
-///   Date: 12/21/2012
-///////////////////////////////////////////////////////////////////////
 
-} // namespace windows 
-} // namespace opengl 
-//} // namespace gui 
+
+
+} // namespace mt 
 } // namespace xos 
+
+
+        
+

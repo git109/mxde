@@ -13,24 +13,28 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Process.cpp
+///   File: Mutexes.cpp
 ///
 /// Author: $author$
-///   Date: 9/21/2014
+///   Date: 10/2/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/mt/windows/Process.hpp"
+#include "xos/mt/os/Mutexes.hpp"
+
+#if defined(WINDOWS)
+// Windows
+#include "xos/mt/windows/Mutexes.cpp"
+#elif defined(MACOSX)
+// MacOSX
+#include "xos/mt/macosx/Mutexes.cpp"
+#else // defined(WINDOWS)
+// Unix
+#include "xos/mt/unix/Mutexes.cpp"
+#endif // defined(WINDOWS)
 
 namespace xos {
 namespace mt {
-namespace windows {
+namespace os {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: ProcessT
-///////////////////////////////////////////////////////////////////////
-//static Process p;
-//static TProcess tp;
-//static WProcess wp;
-
-} // namespace windows 
+} // namespace os 
 } // namespace mt 
 } // namespace xos 
