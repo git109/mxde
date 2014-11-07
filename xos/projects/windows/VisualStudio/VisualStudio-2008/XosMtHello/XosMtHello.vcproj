@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="XosHello"
-	ProjectGUID="{7C5D32B9-BAC3-40BF-87D2-F21964617954}"
-	RootNamespace="XosHello"
+	Name="XosMtHello"
+	ProjectGUID="{197FABA4-3AE4-4056-9BFD-095F5EE953E2}"
+	RootNamespace="XosMtHello"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -46,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XOS_INCLUDE_DIRS);$(LOG4CXX_INCLUDE_DIRS);$(BOOST_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WINSOCK_2;WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="$(XOS_DEFINES);WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib"
+				AdditionalDependencies="$(XOS_LIBS)"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(LOG4CXX_LIB_DIRS)"
 				GenerateDebugInformation="true"
@@ -123,7 +123,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(XOS_INCLUDE_DIRS);$(LOG4CXX_INCLUDE_DIRS);$(BOOST_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="$(XOS_DEFINES);WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -141,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib"
+				AdditionalDependencies="$(XOS_LIBS)"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(LOG4CXX_LIB_DIRS)"
 				GenerateDebugInformation="true"
@@ -174,10 +174,9 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Xos-vcversion.vsprops;..\..\Xos.vsprops;..\..\Xos-log4cxx.vsprops;..\..\Xos-boost.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -199,8 +198,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(XOS_INCLUDE_DIRS);$(LOG4CXX_INCLUDE_DIRS);$(BOOST_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WINSOCK_2;WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="$(XOS_DEFINES);WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -219,7 +217,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib"
+				AdditionalDependencies="$(XOS_LIBS)"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(LOG4CXX_LIB_DIRS)"
 				GenerateDebugInformation="true"
@@ -250,10 +248,9 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Xos-vcversion.vsprops;..\..\Xos.vsprops;..\..\Xos-log4cxx.vsprops;..\..\Xos-boost.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -277,8 +274,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="$(XOS_INCLUDE_DIRS);$(LOG4CXX_INCLUDE_DIRS);$(BOOST_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="$(XOS_DEFINES);WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -296,7 +292,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib"
+				AdditionalDependencies="$(XOS_LIBS)"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(LOG4CXX_LIB_DIRS)"
 				GenerateDebugInformation="true"
@@ -337,7 +333,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\..\..\src\app\console\Hello\Hello.cpp"
+				RelativePath="..\..\..\..\..\src\xos\mt\base\hello\Main.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xos\mt\base\hello\Main_instance.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xos\os\Main_main.cpp"
 				>
 			</File>
 		</Filter>
@@ -352,34 +356,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-		</Filter>
-		<Filter
-			Name="Make Files"
-			>
-			<Filter
-				Name="Linux"
-				>
-				<Filter
-					Name="Gcc"
-					>
-					<File
-						RelativePath="..\..\..\..\linux\Makefile\Gcc\app\XosHello\Makefile"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="MacOSX"
-				>
-				<Filter
-					Name="Gcc"
-					>
-					<File
-						RelativePath="..\..\..\..\macosx\Makefile\Gcc\app\XosHello\Makefile"
-						>
-					</File>
-				</Filter>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

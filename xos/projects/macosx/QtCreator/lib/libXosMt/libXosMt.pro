@@ -47,5 +47,6 @@ SOURCES += \
 $${libXosMt_SOURCES} \
 $${XOS_SRC}/xos/mt/macosx/Process.cpp \
 $${XOS_SRC}/xos/mt/macosx/Thread.cpp \
-$${XOS_SRC}/xos/mt/macosx/Mutex.cpp \
 $${XOS_SRC}/xos/mt/macosx/Semaphore.cpp \
+
+#$${XOS_SRC}/xos/mt/macosx/Mutex.cpp \

@@ -49,6 +49,13 @@ $${XOS_SRC}/xos/mt/Joiner.cpp \
 $${XOS_SRC}/xos/mt/Runner.cpp \
 $${XOS_SRC}/xos/mt/Run.cpp \
 
+libXosMt_HEADERS += \
+$${XOS_SRC}/xos/mt/Mutexes.hpp \
+$${XOS_SRC}/xos/mt/os/Mutexes.hpp \
+
+libXosMt_SOURCES += \
+$${XOS_SRC}/xos/mt/Mutexes.cpp \
+
 libXosMt_LIBS += \
 -L$${XOS_LIB}/libXosMt \
 -lXosMt \

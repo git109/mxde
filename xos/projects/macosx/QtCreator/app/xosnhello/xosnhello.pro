@@ -29,6 +29,19 @@ DEFINES += \
 $${libxosnadir_DEFINES} \
 
 HEADERS += \
+$${XOS_SRC}/xos/nadir/xos/mt/main/mutex.hpp \
+$${XOS_SRC}/xos/nadir/xos/mt/os/os.hpp \
+$${XOS_SRC}/xos/nadir/xos/mt/os/mutex.hpp \
+$${XOS_SRC}/xos/nadir/xos/mt/macosx/mutex.hpp \
+$${XOS_SRC}/xos/nadir/xos/mt/unix/mutex.hpp \
+$${XOS_SRC}/xos/nadir/xos/mt/mutex.hpp \
+$${XOS_SRC}/xos/nadir/xos/io/main/logger.hpp \
+
+SOURCES += \
+$${XOS_SRC}/xos/nadir/xos/mt/main/mutex.cpp \
+$${XOS_SRC}/xos/nadir/xos/io/main/logger.cpp \
+
+HEADERS += \
 $${XOS_SRC}/xos/nadir/xos/app/console/hello/main.hpp \
 
 SOURCES += \

@@ -42,7 +42,7 @@ $${XOS_SRC}/xos/nadir/xos/io/writer.hpp \
 
 libxosnadir_SOURCES += \
 $${XOS_SRC}/xos/nadir/xos/io/file/writer.cpp \
-$${XOS_SRC}/xos/nadir/xos/io/logger.cpp \
+$${XOS_SRC}/xos/nadir/xos/io/main/logger.cpp \
 $${XOS_SRC}/xos/nadir/xos/io/reader.cpp \
 
 ########################################################################
@@ -57,6 +57,7 @@ $${XOS_SRC}/xos/nadir/xos/mt/wait.hpp \
 $${XOS_SRC}/xos/nadir/xos/mt/waiter.hpp \
 
 libxosnadir_SOURCES += \
+$${XOS_SRC}/xos/nadir/xos/mt/main/mutex.cpp \
 $${XOS_SRC}/xos/nadir/xos/mt/acquire.cpp \
 $${XOS_SRC}/xos/nadir/xos/mt/acquirer.cpp \
 $${XOS_SRC}/xos/nadir/xos/mt/releaser.cpp \
