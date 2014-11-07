@@ -13,27 +13,36 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: logger.cpp
+///   File: os.hpp
 ///
 /// Author: $author$
-///   Date: 8/24/2014
+///   Date: 10/30/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/io/logger.hpp"
+#ifndef _XOS_MT_OS_OS_HPP
+#define _XOS_MT_OS_OS_HPP
+
+#include "xos/base/base.hpp"
 
 namespace xos {
-namespace io {
+namespace mt {
+namespace windows { namespace crt {} }
+namespace macosx { namespace crt {} }
+namespace unix { namespace crt {} }
+namespace os {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: logger
-///////////////////////////////////////////////////////////////////////
-static logger* default_logger = 0;
+#if defined(WINDOWS)
+// Windows
+namespace os = windows;
+#elif defined(MACOSX)
+// MacOSX
+namespace os = macosx;
+#else // defined(WINDOWS)
+// Unix
+namespace os = unix;
+#endif // defined(WINDOWS)
 
-logger* logger::get_default() {
-    return default_logger;
-}
-void logger::set_default(logger* _logger) {
-    default_logger = _logger;
-}
-
-} // namespace io 
+} // namespace os
+} // namespace mt 
 } // namespace xos 
+
+#endif // _XOS_MT_OS_OS_HPP 

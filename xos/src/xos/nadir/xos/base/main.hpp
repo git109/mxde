@@ -21,6 +21,7 @@
 #ifndef _XOS_NADIR_XOS_BASE_MAIN_HPP
 #define _XOS_NADIR_XOS_BASE_MAIN_HPP
 
+#include "xos/io/logger.hpp"
 #include "xos/mt/locker.hpp"
 #include "xos/base/attached.hpp"
 #include "xos/base/attacher.hpp"
@@ -29,9 +30,11 @@ namespace xos {
 namespace base {
 
 typedef mt::locker main_locker;
+typedef main_locker* main_attached_t;
+
 typedef main_locker main_implements;
-typedef attachert<main_locker*, int, 0, main_implements> main_attacher;
-typedef attachedt<main_locker*, int, 0, main_attacher, base> main_extends;
+typedef attachert<main_attached_t, int, 0, main_implements> main_attacher;
+typedef attachedt<main_attached_t, int, 0, main_attacher, base> main_extends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: maint
 ///////////////////////////////////////////////////////////////////////
@@ -50,6 +53,8 @@ public:
     typedef TEnd end_t;
     enum { end = VEnd };
 
+    typedef main_attached_t attached_t;
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     maint(): the_main_(get_the_main()), did_main_(false), did_run_(false) {
@@ -63,14 +68,22 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    static int the_main(int argc, char_t** argv, char_t** env) {
-        int err = 1;
-        maint* main;
+    static int the_main(int argc, char_t** argv, char_t** env);
 
-        if ((main = get_the_main())) {
-            err = (*main)(argc, argv, env);
-        }
-        return err;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t logfv(const char_t* format, va_list va) {
+        ssize_t count = errfv(format, va);
+        return count;
+    }
+    virtual ssize_t log(const char_t* out, ssize_t length = -1) {
+        ssize_t count = err(out, length);
+        return count;
+    }
+    virtual ssize_t logln() {
+        ssize_t count = errln();
+        err_flush();
+        return count;
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -78,14 +91,14 @@ public:
     virtual bool unlock() {
         main_locker* locker;
         if ((locker = this->attached_to())) {
-            return locker->lock();
+            return locker->unlock();
         }
         return true;
     }
     virtual bool lock() {
         main_locker* locker;
         if ((locker = this->attached_to())) {
-            return locker->unlock();
+            return locker->lock();
         }
         return true;
     }
@@ -217,6 +230,28 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t outln(const char_t* out, ssize_t length = -1) {
+        ssize_t count = this->outln(std_out(), out, length);
+        return count;
+    }
+    virtual ssize_t outln() {
+        ssize_t count = this->outln(std_out());
+        return count;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t errln(const char_t* out, ssize_t length = -1) {
+        ssize_t count = this->outln(std_err(), out, length);
+        return count;
+    }
+    virtual ssize_t errln() {
+        ssize_t count = this->outln(std_err());
+        return count;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t outl(const char_t* out, ...) {
         ssize_t count = 0;
         va_list va;
@@ -228,6 +263,14 @@ protected:
     }
     virtual ssize_t outlv(const char_t* out, va_list va) {
         ssize_t count = outlv(std_out(), out, va);
+        return count;
+    }
+    virtual ssize_t out(const char_t* out, ssize_t length = -1) {
+        ssize_t count = this->out(std_out(), out, length);
+        return count;
+    }
+    virtual ssize_t out_flush() {
+        ssize_t count = out_flush(std_out());
         return count;
     }
 
@@ -246,7 +289,16 @@ protected:
         ssize_t count = outlv(std_err(), out, va);
         return count;
     }
+    virtual ssize_t err(const char_t* out, ssize_t length = -1) {
+        ssize_t count = this->out(std_err(), out, length);
+        return count;
+    }
+    virtual ssize_t err_flush() {
+        ssize_t count = out_flush(std_err());
+        return count;
+    }
 
+protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t outfv(FILE* f, const char_t* format, va_list va) {
@@ -273,6 +325,17 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t outln(FILE* f, const char_t* out, ssize_t length = -1) {
+        ssize_t count = 0;
+        ssize_t amount;
+        if (0 <= (amount = this->out(f, out, length))) {
+            count += amount;
+            if (0 <= (amount = this->outln(f))) {
+                count += amount;
+            }
+        }
+        return count;
+    }
     virtual ssize_t outln(FILE* f) {
         const char_t ln = ((char_t)'\n');
         ssize_t count = out(f, &ln, 1);

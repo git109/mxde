@@ -278,6 +278,11 @@ typedef PBYTE* PPBYTE;
 
 typedef useconds_t mseconds_t;
 typedef mseconds_t seconds_t;
+typedef seconds_t minutes_t;
+typedef seconds_t hours_t;
+typedef unsigned days_t;
+typedef unsigned months_t;
+typedef unsigned years_t;
 // ...
 // Generic
 //

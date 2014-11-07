@@ -21,6 +21,7 @@
 #ifndef _XOS_NADIR_XOS_BASE_STRING_HPP
 #define _XOS_NADIR_XOS_BASE_STRING_HPP
 
+#include "xos/base/types.hpp"
 #include "xos/base/base.hpp"
 #include <string>
 
@@ -29,14 +30,14 @@ namespace base {
 
 typedef implement_base string_implement;
 typedef std::basic_string<char> string_extend;
+typedef std::basic_string<tchar_t> tstring_extend;
 typedef std::basic_string<wchar_t> wstring_extend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: stringt
 ///////////////////////////////////////////////////////////////////////
 template
-<typename TChar = char,
- class TExtends = std::basic_string<TChar>,
- class TImplements = string_implement>
+<typename TChar = char, typename TEnd = TChar, TEnd VEnd = 0,
+ class TExtends = std::basic_string<TChar>, class TImplements = string_implement>
 
 class _EXPORT_CLASS stringt: virtual public TImplements, public TExtends {
 public:
@@ -46,6 +47,7 @@ public:
 
     using TExtends::append;
     using TExtends::assign;
+    using TExtends::compare;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -114,12 +116,12 @@ public:
     }
     virtual stringt& assign(const char* chars, size_t length) {
         this->clear();
-        this->append(chars);
+        this->append(chars, length);
         return *this;
     }
     virtual stringt& append(const char* chars) {
         if ((chars)) {
-            for (char c = *chars; c != 0; ++chars) {
+            for (char c = *chars++; c != 0; c = *chars++) {
                 TChar tc = ((TChar)c);
                 Extends::append(&tc, 1);
             }
@@ -184,6 +186,223 @@ public:
         if ((10 <= d) && (15 >= d))
             x = (TChar)((a) + (d - 10));
         return x;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    /// compare_begin
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_begin_case(const char* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) to_lower(c)
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_begin_case(const char* to_chars) const {
+        return this->compare_begin_case(to_chars, chars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_begin_case(const wchar_t* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) to_lower(c)
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_begin_case(const wchar_t* to_chars) const {
+        return this->compare_begin_case(to_chars, wchars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_begin(const char* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) c
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_begin(const char* to_chars) const {
+        return this->compare_begin(to_chars, chars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_begin(const wchar_t* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) c
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_begin(const wchar_t* to_chars) const {
+        return this->compare_begin(to_chars, wchars_t::size(to_chars));
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    /// compare_end
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_end_case(const char* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) to_lower(c)
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) end_chars(chars, length, to_length)
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_end_case(const char* to_chars) const {
+        return this->compare_end_case(to_chars, chars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_end_case(const wchar_t* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) to_lower(c)
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) end_chars(chars, length, to_length)
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_end_case(const wchar_t* to_chars) const {
+        return this->compare_end_case(to_chars, wchars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_end(const char* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) c
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) end_chars(chars, length, to_length)
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_end(const char* to_chars) const {
+        return this->compare_end(to_chars, chars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_end(const wchar_t* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) c
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) 0
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) end_chars(chars, length, to_length)
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_end(const wchar_t* to_chars) const {
+        return this->compare_end(to_chars, wchars_t::size(to_chars));
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    /// compare
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_case(const char* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) to_lower(c)
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) unequal
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_case(const char* to_chars) const {
+        return this->compare_case(to_chars, chars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare_case(const wchar_t* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) to_lower(c)
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) unequal
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare_case(const wchar_t* to_chars) const {
+        return this->compare_case(to_chars, wchars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare(const char* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) c
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) unequal
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare(const char* to_chars) const {
+        return this->compare(to_chars, chars_t::size(to_chars));
+    }
+    ///////////////////////////////////////////////////////////////////////
+    virtual int compare(const wchar_t* to_chars, size_t to_length) const {
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE(c) c
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN(unequal) unequal
+#define XOS_NADIR_XOS_BASE_STRING_COMPARE_END(chars, length, to_length) chars
+#include "xos/base/string_compare.cpp"
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_END
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_BEGIN
+#undef XOS_NADIR_XOS_BASE_STRING_COMPARE_CASE
+        return 0;
+    }
+    virtual int compare(const wchar_t* to_chars) const {
+        return this->compare(to_chars, wchars_t::size(to_chars));
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual TChar to_lower(TChar c) const {
+        static const TChar A = ((TChar)'A');
+        static const TChar Z = ((TChar)'Z');
+        static const TChar a = ((TChar)'a');
+        if ((c >= A) && (c <= Z))
+            c = a + (c - A);
+        return c;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual const TChar* chars(size_t& length) const {
+        length = this->length();
+        return this->c_str();
+    }
+    virtual const TChar* chars() const {
+        return this->c_str();
+    }
+
+protected:
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual const char* end_chars
+    (const char* chars, size_t length, size_t to_length) const {
+        if ((chars) && (length >= to_length))
+            return chars + length - to_length;
+        return chars;
+    }
+    virtual const wchar_t* end_chars
+    (const wchar_t* chars, size_t length, size_t to_length) const {
+        if ((chars) && (length >= to_length))
+            return chars + length - to_length;
+        return chars;
     }
 };
 

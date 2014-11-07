@@ -13,55 +13,54 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: main.hpp
+///   File: mutex.hpp
 ///
 /// Author: $author$
-///   Date: 9/7/2014
+///   Date: 10/30/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP
-#define _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP
+#ifndef _XOS_MT_MAIN_MUTEX_HPP
+#define _XOS_MT_MAIN_MUTEX_HPP
 
-#include "xos/base/getopt/main.hpp"
+#include "xos/base/main.hpp"
+#include "xos/mt/os/mutex.hpp"
 
 namespace xos {
-namespace app {
-namespace console {
-namespace hello {
+namespace mt {
+namespace main {
 
-typedef base::getopt::main_implement main_implement;
-typedef base::getopt::main main_extend;
+typedef base::main mutex_main;
+typedef mt::os::mutex::Implements mutex_implements;
+typedef mt::os::mutex mutex_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: main
+///  Class: mutext
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS main: virtual public main_implement, public main_extend {
+template
+<class TMain = mutex_main,
+ class TImplements = mutex_implements, class TExtends = mutex_extends>
+
+class _EXPORT_CLASS mutext: virtual public TImplements, public TExtends {
 public:
-    typedef main_implement Implements;
-    typedef main_extend Extends;
+    typedef TImplements Implements;
+    typedef TExtends Extends;
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    main() {
+    mutext(TMain& main): Extends(false), main_(main) {
+        main_.attach(this);
     }
-    virtual ~main() {
+    virtual ~mutext() {
+        main_.detach();
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual int run(int argc, char_t** argv, char_t** env) {
-        XOS_LOG_INFO("in...");
-        outl("Hello" , "\n", 0);
-        XOS_LOG_INFO("...out");
-        return 0;
-    }
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
+    TMain& main_;
 };
+typedef mutext<> mutex;
 
-} // namespace hello 
-} // namespace console 
-} // namespace app 
+} // namespace main 
+} // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_NADIR_XOS_APP_CONSOLE_HELLO_MAIN_HPP 
+#endif // _XOS_MT_MAIN_MUTEX_HPP 

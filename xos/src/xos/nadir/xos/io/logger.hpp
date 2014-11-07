@@ -72,6 +72,9 @@ public:
             enable_ = _enable;
             return *this;
         }
+        inline operator enable() const {
+            return enable_;
+        }
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
     protected:
@@ -277,7 +280,7 @@ if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
 #define XOS_LOGF(logger_, level_, format_, ...) { \
 ::xos::io::logger* logger = logger_; \
 if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
-   logger->logf(level, XOS_LOGGER_LOCATION, format, ##__VA_ARGS__); } }
+   logger->logf(level_, XOS_LOGGER_LOCATION, format_, ##__VA_ARGS__); } }
 
 #if !defined(XOS_USE_LOG4CXX)
 // Use xos logging

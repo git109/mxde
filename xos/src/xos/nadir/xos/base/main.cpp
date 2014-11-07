@@ -19,12 +19,48 @@
 ///   Date: 9/7/2014
 ///////////////////////////////////////////////////////////////////////
 #include "xos/base/main.hpp"
+#include "xos/io/main/logger.hpp"
+#include "xos/mt/main/mutex.hpp"
 
 namespace xos {
 namespace base {
 
 ///////////////////////////////////////////////////////////////////////
 ///  Class: maint
+///////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+template
+<typename TChar, typename TEnd, TEnd VEnd,
+ class TImplements, class TExtends>
+int maint<TChar, TEnd, VEnd, TImplements, TExtends>::the_main
+(int argc, char_t** argv, char_t** env) {
+    int err = 1;
+    maint* main;
+
+    if ((main = get_the_main())) {
+        mt::main::mutext<maint> mutex(*main);
+        io::main::loggert<TChar, TEnd, VEnd, maint> logger(*main);
+
+        // initialize logger
+        //
+        XOS_LOGGER_INIT();
+
+        // set logging level to XOS_DEFAULT_LOGGING_LEVELS_ID
+        //
+        //XOS_SET_LOGGING_LEVELS_TO_DEFAULT_LOGGING_LEVELS_ID();
+
+        err = (*main)(argc, argv, env);
+
+        // finalize logger
+        //
+        XOS_LOGGER_FINI();
+    }
+    return err;
+}
+
+///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 template
 <typename TChar, typename TEnd, TEnd VEnd,

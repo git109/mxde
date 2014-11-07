@@ -13,27 +13,19 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: logger.cpp
+///   File: opened.cpp
 ///
 /// Author: $author$
-///   Date: 8/24/2014
+///   Date: 11/1/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/io/logger.hpp"
+#include "xos/base/opened.hpp"
 
 namespace xos {
-namespace io {
+namespace base {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: logger
+///  Class: openedt
 ///////////////////////////////////////////////////////////////////////
-static logger* default_logger = 0;
 
-logger* logger::get_default() {
-    return default_logger;
-}
-void logger::set_default(logger* _logger) {
-    default_logger = _logger;
-}
-
-} // namespace io 
+} // namespace base 
 } // namespace xos 

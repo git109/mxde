@@ -13,93 +13,65 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: created.hpp
+///   File: opener.hpp
 ///
 /// Author: $author$
-///   Date: 9/20/2014
+///   Date: 10/31/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NADIR_XOS_BASE_CREATED_HPP
-#define _XOS_NADIR_XOS_BASE_CREATED_HPP
+#ifndef _XOS_NADIR_XOS_BASE_OPENER_HPP
+#define _XOS_NADIR_XOS_BASE_OPENER_HPP
 
-#include "xos/base/creator.hpp"
-#include "xos/base/attached.hpp"
+#include "xos/base/base.hpp"
 
 namespace xos {
 namespace base {
 
-typedef creator created_implements;
-typedef base created_extends;
+typedef implement_base opener_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: createdt
+///  Class: openert
 ///////////////////////////////////////////////////////////////////////
-template
-<typename TAttached = void*,
- typename TUnattached = int,
- TUnattached VUnattached = 0,
- class TImplements = attachert
- <TAttached, TUnattached, VUnattached, created_implements>,
- class TExtends = attachedt
- <TAttached, TUnattached, VUnattached, TImplements, created_extends> >
+template <class TImplements = opener_implements>
 
-class _EXPORT_CLASS createdt: virtual public TImplements, public TExtends {
+class _EXPORT_CLASS openert: virtual public TImplements {
 public:
     typedef TImplements Implements;
-    typedef TExtends Extends;
-
-    typedef TAttached attached_t;
-    typedef TUnattached unattached_t;
-    enum { unattached = VUnattached };
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    createdt
-    (attached_t detached = (attached_t)(unattached), bool is_created = false)
-    : Extends(detached), is_created_(is_created) {
-    }
-    virtual ~createdt() {
-    }
+    enum exception {
+        failed_to_open,
+        failed_to_close
+    };
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool set_is_created(bool to = true) {
-        is_created_ = to;
-        return is_created_;
+    virtual bool open() {
+        return false;
     }
-    virtual bool is_created() const {
-        return is_created_;
+    virtual bool close() {
+        return false;
     }
-    virtual bool is_destroyed() const {
-        return !is_created_;
+    virtual bool closed() {
+        if ((this->is_open()))
+            return this->close();
+        return true;
     }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual attached_t attach_created(attached_t detached, bool is_created = true) {
-        attached_t attached = this->attach(detached);
-        this->set_is_created(is_created);
-        return attached;
+    virtual bool sei_is_open(bool is_true = true) {
+        return false;
     }
-    virtual attached_t detach_created(bool& is_created) {
-        attached_t detached = Extends::detach();
-        is_created = this->is_created();
-        this->set_is_created(false);
-        return detached;
-    }
-    virtual attached_t detach() {
-        attached_t detached = Extends::detach();
-        this->set_is_created(false);
-        return detached;
+    virtual bool is_open() const {
+        return false;
     }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-protected:
-    bool is_created_;
 };
-
-typedef createdt<> created;
+typedef openert<> opener;
 
 } // namespace base 
 } // namespace xos 
 
-#endif // _XOS_NADIR_XOS_BASE_CREATED_HPP 
+#endif // _XOS_NADIR_XOS_BASE_OPENER_HPP 

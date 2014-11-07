@@ -13,35 +13,35 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: created.hpp
+///   File: opened.hpp
 ///
 /// Author: $author$
-///   Date: 9/20/2014
+///   Date: 11/1/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_NADIR_XOS_BASE_CREATED_HPP
-#define _XOS_NADIR_XOS_BASE_CREATED_HPP
+#ifndef _XOS_NADIR_XOS_BASE_OPENED_HPP
+#define _XOS_NADIR_XOS_BASE_OPENED_HPP
 
-#include "xos/base/creator.hpp"
+#include "xos/base/opener.hpp"
 #include "xos/base/attached.hpp"
+#include "xos/base/attacher.hpp"
 
 namespace xos {
 namespace base {
 
-typedef creator created_implements;
-typedef base created_extends;
+typedef opener opened_implements;
+typedef base opened_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: createdt
+///  Class: openedt
 ///////////////////////////////////////////////////////////////////////
 template
 <typename TAttached = void*,
- typename TUnattached = int,
- TUnattached VUnattached = 0,
+ typename TUnattached = int, TUnattached VUnattached = 0,
  class TImplements = attachert
- <TAttached, TUnattached, VUnattached, created_implements>,
+ <TAttached, TUnattached, VUnattached, opened_implements>,
  class TExtends = attachedt
- <TAttached, TUnattached, VUnattached, TImplements, created_extends> >
+ <TAttached, TUnattached, VUnattached, TImplements, opened_extends> >
 
-class _EXPORT_CLASS createdt: virtual public TImplements, public TExtends {
+class _EXPORT_CLASS openedt: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -52,54 +52,73 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    createdt
-    (attached_t detached = (attached_t)(unattached), bool is_created = false)
-    : Extends(detached), is_created_(is_created) {
+    openedt
+    (attached_t attached = (attached_t)(unattached), bool is_open = false)
+    : Extends(attached), is_open_(is_open) {
     }
-    virtual ~createdt() {
-    }
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual bool set_is_created(bool to = true) {
-        is_created_ = to;
-        return is_created_;
-    }
-    virtual bool is_created() const {
-        return is_created_;
-    }
-    virtual bool is_destroyed() const {
-        return !is_created_;
+    virtual ~openedt() {
+        if (!(this->closed())) {
+            opener::exception e = opener::failed_to_close;
+            throw (e);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual attached_t attach_created(attached_t detached, bool is_created = true) {
-        attached_t attached = this->attach(detached);
-        this->set_is_created(is_created);
-        return attached;
+    virtual bool open() {
+        if ((this->closed()))
+            return this->set_is_open();
+        return false;
     }
-    virtual attached_t detach_created(bool& is_created) {
-        attached_t detached = Extends::detach();
-        is_created = this->is_created();
-        this->set_is_created(false);
-        return detached;
+    virtual bool close() {
+        if ((this->is_open())) {
+            this->set_is_open(false);
+            return true;
+        }
+        return false;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool set_is_open(bool is_true = true) {
+        is_open_ = is_true;
+        return is_open_;
+    }
+    virtual bool is_open() const {
+        return is_open_;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual attached_t attach_opened
+    (attached_t detached, bool is_open = true) {
+        this->set_is_open(is_open);
+        return Extends::attach(detached);
+    }
+    virtual attached_t detach_opened(bool& is_open) {
+        is_open = this->is_open();
+        return this->detach();
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual attached_t attach(attached_t detached) {
+        this->set_is_open(false);
+        return Extends::attach(detached);
     }
     virtual attached_t detach() {
-        attached_t detached = Extends::detach();
-        this->set_is_created(false);
-        return detached;
+        this->set_is_open(false);
+        return Extends::detach();
     }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
-    bool is_created_;
+    bool is_open_;
 };
-
-typedef createdt<> created;
+typedef openedt<> opened;
 
 } // namespace base 
 } // namespace xos 
 
-#endif // _XOS_NADIR_XOS_BASE_CREATED_HPP 
+#endif // _XOS_NADIR_XOS_BASE_OPENED_HPP 

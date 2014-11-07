@@ -13,27 +13,18 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: logger.cpp
+///   File: mutex.cpp
 ///
 /// Author: $author$
-///   Date: 8/24/2014
+///   Date: 10/30/2014
 ///////////////////////////////////////////////////////////////////////
-#include "xos/io/logger.hpp"
+#include "xos/mt/macosx/mutex.hpp"
+#include "xos/mt/unix/mutex.cpp"
 
 namespace xos {
-namespace io {
+namespace mt {
+namespace macosx {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: logger
-///////////////////////////////////////////////////////////////////////
-static logger* default_logger = 0;
-
-logger* logger::get_default() {
-    return default_logger;
-}
-void logger::set_default(logger* _logger) {
-    default_logger = _logger;
-}
-
-} // namespace io 
+} // namespace macosx 
+} // namespace mt 
 } // namespace xos 

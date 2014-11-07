@@ -59,7 +59,17 @@ protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int before_main(int argc, char_t** argv, char_t** env) {
-        int err = get_options(argc, argv, env);
+        int err = 0;
+
+        if (!(err = before_get_options(argc, argv, env))) {
+            int err2 = 0;
+
+            err = get_options(argc, argv, env);
+
+            if ((err2 = after_get_options(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
         return err;
     }
 
@@ -75,6 +85,14 @@ protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int get_options(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_get_options(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_get_options(int argc, char_t** argv, char_t** env) {
         int err = 0;
         return err;
     }
