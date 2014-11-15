@@ -88,6 +88,28 @@ public:
             main_.logln();
         }
     }
+    ///////////////////////////////////////////////////////////////////////
+    virtual void log
+    (const level& _level, const message& _message) {
+        mt::lock lk(main_);
+        if ((this->is_enabled_for(_level))) {
+            main_.log(_message.c_str());
+            main_.logln();
+        }
+    }
+    virtual void logf
+    (const level& _level, const char* format, ...) {
+        mt::lock lk(main_);
+        if ((this->is_enabled_for(_level))) {
+            if ((format)) {
+                va_list va;
+                va_start(va, format);
+                main_.logfv(format, va);
+                va_end(va);
+            }
+            main_.logln();
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////

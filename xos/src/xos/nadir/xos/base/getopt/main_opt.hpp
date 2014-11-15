@@ -29,7 +29,7 @@
 
 #define XOS_MAIN_LOGGING_OPT "logging-level"
 #define XOS_MAIN_LOGGING_OPTARG_REQUIRED XOS_MAIN_OPT_ARGUMENT_REQUIRED
-#define XOS_MAIN_LOGGING_OPTARG "{(a)all|(n)none|(f)fatal|(e)error|(w)waring|(i)info|(d)debug|(t)trace}"
+#define XOS_MAIN_LOGGING_OPTARG "{(a)all | (n)none | (f)fatal | (e)error | (w)waring | (i)info | (d)debug | (t)trace}"
 #define XOS_MAIN_LOGGING_OPTUSE ""
 #define XOS_MAIN_LOGGING_OPTVAL_S "l:"
 #define XOS_MAIN_LOGGING_OPTVAL_C 'l'

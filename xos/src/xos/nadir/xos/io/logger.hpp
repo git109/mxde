@@ -50,17 +50,40 @@ public:
         ///////////////////////////////////////////////////////////////////////
         typedef unsigned enable;
         enum {
+            fatal_shift = 0,
+            error_shift,
+            warn_shift,
+            info_shift,
+            debug_shift,
+            trace_shift,
+
+            next_shift
+        };
+        enum {
             none  = 0,
 
-            fatal = (1 << 0),
-            error = (1 << 1),
-            warn  = (1 << 2),
-            info  = (1 << 3),
-            debug = (1 << 4),
-            trace = (1 << 5),
+            fatal = (1 << fatal_shift),
+            error = (1 << error_shift),
+            warn  = (1 << warn_shift),
+            info  = (1 << info_shift),
+            debug = (1 << debug_shift),
+            trace = (1 << trace_shift),
 
-            next  = (1 << 6),
+            next  = (1 << next_shift),
             all   = (next - 1)
+        };
+        enum {
+            none_message  = 0,
+
+            fatal_message = (fatal << next_shift),
+            error_message = (error << next_shift),
+            warn_message  = (warn << next_shift),
+            info_message  = (info << next_shift),
+            debug_message = (debug << next_shift),
+            trace_message = (trace << next_shift),
+
+            next_message  = (next << next_shift),
+            all_message   = (all << next_shift)
         };
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
@@ -86,17 +109,40 @@ public:
     class _EXPORT_CLASS levels {
     public:
         enum {
+            fatal_shift = 1,
+            error_shift,
+            warn_shift,
+            info_shift,
+            debug_shift,
+            trace_shift,
+
+            next_shift
+        };
+        enum {
             none  = 0,
 
-            fatal = ((1 << 1) - 1),
-            error = ((1 << 2) - 1),
-            warn  = ((1 << 3) - 1),
-            info  = ((1 << 4) - 1),
-            debug = ((1 << 5) - 1),
-            trace = ((1 << 6) - 1),
+            fatal = ((1 << fatal_shift) - 1),
+            error = ((1 << error_shift) - 1),
+            warn  = ((1 << warn_shift) - 1),
+            info  = ((1 << info_shift) - 1),
+            debug = ((1 << debug_shift) - 1),
+            trace = ((1 << trace_shift) - 1),
 
-            next  = ((1 << 7) - 1),
-            all   = (next)
+            next  = ((1 << next_shift) - 1),
+            all   = (next >> 1)
+        };
+        enum {
+            none_message  = 0,
+
+            fatal_message = (fatal << (next_shift - 1)),
+            error_message = (error << (next_shift - 1)),
+            warn_message  = (warn << (next_shift - 1)),
+            info_message  = (info << (next_shift - 1)),
+            debug_message = (debug << (next_shift - 1)),
+            trace_message = (trace << (next_shift - 1)),
+
+            next_message  = (next << (next_shift - 1)),
+            all_message   = (all << (next_shift - 1))
         };
     };
 
@@ -220,6 +266,11 @@ public:
     (const level& _level, const location& _location, const message& _message) {}
     virtual void logf
     (const level& _level, const location& _location, const char* format, ...) {}
+    ///////////////////////////////////////////////////////////////////////
+    virtual void log
+    (const level& _level, const message& _message) {}
+    virtual void logf
+    (const level& _level, const char* format, ...) {}
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -271,6 +322,22 @@ if ((logger)) { logger->enable_for(level_); } }
 ((logger_)?(logger_->enabled_for()):(::xos::io::logger::level\
 (::xos::io::logger::levels::none)))
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#define XOS_LOG_ANY_LEVEL(logger_, message_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) {\
+   ::xos::io::logger::level level_; \
+   ::xos::io::logger::message message; \
+   logger->log(level_, XOS_LOGGER_LOCATION, message << message_); } }
+
+#define XOS_LOG_ANY_LEVELF(logger_, format_, ...) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) {\
+   ::xos::io::logger::level level_; \
+   logger->logf(level_, XOS_LOGGER_LOCATION, format_, ##__VA_ARGS__); } }
+
+///////////////////////////////////////////////////////////////////////
 #define XOS_LOG(logger_, level_, message_) { \
 ::xos::io::logger* logger = logger_; \
 if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
@@ -281,6 +348,33 @@ if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
 ::xos::io::logger* logger = logger_; \
 if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
    logger->logf(level_, XOS_LOGGER_LOCATION, format_, ##__VA_ARGS__); } }
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#define XOS_LOG_MESSAGE_ANY_LEVEL(logger_, message_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) {\
+   ::xos::io::logger::level level_; \
+   ::xos::io::logger::message message; \
+   logger->log(level_, message << message_); } }
+
+#define XOS_LOG_MESSAGE_ANY_LEVELF(logger_, format_, ...) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)) {\
+   ::xos::io::logger::level level_; \
+   logger->logf(level_, format_, ##__VA_ARGS__); } }
+
+///////////////////////////////////////////////////////////////////////
+#define XOS_LOG_MESSAGE(logger_, level_, message_) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
+   ::xos::io::logger::message message; \
+   logger->log(level_, message << message_); } }
+
+#define XOS_LOG_MESSAGEF(logger_, level_, format_, ...) { \
+::xos::io::logger* logger = logger_; \
+if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
+   logger->logf(level_, format_, ##__VA_ARGS__); } }
 
 #if !defined(XOS_USE_LOG4CXX)
 // Use xos logging
@@ -307,6 +401,16 @@ if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
 #define XOS_LOGGING_LEVELS_DEBUG ::xos::io::logger::levels::debug
 #define XOS_LOGGING_LEVELS_TRACE ::xos::io::logger::levels::trace
 
+#define XOS_LOGGING_LEVELS_ALL_MESSAGE ::xos::io::logger::levels::all_message
+#define XOS_LOGGING_LEVELS_NONE_MESSAGE ::xos::io::logger::levels::none_message
+#define XOS_LOGGING_LEVELS_FATAL_MESSAGE ::xos::io::logger::levels::fatal_message
+#define XOS_LOGGING_LEVELS_ERROR_MESSAGE ::xos::io::logger::levels::error_message
+#define XOS_LOGGING_LEVELS_WARN_MESSAGE ::xos::io::logger::levels::warn_message
+#define XOS_LOGGING_LEVELS_INFO_MESSAGE ::xos::io::logger::levels::info_message
+#define XOS_LOGGING_LEVELS_DEBUG_MESSAGE ::xos::io::logger::levels::debug_message
+#define XOS_LOGGING_LEVELS_TRACE_MESSAGE ::xos::io::logger::levels::trace_message
+
+#define XOS_LOG_ANY(message) XOS_LOG_ANY_LEVEL(XOS_DEFAULT_LOGGER, message)
 #define XOS_LOG_FATAL(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::fatal, message)
 #define XOS_LOG_ERROR(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::error, message)
 #define XOS_LOG_WARN(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::warn, message)
@@ -314,12 +418,29 @@ if ((logger)?(logger->is_enabled_for(level_)):(false)) {\
 #define XOS_LOG_DEBUG(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::debug, message)
 #define XOS_LOG_TRACE(message) XOS_LOG(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::trace, message)
 
+#define XOS_LOG_ANYF(message, ...) XOS_LOG_ANY_LEVELF(XOS_DEFAULT_LOGGER, message, ##__VA_ARGS__)
 #define XOS_LOG_FATALF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::fatal, message, ##__VA_ARGS__)
 #define XOS_LOG_ERRORF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::error, message, ##__VA_ARGS__)
 #define XOS_LOG_WARNF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::warn, message, ##__VA_ARGS__)
 #define XOS_LOG_INFOF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::info, message, ##__VA_ARGS__)
 #define XOS_LOG_DEBUGF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::debug, message, ##__VA_ARGS__)
 #define XOS_LOG_TRACEF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::trace, message, ##__VA_ARGS__)
+
+#define XOS_LOG_MESSAGE_ANY(message) XOS_LOG_MESSAGE_ANY_LEVEL(XOS_DEFAULT_LOGGER, message)
+#define XOS_LOG_MESSAGE_FATAL(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::fatal_message, message)
+#define XOS_LOG_MESSAGE_ERROR(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::error_message, message)
+#define XOS_LOG_MESSAGE_WARN(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::warn_message, message)
+#define XOS_LOG_MESSAGE_INFO(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::info_message, message)
+#define XOS_LOG_MESSAGE_DEBUG(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::debug_message, message)
+#define XOS_LOG_MESSAGE_TRACE(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::trace_message, message)
+
+#define XOS_LOG_MESSAGE_ANYF(message, ...) XOS_LOG_MESSAGE_ANY_LEVELF(XOS_DEFAULT_LOGGER, message, ##__VA_ARGS__)
+#define XOS_LOG_MESSAGE_FATALF(message, ...) XOS_LOG_MESSAGEF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::fatal_message, message, ##__VA_ARGS__)
+#define XOS_LOG_MESSAGE_ERRORF(message, ...) XOS_LOG_MESSAGEF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::error_message, message, ##__VA_ARGS__)
+#define XOS_LOG_MESSAGE_WARNF(message, ...) XOS_LOG_MESSAGEF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::warn_message, message, ##__VA_ARGS__)
+#define XOS_LOG_MESSAGE_INFOF(message, ...) XOS_LOG_MESSAGEF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::info_message, message, ##__VA_ARGS__)
+#define XOS_LOG_MESSAGE_DEBUGF(message, ...) XOS_LOG_MESSAGEF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::debug_message, message, ##__VA_ARGS__)
+#define XOS_LOG_MESSAGE_TRACEF(message, ...) XOS_LOG_MESSAGEF(XOS_DEFAULT_LOGGER, ::xos::io::logger::level::trace_message, message, ##__VA_ARGS__)
 
 // default logging levels
 //

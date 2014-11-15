@@ -230,12 +230,34 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t outxln(const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = this->outxln(std_out(), out, length, upper_case);
+        return count;
+    }
+    virtual ssize_t outx(const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = this->outx(std_out(), out, length, upper_case);
+        return count;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual ssize_t outln(const char_t* out, ssize_t length = -1) {
         ssize_t count = this->outln(std_out(), out, length);
         return count;
     }
     virtual ssize_t outln() {
         ssize_t count = this->outln(std_out());
+        return count;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t errxln(const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = this->outxln(std_err(), out, length, upper_case);
+        return count;
+    }
+    virtual ssize_t errx(const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = this->outx(std_err(), out, length, upper_case);
         return count;
     }
 
@@ -319,6 +341,83 @@ protected:
             if (0 > (amount = this->out(f, out)))
                 return amount;
             out = va_arg(va, const char_t*);
+        }
+        return count;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t outxln
+    (FILE* f, const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = 0;
+        ssize_t amount;
+        if (0 <= (amount = this->outx(f, out, length, upper_case))) {
+            count += amount;
+            if (0 <= (amount = this->outln(f))) {
+                count += amount;
+            }
+        }
+        return count;
+    }
+    virtual ssize_t outx
+    (FILE* f, const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = 0;
+        const uint8_t* bytes;
+
+        if ((bytes = (const uint8_t*)(out)) && (length)) {
+            ssize_t amount;
+            uint8_t b;
+            char_t x[2];
+
+            for (; 0 < length; --length) {
+                b = (*bytes++);
+                x[0] = dtox(b >> 4, upper_case);
+                x[1] = dtox(b & 15, upper_case);
+
+                if (0 < (amount = this->out(f, x, 2))) {
+                    count += amount;
+                } else {
+                    return amount;
+                }
+            }
+        }
+        return count;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t out0x
+    (FILE* f, const void* out, size_t length, bool upper_case = false) {
+        ssize_t count = 0;
+        const uint8_t* bytes;
+        if ((bytes = (const uint8_t*)(out)) && (length)) {
+            uint8_t b = (*bytes);
+            ssize_t amount;
+            char_t x[5];
+
+            x[0] = ((char_t)',');
+            x[1] = ((char_t)'0');
+            x[2] = ((char_t)((upper_case)?('X'):('x')));
+            x[3] = dtox(b >> 4, upper_case);
+            x[4] = dtox(b & 15, upper_case);
+
+            if (0 < (amount = this->out(f, x+1, 4))) {
+                count += amount;
+
+                for (++bytes, --length; length > 0; --length, ++bytes) {
+                    b = (*bytes);
+                    x[3] = dtox(b >> 4, upper_case);
+                    x[4] = dtox(b & 15, upper_case);
+
+                    if (0 < (amount = this->out(f, x, 5))) {
+                        count += amount;
+                    } else {
+                        return amount;
+                    }
+                }
+            } else {
+                return amount;
+            }
         }
         return count;
     }
@@ -428,6 +527,31 @@ protected:
     }
     virtual FILE* std_in() const {
         return stdin;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual char_t dtox(uint8_t d, bool upper_case = false) const {
+        char a = (upper_case)?('A'):('a');
+        char_t x = (char_t)(0);
+        if ((0 <= d) && (9 >= d))
+            x = (char_t)(('0') +  d);
+        else
+        if ((10 <= d) && (15 >= d))
+            x = (char_t)((a) + (d - 10));
+        return x;
+    }
+    virtual int8_t xtod(const char_t& x) const {
+        int8_t d = -1;
+        if (((char_t)('A') <= x) && ((char_t)('F') >= x))
+            d = ((x - (char_t)('A')) + 10);
+        else
+        if (((char_t)('a') <= x) && ((char_t)('f') >= x))
+            d = ((x - (char_t)('a')) + 10);
+        else
+        if (((char_t)('0') <= x) && ((char_t)('9') >= x))
+            d = ((x - (char_t)('0')));
+        return d;
     }
 
     ///////////////////////////////////////////////////////////////////////

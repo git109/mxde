@@ -29,53 +29,85 @@ int on_logging_level(const char* optarg) {
     int err = 1;
     char c;
 
-    if ((optarg))
-    if ((c = optarg[0]))
-    if (!(optarg[1])) {
-        err = 0;
-        switch(c)
-        {
-        case 'a':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ALL);
-            break;
+    if ((optarg) && (c = optarg[0])) {
+        if (!(optarg[1])) {
+            err = 0;
+            switch(c) {
+            case 'a':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ALL);
+                break;
 
-        case '0':
-        case 'n':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_NONE);
-            break;
+            case '0':
+            case 'n':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_NONE);
+                break;
 
-        case '1':
-        case 'f':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_FATAL);
-            break;
+            case '1':
+            case 'f':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_FATAL);
+                break;
 
-        case '2':
-        case 'e':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR);
-            break;
+            case '2':
+            case 'e':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR);
+                break;
 
-        case '3':
-        case 'w':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_WARN);
-            break;
+            case '3':
+            case 'w':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_WARN);
+                break;
 
-        case '4':
-        case 'i':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_INFO);
-            break;
+            case '4':
+            case 'i':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_INFO);
+                break;
 
-        case '5':
-        case 'd':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_DEBUG);
-            break;
+            case '5':
+            case 'd':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_DEBUG);
+                break;
 
-        case '6':
-        case 't':
-            XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_TRACE);
-            break;
+            case '6':
+            case 't':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_TRACE);
+                break;
 
-        default:
-            err = 1;
+            case 'A':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ALL_MESSAGE);
+                break;
+
+            case 'N':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_NONE_MESSAGE);
+                break;
+
+            case 'F':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_FATAL_MESSAGE);
+                break;
+
+            case 'E':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_ERROR_MESSAGE);
+                break;
+
+            case 'W':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_WARN_MESSAGE);
+                break;
+
+            case 'I':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_INFO_MESSAGE);
+                break;
+
+            case 'D':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_DEBUG_MESSAGE);
+                break;
+
+            case 'T':
+                XOS_SET_LOGGING_LEVEL(XOS_LOGGING_LEVELS_TRACE_MESSAGE);
+                break;
+
+            default:
+                err = 1;
+                break;
+            }
         }
     }
     return err;

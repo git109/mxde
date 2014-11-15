@@ -246,10 +246,10 @@ public:
         if (what) {
             if (toWhat) {
                 if (0 > length)
-                    length = Count(what, endWhat);
+                    length = count(what, endWhat);
 
                 if (0 > toLength)
-                    toLength = Count(toWhat, endWhat);
+                    toLength = count(toWhat, endWhat);
 
                 if (length > toLength) {
                     unequal = 1;
@@ -300,10 +300,10 @@ public:
         if (what) {
             if (toWhat) {
                 if (0 > length)
-                    length = Count(what, endWhat);
+                    length = count(what, endWhat);
 
                 if (0 > toLength)
-                    toLength = Count(toWhat, endWhat);
+                    toLength = count(toWhat, endWhat);
 
                 if (length > toLength) {
                     unequal = 1;

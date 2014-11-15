@@ -242,6 +242,17 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual int on_invalid_option_arg
+    (int optval, const char* optarg,
+     const char* optname, int optind,
+     int argc, char**argv, char**env) {
+        int err = 1;
+        errf("invalid argument \"%s\" for option \"%s\"\n", optarg, optname);
+        return err;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int on_option
     (int optval, const char_t* optarg,
      const char_t* optname, int optind,
@@ -292,6 +303,14 @@ protected:
             {0, 0, 0, 0}};
         longopts = optstruct;
         return chars;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual int missing_argument(const char_t* arg) {
+        int err = 1;
+        errf("missing argument \"%s\"\n", arg);
+        return err;
     }
     ///////////////////////////////////////////////////////////////////////
     virtual const char* arguments(const char**& args) {

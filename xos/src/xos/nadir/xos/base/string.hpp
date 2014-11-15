@@ -140,7 +140,18 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual stringt& appendx(const byte_t* bytes, size_t length, bool upper_case = false) {
+    virtual stringt& assignx(const void* in, size_t length, bool upper_case = false) {
+        this->clear();
+        this->appendx(in, length, upper_case);
+        return *this;
+    }
+    virtual stringt& assign0x(const void* in, size_t length, bool upper_case = false) {
+        this->clear();
+        this->append0x(in, length, upper_case);
+        return *this;
+    }
+    virtual stringt& appendx(const void* in, size_t length, bool upper_case = false) {
+        const byte_t* bytes = (const byte_t*)(in);
         if ((bytes) && (length)) {
             TChar x[2];
             byte_t b;
@@ -153,7 +164,8 @@ public:
         }
         return *this;
     }
-    virtual stringt& append0x(const byte_t* bytes, size_t length, bool upper_case = false) {
+    virtual stringt& append0x(const void* in, size_t length, bool upper_case = false) {
+        const byte_t* bytes = (const byte_t*)(in);
         if ((bytes) && (length)) {
             byte_t b = (*bytes);
             TChar x[5];
