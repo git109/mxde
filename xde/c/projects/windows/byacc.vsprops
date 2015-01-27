@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="byacc"
+    >
+
+    <UserMacro
+		Name="XDE_HOME"
+		Value="..\..\..\.."
+	/>
+
+    <UserMacro
+        Name="BUILD"
+        Value="$(XDE_HOME)\build\$(PlatformName)\$(VCVersion)\$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="BUILD_WIN32"
+        Value="$(BUILD)"
+    />
+
+    <UserMacro
+        Name="BUILD_WIN32_LIB"
+        Value="$(BUILD_WIN32)\lib"
+    />
+    <UserMacro
+        Name="BUILD_WIN32_BIN"
+        Value="$(BUILD_WIN32)\bin"
+    />
+    <UserMacro
+        Name="BUILD_WIN32_OBJ"
+        Value="$(BUILD_WIN32)\obj\$(ProjectName)"
+    />
+
+    <UserMacro
+        Name="BYACC_DIR"
+        Value="src\capp\byacc"
+    />
+    <UserMacro
+        Name="BYACC_ROOT"
+        Value="$(XDE_HOME)\$(BYACC_DIR)"
+    />
+
+    <UserMacro
+        Name="BYACC_BUILD"
+        Value="$(BUILD)"
+    />
+    <UserMacro
+        Name="BYACC_BUILD_WIN32"
+        Value="$(BYACC_BUILD)\$(ProjectName)"
+    />
+    <UserMacro
+        Name="BYACC_WIN32_BIN"
+        Value="$(BYACC_BUILD_WIN32)\bin"
+    />
+    <UserMacro
+        Name="BYACC_WIN32_LIB"
+        Value="$(BYACC_BUILD_WIN32)\lib"
+    />
+    <UserMacro
+        Name="BYACC_WIN32_OBJ"
+        Value="$(BYACC_BUILD_WIN32)\obj"
+    />
+
+    <UserMacro
+        Name="BYACC_INCLUDES"
+        Value="$(BYACC_ROOT)"
+    />
+
+</VisualStudioPropertySheet>
