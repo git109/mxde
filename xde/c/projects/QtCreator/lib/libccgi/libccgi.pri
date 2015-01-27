@@ -13,28 +13,41 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: libccgi.pri
 #
 # Author: $author$
-#   Date: 1/19/2015
+#   Date: 1/20/2015
 ########################################################################
-include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
 
-TARGET = cbase
+libccgi_INCLUDEPATH += \
 
-TEMPLATE = lib
-CONFIG += staticlib
+libccgi_DEFINES += \
 
-INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+libccgi_HEADERS += \
+$${XDE_SRC}/clib/ccgi/ccgiinterface.hxx \
+$${XDE_SRC}/clib/ccgi/ccgienv.hxx \
+$${XDE_SRC}/clib/ccgi/ccgi.hxx \
+$${XDE_SRC}/clib/ccgi/ccgistream.hxx \
+$${XDE_SRC}/clib/ccgi/cfilenamecgi.hxx \
+$${XDE_SRC}/clib/ccgi/ctemplatecgi.hxx \
+$${XDE_SRC}/clib/ccgi/cdocumenttemplatecgi.hxx \
+$${XDE_SRC}/clib/ccgi/ctemplatenamelist.hxx \
+$${XDE_SRC}/clib/ccgi/cdocumentnamelist.hxx \
 
-DEFINES += \
-$${libcbase_DEFINES} \
+libccgi_SOURCES += \
+$${XDE_SRC}/clib/ccgi/ccgiinterface.cxx \
+$${XDE_SRC}/clib/ccgi/ccgienv.cxx \
+$${XDE_SRC}/clib/ccgi/ccgi.cxx \
+$${XDE_SRC}/clib/ccgi/ccgistream.cxx \
+$${XDE_SRC}/clib/ccgi/cfilenamecgi.cxx \
+$${XDE_SRC}/clib/ccgi/ctemplatecgi.cxx \
+$${XDE_SRC}/clib/ccgi/cdocumenttemplatecgi.cxx \
+$${XDE_SRC}/clib/ccgi/ctemplatenamelist.cxx \
+$${XDE_SRC}/clib/ccgi/cdocumentnamelist.cxx \
 
-HEADERS += \
-$${libcbase_HEADERS} \
+libccgi_LIBS += \
 
-SOURCES += \
-$${libcbase_SOURCES} \
+
+
+        
 

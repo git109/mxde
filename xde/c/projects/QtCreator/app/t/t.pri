@@ -13,28 +13,35 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: t.pri
 #
 # Author: $author$
-#   Date: 1/19/2015
+#   Date: 1/20/2015
 ########################################################################
-include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
 
-TARGET = cbase
+t_INCLUDEPATH += \
 
-TEMPLATE = lib
-CONFIG += staticlib
+t_DEFINES += \
 
-INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+t_HEADERS += \
+$${XDE_SRC}/clib/ct/ctdatefunctions.hxx \
+$${XDE_SRC}/clib/ct/ctfilefunctions.hxx \
+$${XDE_SRC}/clib/ct/ctfunctions.hxx \
+$${XDE_SRC}/clib/ct/ctmain.hxx \
+$${XDE_SRC}/clib/cos/argmain.hxx \
 
-DEFINES += \
-$${libcbase_DEFINES} \
+t_SOURCES += \
+$${XDE_SRC}/clib/ct/ctdatefunctions.cxx \
+$${XDE_SRC}/clib/ct/ctfilefunctions.cxx \
+$${XDE_SRC}/clib/ct/ctfunctions.cxx \
+$${XDE_SRC}/clib/ct/ctmain.cxx \
+$${XDE_SRC}/clib/cos/argmain.cxx \
+$${XDE_SRC}/clib/cos/cdebug_printf.c \
 
-HEADERS += \
-$${libcbase_HEADERS} \
-
-SOURCES += \
-$${libcbase_SOURCES} \
-
+t_LIBS += \
+-L$${XDE_LIB}/libct \
+-lct \
+-L$${XDE_LIB}/libcos \
+-lcos \
+-L$${XDE_LIB}/libcbase \
+-lcbase \

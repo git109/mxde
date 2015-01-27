@@ -13,28 +13,29 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: libcos.pro
 #
 # Author: $author$
 #   Date: 1/19/2015
 ########################################################################
 include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
+include(../../../../QtCreator/lib/libcfs/libcfs.pri)
+include(../../../../QtCreator/lib/libcipc/libcipc.pri)
+include(../../../../QtCreator/lib/libcos/libcos.pri)
 
-TARGET = cbase
+TARGET = cos
 
 TEMPLATE = lib
 CONFIG += staticlib
 
 INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+$${libcos_INCLUDEPATH} \
 
 DEFINES += \
-$${libcbase_DEFINES} \
+$${libcos_DEFINES} \
 
 HEADERS += \
-$${libcbase_HEADERS} \
+$${libcos_HEADERS} \
 
 SOURCES += \
-$${libcbase_SOURCES} \
-
+$${libcos_SOURCES} \

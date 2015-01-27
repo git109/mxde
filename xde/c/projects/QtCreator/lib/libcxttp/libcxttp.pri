@@ -13,28 +13,37 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: libcxttp.pri
 #
 # Author: $author$
-#   Date: 1/19/2015
+#   Date: 1/20/2015
 ########################################################################
-include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
 
-TARGET = cbase
+libcxttp_INCLUDEPATH += \
 
-TEMPLATE = lib
-CONFIG += staticlib
+libcxttp_DEFINES += \
 
-INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+libcxttp_HEADERS += \
+$${XDE_SRC}/clib/cxttp/chttp.h \
+$${XDE_SRC}/clib/cxttp/cxttp.h \
 
-DEFINES += \
-$${libcbase_DEFINES} \
+libcxttp_SOURCES += \
+$${XDE_SRC}/clib/cxttp/http.c \
+$${XDE_SRC}/clib/cxttp/xttp.c \
 
-HEADERS += \
-$${libcbase_HEADERS} \
+libcxttp_HEADERS += \
+$${XDE_SRC}/clib/cxttp/chttpformfield.hxx \
+$${XDE_SRC}/clib/cxttp/chttpformfieldinterface.hxx \
+$${XDE_SRC}/clib/cxttp/chttpurlencodedformfieldwriter.hxx \
 
-SOURCES += \
-$${libcbase_SOURCES} \
+libcxttp_SOURCES += \
+$${XDE_SRC}/clib/cxttp/chttpformfield.cxx \
+$${XDE_SRC}/clib/cxttp/chttpformfieldinterface.cxx \
+$${XDE_SRC}/clib/cxttp/chttpurlencodedformfieldwriter.cxx \
+
+libcxttp_LIBS += \
+
+
+
+        
 

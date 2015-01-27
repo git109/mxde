@@ -13,28 +13,29 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: cgi.pri
 #
 # Author: $author$
-#   Date: 1/19/2015
+#   Date: 1/20/2015
 ########################################################################
-include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
 
-TARGET = cbase
+cgi_INCLUDEPATH += \
 
-TEMPLATE = lib
-CONFIG += staticlib
+cgi_DEFINES += \
 
-INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+cgi_HEADERS += \
+$${XDE_SRC}/capp/ccgi/cgi/ccgimain.hxx \
+$${XDE_SRC}/clib/ccgi/cgi.hxx \
 
-DEFINES += \
-$${libcbase_DEFINES} \
+cgi_SOURCES += \
+$${XDE_SRC}/capp/ccgi/cgi/ccgimain.cxx \
+$${XDE_SRC}/clib/ccgi/cgi.cxx \
+$${XDE_SRC}/clib/cos/cdebug_printf.c \
 
-HEADERS += \
-$${libcbase_HEADERS} \
-
-SOURCES += \
-$${libcbase_SOURCES} \
-
+cgi_LIBS += \
+-L$${XDE_LIB}/libccgi \
+-lccgi \
+-L$${XDE_LIB}/libcos \
+-lcos \
+-L$${XDE_LIB}/libcbase \
+-lcbase \

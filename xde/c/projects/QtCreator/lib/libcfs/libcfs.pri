@@ -13,28 +13,41 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: libcfs.pri
 #
 # Author: $author$
 #   Date: 1/19/2015
 ########################################################################
-include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
 
-TARGET = cbase
+libcfs_INCLUDEPATH += \
 
-TEMPLATE = lib
-CONFIG += staticlib
+libcfs_DEFINES += \
 
-INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+libcfs_HEADERS += \
+$${XDE_SRC}/clib/cos/cfileinterface.hxx \
+$${XDE_SRC}/clib/cos/cfile.hxx \
+$${XDE_SRC}/clib/cfs/cfilepatheventinterface.hxx \
+$${XDE_SRC}/clib/cfs/cfilepathinterface.hxx \
+$${XDE_SRC}/clib/cfs/ctofilepathwriter.hxx \
+$${XDE_SRC}/clib/cfs/cfilepath.hxx \
 
-DEFINES += \
-$${libcbase_DEFINES} \
+libcfs_SOURCES += \
+$${XDE_SRC}/clib/cos/cfileinterface.cxx \
+$${XDE_SRC}/clib/cos/cfile.cxx \
+$${XDE_SRC}/clib/cfs/cfilepatheventinterface.cxx \
+$${XDE_SRC}/clib/cfs/cfilepathinterface.cxx \
+$${XDE_SRC}/clib/cfs/ctofilepathwriter.cxx \
+$${XDE_SRC}/clib/cfs/cfilepath.cxx \
 
-HEADERS += \
-$${libcbase_HEADERS} \
+libcfs_HEADERS += \
+$${XDE_SRC}/clib/cos/cplatform/cplatform_stat.h \
+$${XDE_SRC}/clib/cos/cplatform/cplatform_path.h \
+$${XDE_SRC}/clib/cos/cplatform/cplatform_file.h \
 
-SOURCES += \
-$${libcbase_SOURCES} \
+libcfs_SOURCES += \
+$${XDE_SRC}/clib/cos/cplatform/cplatform_stat.c \
+$${XDE_SRC}/clib/cos/cplatform/cplatform_path.c \
+$${XDE_SRC}/clib/cos/cplatform/cplatform_file.c \
+
+libcfs_LIBS += \
 

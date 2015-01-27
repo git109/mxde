@@ -74,6 +74,12 @@ $(PKG)/$(SRC)/clib/ct/ctfunctions.cxx \
 $(PKG)/$(SRC)/clib/ct/ctfilefunctions.cxx \
 $(PKG)/$(SRC)/clib/ct/ctdatefunctions.cxx \
 
+#
+# executable C++ .cxx sources
+#
+EXE_LXX_SOURCES = \
+$(PKG)/$(SRC)/capp/ccgi/cxxlcgi/ccxxlex.l \
+
 EXE_LCGI_SOURCES = \
 $(PKG)/$(SRC)/capp/ccgi/cxxlcgi/cxxlcgi.lcgi \
 $(PKG)/$(SRC)/capp/ccgi/cxxlcgi/lcgi-top.lcgi \

@@ -13,28 +13,44 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: libcos.pri
 #
 # Author: $author$
 #   Date: 1/19/2015
 ########################################################################
-include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
 
-TARGET = cbase
+libcos_INCLUDEPATH += \
+$${xde_INCLUDEPATH} \
 
-TEMPLATE = lib
-CONFIG += staticlib
+libcos_DEFINES += \
+$${xde_DEFINES} \
 
-INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+libcos_HEADERS += \
+$${libcfs_HEADERS} \
+$${libcipc_HEADERS} \
 
-DEFINES += \
-$${libcbase_DEFINES} \
+libcos_SOURCES += \
+$${libcfs_SOURCES} \
+$${libcipc_SOURCES} \
 
-HEADERS += \
-$${libcbase_HEADERS} \
+libcos_HEADERS += \
+$${XDE_SRC}/clib/cos/cdebug.hxx \
+$${XDE_SRC}/clib/cos/cdeviceinterface.hxx \
+$${XDE_SRC}/clib/cos/cdevice.hxx \
+$${XDE_SRC}/clib/cos/cmaininterface.hxx \
+$${XDE_SRC}/clib/cos/cmain.hxx \
+$${XDE_SRC}/clib/cos/cmainarginterface.hxx \
+$${XDE_SRC}/clib/cos/cmainarg.hxx \
+$${XDE_SRC}/clib/cos/cargmain.hxx \
 
-SOURCES += \
-$${libcbase_SOURCES} \
+libcos_SOURCES += \
+$${XDE_SRC}/clib/cos/cdebug.cxx \
+$${XDE_SRC}/clib/cos/cdeviceinterface.cxx \
+$${XDE_SRC}/clib/cos/cdevice.cxx \
+$${XDE_SRC}/clib/cos/cmaininterface.cxx \
+$${XDE_SRC}/clib/cos/cmain.cxx \
+$${XDE_SRC}/clib/cos/cmainarginterface.cxx \
+$${XDE_SRC}/clib/cos/cmainarg.cxx \
+$${XDE_SRC}/clib/cos/cargmain.cxx \
 
+libcos_LIBS += \

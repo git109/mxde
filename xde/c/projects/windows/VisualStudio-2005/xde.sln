@@ -4,6 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{8A58D7B2-2CDB-4A83-B0F6-82CE2C2AA72B}"
 	ProjectSection(SolutionItems) = preProject
 		xde-vcversion.vsprops = xde-vcversion.vsprops
+		..\xde-xerces-xalan.vsprops = ..\xde-xerces-xalan.vsprops
+		..\xde-xml-xerces-xalan.vsprops = ..\xde-xml-xerces-xalan.vsprops
 		..\xde.vsprops = ..\xde.vsprops
 	EndProjectSection
 EndProject
@@ -181,10 +183,10 @@ Global
 		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.Debug|Win32.Build.0 = Debug|Win32
 		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.Release|Win32.ActiveCfg = Release|Win32
 		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.Release|Win32.Build.0 = Release|Win32
-		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestDebug|Win32.ActiveCfg = TestDebug|Win32
-		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestDebug|Win32.Build.0 = TestDebug|Win32
-		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestRelease|Win32.ActiveCfg = TestRelease|Win32
-		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestRelease|Win32.Build.0 = TestRelease|Win32
+		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestDebug|Win32.ActiveCfg = Debug|Win32
+		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestDebug|Win32.Build.0 = Debug|Win32
+		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestRelease|Win32.ActiveCfg = Release|Win32
+		{D1320718-08AD-4BB5-B183-E3CC4FCD158F}.TestRelease|Win32.Build.0 = Release|Win32
 		{09BD99D7-BF9F-4FE2-9413-21939F47DEBC}.Debug|Win32.ActiveCfg = Debug|Win32
 		{09BD99D7-BF9F-4FE2-9413-21939F47DEBC}.Debug|Win32.Build.0 = Debug|Win32
 		{09BD99D7-BF9F-4FE2-9413-21939F47DEBC}.Release|Win32.ActiveCfg = Release|Win32

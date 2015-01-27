@@ -13,28 +13,29 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: tcgi.pri
 #
 # Author: $author$
-#   Date: 1/19/2015
+#   Date: 1/20/2015
 ########################################################################
 include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
+include(../../../../QtCreator/app/tcgi/tcgi.pri)
 
-TARGET = cbase
-
-TEMPLATE = lib
-CONFIG += staticlib
+TARGET = tcgi
 
 INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+$${xde_INCLUDEPATH} \
 
 DEFINES += \
-$${libcbase_DEFINES} \
+$${xde_DEFINES} \
 
 HEADERS += \
-$${libcbase_HEADERS} \
+$${tcgi_HEADERS} \
 
 SOURCES += \
-$${libcbase_SOURCES} \
+$${tcgi_SOURCES} \
 
+LIBS += \
+$${tcgi_LIBS} \
+-lpthread \
+-ldl \

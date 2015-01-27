@@ -13,28 +13,30 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: libcbase.pro
+#   File: cgicatch.pro
 #
 # Author: $author$
-#   Date: 1/19/2015
+#   Date: 1/20/2015
 ########################################################################
 include(../../../../QtCreator/xde.pri)
-include(../../../../QtCreator/lib/libcbase/libcbase.pri)
+include(../../../../QtCreator/app/cgicatch/cgicatch.pri)
 
-TARGET = cbase
-
-TEMPLATE = lib
-CONFIG += staticlib
+TARGET = cgicatch
 
 INCLUDEPATH += \
-$${libcbase_INCLUDEPATH} \
+$${xde_INCLUDEPATH} \
 
 DEFINES += \
-$${libcbase_DEFINES} \
+$${xde_DEFINES} \
 
 HEADERS += \
-$${libcbase_HEADERS} \
+$${cgicatch_HEADERS} \
 
 SOURCES += \
-$${libcbase_SOURCES} \
+$${cgicatch_SOURCES} \
+
+LIBS += \
+$${cgicatch_LIBS} \
+-lpthread \
+-ldl \
 
