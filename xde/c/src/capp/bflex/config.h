@@ -14,7 +14,11 @@
 #define STDC_HEADERS 1
 
 /* Define if you have the <malloc.h> header file.  */
+#if !defined(__APPLE__)
 #define HAVE_MALLOC_H 1
+#else /* !defined(__APPLE__) */
+#undef HAVE_MALLOC_H
+#endif /* !defined(__APPLE__) */
 
 /* Define if you have the <string.h> header file.  */
 #define HAVE_STRING_H 1

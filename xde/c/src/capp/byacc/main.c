@@ -173,7 +173,7 @@ char *argv[];
 	case '\0':
 	    if (i + 1 < argc) usage();
 	    input_file = stdin;
-	    return;
+        return;
 
 	case '-':
 	    ++i;
