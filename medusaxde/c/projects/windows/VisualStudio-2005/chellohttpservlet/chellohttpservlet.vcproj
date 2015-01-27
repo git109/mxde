@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="libcplatform"
-	ProjectGUID="{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}"
-	RootNamespace="libcplatform"
+	Name="chellohttpservlet"
+	ProjectGUID="{E222EC47-AE19-4217-B616-237E215AD4B6}"
+	RootNamespace="chellohttpservlet"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -17,9 +17,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(BUILD_LIB)"
+			OutputDirectory="$(BUILD_BIN)"
 			IntermediateDirectory="$(BUILD_OBJ)"
-			ConfigurationType="4"
+			ConfigurationType="2"
 			InheritedPropertySheets="..\cxos.vsprops;..\..\cxos.vsprops"
 			CharacterSet="1"
 			>
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(CXOS_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="$(CXOS_CSERVLET_INCLUDE_DIRS);$(CXOS_COS_INCLUDE_DIRS)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;CHELLOHTTPSERVLET_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,10 +61,17 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				LinkIncremental="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -76,14 +83,20 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(BUILD_LIB)"
+			OutputDirectory="$(BUILD_BIN)"
 			IntermediateDirectory="$(BUILD_OBJ)"
-			ConfigurationType="4"
+			ConfigurationType="2"
 			InheritedPropertySheets="..\cxos.vsprops;..\..\cxos.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -105,8 +118,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(CXOS_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="$(CXOS_CSERVLET_INCLUDE_DIRS);$(CXOS_COS_INCLUDE_DIRS)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;CHELLOHTTPSERVLET_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -123,10 +136,19 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -136,6 +158,12 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -151,87 +179,49 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform.cpp"
+				RelativePath="..\..\..\..\src\clib\cos\cDLibraryMain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_dlibrary.cpp"
+				RelativePath="..\..\..\..\src\clib\cos\cDLibraryMainBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_errno.c"
+				RelativePath="..\..\..\..\src\clib\cos\cDLibraryMainInterface.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_fcntl.cpp"
+				RelativePath="..\..\..\..\src\capp\chttpservlet\chellohttpservlet\cHelloHttpServlet.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_path.c"
+				RelativePath="..\..\..\..\src\capp\chttpservlet\chellohttpservlet\cHelloHttpServletAcquirer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_process.c"
+				RelativePath="..\..\..\..\src\clib\cservlet\cxttp\chttp\cHttpServletAcquirer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_pthread.c"
+				RelativePath="..\..\..\..\src\clib\cservlet\cxttp\chttp\cHttpServletDLibraryMain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_semaphore.c"
+				RelativePath="..\..\..\..\src\clib\cservlet\cxttp\chttp\cHttpServletDLibraryMainInterface.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_setenv.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_stat.cpp"
+				RelativePath="..\..\..\..\src\clib\cos\unix\cUnixDLibraryMain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_stdio.cpp"
+				RelativePath="..\..\..\..\src\clib\cos\unix\cUnixDLibraryMain_init_fini.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_time.c"
+				RelativePath="..\..\..\..\src\clib\cos\unix\cUnixDLibraryMain_WinDllMain.cpp"
 				>
 			</File>
-			<Filter
-				Name="getopt"
-				>
-				<File
-					RelativePath="..\..\..\..\src\clib\cos\windows\getopt\getopt.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\src\clib\cos\windows\getopt\getopt1.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\src\clib\cos\windows\getopt\getopt_init.c"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"

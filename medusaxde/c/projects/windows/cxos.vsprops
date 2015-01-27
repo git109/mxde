@@ -84,12 +84,16 @@
 		Value="$(CXOS_SOURCE_DIR)/clib/cos/cthread/cwinthread;$(CXOS_SOURCE_DIR)/clib/cos/cthread/cpthread;$(CXOS_SOURCE_DIR)/clib/cos/cthread"
 	/>
     <UserMacro
+		Name="CXOS_CNETWORK_INCLUDE_DIRS"
+		Value="$(CXOS_SOURCE_DIR)/clib/cos/cnetwork/cwinnetwork;$(CXOS_SOURCE_DIR)/clib/cos/cnetwork/cunixnetwork;$(CXOS_SOURCE_DIR)/clib/cos/cnetwork"
+	/>
+    <UserMacro
 		Name="CXOS_CFS_INCLUDE_DIRS"
 		Value="$(CXOS_SOURCE_DIR)/clib/cos/cfs/cwinfs;$(CXOS_SOURCE_DIR)/clib/cos/cfs"
 	/>
     <UserMacro
 		Name="CXOS_COS_INCLUDE_DIRS"
-		Value="$(CXOS_WINDOWS_INCLUDE_DIRS);$(CXOS_UNIX_INCLUDE_DIRS);$(CXOS_CTHREAD_INCLUDE_DIRS);$(CXOS_CFS_INCLUDE_DIRS);$(CXOS_SOURCE_DIR)/clib/cos;$(CXOS_CBASE_INCLUDE_DIRS)"
+		Value="$(CXOS_WINDOWS_INCLUDE_DIRS);$(CXOS_UNIX_INCLUDE_DIRS);$(CXOS_CNETWORK_INCLUDE_DIRS);$(CXOS_CTHREAD_INCLUDE_DIRS);$(CXOS_CFS_INCLUDE_DIRS);$(CXOS_SOURCE_DIR)/clib/cos;$(CXOS_CBASE_INCLUDE_DIRS)"
 	/>
     <UserMacro
 		Name="CXOS_CXTTP_INCLUDE_DIRS"

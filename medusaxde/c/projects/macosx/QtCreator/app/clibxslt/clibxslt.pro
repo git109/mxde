@@ -1,5 +1,5 @@
 ########################################################################
-# Copyright (c) 1988-2013 $organization$
+# Copyright (c) 1988-2015 $organization$
 #
 # This software is provided by the author and contributors ``as is'' 
 # and any express or implied warranties, including, but not limited to, 
@@ -13,27 +13,46 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: ccgicc.pri
+#   File: clibxslt.pro
 #
 # Author: $author$
-#   Date: 11/2/2013
+#   Date: 1/14/2015
 ########################################################################
-ccgicc_INCLUDEPATH += \
-${HOME}/build/cgicc/include/cgicc \
-${HOME}/build/cgicc/include \
-$${PKG}/$${SRC}/clib/cxttp/chttp/ccgi \
-$${PKG}/$${SRC}/clib/cxttp/chttp \
-$${PKG}/$${SRC}/clib/cxttp \
-$${PKG}/$${SRC}/clib/cxml \
+PKG = ../../../../..
+SRC = src
+BLD = ../..
 
-ccgicc_DEFINES += \
+include(../../cbase.pri)
+include(../../clibxslt.pri)
+include(../../cxml.pri)
+include(../../cxslt.pri)
+include(../../cxttp.pri)
 
-ccgicc_HEADERS += \
+TARGET = clibxslt
 
-ccgicc_SOURCES += \
+INCLUDEPATH += \
+$${cxslt_INCLUDEPATH} \
+$${cxml_INCLUDEPATH} \
+$${cxttp_INCLUDEPATH} \
+$${clibxslt_INCLUDEPATH} \
+$${cbase_INCLUDEPATH} \
 
-ccgicc_LIBS += \
--L$${BLD}/lib/libccgicc \
--lccgicc \
--L${HOME}/build/cgicc/lib \
--lcgicc \
+DEFINES += \
+
+HEADERS += \
+$${PKG}/$${SRC}/capp/cxslt/cXsltMain.hpp \
+$${PKG}/$${SRC}/clib/cxml/cxslt/cXsltParam.hpp \
+
+SOURCES += \
+$${PKG}/$${SRC}/clib/cos/cMain_main.cpp \
+$${PKG}/$${SRC}/capp/cxslt/cXsltMain.cpp \
+$${PKG}/$${SRC}/clib/cxml/cxslt/cXsltParam.cpp \
+
+LIBS += \
+$${clibxslt_LIBS} \
+$${cxslt_LIBS} \
+$${cxml_LIBS} \
+$${cxttp_LIBS} \
+$${cbase_LIBS} \
+-lpthread \
+-ldl \

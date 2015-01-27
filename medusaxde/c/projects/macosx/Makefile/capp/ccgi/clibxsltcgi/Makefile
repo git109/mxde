@@ -111,6 +111,12 @@ EXEDEP_DIRS = \
 
 include $(PKG)/$(PRJ)/Makerules
 
+install:
+	@(echo Installing $(EXETARGET)...;\
+	  ((mkdir -p $(HOME)/build/medusaxde) || (exit 1));\
+	  ((cp -r $(PKGBLD)/bin/$(EXETARGET) $(HOME)/build/medusaxde/bin) || (exit 1));\
+	  echo ...Installed $(EXETARGET))
+
 #
 # Executable depend rules
 #

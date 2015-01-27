@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\..\src\clib\cbase\cBases.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\..\src\clib\cbase\cError.cpp"
 				>
 			</File>
@@ -241,6 +245,10 @@
 			<Filter
 				Name="cstream"
 				>
+				<File
+					RelativePath="..\..\..\..\src\clib\cbase\cBufferWriter.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\..\src\clib\cbase\cCharReader.cpp"
 					>

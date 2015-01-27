@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{C146DFB9-7327-4432-A3EE-518A2C40EC67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{60FE3293-443B-4835-B2B4-B3676DF5B637}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{2294A7B8-B913-4101-829A-173B04A4AF2B}"
+	ProjectSection(SolutionItems) = preProject
+		..\cxos-cgicc.vsprops = ..\cxos-cgicc.vsprops
+		..\cxos-libxml2.vsprops = ..\cxos-libxml2.vsprops
+		..\cxos-xalan.vsprops = ..\cxos-xalan.vsprops
+		..\cxos-xerces.vsprops = ..\cxos-xerces.vsprops
+		..\cxos.vsprops = ..\cxos.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{21DF8E51-88E8-4CEF-AD5C-0CBFB4BA9BE5}"
+	ProjectSection(SolutionItems) = preProject
+		cxos.vsprops = cxos.vsprops
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcbase", "libcbase\libcbase.vcproj", "{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chello", "chello\chello.vcproj", "{E2A6745C-BC69-4671-85C8-12E8AA2B836F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF} = {9AD79315-99A5-4191-9CF8-8BB43E9D9CCF}
+		{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B} = {8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}
+		{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3} = {41941BA7-0921-4B2B-8F96-F97BFE8EDFC3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcos", "libcos\libcos.vcproj", "{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcplatform", "libcplatform\libcplatform.vcproj", "{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF}.Debug|Win32.Build.0 = Debug|Win32
+		{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF}.Release|Win32.ActiveCfg = Release|Win32
+		{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF}.Release|Win32.Build.0 = Release|Win32
+		{E2A6745C-BC69-4671-85C8-12E8AA2B836F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E2A6745C-BC69-4671-85C8-12E8AA2B836F}.Debug|Win32.Build.0 = Debug|Win32
+		{E2A6745C-BC69-4671-85C8-12E8AA2B836F}.Release|Win32.ActiveCfg = Release|Win32
+		{E2A6745C-BC69-4671-85C8-12E8AA2B836F}.Release|Win32.Build.0 = Release|Win32
+		{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3}.Debug|Win32.Build.0 = Debug|Win32
+		{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3}.Release|Win32.ActiveCfg = Release|Win32
+		{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3}.Release|Win32.Build.0 = Release|Win32
+		{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}.Debug|Win32.Build.0 = Debug|Win32
+		{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}.Release|Win32.ActiveCfg = Release|Win32
+		{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E2A6745C-BC69-4671-85C8-12E8AA2B836F} = {C146DFB9-7327-4432-A3EE-518A2C40EC67}
+		{9AD79315-99A5-4191-9CF8-8BB43E9D9CCF} = {60FE3293-443B-4835-B2B4-B3676DF5B637}
+		{41941BA7-0921-4B2B-8F96-F97BFE8EDFC3} = {60FE3293-443B-4835-B2B4-B3676DF5B637}
+		{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B} = {60FE3293-443B-4835-B2B4-B3676DF5B637}
+		{21DF8E51-88E8-4CEF-AD5C-0CBFB4BA9BE5} = {2294A7B8-B913-4101-829A-173B04A4AF2B}
+	EndGlobalSection
+EndGlobal

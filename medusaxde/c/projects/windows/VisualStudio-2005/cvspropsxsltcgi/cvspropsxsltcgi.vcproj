@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="libcplatform"
-	ProjectGUID="{8AD2C7EA-C128-457F-9CDE-F5DA07F3779B}"
-	RootNamespace="libcplatform"
+	Name="cvspropsxsltcgi"
+	ProjectGUID="{FDA60A64-8B59-4474-97D3-AB197E4F4D31}"
+	RootNamespace="cvspropsxsltcgi"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -17,9 +17,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(BUILD_LIB)"
+			OutputDirectory="$(BUILD_BIN)"
 			IntermediateDirectory="$(BUILD_OBJ)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			InheritedPropertySheets="..\cxos.vsprops;..\..\cxos.vsprops"
 			CharacterSet="1"
 			>
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(CXOS_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="$(CXOS_CCGI_INCLUDE_DIRS);$(CXOS_CXSLT_INCLUDE_DIRS)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,10 +61,17 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				LinkIncremental="2"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -76,14 +83,20 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(BUILD_LIB)"
+			OutputDirectory="$(BUILD_BIN)"
 			IntermediateDirectory="$(BUILD_OBJ)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			InheritedPropertySheets="..\cxos.vsprops;..\..\cxos.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -105,8 +118,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(CXOS_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="$(CXOS_CCGI_INCLUDE_DIRS);$(CXOS_CXSLT_INCLUDE_DIRS)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -123,10 +136,19 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -136,6 +158,12 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -151,87 +179,13 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform.cpp"
+				RelativePath="..\..\..\..\src\clib\cxttp\chttp\ccgi\cCgi_main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_dlibrary.cpp"
+				RelativePath="..\..\..\..\src\capp\ccgi\cxsltcgi\cVspropsXsltCgi.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_errno.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_fcntl.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_path.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_process.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_pthread.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_semaphore.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_setenv.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_stat.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_stdio.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\..\src\clib\cplatform\cplatform_time.c"
-				>
-			</File>
-			<Filter
-				Name="getopt"
-				>
-				<File
-					RelativePath="..\..\..\..\src\clib\cos\windows\getopt\getopt.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\src\clib\cos\windows\getopt\getopt1.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\src\clib\cos\windows\getopt\getopt_init.c"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -244,6 +198,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath="..\..\..\..\..\doc\xsl\cXsltCgi\cVspropsXsltCgi.xslt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\doc\xsl\cmake\medusaxde-vsprops-to-cmake.xslt"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

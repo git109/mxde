@@ -62,6 +62,7 @@ LIB_CXX_SOURCES = \
 # Static Library C++ .cpp sources
 #
 LIB_CPP_SOURCES = \
+$(PKG)/$(SRC)/clib/cxttp/chttp/cHttp.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormField.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFieldInterface.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/cHttpFormFieldItem.cpp \
@@ -74,6 +75,7 @@ $(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiContentStream.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiContentStreamInterface.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiInterface.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgi.cpp \
+$(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiMain.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiXmlWriter.cpp \
 $(PKG)/$(SRC)/clib/cxttp/chttp/ccgi/cCgiXmlWriterInterface.cpp \
 

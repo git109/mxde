@@ -1,5 +1,5 @@
 ########################################################################
-# Copyright (c) 1988-2013 $organization$
+# Copyright (c) 1988-2015 $organization$
 #
 # This software is provided by the author and contributors ``as is'' 
 # and any express or implied warranties, including, but not limited to, 
@@ -13,27 +13,38 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: ccgicc.pri
+#   File: ccgicc.pro
 #
 # Author: $author$
-#   Date: 11/2/2013
+#   Date: 1/14/2015
 ########################################################################
-ccgicc_INCLUDEPATH += \
-${HOME}/build/cgicc/include/cgicc \
-${HOME}/build/cgicc/include \
-$${PKG}/$${SRC}/clib/cxttp/chttp/ccgi \
-$${PKG}/$${SRC}/clib/cxttp/chttp \
-$${PKG}/$${SRC}/clib/cxttp \
-$${PKG}/$${SRC}/clib/cxml \
+PKG = ../../../../..
+SRC = src
+BLD = ../..
 
-ccgicc_DEFINES += \
+include(../../cbase.pri)
+include(../../ccgicc.pri)
+include(../../cxttp.pri)
 
-ccgicc_HEADERS += \
+TARGET = ccgicc
 
-ccgicc_SOURCES += \
+INCLUDEPATH += \
+$${ccgicc_INCLUDEPATH} \
+$${cxttp_INCLUDEPATH} \
+$${cbase_INCLUDEPATH} \
 
-ccgicc_LIBS += \
--L$${BLD}/lib/libccgicc \
--lccgicc \
--L${HOME}/build/cgicc/lib \
--lcgicc \
+DEFINES += \
+
+HEADERS += \
+$${PKG}/$${SRC}/capp/ccgicc/cCgiccCgi.hpp \
+
+SOURCES += \
+$${PKG}/$${SRC}/capp/ccgicc/cCgiccCgi.cpp \
+$${PKG}/$${SRC}/clib/cxttp/chttp/ccgi/cCgi_main.cpp \
+
+LIBS += \
+$${ccgicc_LIBS} \
+$${cxttp_LIBS} \
+$${cbase_LIBS} \
+-lpthread \
+-ldl \
