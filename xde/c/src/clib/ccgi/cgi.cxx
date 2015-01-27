@@ -20,9 +20,7 @@
  *   Date: 3/3/2008
  **********************************************************************
  */
-#include "cargmain.hxx"
-#include "cdebug.hxx"
-#include "ccgi.h"
+#include "cgi.hxx"
 
 #define CGI_DEBUG_LEVELS 0
 

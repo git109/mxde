@@ -27,7 +27,14 @@
 #include "cplatform.h"
 #include <stdio.h>
 
+#if !defined(DB_PRINTF)
 #define DB_PRINTF printf
+#else /* !defined(DB_PRINTF) */
+#if !defined(NO_CDEBUG_PRINTF)
+#define CDEBUG_PRINTF DB_PRINTF
+#else /* !defined(NO_CDEBUG_PRINTF) */
+#endif /* !defined(NO_CDEBUG_PRINTF) */
+#endif /* !defined(DB_PRINTF) */
 
 #if defined(WIN32) 
 /* Windows
@@ -166,6 +173,11 @@ PLATFORM_EXPORT extern
 PLATFORM_IMPORT extern
 #endif /* defined(DEBUG_EXPORT) */
 TDEBUG_LEVEL DEBUG_LEVELS;
+
+#if defined(CDEBUG_PRINTF)
+extern int CDEBUG_PRINTF(const char* format, ...);
+#else /* defined(CDEBUG_PRINTF) */
+#endif /* defined(CDEBUG_PRINTF) */
 
 #if defined(__cplusplus)
 }
