@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="xde-xerces-xalan">
+
+
+    <!--===============================================-->
+
+    <UserMacro
+		Name="XML_XERCES_XALAN"
+		Value="$(THIRDPARTY)\xerces"
+	/>
+
+    <UserMacro
+		Name="XML_XERCES"
+		Value="$(XML_XERCES_XALAN)\xerces-c-src_2_8_0"
+	/>
+    <UserMacro
+		Name="XML_XALAN"
+		Value="$(XML_XERCES_XALAN)\Xalan-C_1_8_0"
+	/>
+    <UserMacro
+		Name="XML_XERCES_C_ROOT"
+		Value="$(XML_XERCES)"
+	/>
+    <UserMacro
+		Name="XML_XALAN_C_ROOT"
+		Value="$(XML_XALAN)"
+	/>
+
+    <UserMacro
+		Name="XML_XERCES_XALAN_C_BUILD"
+		Value="build\$(PlatformName)\$(VCVersion)\$(ConfigurationName)"
+	/>
+    
+    <UserMacro
+		Name="XML_XERCES_C_LIB"
+		Value="$(XML_XERCES_C_ROOT)\$(XML_XERCES_XALAN_C_BUILD)\lib"
+	/>
+    <UserMacro
+		Name="XML_XERCES_C_SRC"
+		Value="$(XML_XERCES_C_ROOT)\src"
+	/>
+    <UserMacro
+		Name="XML_XERCES_C_SRC_XERCESC"
+		Value="$(XML_XERCES_C_SRC)\xercesc"
+	/>
+    
+    <UserMacro
+		Name="XML_XALAN_C_LIB"
+		Value="$(XML_XALAN_C_ROOT)\$(XML_XERCES_XALAN_C_BUILD)\lib"
+	/>
+    <UserMacro
+		Name="XML_XALAN_C_SRC"
+		Value="$(XML_XALAN_C_ROOT)\src"
+	/>
+    <UserMacro
+		Name="XML_XALAN_C_SRC_XALANC"
+		Value="$(XML_XALAN_C_SRC)\xalanc"
+	/>
+
+    <UserMacro
+		Name="XML_XERCES_INCLUDES"
+		Value="$(XML_XERCES_C_SRC);$(XML_XERCES_C_SRC_XERCESC)"
+	/>
+    <UserMacro
+		Name="XML_XERCES_LIBDIRS"
+		Value="$(XML_XERCES_C_LIB)"
+	/>
+    <UserMacro
+		Name="XML_XERCES_DEBUG_LIBS"
+		Value="xerces-c_2_8D.lib xerces-depdom_2_8D.lib"
+	/>
+    <UserMacro
+		Name="XML_XERCES_RELEASE_LIBS"
+		Value="xerces-c_2_8.lib xerces-depdom_2_8.lib"
+	/>
+    <UserMacro
+		Name="XML_XERCES_LIBS"
+		Value="$(XML_XERCES_RELEASE_LIBS)"
+	/>
+
+    <UserMacro
+		Name="XML_XALAN_INCLUDES"
+		Value="$(XML_XALAN_C_SRC);$(XML_XALAN_C_SRC_XALANC);$(XML_XERCES_INCLUDES)"
+	/>
+    <UserMacro
+		Name="XML_XALAN_LIBDIRS"
+		Value="$(XML_XALAN_C_LIB);$(XML_XERCES_LIBDIRS)"
+	/>
+    <UserMacro
+		Name="XML_XALAN_DEBUG_LIBS"
+		Value="Xalan-C_1_8D.lib $(XML_XERCES_DEBUG_LIBS)"
+	/>
+    <UserMacro
+		Name="XML_XALAN_RELEASE_LIBS"
+		Value="Xalan-C_1_8.lib $(XML_XERCES_RELEASE_LIBS)"
+	/>
+    <UserMacro
+		Name="XML_XALAN_LIBS"
+		Value="$(XML_XALAN_RELEASE_LIBS)"
+	/>
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>
