@@ -27,7 +27,10 @@
 %copyright_author,%(%else-then(%copyright_author%,%(%else-then(%organization%,%(%author%)%)%)%)%)%,%
 %copyright_text,%(%else-then(%copyright_text%,%else-then(%include(%filepath%/%organization%-copyright.t)%,%(Copyright (c) %first_year%%year% %copyright_author%)%)%)%)%,%
 %%(%
+%%parse(%copyright_text%,%(
+)%,,,%(%
 %%do(%left_separator%)%%
 %%padd( %copyright_text%, ,%separator_padd%)%%
 %%do(%right_separator%)%%
+%)%,copyright_text)%%
 %)%)%

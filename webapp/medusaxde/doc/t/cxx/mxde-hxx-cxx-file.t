@@ -31,11 +31,11 @@
 %%if(%file_hxx%,%(%
 %%include(%filepath%/mxde-%if-then(%style%,%(-)%)%hxx-file-ifdef-begin.t)%%
 %%parse(%include_system%,;,,,,%(%
-%%_#include_% %ii_%%lt%%include%%gt%%_ii%
+%%_#include_% %ii_%%lt%%do(%include%)%%gt%%_ii%
 %
 %)%,include)%%
 %%parse(%include%,;,,,,%(%
-%%_#include_% %ii_%"%include%"%_ii%
+%%_#include_% %ii_%"%do(%include%)%"%_ii%
 %
 %)%,include)%%
 %%parse(%import_system%,;,,,,%(%
@@ -50,11 +50,11 @@
 %%if(%file_cxx%,%(%
 %%if(%no_default_cxx_include%,%(%
 %%parse(%include_system%,;,,,,%(%
-%%_#include_% %ii_%%lt%%include%%gt%%_ii%
+%%_#include_% %ii_%%lt%%do(%include%)%%gt%%_ii%
 %
 %)%,include)%%
 %%parse(%include%,;,,,,%(%
-%%_#include_% %ii_%"%include%"%_ii%
+%%_#include_% %ii_%"%do(%include%)%"%_ii%
 %
 %)%,include)%%
 %%parse(%import_system%,;,,,,%(%

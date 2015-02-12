@@ -32,7 +32,7 @@
 <!--========================================================================-->
 <!-- Includes                                                               -->
 <!--========================================================================-->
-<xsl:include href="../medusaxde-parameters.xsl"/>
+<!--xsl:include href="../medusaxde-parameters.xsl"/>
 <xsl:include href="../medusaxde-templates.xsl"/>
 <xsl:include href="../medusaxde-form-parameters.xsl"/>
 <xsl:include href="../medusaxde-form-templates.xsl"/>
@@ -41,12 +41,13 @@
 <xsl:include href="medusaxde-cxx-form-parameters.xsl"/>
 <xsl:include href="medusaxde-cxx-form-templates.xsl"/>
 <xsl:include href="medusaxde-cxx-class-form-parameters.xsl"/>
-<xsl:include href="medusaxde-cxx-class-form-templates.xsl"/>
+<xsl:include href="medusaxde-cxx-class-form-templates.xsl"/-->
+<xsl:include href="medusaxde-create-cxx-class-base.xsl"/>
 
 <!--========================================================================-->
 <!-- Parameters                                                             -->
 <!--========================================================================-->
-<xsl:param name="default_xde_form_title_do" select="'Create '"/>
+<!--xsl:param name="default_xde_form_title_do" select="'Create '"/>
 <xsl:param name="default_xde_form_title_what" select="'C++'"/>
 <xsl:param name="default_xde_form_title_what_what_what" select="' Class'"/>
 <xsl:param name="default_xde_form_title_what_file" select="' File'"/>
@@ -69,14 +70,14 @@
     <xsl:value-of select="$default_xde_form_title_what_what_what"/>
     <xsl:value-of select="$default_xde_form_title_what_parameters"/>
 </xsl:param>
-<xsl:param name="default_xde_form_action" select="'/medusaxde/t/cxx/mxde-hxx-cxx-object.t'"/>
 <xsl:param name="default_xde_form_onsubmit_is_location" select="''"/>
-<xsl:param name="default_xde_form_output_type" select="'text'"/>
+<xsl:param name="default_xde_form_output_type" select="'text'"/-->
+<xsl:param name="default_xde_form_action" select="'/medusaxde/t/cxx/mxde-hxx-cxx-object.t'"/>
 
 <!--========================================================================-->
 <!-- Variables                                                              -->
 <!--========================================================================-->
-<xsl:variable name="form_section">
+<!--xsl:variable name="form_section">
     <xsl:choose>
         <xsl:when test="'1' != $form">
             <xsl:value-of select="$default_xde_form_section"/>
@@ -87,7 +88,7 @@
 </xsl:variable>
 <xsl:variable name="form_what_section">
     <xsl:value-of select="$default_xde_form_what_section"/>
-</xsl:variable>
+</xsl:variable-->
 
 <!--========================================================================-->
 <!-- Templates                                                              -->

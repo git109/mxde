@@ -39,11 +39,6 @@
 <!--========================================================================-->
 <!-- Parameters                                                             -->
 <!--========================================================================-->
-<xsl:param name="default_cxx_form_file_is_class" select="'class'"/>
-
-<!--========================================================================-->
-<!-- Parameters                                                             -->
-<!--========================================================================-->
 <xsl:param name="default_xde_form_title_what_what" select="' c?Attached'"/>
 <xsl:param name="default_xde_form_title_what_what_what_what" select="''"/>
 <xsl:param name="default_cxx_form_class_interface" select="'export'"/>

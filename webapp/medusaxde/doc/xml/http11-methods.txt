@@ -1,0 +1,8 @@
+Get
+Post
+Put
+Delete
+Trace
+Connect
+Options
+Head

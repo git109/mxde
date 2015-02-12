@@ -125,11 +125,11 @@
     <!-- menu-item                                                              -->
     <!--========================================================================-->
     <menu-item id="ifdefs"
-         is_location_query_and="yes" 
-         is_location_query_and_for="yes" 
-         is_location_query_and_using="yes" 
+         is_location_query_and="yes"
+         is_location_query_and_for="yes"
+         is_location_query_and_using="yes"
          location_path="/medusaxde/xsl/cxx/"
-         location_query="document_file=../medusaxde.xml&amp;form=1" 
+         location_query="document_file=../medusaxde.xml&amp;form=1"
          location="medusaxde-create-cxx-class-ifdefs.xsl">
         <text>C++ Class #ifdefs</text>
     </menu-item>
@@ -145,7 +145,7 @@
          location_path="/medusaxde/xsl/cxx/"
          location_query="document_file=../medusaxde.xml&amp;form=1" 
          location="medusaxde-create-cxx-class-typedefs.xslt">
-        <text>C++ typedefs</text>
+        <text>C++ Class typedefs</text>
     </menu-item>
     <!--========================================================================-->
     <!-- menu-item                                                              -->
@@ -157,6 +157,20 @@
          location_path="/medusaxde/xsl/cxx/"
          location_query="document_file=../medusaxde.xml&amp;form=1" 
          location="medusaxde-create-cxx-class-defines.xsl">
-        <text>C++ #defines</text>
+        <text>C++ Class #defines</text>
+    </menu-item>
+    <!--==========================================================-->
+    <menu-item is_separator="yes"/>
+    <!--========================================================================-->
+    <!-- menu-item                                                              -->
+    <!--========================================================================-->
+    <menu-item id="getopts"
+         is_location_query_and="yes"
+         is_location_query_and_for="yes"
+         is_location_query_and_using="yes"
+         location_path="/medusaxde/xsl/cxx/"
+         location_query="document_file=../medusaxde.xml&amp;form=1"
+         location="medusaxde-create-cxx-class-getopts.xsl">
+        <text>C++ Class getopts</text>
     </menu-item>
 </medusaxde:menu-section>

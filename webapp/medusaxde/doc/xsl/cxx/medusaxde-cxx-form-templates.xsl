@@ -804,12 +804,13 @@
 <!--     Date: 2/4/2011                                                     -->
 <!--========================================================================-->
 <xsl:template name="cxx_file_form_fields">
-    <xsl:param name="is_param_section" select="'yes'"/>
+    <xsl:param name="is_param_" select="'yes'"/>
+    <xsl:param name="is_param_section" select="$is_param_"/>
     <xsl:param name="section_text" select="''"/>
-    <xsl:param name="is_param_content_type" select="'yes'"/>
+    <xsl:param name="is_param_content_type" select="$is_param_"/>
     <xsl:param name="content_type" select="'text/html'"/>
     <xsl:param name="is_param_for" select="'no'"/>
-    <xsl:param name="is_param_file" select="'yes'"/>
+    <xsl:param name="is_param_file" select="$is_param_"/>
     <xsl:param name="is_param_file_is" select="$is_param_file"/>
     <xsl:param name="is_param_file_case_is" select="$is_param_file"/>
     <xsl:param name="is_param_file_type" select="$is_param_file"/>

@@ -66,12 +66,48 @@
     <!-- for-which                                                              -->
     <!--                                                                        -->
     <!--========================================================================-->
+    <for-which for="evx">
+        <text>Evx</text>
+        <author>$author$</author>
+        <organization>$organization$</organization>
+        <copyright>no</copyright>
+        <open_source>no</open_source>
+        <cxx_file_type>hpp</cxx_file_type>
+        <cxx_file_is_case>lowercase</cxx_file_is_case>
+        <cxx_class_comment>yes</cxx_class_comment>
+        <cxx_function_comment>yes</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
     <for-which for="gnu"
      target="gnu"
      href="/medusaxde/">
         <text>Gnu</text>
         <author>$author$</author>
         <organization>Gnu</organization>
+        <copyright>yes</copyright>
+        <open_source>yes</open_source>
+        <cxx_file_type>hpp</cxx_file_type>
+        <cxx_file_is_case>nocase</cxx_file_is_case>
+        <cxx_class_comment>no</cxx_class_comment>
+        <cxx_function_comment>no</cxx_function_comment>
+    </for-which>
+
+    <!--========================================================================-->
+    <!--                                                                        -->
+    <!-- for-which                                                              -->
+    <!--                                                                        -->
+    <!--========================================================================-->
+    <for-which for="ssh"
+     target="ssh"
+     href="/medusaxde/">
+        <text>Ssh</text>
+        <author>$author$</author>
+        <organization>Ssh</organization>
         <copyright>yes</copyright>
         <open_source>yes</open_source>
         <cxx_file_type>hpp</cxx_file_type>

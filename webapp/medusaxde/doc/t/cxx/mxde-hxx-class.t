@@ -32,7 +32,7 @@
 %class_template_parameter_extends,%(%if(%extends_pattern_tc%,%
 %%(%else(%parse(%Extends%,;,,;,,,)%,%(%_class_% TExtends=T%Extends%)%)%)%)%)%,%
 %class_template_parameter_item,%(%parameters(class_template_parameters_item,;)%)%,%
-%class_template_parameter_list,%(;%class_template_parameter_derives%;%class_template_parameter_implement%;%class_template_parameters%%class_template_parameter_item%;%class_template_parameter_extend%;%class_template_parameter_implements%;%class_template_parameter_extends%)%,%
+%class_template_parameter_list,%(%class_template_parameter_derives%;%class_template_parameter_implement%;%class_template_parameters%%class_template_parameter_item%;%class_template_parameter_extend%;%class_template_parameter_implements%;%class_template_parameter_extends%)%,%
 %class_constructor_type,%(%else(%equal(yes,%class_constructor%)%,%(%kk_%%class_constructor%%_kk% )%)%)%,%
 %class_destructor_type,%(%else(%equal(yes,%class_destructor%)%,%(%kk_%%class_destructor%%_kk% )%)%)%,%
 %classes_or_nofile,%(%if(%object_class%,%(%if(%file%,%(%classes%)%,%(true)%)%)%)%)%,%
@@ -41,9 +41,11 @@
 %%if(%Class%,%(%
 %%
 %%if(%class_template%%class_pattern_tc%%implements_pattern_tc%%extends_pattern_tc%,%(%
+%%else-no(%cbases%,%(%
 %%_#undef_% CDB_CLASS
 %_#define_% CDB_CLASS "%Full_class_name%"
 %
+%)%)%%
 %)%)%%
 %%if(%classes_or_nofile%,%(%
 %
@@ -57,8 +59,12 @@
 %%if(%class_template%%class_pattern_tc%%implements_pattern_tc%%extends_pattern_tc%,%(%
 %%kk_%template%_kk%%if(%class_template_parameter_list%,%(
 )%)%%lt%%
-%%parse(%class_template_parameter_list%,;,,%(%if(%t%,%(,
- )%)%)%,,%(%do(%t%)%)%,t)%%
+%%with(%
+%list,%(%parse(%class_template_parameter_list%,;,,,,%(%if-then(%t%,;)%)%,t)%)%,%
+%%(%
+%%parse(%list%,;,,%(,
+ )%,,%(%do(%t%)%)%,t)%%
+%)%)%%
 %%gt%
 %
 %)%)%%
@@ -73,7 +79,7 @@
 %%kk_%virtual%_kk% %_implements_access_%%
 %%if(%class_template_parameter_implements%,%(TImplements)%,%(%
 %%if(%implements_pattern_tc%%implements_pattern_t%,%(T)%,%
-%%(%Implements_prefix%)%)%%Implements%%
+%%(%Implements_prefix%)%)%%do(%Implements%)%%
 %)%)%%
 %)%,Implements)%%
 %%if(%and(%Implements%,%Extends%)%,%(%(,)%%else(%is_kr_indent%,%(
@@ -84,7 +90,7 @@
 %%_extends_access_%%
 %%if(%class_template_parameter_extends%,%(TExtends)%,%(%
 %%if(%extends_pattern_tc%%extends_pattern_t%,%(T)%,%
-%%(%Extends_prefix%)%)%%Extends%%
+%%(%Extends_prefix%)%)%%do(%Extends%)%%
 %)%)%%
 %)%,Extends)%%else(%is_kr_indent%,%(
 )%)%)%)%%
@@ -96,7 +102,7 @@
 %%if(%class_template_parameter_implements%,%(TImplements)%,%
 %%(%
 %%if(%implements_pattern_tc%%implements_pattern_t%,%(T)%,%
-%%(%Implements_prefix%)%)%%Implements%%
+%%(%Implements_prefix%)%)%%do(%Implements%)%%
 %)%)% %cImplements%;
 )%,Implements)%%
 %%
@@ -105,7 +111,7 @@
 %%if(%class_template_parameter_extends%,%(TExtends)%,%
 %%(%
 %%if(%extends_pattern_tc%%extends_pattern_t%,%(T)%,%
-%%(%Extends_prefix%)%)%%Extends%%
+%%(%Extends_prefix%)%)%%do(%Extends%)%%
 %)%)% %cExtends%;
 )%,Extends)%%
 %%
@@ -169,8 +175,10 @@
 %
 %)%)%%
 %%if(%class_template%%class_pattern_tc%%implements_pattern_tc%%extends_pattern_tc%,%(%
+%%else-no(%cbases%,%(%
 %%_#undef_% CDB_CLASS
 %
+%)%)%%
 %)%)%%
 %)%)%%
 %)%)%

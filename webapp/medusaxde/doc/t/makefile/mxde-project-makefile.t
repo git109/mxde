@@ -39,7 +39,7 @@
 %Framework,%(%else-then(%Framework%,%(%framework%)%)%)%,%
 %FRAMEWORK,%(%else-then(%FRAMEWORK%,%(%toupper(%Framework%)%)%)%)%,%
 %framework,%(%else-then(%_Framework%,%(%tolower(%Framework%)%)%)%)%,%
-%pkg_path,%(%else-then(%pkg_path%,%($(PWD))%)%)%,%
+%pkg_path,%(%else-then(%pkg_path%,%()%)%)%,%
 %Pkg_path,%(%else-then(%Pkg_path%,%(%pkg_path%)%)%)%,%
 %PKG_PATH,%(%else-then(%PKG_PATH%,%(%toupper(%Pkg_path%)%)%)%)%,%
 %pkg_path,%(%else-then(%_Pkg_path%,%(%tolower(%Pkg_path%)%)%)%)%,%
@@ -51,11 +51,15 @@
 %Pkg,%(%else-then(%Pkg%,%(%pkg%)%)%)%,%
 %PKG,%(%else-then(%PKG%,%(%toupper(%Pkg%)%)%)%)%,%
 %pkg,%(%else-then(%_Pkg%,%(%tolower(%Pkg%)%)%)%)%,%
+%mak_dir,%(%else-then(%mak_dir%,%(Makefile%then-if(%Tools%,/)%)%)%)%,%
+%Mak_dir,%(%else-then(%Mak_dir%,%(%mak_dir%)%)%)%,%
+%MAK_DIR,%(%else-then(%MAK_DIR%,%(%toupper(%Mak_dir%)%)%)%)%,%
+%mak_dir,%(%else-then(%_Mak_dir%,%(%tolower(%Mak_dir%)%)%)%)%,%
 %prj_path,%(%else-then(%prj_path%,%(c/projects)%)%)%,%
 %Prj_path,%(%else-then(%Prj_path%,%(%prj_path%)%)%)%,%
 %PRJ_PATH,%(%else-then(%PRJ_PATH%,%(%toupper(%Prj_path%)%)%)%)%,%
 %prj_path,%(%else-then(%_Prj_path%,%(%tolower(%Prj_path%)%)%)%)%,%
-%prj_dir,%(%else-then(%prj_dir%,%(%platform%/Makefile)%)%)%,%
+%prj_dir,%(%else-then(%prj_dir%,%(%platform%/%Mak_dir%)%)%)%,%
 %Prj_dir,%(%else-then(%Prj_dir%,%(%prj_dir%)%)%)%,%
 %PRJ_DIR,%(%else-then(%PRJ_DIR%,%(%toupper(%Prj_dir%)%)%)%)%,%
 %prj_dir,%(%else-then(%_Prj_dir%,%(%tolower(%Prj_dir%)%)%)%)%,%
@@ -63,6 +67,10 @@
 %Prj,%(%else-then(%Prj%,%(%prj%)%)%)%,%
 %PRJ,%(%else-then(%PRJ%,%(%toupper(%Prj%)%)%)%)%,%
 %prj,%(%else-then(%_Prj%,%(%tolower(%Prj%)%)%)%)%,%
+%mak,%(%else-then(%mak%,%(%if-then(%Prj_path%,%if(%Mak_dir%,/)%)%%Mak_dir%)%)%)%,%
+%Mak,%(%else-then(%Mak%,%(%mak%)%)%)%,%
+%MAK,%(%else-then(%MAK%,%(%toupper(%Mak%)%)%)%)%,%
+%mak,%(%else-then(%_Mak%,%(%tolower(%Mak%)%)%)%)%,%
 %src_path,%(%else-then(%src_path%,%(c/src)%)%)%,%
 %Src_path,%(%else-then(%Src_path%,%(%src_path%)%)%)%,%
 %SRC_PATH,%(%else-then(%SRC_PATH%,%(%toupper(%Src_path%)%)%)%)%,%
@@ -103,7 +111,7 @@
 %Target,%(%else-then(%Target%,%(%target%)%)%)%,%
 %TARGET,%(%else-then(%TARGET%,%(%toupper(%Target%)%)%)%)%,%
 %target,%(%else-then(%_Target%,%(%tolower(%Target%)%)%)%)%,%
-%ext,%(%else-then(%ext%,%(%if(%equal(SLib,%Exe%)%,%(.so)%,%(%if(%equal(Lib,%Exe%)%,%(.a)%)%)%)%)%)%)%,%
+%ext,%(%else-then(%ext%,%(%if(%equal(SLib,%Exe%)%,%(.$(SLIBEXT))%,%(%if(%equal(Lib,%Exe%)%,%(.$(LIBEXT))%)%)%)%)%)%)%,%
 %Ext,%(%else-then(%Ext%,%(%ext%)%)%)%,%
 %EXT,%(%else-then(%EXT%,%(%toupper(%Ext%)%)%)%)%,%
 %ext,%(%else-then(%_Ext%,%(%tolower(%Ext%)%)%)%)%,%
@@ -123,8 +131,9 @@
 %)%)%%
 %)%,%(%
 %%with(%
+%includefile_rules,%(%else-then(%includefile_rules%,%(%this_includefile_base%-rules.t)%)%)%,%
 %%(%
-%%include(%filepath%/%this_includefile_base%-rules.t)%%
+%%include(%filepath%/%includefile_rules%)%%
 %)%)%%
 %)%)%%
 %)%)%
