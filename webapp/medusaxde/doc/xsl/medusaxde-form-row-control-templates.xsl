@@ -445,6 +445,8 @@
     <xsl:param name="text_font_face" select="$xde_form_font_face"/>
     <xsl:param name="text_font_size" select="$xde_form_font_size"/>
     <xsl:param name="text_font_color" select="$xde_form_font_color"/>
+    <xsl:param name="text_before" select="''"/>
+    <xsl:param name="text_after" select="''"/>
     <xsl:param name="text" select="''"/>
     <xsl:param name="name" select="'noyes'"/>
     <xsl:param name="value"/>
@@ -458,7 +460,7 @@
     <!-- Template Body                                                          -->
     <!--========================================================================-->
     <tr valign="middle">
-           <td nowrap="yes" bgcolor="{$bgcolor}" align="middle">
+           <!--td nowrap="yes" bgcolor="{$bgcolor}" align="middle">
                <font
                 face="{$text_font_face}"
                 size="{$text_font_size}"
@@ -476,6 +478,59 @@
                    <xsl:with-param name="no_value" select="$no_value"/>
                    <xsl:with-param name="default" select="$default"/>
                </xsl:call-template>
+           </td-->
+           <td nowrap="yes" bgcolor="{$bgcolor}" align="right">
+               <table border="{$border}" width="100%"
+                cellspacing="0" cellpadding="0">
+                   <tr>
+                      <td nowrap="yes" align="middle">
+                          <font
+                           face="{$text_font_face}"
+                           size="{$text_font_size}"
+                           color="{$text_font_color}">
+                               <xsl:value-of select="$text"/>
+                          </font>
+                      </td>
+                       <xsl:if test="'' != $text_before">
+                       <td nowrap="yes" align="right">
+                           <font
+                            face="{$text_font_face}"
+                            size="{$text_font_size}"
+                            color="{$text_font_color}">
+                               <b><xsl:value-of select="$text_before"/></b>
+                           </font>
+                       </td>
+                       </xsl:if>
+                   </tr>
+               </table>
+           </td>
+           <td bgcolor="{$bgcolor}" align="left">
+               <table border="{$border}"
+                cellspacing="0" cellpadding="0">
+                   <tr>
+                       <td>
+                           <xsl:call-template name="noyes">
+                               <xsl:with-param name="name" select="$name"/>
+                               <xsl:with-param name="value" select="$value"/>
+                               <xsl:with-param name="yes" select="$yes"/>
+                               <xsl:with-param name="no" select="$no"/>
+                               <xsl:with-param name="yes_value" select="$yes_value"/>
+                               <xsl:with-param name="no_value" select="$no_value"/>
+                               <xsl:with-param name="default" select="$default"/>
+                           </xsl:call-template>
+                       </td>
+                       <xsl:if test="'' != $text_after">
+                           <td align="left">
+                               <font
+                                face="{$text_font_face}"
+                                size="{$text_font_size}"
+                                color="{$text_font_color}">
+                                   <b><xsl:value-of select="$text_after"/></b>
+                               </font>
+                           </td>
+                       </xsl:if>
+                   </tr>
+               </table>
            </td>
     </tr>
 </xsl:template>

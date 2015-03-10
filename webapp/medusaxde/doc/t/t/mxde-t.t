@@ -48,8 +48,11 @@
 %comment_fields_opensource,%(%else-then(%comment_fields_opensource%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
 %comment_fields_author,%(%else-then(%comment_fields_author%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
 %comment_fields_date,%(%else-then(%comment_fields_date%,%(%else(%is_comment_fields%,%(yes)%)%)%)%)%,%
+%ul_parameters,%(%else-then(%ul_parameters%,%(yes)%)%)%,%
+%sg_parameters,%(%else-then(%sg_parameters%,%(no)%)%)%,%
 %ul_parameters,%(%else-no(%ul_parameters%,%(%ul_parameters%)%)%)%,%
 %sg_parameters,%(%else-no(%sg_parameters%,%(%sg_parameters%)%)%)%,%
+%parameter,%(%else-then(%parameter%,%()%)%)%,%
 %derived_fileinclude,%(%derived_includefile%)%,%
 %derived_includefile,%()%,%
 %%(%
