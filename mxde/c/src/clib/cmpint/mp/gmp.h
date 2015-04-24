@@ -441,6 +441,7 @@ mp_limb_t mpn_submul_1 _PROTO ((mp_ptr, mp_srcptr, mp_size_t, mp_limb_t));
 }
 #endif
 
+#if !defined(_NO_INLINES) || defined (_FORCE_INLINES)
 #if defined (__GNUC__) || defined (_FORCE_INLINES)
 _EXTERN_INLINE mp_limb_t
 #if defined (__STDC__) || defined (__cplusplus)
@@ -584,6 +585,7 @@ mpn_sub (res_ptr, s1_ptr, s1_size, s2_ptr, s2_size)
   return cy_limb;
 }
 #endif /* __GNUC__ */
+#endif /* !defined(_NO_INLINES) || defined (_FORCE_INLINES) */
 
 /* Allow faster testing for negative, zero, and positive.  */
 #define mpz_sgn(Z) ((Z)->_mp_size < 0 ? -1 : (Z)->_mp_size > 0)
