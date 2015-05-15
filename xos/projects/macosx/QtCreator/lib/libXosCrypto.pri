@@ -19,54 +19,60 @@
 #   Date: 4/29/2014
 ########################################################################
 
-XosMxde_INCLUDEPATH += \
-$${XOS_MXDE_SRC}/clib/ccrypto \
-
 ########################################################################
+# bn
+XosBn_INCLUDEPATH = \
+$${XOS_SRC}/thirdparty/openssl/bn \
 
-XosBn_INCLUDEPATH += \
-$${XOS_MXDE_SRC}/clib/cmpint/bn \
-
-XosBn_LIBS += \
--L$${XOS_MXDE_LIB}/libbn \
+XosBn_LIBS = \
+-L$${XOS_LIB}/libbn \
 -lbn \
 
 ########################################################################
+# mp
+XosMp_INCLUDEPATH = \
+$${XOS_SRC}/thirdparty/gnu/mp \
 
+XosMp_LIBS = \
+-L$${XOS_LIB}/libmp \
+-L$${XOS_LIB}/libmpn \
+-L$${XOS_LIB}/libmpz \
+-lmp \
+-lmpn \
+-lmpz \
+
+########################################################################
+# gmp
 XOS_GMP_VERSION = 5.1.3
 XOS_GMP_SRC = $${XOS_PRJ}/../gmp/gmp-$${XOS_GMP_VERSION}
 XOS_GMP_BLD = $${XOS_BLD}/../../../../../../../build/gmp-$${XOS_GMP_VERSION}
 XOS_GMP_LIB = $${XOS_GMP_BLD}/lib
 
-XosGmp_INCLUDEPATH += \
+XosGmp_INCLUDEPATH = \
 $${XOS_GMP_SRC} \
 
-XosGmp_LIBS += \
+XosGmp_LIBS = \
 -L$${XOS_GMP_LIB} \
 -lgmp \
 
-#XosGmp_INCLUDEPATH += \
-#$${XOS_MXDE_SRC}/clib/cmpint/mp \
 
-#XosGmp_LIBS += \
-#-L$${XOS_MXDE_LIB}/libmp \
-#-L$${XOS_MXDE_LIB}/libmpn \
-#-L$${XOS_MXDE_LIB}/libmpz \
-#-lmp \
-#-lmpn \
-#-lmpz \
+########################################################################
+# Mxde crypto
+libXosMxdeCrypto_INCLUDEPATH += \
+$${XosMxde_INCLUDEPATH} \
+
+libXosMxdeCrypto_LIBS += \
+-L$${XOS_LIB}/libXosMxdeCrypto \
+-lXosMxdeCrypto \
 
 ########################################################################
 
 libXosCrypto_INCLUDEPATH += \
-$${XosMxde_INCLUDEPATH} \
 $${XosBn_INCLUDEPATH} \
-$${XosGmp_INCLUDEPATH} \
+$${XosMp_INCLUDEPATH} \
 
 libXosCrypto_LIBS += \
 -L$${XOS_LIB}/libXosCrypto \
 -lXosCrypto \
--L$${XOS_LIB}/libXosMxdeCrypto \
--lXosMxdeCrypto \
 $${XosBn_LIBS} \
-$${XosGmp_LIBS} \
+$${XosMp_LIBS} \

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\platform\windows\unix\sys\socket.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\platform\windows\unix\sys\time.cpp" />
     <ClCompile Include="..\..\..\..\..\src\thirdparty\gnu\getopt\getopt.c" />
     <ClCompile Include="..\..\..\..\..\src\thirdparty\gnu\getopt\getopt1.c" />
     <ClCompile Include="..\..\..\..\..\src\thirdparty\gnu\getopt\getopt_init.c" />
@@ -46,6 +48,7 @@
     <ClCompile Include="..\..\..\..\..\src\xos\os\FILEStream.cpp" />
     <ClCompile Include="..\..\..\..\..\src\xos\os\Main.cpp" />
     <ClCompile Include="..\..\..\..\..\src\xos\os\MainBase.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\xos\os\MainOpt.cpp" />
     <ClCompile Include="..\..\..\..\..\src\xos\os\StreamLogger.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

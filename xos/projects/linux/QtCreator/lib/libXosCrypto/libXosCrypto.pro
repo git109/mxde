@@ -21,25 +21,23 @@
 # QtCreator project for Static Library libXosCrypto
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../../../QtCreator/lib/libXosCrypto.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = XosCrypto
-
 TEMPLATE = lib
-
 CONFIG += staticlib
 
 INCLUDEPATH += \
-$${libXosCore_INCLUDEPATH} \
-$${XosMxde_INCLUDEPATH} \
+$${libXosCrypto_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \
 
+HEADERS += \
+$${libXosCrypto_HEADERS} \
+
 SOURCES += \
-$${XOS_SRC}/xos/crypto/hash/mxde/Hash.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Md5.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Sha1.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Sha256.cpp \
-$${XOS_SRC}/xos/crypto/hash/mxde/Sha512.cpp \
+$${libXosCrypto_SOURCES} \
 
 

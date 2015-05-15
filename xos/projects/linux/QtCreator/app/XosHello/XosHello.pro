@@ -19,26 +19,24 @@
 #   Date: 9/8/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../../../QtCreator/lib/XosHello.pri)
 
 TARGET = XosHello
 
 INCLUDEPATH += \
-$${libXosCore_INCLUDEPATH} \
+$${XosHello_INCLUDEPATH} \
 
 DEFINES += \
-$${libXosCore_DEFINES} \
+$${XosHello_DEFINES} \
 
 HEADERS += \
-$${XOS_SRC}/app/console/Hello/Hello.hpp \
+$${XosHello_HEADERS} \
 
 SOURCES += \
-$${XOS_SRC}/app/console/Hello/Hello.cpp \
-$${XOS_SRC}/xos/os/Main_main.cpp \
+$${XosHello_SOURCES} \
 
 LIBS += \
-$${libXosCore_LIBS} \
+$${XosHello_LIBS} \
 -lpthread \
 -ldl \
 -lrt \
-
-

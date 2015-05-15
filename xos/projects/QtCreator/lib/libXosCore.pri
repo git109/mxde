@@ -199,7 +199,36 @@ $${XOS_BLD}/../../../../../mxde/c/build/macosx/QtCreator/Debug/lib \
 
 XosMxde_INCLUDEPATH += \
 $${XOS_SRC}/xos/mxde \
+$${XOS_MXDE_SRC}/clib/ccrypto \
 $${XOS_MXDE_SRC}/clib/cos/cplatform \
 $${XOS_MXDE_SRC}/clib/cos \
 $${XOS_MXDE_SRC}/clib/cbase \
+
+########################################################################
+# bn
+XOS_BN_SRC = \
+$${XOS_SRC}/thirdparty/openssl/bn \
+
+XosBn_INCLUDEPATH = \
+$${XOS_BN_SRC} \
+
+XosBn_LIBS = \
+-L$${XOS_LIB}/libbn \
+-lbn \
+
+########################################################################
+# mp
+XOS_MP_SRC = \
+$${XOS_SRC}/thirdparty/gnu/mp \
+
+XosMp_INCLUDEPATH = \
+$${XOS_MP_SRC} \
+
+XosMp_LIBS = \
+-L$${XOS_LIB}/libmp \
+-lmp \
+-L$${XOS_LIB}/libmpn \
+-lmpn \
+-L$${XOS_LIB}/libmpz \
+-lmpz \
 

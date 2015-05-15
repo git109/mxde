@@ -26,7 +26,7 @@ CONFIG += staticlib
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
-$${libXosCrypto_INCLUDEPATH} \
+$${XosMxde_INCLUDEPATH} \
 
 DEFINES += \
 $${libXosCore_DEFINES} \

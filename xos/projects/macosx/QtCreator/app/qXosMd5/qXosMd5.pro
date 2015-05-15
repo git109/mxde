@@ -19,12 +19,12 @@
 #   Date: 1/26/2014
 ########################################################################
 include(../../../../QtCreator/lib/libXosCore.pri)
+include(../../lib/libXosCrypto.pri)
 
 TARGET = qXosMd5
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
-$${XosMxde_INCLUDEPATH} \
 ${QTDIR}/include \
 
 DEFINES += \

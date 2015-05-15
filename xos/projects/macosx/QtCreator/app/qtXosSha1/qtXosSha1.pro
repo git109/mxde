@@ -27,7 +27,7 @@ TARGET = qtXosSha1
 
 INCLUDEPATH += \
 $${libXosCore_INCLUDEPATH} \
-$${XosMxde_INCLUDEPATH} \
+$${libXosMxdeCrypto_INCLUDEPATH} \
 ${QTDIR}/include \
 
 DEFINES += \
@@ -47,6 +47,6 @@ libXosCrypto_LIBS += \
 
 LIBS += \
 $${libXosCore_LIBS} \
-$${libXosCrypto_LIBS} \
+$${libXosMxdeCrypto_LIBS} \
 
 QT += opengl
