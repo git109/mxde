@@ -200,6 +200,11 @@ public:
     virtual void LogFormatted
     (const Level& level, const Location& location, const char* format, ...) = 0; 
 
+    virtual void Log
+    (const Level& level, const Message& message) = 0; 
+    virtual void LogFormatted
+    (const Level& level, const char* format, ...) = 0; 
+
     virtual void EnableFor(const Level& level) = 0;
     virtual Level EnabledFor() const = 0;
     virtual bool IsEnabledFor(const Level& level) const = 0;
@@ -256,6 +261,15 @@ if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
 if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
    logger->LogFormatted(level, XOS_LOGGER_LOCATION, format, ##__VA_ARGS__); } }
 
+#define XOS_LOG_MESSAGE(logger, level, message) { \
+if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
+   ::xos::Logger::Message oss_; \
+   logger->Log(level, oss_ << message); } }
+
+#define XOS_LOG_MESSAGEF(logger, level, format, ...) { \
+if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
+   logger->LogFormatted(level, format, ##__VA_ARGS__); } }
+
 #if defined(LOG4CXX)
 // Use log4cxx logging
 //
@@ -297,6 +311,13 @@ if ((logger)?(logger->IsEnabledFor(level)):(false)) {\
 #define XOS_LOG_INFOF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Info, message, ##__VA_ARGS__)
 #define XOS_LOG_DEBUGF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Debug, message, ##__VA_ARGS__)
 #define XOS_LOG_TRACEF(message, ...) XOS_LOGF(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Trace, message, ##__VA_ARGS__)
+
+#define XOS_LOG_MESSAGE_FATAL(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Fatal, message)
+#define XOS_LOG_MESSAGE_ERROR(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Error, message)
+#define XOS_LOG_MESSAGE_WARN(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Warn, message)
+#define XOS_LOG_MESSAGE_INFO(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Info, message)
+#define XOS_LOG_MESSAGE_DEBUG(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Debug, message)
+#define XOS_LOG_MESSAGE_TRACE(message) XOS_LOG_MESSAGE(XOS_DEFAULT_LOGGER, ::xos::Logger::Level::Trace, message)
 
 // default logging levels
 //

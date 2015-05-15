@@ -13,85 +13,74 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Attacher.hpp
+///   File: Key.hpp
 ///
 /// Author: $author$
-///   Date: 4/18/2014
+///   Date: 1/13/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_BASE_ATTACHER_HPP
-#define _XOS_BASE_ATTACHER_HPP
+#ifndef _XOS_CRYPTO_RSA_KEY_HPP
+#define _XOS_CRYPTO_RSA_KEY_HPP
 
-#include "xos/base/Base.hpp"
+#include "xos/base/Created.hpp"
 
 namespace xos {
+namespace crypto {
+namespace rsa {
 
+typedef InterfaceBase KeyInterface;
+typedef ExportBase KeyBase;
 ///////////////////////////////////////////////////////////////////////
-///  Class: AttacherT
+///  Class: KeyImplement
 ///////////////////////////////////////////////////////////////////////
-template
-<class TAttached, class TUnattached = TAttached,
- TUnattached VUnattached = 0, class TImplement = InterfaceBase>
-
-class _EXPORT_CLASS AttacherT: virtual public TImplement {
+class _EXPORT_CLASS KeyImplement: virtual public KeyInterface {
 public:
-    typedef TImplement Implements;
-    typedef TAttached Attached;
-    static const TUnattached Unattached = VUnattached;
+    typedef KeyInterface Implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual Attached Attach(Attached attachedTo) {
-        return ((Attached)(Unattached));
+    virtual unsigned SetModBytes(unsigned to) {
+        return 0;
     }
-    virtual Attached Detach() {
-        return ((Attached)(Unattached));
-    }
-    virtual Attached AttachedTo() const {
-        return ((Attached)(Unattached));
-    }
-    virtual operator Attached() const {
-        return AttachedTo();
+    virtual unsigned ModBytes() const {
+        return 0;
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-
+typedef CreatedBaseT<KeyBase, KeyImplement> KeyExtend;
 ///////////////////////////////////////////////////////////////////////
-///  Class: AttachedT
+///  Class: Key
 ///////////////////////////////////////////////////////////////////////
-template
-<class TAttached, class TUnattached = TAttached, TUnattached VUnattached = 0,
- class TImplement = AttacherT<TAttached, TUnattached, VUnattached, InterfaceBase>,
- class TExtend = ExportBase>
-
-class _EXPORT_CLASS AttachedT: virtual public TImplement, public TExtend {
+class _EXPORT_CLASS Key
+: virtual public KeyImplement, public KeyExtend {
 public:
-    typedef TImplement Implements;
-    typedef TExtend Extends;
-    typedef TAttached Attached;
-    static const TUnattached Unattached = VUnattached;
+    typedef KeyImplement Implements;
+    typedef KeyExtend Extends;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    AttachedT(Attached attachedTo=((Attached)(Unattached))): m_attachedTo(attachedTo){}
-    virtual ~AttachedT(){}
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual Attached Attach(Attached attachedTo){
-        return m_attachedTo = attachedTo;
+    Key(): m_modbytes(0) {
     }
-    virtual Attached Detach(){
-        Attached detached = m_attachedTo;
-        m_attachedTo = ((Attached)(Unattached));
-        return detached;
+    virtual ~Key() {
+        if (!(Destroyed())) {
+            Error error = xos::Error::Failed;
+            throw(error);
+        }
     }
-    virtual Attached AttachedTo() const {
-        return m_attachedTo;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual unsigned SetModBytes(unsigned to) {
+        return m_modbytes = to;
+    }
+    virtual unsigned ModBytes() const {
+        return m_modbytes;
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
-    Attached m_attachedTo;
+    unsigned m_modbytes;
 };
 
-} // namespace xos
+} // namespace rsa 
+} // namespace crypto 
+} // namespace xos 
 
-#endif // _XOS_BASE_ATTACHER_HPP 
+#endif // _XOS_CRYPTO_RSA_KEY_HPP 

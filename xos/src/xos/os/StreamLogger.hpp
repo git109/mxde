@@ -80,6 +80,31 @@ class EXPORT_CLASS StreamLogger
             s->Flush();
         }
     }
+    virtual void Log
+    (const Level& level, const Message& message){
+        Stream* s = 0;
+        if ((IsEnabledFor(level)) && (s = m_attachedTo)){
+            Locker<Stream> locker(*s);
+            s->Write(message.c_str());
+            s->Write("\n");
+            s->Flush();
+        }
+    }
+    virtual void LogFormatted
+    (const Level& level, const char* format, ...){
+        Stream* s = 0;
+        if ((IsEnabledFor(level)) && (s = m_attachedTo)){
+            Locker<Stream> locker(*s);
+            if ((format)) {
+                va_list va;
+                va_start(va, format);
+                s->WriteFormattedV(format, va);
+                va_end(va);
+            }
+            s->Write("\n");
+            s->Flush();
+        }
+    }
     virtual void EnableFor(const Level& level) {
         m_levelEnabled = level;
     }

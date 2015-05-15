@@ -13,85 +13,93 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Attacher.hpp
+///   File: Rc4.hpp
 ///
 /// Author: $author$
-///   Date: 4/18/2014
+///   Date: 5/20/2014
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_BASE_ATTACHER_HPP
-#define _XOS_BASE_ATTACHER_HPP
+#ifndef _XOS_CRYPTO_CIPHER_RC4_HPP
+#define _XOS_CRYPTO_CIPHER_RC4_HPP
 
-#include "xos/base/Base.hpp"
+#include "xos/crypto/cipher/Interface.hpp"
 
 namespace xos {
+namespace crypto {
+namespace cipher {
 
+typedef Interface Rc4Implement;
+typedef Base Rc4Extend;
 ///////////////////////////////////////////////////////////////////////
-///  Class: AttacherT
+///  Class: Rc4
 ///////////////////////////////////////////////////////////////////////
-template
-<class TAttached, class TUnattached = TAttached,
- TUnattached VUnattached = 0, class TImplement = InterfaceBase>
-
-class _EXPORT_CLASS AttacherT: virtual public TImplement {
+class _EXPORT_CLASS Rc4: virtual public Rc4Implement, public Rc4Extend {
 public:
-    typedef TImplement Implements;
-    typedef TAttached Attached;
-    static const TUnattached Unattached = VUnattached;
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual Attached Attach(Attached attachedTo) {
-        return ((Attached)(Unattached));
-    }
-    virtual Attached Detach() {
-        return ((Attached)(Unattached));
-    }
-    virtual Attached AttachedTo() const {
-        return ((Attached)(Unattached));
-    }
-    virtual operator Attached() const {
-        return AttachedTo();
-    }
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-};
+    typedef Rc4Implement Implements;
+    typedef Rc4Extend Extends;
 
-///////////////////////////////////////////////////////////////////////
-///  Class: AttachedT
-///////////////////////////////////////////////////////////////////////
-template
-<class TAttached, class TUnattached = TAttached, TUnattached VUnattached = 0,
- class TImplement = AttacherT<TAttached, TUnattached, VUnattached, InterfaceBase>,
- class TExtend = ExportBase>
+    enum {
+        BLOCKSIZE = 1,
+        KEYMIN    = 8,
+        KEYMAX    = 256,
+        KEYSIZE   = 128,
+        IVMIN     = 0,
+        IVMAX     = 0,
+        IVSIZE    = 0
+    };
 
-class _EXPORT_CLASS AttachedT: virtual public TImplement, public TExtend {
-public:
-    typedef TImplement Implements;
-    typedef TExtend Extends;
-    typedef TAttached Attached;
-    static const TUnattached Unattached = VUnattached;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    AttachedT(Attached attachedTo=((Attached)(Unattached))): m_attachedTo(attachedTo){}
-    virtual ~AttachedT(){}
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual Attached Attach(Attached attachedTo){
-        return m_attachedTo = attachedTo;
+    Rc4() {
     }
-    virtual Attached Detach(){
-        Attached detached = m_attachedTo;
-        m_attachedTo = ((Attached)(Unattached));
-        return detached;
+    virtual ~Rc4() {
     }
-    virtual Attached AttachedTo() const {
-        return m_attachedTo;
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Initialize
+    (const void* key, ssize_t keylen = -1,
+     const void* iv = 0, ssize_t ivlen = -1,
+     const void* padd = 0, ssize_t paddlen = -1);
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t Encrypt
+    (void* out, size_t outsize, const void* in, ssize_t inlen = -1);
+
+    virtual ssize_t Decrypt
+    (void* out, size_t outsize, const void* in, ssize_t inlen = -1);
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t operator()
+    (void* out, size_t outsize, const void* in, ssize_t inlen = -1);
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t KeySizeMin() const {
+        return KEYMIN;
     }
+    virtual ssize_t KeySizeMax() const {
+        return KEYMAX;
+    }
+    virtual ssize_t KeySize() const {
+        return KEYSIZE;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual ssize_t BlockSize() const {
+        return BLOCKSIZE;
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
-    Attached m_attachedTo;
+    uint8_t m_x, m_y, m_data[256];
 };
 
-} // namespace xos
+} // namespace cipher 
+} // namespace crypto 
+} // namespace xos 
 
-#endif // _XOS_BASE_ATTACHER_HPP 
+#endif // _XOS_CRYPTO_CIPHER_RC4_HPP 

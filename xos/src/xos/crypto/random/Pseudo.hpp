@@ -24,6 +24,7 @@
 #include "xos/crypto/random/Generator.hpp"
 #include "xos/crypto/Reader.hpp"
 #include "xos/os/Logger.hpp"
+#include "thirdparty/gnu/glibc/stdlib/rand_r.h"
 
 namespace xos {
 namespace crypto {
@@ -45,6 +46,8 @@ public:
     typedef PseudoExtend Extends;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    Pseudo(unsigned seed): m_avail(0), m_seed(seed), m_rand(0) {
+    }
     Pseudo(): m_avail(0), m_seed(0), m_rand(0) {
     }
     virtual ~Pseudo() {
@@ -91,6 +94,14 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Read(BYTE* bytes, size_t size) {
         return Generate(bytes, size);
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual unsigned Seed(unsigned seed) {
+        m_seed = seed;
+        m_avail = 0;
+        m_rand = 0;
+        return m_seed;
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////

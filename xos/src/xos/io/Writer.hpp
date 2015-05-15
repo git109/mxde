@@ -168,19 +168,20 @@ public:
     ///////////////////////////////////////////////////////////////////////
     virtual ssize_t Write0x
     (const void* bytes, ssize_t length=-1,
-     char A = 'a', char X = 'x', char between = ',') {
-        ssize_t count = Write0X(bytes, length, A, X, between);
+     char A = 'a', char X = 'x', char between = ',', char space = ' ') {
+        ssize_t count = Write0X(bytes, length, A, X, between, space);
         return count;
     }
     virtual ssize_t Write0X
     (const void* bytes, ssize_t length=-1,
-     char A = 'A', char X = 'X', char between = ',') {
+     char A = 'A', char X = 'X', char between = ',', char space = ' ') {
         ssize_t count = 0;
         const uint8_t* byte;
         if ((byte = (const uint8_t*)(bytes))) {
             SizedT zz = (SizedT)('0');
             SizedT zx = (SizedT)(X);
             SizedT t = (SizedT)(between);
+            SizedT s = (SizedT)(space);
             ssize_t amount;
             uint8_t b;
             SizedT x[2];
@@ -190,6 +191,11 @@ public:
                         if (0 > (amount = Write((const WhatT*)(&t), 1)))
                             return amount;
                         count += amount;
+                        if ((space)) {
+                            if (0 > (amount = Write((const WhatT*)(&s), 1)))
+                                return amount;
+                            count += amount;
+                        }
                     }
                     if ((X)) {
                         if (0 > (amount = Write((const WhatT*)(&zz), 1)))
@@ -212,6 +218,11 @@ public:
                         if (0 > (amount = Write((const WhatT*)(&t), 1)))
                             return amount;
                         count += amount;
+                        if ((space)) {
+                            if (0 > (amount = Write((const WhatT*)(&s), 1)))
+                                return amount;
+                            count += amount;
+                        }
                     }
                     if ((X)) {
                         if (0 > (amount = Write((const WhatT*)(&zz), 1)))

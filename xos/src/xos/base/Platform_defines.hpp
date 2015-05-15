@@ -52,6 +52,10 @@
 
 #define PLATFORM_EXPORT __declspec(dllexport)
 #define PLATFORM_IMPORT __declspec(dllimport)
+
+#if !defined(PLATFORM_HAS_NO_RAND_R)
+#define PLATFORM_HAS_NO_RAND_R
+#endif // !defined(PLATFORM_HAS_NO_RAND_R)
 // ...
 // Windows
 //
