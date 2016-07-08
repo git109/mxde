@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2016 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: evup.vsprops                                                   -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 7/5/2016                                                       -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="evup">
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="SOURCE_ROOT_DIR"
+        Value="../../../../../.."
+    />
+
+    <UserMacro
+        Name="SOURCE_BUILD_DIR"
+        Value="$(SOURCE_ROOT_DIR)"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="EVUP_GROUP"
+        Value=""
+    />
+    <UserMacro
+        Name="EVUP_NAME"
+        Value="evup"
+    />
+    <UserMacro
+        Name="EVUP_VERSION"
+        Value=""
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="EVUP_DIR"
+        Value="$(EVUP_GROUP)$(EVUP_NAME)$(EVUP_VERSION)"
+    />
+    <UserMacro
+        Name="EVUP_SOURCE_DIR"
+        Value="$(SOURCE_ROOT_DIR)/$(EVUP_DIR)/src"
+    />
+    <UserMacro
+        Name="EVUP_BUILD_DIR"
+        Value="$(SOURCE_BUILD_DIR)/$(EVUP_DIR)/build"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="EVUP_BUILD"
+        Value="$(EVUP_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="EVUP_OBJ"
+        Value="$(EVUP_BUILD)/obj/$(ProjectName)"
+    />
+    <UserMacro
+        Name="EVUP_LIB"
+        Value="$(EVUP_BUILD)/lib"
+    />
+    <UserMacro
+        Name="EVUP_BIN"
+        Value="$(EVUP_BUILD)/bin"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="EVUP_DEFINES"
+        Value=""
+    />
+    <UserMacro
+        Name="EVUP_INCLUDE_DIRS"
+        Value="$(EVUP_SOURCE_DIR)/os/evup;$(EVUP_SOURCE_DIR)/os;$(EVUP_SOURCE_DIR)/file;$(EVUP_SOURCE_DIR)/base;$(EVUP_SOURCE_DIR)"
+    />
+    <UserMacro
+        Name="EVUP_LIB_DIRS"
+        Value="$(EVUP_LIB)"
+    />
+    <UserMacro
+        Name="EVUP_LIBS"
+        Value="libev.lib"
+    />
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>
