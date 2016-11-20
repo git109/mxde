@@ -1395,19 +1395,22 @@ public:
         const char* i;
         char c;
 
-        for (t=text, i=text; (c=*i); i++)
-        {
-            if ('<' != c)
-            if ('>' != c)
-                continue;
-            else 
-            {
-                if (0 < (length = (TLENGTH)(i-t)))
-                    OutputContentText(t, length);
-                OnGT(i);
-            }
-            else 
-            {
+        for (t=text, i=text; (c=*i); i++) {
+            if ('<' != c) {
+                if ('>' != c) {
+                    if ('&' != c) {
+                        continue;
+                    } else {
+                        if (0 < (length = (TLENGTH)(i-t)))
+                            OutputContentText(t, length);
+                        OnAMP(i);
+                    }
+                 } else {
+                    if (0 < (length = (TLENGTH)(i-t)))
+                        OutputContentText(t, length);
+                    OnGT(i);
+                }
+            } else {
                 if (0 < (length = (TLENGTH)(i-t)))
                     OutputContentText(t, length);
                 OnLT(i);
@@ -1449,6 +1452,20 @@ public:
     {
         eError error = e_ERROR_NONE;
         OutputContentText("&gt;");
+        return error;
+    }
+    /**
+     **********************************************************************
+     * Function: OnAMP
+     *
+     *   Author: $author$
+     *     Date: 11/19/2016
+     **********************************************************************
+     */
+    virtual eError OnAMP
+    (const char* text, int token=-1) {
+        eError error = e_ERROR_NONE;
+        OutputContentText("&amp;");
         return error;
     }
     /**
