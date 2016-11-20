@@ -34,6 +34,7 @@ $${XDE_SRC}/clib/ccgi/ctemplatenamelist.hxx \
 $${XDE_SRC}/clib/ccgi/cdocumentnamelist.hxx \
 $${XDE_SRC}/clib/ccgi/ctemplatefilenameitems.hxx \
 $${XDE_SRC}/clib/ccgi/cdocumentfilenameitems.hxx \
+$${XDE_SRC}/clib/cyy/clexercgi.hxx \
 $${XDE_SRC}/clib/cyy/clexercgilex.hxx \
 $${XDE_SRC}/clib/cyy/clexersource.hxx \
 $${XDE_SRC}/clib/cyy/clexertoken.hxx \
@@ -51,6 +52,7 @@ $${XDE_SRC}/clib/ccgi/ctemplatenamelist.cxx \
 $${XDE_SRC}/clib/ccgi/cdocumentnamelist.cxx \
 $${XDE_SRC}/clib/ccgi/ctemplatefilenameitems.cxx \
 $${XDE_SRC}/clib/ccgi/cdocumentfilenameitems.cxx \
+$${XDE_SRC}/clib/cyy/clexercgi.cxx \
 $${XDE_SRC}/clib/cyy/clexercgilex.cxx \
 $${XDE_SRC}/clib/cyy/clexersource.cxx \
 $${XDE_SRC}/clib/cyy/clexertoken.cxx \

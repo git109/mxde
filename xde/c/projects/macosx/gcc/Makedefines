@@ -210,7 +210,7 @@ PKGROOT		=	$(PKG)
 
 .l.cxx:
 	@echo Generating Lexer $@ from $< ...
-	@$(BFLEX) -+vLI -S$(XDE_SRC)/cyy/yylexer.skl -o$@ $<
+	@$(BFLEX) -+vLI -S$(PKG)/$(SRC)/clib/cyy/yylexer.skl -o$@ $<
 
 .y.cxx:
 	@echo Generating Parser $@ from $< ...
