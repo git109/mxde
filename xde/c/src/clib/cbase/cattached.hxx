@@ -164,7 +164,7 @@ public:
  **********************************************************************
  */
 typedef cAttachedT
-<HANDLE, HANDLE, V_INVALID_HANDLE, 
+<HANDLE, HANDLE, V_INVALID_HANDLE,
  cAttachedInterface, cBase>
 cAttached;
 
