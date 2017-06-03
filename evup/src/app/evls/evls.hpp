@@ -16,6 +16,9 @@
 #include "cevcompares.hpp"
 #include "cevmain.hpp"
 
+#include <string>
+#include <set>
+
 #define DEFAULT_EVLS_PATH "c:/temp"
 
 #define DEFAULT_EVLS_SKIP_PATTERNS \
@@ -64,7 +67,10 @@ public:
     bool m_outputNameOnly;
     bool m_outputSourceOnly;
     bool m_outputTargetOnly;
+    bool m_outputUniqueOnly;
     bool m_excludeFileSymbolicLinks;
+
+    std::set<std::string> m_duplicate;
 
     CEvString m_skip;
     CEvFileMatch m_fileSkip;
@@ -117,6 +123,7 @@ public:
      bool outputNameOnly=false,
      bool outputSourceOnly=false,
      bool outputTargetOnly=false,
+     bool outputUniqueOnly=false,
      bool excludeFileSymbolicLinks=false)
     : m_oldEvents(0),
       m_isRecursive(false),
@@ -132,6 +139,7 @@ public:
       m_outputNameOnly(outputNameOnly),
       m_outputSourceOnly(outputSourceOnly),
       m_outputTargetOnly(outputTargetOnly),
+      m_outputUniqueOnly(outputUniqueOnly),
       m_excludeFileSymbolicLinks(excludeFileSymbolicLinks),
       m_outputBetween(" ")
     {
@@ -236,9 +244,13 @@ public:
         if ((chars2 = m_reflectedPath.Chars(length)) && (1 > length))
             chars2 = 0;
 
-        if ((chars = m_filePath.Chars(length)) && (0 < length))
+        if ((chars = m_filePath.Chars(length)) && (0 < length)) {
+            if ((GetOutputUniqueOnly())) {
+                m_duplicate.clear();
+            }
             m_entryReader.Read
             (chars, chars2, isRecursive, isReflective);
+        }
         return err;
     }
     ///////////////////////////////////////////////////////////////////////
@@ -288,9 +300,6 @@ public:
         LONG length;
         int unequal;
 
-        if ((GetOutputDirectoryOnly()))
-            return error;
-
         if (0 >= (entryType = entry.GetType()))
             return error;
 
@@ -333,8 +342,14 @@ public:
                 return error;
         }
 
-        if ((GetOutputNameOnly()))
+        if ((GetOutputNameOnly())) {
             chars = (chars2 = entry.GetName(length));
+        } else {
+            if ((GetOutputDirectoryOnly())) {
+                chars = path.Chars(length);
+                chars2 = reflectedPath.Chars(length2);
+            }
+        }
 
         if (GetOutputReverse())
         {
@@ -366,13 +381,15 @@ public:
         const char* chars;
         LONG length;
 
-        if ((GetOutputDirectoryOnly()))
-            return error;
-
-        if ((GetOutputNameOnly()))
+        if ((GetOutputNameOnly())) {
             chars = entry.GetName(length);
-        else chars = entryPath.Chars(length);
-
+        } else {
+            if ((GetOutputDirectoryOnly())) {
+                chars = path.Chars(length);
+            } else {
+                chars = entryPath.Chars(length);
+            }
+        }
         if ((chars) && (0 < length))
             OutputPath(chars);
         return error;
@@ -440,6 +457,14 @@ public:
         if ((chars = m_nativeEntryPath.Chars(length)) && (0 < length))
             pathChars = chars;
 
+        if ((pathChars) && (pathChars[0])
+            && (GetOutputDirectoryOnly()) && (GetOutputUniqueOnly())) {
+            std::string path(pathChars);
+            if (m_duplicate.end() != (m_duplicate.find(path))) {
+                return count;
+            }
+            m_duplicate.insert(path);
+        }
         if ((chars = m_outputBefore.Chars(length)) && (0 < length))
             count += printf("%s", chars);
 
@@ -472,6 +497,14 @@ public:
         if ((chars = m_nativeReflectedEntryPath.Chars(length)) && (0 < length))
             pathChars2 = chars;
 
+        if ((pathChars) && (pathChars[0])
+            && (GetOutputDirectoryOnly()) && (GetOutputUniqueOnly())) {
+            std::string path(pathChars);
+            if (m_duplicate.end() != (m_duplicate.find(path))) {
+                return count;
+            }
+            m_duplicate.insert(path);
+        }
         if ((chars = m_outputBefore.Chars(length)) && (0 < length))
             count += printf("%s", chars);
 
@@ -1138,9 +1171,7 @@ public:
     //   Author: $author$
     //     Date: 8/2/2009
     ///////////////////////////////////////////////////////////////////////
-    virtual int SetOutputDirectoryOnly
-    (bool on=true)
-    {
+    virtual int SetOutputDirectoryOnly(bool on=true) {
         m_outputDirectoryOnly = on;
         return m_outputDirectoryOnly;
     }
@@ -1150,9 +1181,28 @@ public:
     //   Author: $author$
     //     Date: 8/2/2009
     ///////////////////////////////////////////////////////////////////////
-    virtual bool GetOutputDirectoryOnly() const
-    {
+    virtual bool GetOutputDirectoryOnly() const {
         return m_outputDirectoryOnly;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    // Function: SetOutputUniqueOnly
+    //
+    //   Author: $author$
+    //     Date: 8/2/2009
+    ///////////////////////////////////////////////////////////////////////
+    virtual int SetOutputUniqueOnly(bool on=true) {
+        m_outputUniqueOnly = on;
+        return m_outputUniqueOnly;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    // Function: GetOutputUniqueOnly
+    //
+    //   Author: $author$
+    //     Date: 8/2/2009
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool GetOutputUniqueOnly() const {
+        return m_outputUniqueOnly;
     }
 
     ///////////////////////////////////////////////////////////////////////

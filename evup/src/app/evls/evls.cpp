@@ -313,6 +313,47 @@ public:
 } g_lsDirectoryOnlyArg;
 
 ///////////////////////////////////////////////////////////////////////
+//  Class: CEvLsUniqueOnlyMainArg
+//
+// Author: $author$
+//   Date: 8/2/2009
+///////////////////////////////////////////////////////////////////////
+class CEvLsUniqueOnlyMainArg
+: public CEvMainArg
+{
+public:
+    typedef CEvMainArg CExtends;
+    typedef CEvLsUniqueOnlyMainArg CDerives;
+    ///////////////////////////////////////////////////////////////////////
+    // Constructor: CEvLsUniqueOnlyMainArg
+    //
+    //       Author: $author$
+    //         Date: 8/2/2009
+    ///////////////////////////////////////////////////////////////////////
+    CEvLsUniqueOnlyMainArg
+    (const char* shortName="Q",
+     const char* longName="unique-only",
+     const char* description="Output Unique Only",
+     const char* parameters="")
+    : CExtends(shortName, longName, description, parameters)
+    {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    // Function: MainArg
+    //
+    //   Author: $author$
+    //     Date: 8/2/2009
+    ///////////////////////////////////////////////////////////////////////
+    virtual int MainArg
+    (int args, int argn, const char *arg,
+     int argc, const char** argv, const char** env)
+    {
+        g_lsMain.SetOutputUniqueOnly();
+        return argn;
+    }
+} g_lsUniqueOnlyArg;
+
+///////////////////////////////////////////////////////////////////////
 //  Class: CEvLsNameMainArg
 //
 // Author: $author$
