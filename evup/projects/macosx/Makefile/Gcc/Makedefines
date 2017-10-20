@@ -30,8 +30,12 @@ else
 DBGFLAGS = -D_RELEASE
 endif
 
+ifndef OS
+OS = macosx
+endif
+
 ifndef BLD
-BLD = build/macosx
+BLD = build/$(OS)
 endif
 
 ifndef INS

@@ -30,8 +30,12 @@ else
 DBGFLAGS = -D_RELEASE
 endif
 
+ifndef OS
+OS = linux
+endif
+
 ifndef BLD
-BLD = build/linux
+BLD = build/$(OS)
 endif
 
 ifndef INS

@@ -20,9 +20,11 @@
 #
 # Gcc Makefile for evup
 ########################################################################
-#
-# EVUP defines
-#
+NADIR_PKG = $(PKG)/../nadir
+NADIR_BLD = $(NADIR_PKG)/build/$(OS)/$(BUILD_TYPE)
+NADIR_LIB = $(NADIR_BLD)/lib
+NADIR_BIN = $(NADIR_BLD)/bin
+
 EVUP_SRC = $(PKG)/$(SRC)
 
 #
@@ -60,6 +62,7 @@ evup_USRLDFLAGS += \
 # user libdirs
 #
 evup_USRLIBDIRS += \
+-L$(NADIR_LIB)
 
 #
 # libs
