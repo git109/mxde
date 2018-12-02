@@ -136,7 +136,7 @@ public:
         if (0 < waitMilliSeconds)
         {
             time_t seconds = (waitMilliSeconds/1000);
-            long nseconds = (waitMilliSeconds%1000)*1000;
+            long nseconds = ((waitMilliSeconds%1000)*1000)*1000;
             struct timespec ts;
             
             DBT(("() seconds = %ld, nseconds = %ld\n", seconds, nseconds));

@@ -47,8 +47,18 @@ pthread_mutexattr_t;
 /* Unix
  */
 #include <errno.h>
+#include <string.h>
 #include <time.h>
 #include <pthread.h>
+
+#if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
+#define PTHREAD_MUTEX_HAS_TIMEDLOCK
+#else // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
+#define PTHREAD_MUTEX_HAS_TIMEDLOCK
+#define pthread_mutex_timedlock(m, t) EINVAL
+#define clock_gettime(f, t) EINVAL
+#endif // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
+
 #define INVALID_MUTEX 0
 typedef struct SECURITY_ATTRIBUTES* LPSECURITY_ATTRIBUTES;
 typedef pthread_mutex_t* MUTEX;

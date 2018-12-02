@@ -107,14 +107,14 @@
 /* Define MACOSX if any of the Mac OSX
  * variants are selected
  */
-#if defined(__MACOS__) || defined(__MacOSX__) || defined(__macosx__)
+#if defined(__APPLE__) || defined(__MACOS__) || defined(__MACOSX__) || defined(__MacOSX__) || defined(__macosx__)
 #if defined(CPLATFORM_DEFINED_DEBUG) 
 #warning defined MACOSX
 #endif /* defined(CPLATFORM_DEFINED_DEBUG) */
 #if !defined(MACOSX)
 #define MACOSX
 #endif /*  !defined(MACOSX) */
-#endif /*  defined(__MACOS__) || defined(__MacOSX__) || defined(__macosx__) */
+#endif /*  defined(__APPLE__) || defined(__MACOS__) || defined(__MACOSX__) || defined(__MacOSX__) || defined(__macosx__) */
 
 /*
  *

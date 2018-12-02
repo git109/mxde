@@ -92,8 +92,16 @@ public:
     COMMTIMEOUTS m_ct;
 #else /* defined(WINDOWS) */
 /* Unix
+ * ...
  */
+#if defined(MACOSX)
+    struct termios m_termios;
+#else /* defined(MACOSX) */
     struct termio m_termios;
+#endif /* defined(MACOSX) */
+/* ...
+ * Unix
+ */
 #endif /* defined(WINDOWS) */
 
     /**
@@ -477,7 +485,7 @@ public:
 #else /* defined(WINDOWS) */
 /* Unix
  */
-            int err;
+            int err = 1;
             
             /* Clear all of the bits in the termio structure. 
              */
@@ -526,11 +534,17 @@ public:
 
             /* Configure the port using the termios values. 
              */
+#if defined(MACOSX)
+            if ((err)) {
+                return e_ERROR_FAILED;
+            }
+#else /* defined(MACOSX) */
             if ((err = ioctl(attached, TCSETA, &m_termios)))
             {
                 CDBE(("() failed on ioctl(..., TCSETA, ...)\n"));
                 return e_ERROR_FAILED;
             }
+#endif /* defined(MACOSX) */
 #endif /* defined(WINDOWS) */
         }
         else
@@ -582,12 +596,19 @@ public:
 #else /* defined(WINDOWS) */
 /* Unix
  */
-            int err;
+            int err = 1;
+            
+#if defined(MACOSX)
+            if ((err)) {
+                return e_ERROR_FAILED;
+            }
+#else /* defined(MACOSX) */
             if ((err = ioctl(attached, TCSETA, &m_termios)))
             {
                 CDBE(("() failed on ioctl(..., TCSETA, ...)\n"));
                 return e_ERROR_FAILED;
             }
+#endif /* defined(MACOSX) */
 #endif /* defined(WINDOWS) */
             error = e_ERROR_NONE;
         }
@@ -627,12 +648,19 @@ public:
 #else /* defined(WINDOWS) */
 /* Unix
  */
-            int err;
+            int err = 1;
+
+#if defined(MACOSX)
+            if ((err)) {
+                return e_ERROR_FAILED;
+            }
+#else /* defined(MACOSX) */            
             if ((err = ioctl(attached, TCGETA, &m_termios)))
             {
                 CDBE(("() failed on ioctl(..., TCGETA, ...)\n"));
                 return e_ERROR_FAILED;
             }
+#endif /* defined(MACOSX) */
 #endif /* defined(WINDOWS) */
             error = e_ERROR_NONE;
         }

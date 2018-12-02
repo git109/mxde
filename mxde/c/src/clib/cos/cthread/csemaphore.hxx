@@ -68,6 +68,7 @@ class c_INSTANCE_CLASS cSemaphore
 public:
     typedef cSemaphoreImplement cImplements;
     typedef cSemaphoreExtend cExtends;
+
     /**
      **********************************************************************
      *  Constructor: cSemaphore
@@ -81,6 +82,7 @@ public:
      bool isCreated=false) 
     : cExtends(attached, isCreated)
     {
+        memset(&m_sem, 0, sizeof(m_sem));
     }
     /**
      **********************************************************************
@@ -137,6 +139,28 @@ public:
             else
             if (WAIT_TIMEOUT == result)
                 error = e_ERROR_WAIT_TIMEOUT;
+#elif defined(MACOSX)
+            int err = 0;
+            if (0 > waitMilliSeconds) {
+                if (KERN_SUCCESS == (err = semaphore_wait(*attached))) {
+                    error = e_ERROR_NONE;
+                }
+            } else {
+                mach_timespec_t wait_time;
+                wait_time.tv_sec = waitMilliSeconds/1000;
+                wait_time.tv_nsec = ((waitMilliSeconds%1000)*1000)*1000;
+                if (KERN_SUCCESS == (err = semaphore_timedwait(*attached, wait_time))) {
+                    error = e_ERROR_NONE;
+                } else {
+                    if (KERN_OPERATION_TIMED_OUT == (err)) {
+                        error = e_ERROR_WAIT_TIMEOUT;
+                    } else {
+                        if (KERN_ABORTED == (err)) {
+                            error = e_ERROR_WAIT_ABANDONED;
+                        }
+                    }
+                }
+            }
 #else /* defined(WINDOWS_SEMAPHORE_API) */
 /* Unix
  */
@@ -144,7 +168,7 @@ public:
             if (0 < waitMilliSeconds)
             {
                 time_t seconds = (waitMilliSeconds/1000);
-                long nseconds = (waitMilliSeconds%1000)*1000;
+                long nseconds = ((waitMilliSeconds%1000)*1000)*1000;
                 struct timespec ts;
                 
                 if (!(err = clock_gettime(CLOCK_REALTIME, &ts)))
@@ -212,12 +236,19 @@ public:
 		    LONG oldcount;
 		    if (ReleaseSemaphore(attached, count, &oldcount))
 		        error = e_ERROR_NONE;
+#elif defined(MACOSX)
+            int err = 0;
+		    for (TSIZE i = 0; i < count; i++) {
+                if (KERN_SUCCESS != (err = semaphore_signal(*attached))) {
+				    return error;
+                }
+		    }
+		    error = e_ERROR_NONE;
 #else /* defined(WINDOWS_SEMAPHORE_API) */
 /* Unix
  */
-		    for (TSIZE i=0; i<count; i++)
-		    {
-			    int err;
+            int err = 0;
+		    for (TSIZE i = 0; i < count; i++) {
 			    if ((err = sem_post(attached)))
 				    return error;
 		    }
@@ -322,19 +353,23 @@ public:
             (&(SECURITY_ATTRIBUTES&)(sa), 
              lInitialCount, lMaximumCount, lpName)))
             error = e_ERROR_NONE;
-            
+#elif defined(MACOSX)
+        int err = 0;
+        task_t task = mach_task_self();
+        sync_policy_t sync_policy = SYNC_POLICY_FIFO;
+        if ((KERN_SUCCESS == (err = semaphore_create
+             (task, &m_sem, sync_policy, initialCount)))) {
+            detached = &m_sem;
+            error = e_ERROR_NONE;
+        }
 #else /* defined(WINDOWS_SEMAPHORE_API) */
 /* Unix
  */
         int pshared = 0;
-        int err;
-        if (((tAttachedTo)(vUnattached)) != (detached = new sem_t))
-        if (!(err = sem_init(detached, pshared, initialCount)))
+        int err = 0;
+        if (!(err = sem_init(&m_sem, pshared, initialCount))) {
+            detached = &m_sem;
             error = e_ERROR_NONE;
-        else 
-        {
-            delete detached;
-            detached = 0;
         }
 #endif /* defined(WINDOWS_SEMAPHORE_API) */
 #else /* !defined(CSEMAPHORE_MEMBER_FUNCS_IMPLEMENT) */
@@ -395,13 +430,18 @@ public:
  */
         if ((CloseHandle(detached)))
             error = e_ERROR_NONE;
+#elif defined(MACOSX)
+        int err = 0;
+        task_t task = mach_task_self();
+        if (KERN_SUCCESS == (err = semaphore_destroy(task, *detached))) {
+            error = e_ERROR_NONE;
+        }
 #else /* defined(WINDOWS_SEMAPHORE_API) */
 /* Unix
  */
-        int err;
+        int err = 0;
         if (!(err = sem_destroy(detached)))
             error = e_ERROR_NONE;
-        delete detached;
 #endif /* defined(WINDOWS_SEMAPHORE_API) */
 #else /* !defined(CSEMAPHORE_MEMBER_FUNCS_IMPLEMENT) */
         eError error = e_ERROR_NOT_IMPLEMENTED;
@@ -410,6 +450,8 @@ public:
     }
 #endif /* defined(CSEMAPHORE_MEMBER_FUNCS_INTERFACE) */
 #if !defined(CSEMAPHORE_MEMBERS_ONLY)
+protected:
+    mutable SEM_T m_sem;
 };
 
 #if defined(c_NAMESPACE)

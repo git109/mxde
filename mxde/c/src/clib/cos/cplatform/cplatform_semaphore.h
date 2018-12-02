@@ -35,17 +35,40 @@
 /* Windows
  */
 #define INVALID_SEMAPHORE NULL
+typedef HANDLE SEM_T;
 typedef HANDLE SEMAPHORE;
 typedef SECURITY_ATTRIBUTES SEMAPHORE_ATTR;
 #else /* defined(WINDOWS_SEMAPHORE_API) */
 /* Unix
+ * ...
  */
+#if defined(MACOSX)
+/* Mac OSX
+ * ..
+ */
+#include <mach/task.h>
+#include <mach/mach.h>
+#include <mach/semaphore.h>
+
+#define INVALID_SEMAPHORE 0
+typedef semaphore_t SEM_T;
+typedef semaphore_t* SEMAPHORE;
+/* ...
+ * Mac OSX
+ */
+#else /* defined(MACOSX) */
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <time.h>
 #include <semaphore.h>
+
+#if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
+#define SEM_HAS_TIMEDWAIT
+#endif // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
+
 #define INVALID_SEMAPHORE 0
+typedef sem_t SEM_T;
 typedef sem_t* SEMAPHORE;
 typedef int SEMAPHORE_ATTR;
 enum 
@@ -53,6 +76,10 @@ enum
     SEMAPHORE_ATTR_SHARED_THREAD  = 0,
     SEMAPHORE_ATTR_SHARED_PROCESS = 1
 };
+/* ...
+ * Unix
+ */
+#endif /* defined(MACOSX) */
 #endif /* defined(WINDOWS_SEMAPHORE_API) */
 
 #if defined(__cplusplus)
