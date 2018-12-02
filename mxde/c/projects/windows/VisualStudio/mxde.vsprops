@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2018 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: mxde.vsprops                                                   -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 12/2/2018                                                      -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="mxde">
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="MXDE_GROUP"
+        Value=""
+    />
+    <UserMacro
+        Name="MXDE_NAME"
+        Value="mxde"
+    />
+    <UserMacro
+        Name="MXDE_VERSION"
+        Value=""
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="MXDE_DIR"
+        Value="$(MXDE_GROUP)$(MXDE_NAME)$(MXDE_VERSION)"
+    />
+    <UserMacro
+        Name="MXDE_SOURCE_DIR"
+        Value="$(SOURCE_ROOT_DIR)/$(MXDE_DIR)/c/src"
+    />
+    <UserMacro
+        Name="MXDE_BUILD_DIR"
+        Value="$(SOURCE_BUILD_DIR)/$(MXDE_DIR)/build"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="MXDE_BUILD"
+        Value="$(MXDE_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="MXDE_OBJ"
+        Value="$(MXDE_BUILD)/obj/$(ProjectName)"
+    />
+    <UserMacro
+        Name="MXDE_LIB"
+        Value="$(MXDE_BUILD)/lib"
+    />
+    <UserMacro
+        Name="MXDE_BIN"
+        Value="$(MXDE_BUILD)/bin"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="MXDE_DEFINES"
+        Value=""
+    />
+    <UserMacro
+        Name="MXDE_DEBUG_DEFINES"
+        Value="$(MXDE_DEFINES);DEBUG_NON_EXPORT;$(DEPENDS_DEBUG_DEFINES)"
+    />
+    <UserMacro
+        Name="MXDE_RELEASE_DEFINES"
+        Value="$(MXDE_DEFINES);$(DEPENDS_RELEASE_DEFINES)"
+    />
+
+    <!--===============================================-->
+  
+    <UserMacro
+        Name="MXDE_CAPP"
+        Value="$(MXDE_SOURCE_DIR)/capp"
+    />
+    <UserMacro
+        Name="MXDE_CLIB"
+        Value="$(MXDE_SOURCE_DIR)/clib"
+    />
+
+    <UserMacro
+        Name="MXDE_CWIN_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/cwin/cwinpng;$(MXDE_CLIB)/cwin/cwingif;$(MXDE_CLIB)/cwin/cwintiff;$(MXDE_CLIB)/cwin/cwinjpeg;$(MXDE_CLIB)/cwin/cwinbitmap;$(MXDE_CLIB)/cwin/cwincontrol;$(MXDE_CLIB)/cwin/cwinwindow;$(MXDE_CLIB)/cwin/cwinwindowclass;$(MXDE_CLIB)/cwin/cwinmain;$(MXDE_CLIB)/cwin/cwingdi;$(MXDE_CLIB)/cwin"
+    />
+    <UserMacro
+        Name="MXDE_CIMAGE_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/cimage/cwin;$(MXDE_CLIB)/cimage/cx11;$(MXDE_CLIB)/cimage"
+    />
+    <UserMacro
+        Name="MXDE_CCRYPTO_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/ccrypto"
+    />
+    <UserMacro
+        Name="MXDE_CT_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/ct"
+    />
+    <UserMacro
+        Name="MXDE_CCGI_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/cxttp/chttp/ccgi;$(MXDE_CLIB)/cxttp/chttp;$(MXDE_CLIB)/cxttp"
+    />
+    <UserMacro
+        Name="MXDE_CNET_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/cnet"
+    />
+    <UserMacro
+        Name="MXDE_COS_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/cos/windows/getopt;$(MXDE_CLIB)/cos/windows;$(MXDE_CLIB)/cos/cplatform;$(MXDE_CLIB)/cos;$(MXDE_CLIB)/cbase"
+    />
+  
+    <UserMacro
+        Name="MXDE_INCLUDE_DIRS"
+        Value="$(MXDE_CCGI_INCLUDE_DIRS);$(MXDE_CNET_INCLUDE_DIRS);$(MXDE_COS_INCLUDE_DIRS);$(DEPENDS_INCLUDE_DIRS)"
+    />
+    <UserMacro
+        Name="MXDE_LIB_DIRS"
+        Value="$(MXDE_LIB);$(DEPENDS_LIB_DIRS)"
+    />
+    <UserMacro
+        Name="MXDE_LIBS"
+        Value="libcos.lib libcbase.lib libcdebug.lib $(DEPENDS_LIBS)"
+    />
+
+    <UserMacro
+        Name="MXDE_CWINHASH_INCLUDE_DIRS"
+        Value="$(MXDE_CAPP)/cwin/cwinhash;$(MXDE_CWIN_INCLUDE_DIRS);$(MXDE_CIMAGE_INCLUDE_DIRS);$(MXDE_CCRYPTO_INCLUDE_DIRS);$(MXDE_INCLUDE_DIRS)"
+    />
+    <UserMacro
+      Name="MXDE_CWINHASH_LIBS"
+      Value="libcwin.lib libccryptobase.lib $(MXDE_LIBS)"
+    />
+
+  <!--===============================================-->
+
+</VisualStudioPropertySheet>

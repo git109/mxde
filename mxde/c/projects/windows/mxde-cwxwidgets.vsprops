@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--===============================================-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="mxde-cwxwidgets"
+	>
+    
+    <!--===============================================-->
+    
+    <UserMacro
+		Name="WXWIDGETS_GROUP"
+		Value="thirdparty/wxWidgets"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_NAME"
+		Value="wxWidgets"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_VERSION"
+		Value="2.9.1"
+	/>
+
+    <UserMacro
+		Name="WXWIDGETS_DIR"
+		Value="$(WXWIDGETS_GROUP)/$(WXWIDGETS_NAME)-$(WXWIDGETS_VERSION)"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_SOURCE_DIR"
+		Value="$(SOURCE_DIR)/$(WXWIDGETS_DIR)"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_BUILD_DIR"
+		Value="$(WXWIDGETS_SOURCE_DIR)/build"
+	/>
+	
+    <!--===============================================-->
+
+    <UserMacro
+		Name="WXWIDGETS_BUILD"
+		Value="$(WXWIDGETS_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_OBJ"
+		Value="$(WXWIDGETS_BUILD)/obj/$(ProjectName)"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_LIB"
+		Value="$(WXWIDGETS_BUILD)/lib"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_BIN"
+		Value="$(WXWIDGETS_BUILD)/bin"
+	/>
+	
+    <UserMacro
+		Name="WXWIDGETS_INCLUDE_DIRS"
+		Value="$(WXWIDGETS_SOURCE_DIR)/lib/vc_lib/mswud;$(WXWIDGETS_SOURCE_DIR)/include"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_LIB_DIRS"
+		Value="$(WXWIDGETS_LIB)"
+	/>
+	
+    <UserMacro
+		Name="WXWIDGETS_CONSOLE_DEFINES"
+		Value="wxUSE_GUI=0"
+	/>
+    <UserMacro
+		Name="WXWIDGETS_LIBS"
+		Value=""
+	/>
+    <UserMacro
+		Name="WXWIDGETS_DEBUG_LIBS"
+		Value="wxbase29ud.lib wxbase29ud_net.lib"
+	/>
+	
+    <!--===============================================-->
+
+    <UserMacro
+		Name="MXDE_CWXWIDGETS_INCLUDES"
+		Value="$(MXDE_CLIB)/cwxwidgets;$(WXWIDGETS_INCLUDE_DIRS)"
+	/>
+	
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

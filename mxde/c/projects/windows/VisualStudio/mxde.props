@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2018 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: mxde.props                                                     -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 12/2/2018                                                      -->
+<!--========================================================================-->
+<Project
+  ToolsVersion="4.0"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--===============================================-->
+
+  <PropertyGroup Label="UserMacros">
+      <MXDE_GROUP></MXDE_GROUP>
+      <MXDE_NAME>mxde</MXDE_NAME>
+      <MXDE_VERSION></MXDE_VERSION>
+
+      <MXDE_DIR>$(MXDE_GROUP)$(MXDE_NAME)$(MXDE_VERSION)</MXDE_DIR>
+      <MXDE_SOURCE_DIR>$(SOURCE_ROOT_DIR)/$(MXDE_DIR)/src</MXDE_SOURCE_DIR>
+      <MXDE_BUILD_DIR>$(SOURCE_BUILD_DIR)/$(MXDE_DIR)/build</MXDE_BUILD_DIR>
+      <MXDE_BUILD>$(MXDE_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(Configuration)</MXDE_BUILD>
+      <MXDE_OBJ>$(MXDE_BUILD)/obj/$(ProjectName)</MXDE_OBJ>
+      <MXDE_LIB>$(MXDE_BUILD)/lib</MXDE_LIB>
+      <MXDE_BIN>$(MXDE_BUILD)/bin</MXDE_BIN>
+
+      <MXDE_DEFINES></MXDE_DEFINES>
+      <MXDE_DEBUG_DEFINES>$(MXDE_DEFINES);$(DEPENDS_DEBUG_DEFINES)</MXDE_DEBUG_DEFINES>
+      <MXDE_RELEASE_DEFINES>$(MXDE_DEFINES);$(DEPENDS_RELEASE_DEFINES)</MXDE_RELEASE_DEFINES>
+      <MXDE_INCLUDE_DIRS>$(MXDE_SOURCE_DIR)</MXDE_INCLUDE_DIRS>
+      <VC10_MXDE_INCLUDE_DIRS>$(MXDE_INCLUDE_DIRS);$(VC10_DEPENDS_INCLUDE_DIRS)</VC10_MXDE_INCLUDE_DIRS>
+      <VC14_MXDE_INCLUDE_DIRS>$(MXDE_INCLUDE_DIRS);$(VC14_DEPENDS_INCLUDE_DIRS)</VC14_MXDE_INCLUDE_DIRS>
+      <MXDE_LIB_DIRS>$(MXDE_LIB);$(DEPENDS_LIB_DIRS)</MXDE_LIB_DIRS>
+      <MXDE_LIBS>libmxde.lib;$(DEPENDS_LIBS)</MXDE_LIBS>
+  </PropertyGroup>
+
+  <!--===============================================-->
+
+  <ItemGroup>
+      <BuildMacro Include="MXDE_GROUP">
+          <Value>$(MXDE_GROUP)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_NAME">
+          <Value>$(MXDE_NAME)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_VERSION">
+          <Value>$(MXDE_VERSION)</Value>
+      </BuildMacro>
+      
+      <BuildMacro Include="MXDE_DIR">
+          <Value>$(MXDE_DIR)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_SOURCE_DIR">
+          <Value>$(MXDE_SOURCE_DIR)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_BUILD_DIR">
+          <Value>$(MXDE_BUILD_DIR)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_BUILD">
+          <Value>$(MXDE_BUILD)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_OBJ">
+          <Value>$(MXDE_OBJ)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_LIB">
+          <Value>$(MXDE_LIB)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_BIN">
+          <Value>$(MXDE_BIN)</Value>
+      </BuildMacro>
+      
+      <BuildMacro Include="MXDE_DEFINES">
+          <Value>$(MXDE_DEFINES)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_DEBUG_DEFINES">
+          <Value>$(MXDE_DEBUG_DEFINES)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_RELEASE_DEFINES">
+          <Value>$(MXDE_RELEASE_DEFINES)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_INCLUDE_DIRS">
+          <Value>$(MXDE_INCLUDE_DIRS)</Value>
+      </BuildMacro>
+      <BuildMacro Include="VC10_MXDE_INCLUDE_DIRS">
+          <Value>$(VC10_MXDE_INCLUDE_DIRS)</Value>
+      </BuildMacro>
+      <BuildMacro Include="VC14_MXDE_INCLUDE_DIRS">
+          <Value>$(VC14_MXDE_INCLUDE_DIRS)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_LIB_DIRS">
+          <Value>$(MXDE_LIB_DIRS)</Value>
+      </BuildMacro>
+      <BuildMacro Include="MXDE_LIBS">
+          <Value>$(MXDE_LIBS)</Value>
+      </BuildMacro>
+  </ItemGroup>
+
+  <!--===============================================-->
+
+</Project>
