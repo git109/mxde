@@ -1,0 +1,32 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAIN_DIALOG DIALOGEX 0, 0, 402, 88
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU
+CAPTION "cWinDialog"
+CLASS "cWinDialogWindowClass"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_STATIC,6,6,332,14,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT,6,23,332,14,ES_CENTER | ES_AUTOHSCROLL
+    EDITTEXT        IDC_TEXT,6,41,332,40,ES_CENTER | ES_MULTILINE | ES_AUTOHSCROLL
+    PUSHBUTTON      "Ok",IDOK,345,6,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,345,23,50,14
+    CONTROL         "UNICODE",IDC_UNICODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,345,41,50,10
+END
