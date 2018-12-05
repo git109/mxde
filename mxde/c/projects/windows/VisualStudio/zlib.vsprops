@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2018 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: zlib.vsprops                                                   -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 11/29/2018                                                     -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="zlib">
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="ZLIB_GROUP"
+        Value="thirdparty/libc/zlib/"
+    />
+    <UserMacro
+        Name="ZLIB_NAME"
+        Value="zlib"
+    />
+    <UserMacro
+        Name="ZLIB_VERSION"
+        Value="-1.2.5"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="ZLIB_DIR"
+        Value="$(ZLIB_GROUP)$(ZLIB_NAME)$(ZLIB_VERSION)"
+    />
+    <UserMacro
+        Name="ZLIB_SOURCE_DIR"
+        Value="$(SOURCE_ROOT_DIR)/$(ZLIB_DIR)"
+    />
+    <UserMacro
+        Name="ZLIB_BUILD_DIR"
+        Value="$(SOURCE_BUILD_DIR)/$(ZLIB_DIR)/build"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="ZLIB_BUILD"
+        Value="$(ZLIB_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="ZLIB_OBJ"
+        Value="$(ZLIB_BUILD)/obj/$(ProjectName)"
+    />
+    <UserMacro
+        Name="ZLIB_LIB"
+        Value="$(ZLIB_BUILD)/lib"
+    />
+    <UserMacro
+        Name="ZLIB_BIN"
+        Value="$(ZLIB_BUILD)/bin"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="ZLIB_DEFINES"
+        Value=""
+    />
+    <UserMacro
+        Name="ZLIB_DEBUG_DEFINES"
+        Value="$(ZLIB_DEFINES);$(DEPENDS_DEBUG_DEFINES)"
+    />
+    <UserMacro
+        Name="ZLIB_RELEASE_DEFINES"
+        Value="$(ZLIB_DEFINES);$(DEPENDS_RELEASE_DEFINES)"
+    />
+
+    <!--===============================================-->
+  
+    <UserMacro
+        Name="ZLIB_INCLUDE_DIRS"
+        Value="$(ZLIB_SOURCE_DIR);$(DEPENDS_INCLUDE_DIRS)"
+    />
+    <UserMacro
+        Name="ZLIB_LIB_DIRS"
+        Value="$(ZLIB_LIB);$(DEPENDS_LIB_DIRS)"
+    />
+    <UserMacro
+        Name="ZLIB_LIBS"
+        Value="zlib.lib $(DEPENDS_LIBS)"
+    />
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

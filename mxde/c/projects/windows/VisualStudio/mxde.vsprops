@@ -104,6 +104,10 @@
         Value="$(MXDE_CLIB)/cwin/cwinpng;$(MXDE_CLIB)/cwin/cwingif;$(MXDE_CLIB)/cwin/cwintiff;$(MXDE_CLIB)/cwin/cwinjpeg;$(MXDE_CLIB)/cwin/cwinbitmap;$(MXDE_CLIB)/cwin/cwincontrol;$(MXDE_CLIB)/cwin/cwinwindow;$(MXDE_CLIB)/cwin/cwinwindowclass;$(MXDE_CLIB)/cwin/cwinmain;$(MXDE_CLIB)/cwin/cwingdi;$(MXDE_CLIB)/cwin"
     />
     <UserMacro
+        Name="MXDE_CLIBPNG_INCLUDE_DIRS"
+        Value="$(MXDE_CLIB)/clibc/clibpng;$(LIBPNG_INCLUDE_DIRS)"
+    />
+    <UserMacro
         Name="MXDE_CIMAGE_INCLUDE_DIRS"
         Value="$(MXDE_CLIB)/cimage/cwin;$(MXDE_CLIB)/cimage/cx11;$(MXDE_CLIB)/cimage"
     />
@@ -148,6 +152,40 @@
     <UserMacro
       Name="MXDE_CWINHASH_LIBS"
       Value="libcwin.lib libccryptobase.lib $(MXDE_LIBS)"
+    />
+
+  <UserMacro
+      Name="MXDE_CWINPHONE_INCLUDE_DIRS"
+      Value="$(MXDE_CWIN_INCLUDE_DIRS);$(MXDE_CIMAGE_INCLUDE_DIRS);$(MXDE_INCLUDE_DIRS)"
+    />
+  <UserMacro
+    Name="MXDE_CWINPHONE_LIB_DIRS"
+    Value="$(MXDE_LIB_DIRS)"
+    />
+  <UserMacro
+    Name="MXDE_CWINPHONE_LIBS"
+    Value="libcwin.lib libclibpng.lib $(MXDE_LIBS)"
+    />
+
+  <UserMacro
+    Name="MXDE_CWINDROID_DEBUG_DEFINES"
+    Value="$(MXDE_DEBUG_DEFINES);$(LIBPNG_DEBUG_DEFINES)"
+    />
+  <UserMacro
+    Name="MXDE_CWINDROID_RELEASE_DEFINES"
+    Value="$(MXDE_RELEASE_DEFINES);$(LIBPNG_RELEASE_DEFINES)"
+    />
+  <UserMacro
+      Name="MXDE_CWINDROID_INCLUDE_DIRS"
+      Value="$(MXDE_CWINPHONE_INCLUDE_DIRS);$(MXDE_CLIBPNG_INCLUDE_DIRS)"
+    />
+  <UserMacro
+    Name="MXDE_CWINDROID_LIB_DIRS"
+    Value="$(MXDE_CWINPHONE_LIB_DIRS);$(LIBPNG_LIB_DIRS)"
+    />
+  <UserMacro
+    Name="MXDE_CWINDROID_LIBS"
+    Value="$(MXDE_CWINPHONE_LIBS) $(LIBPNG_LIBS)"
     />
 
   <!--===============================================-->
