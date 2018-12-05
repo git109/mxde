@@ -33,7 +33,12 @@
 #include "cwinimageobject.hxx"
 #include "cwinimage.hxx"
 
-#define CWINPNGMAINWINDOW_FILENAME "../../../../../doc/images/cwindroid/skins/default/device.png"
+#define CWINPNGMAINWINDOW_FILENAME1 \
+    "doc/images/cwindroid/skins/default/device.png"
+
+#define CWINPNGMAINWINDOW_FILENAME \
+    "cwindroid.png"
+
 #define CWINPNGMAINWINDOW_CLIENT_X 31
 #define CWINPNGMAINWINDOW_CLIENT_Y 72
 #define CWINPNGMAINWINDOW_CLIENT_WIDTH 320

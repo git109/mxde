@@ -63,7 +63,11 @@
 #define CWINEYEMAINWINDOW_RADIUS_HEIGHT \
         CWINEYEMAINWINDOW_RADIUS_WIDTH
 
-#define CWINEYEMAINWINDOW_BITMAP_FILENAME "../../../../../doc/images/cwineye/skins/default/device.bmp"
+#define CWINEYEMAINWINDOW_BITMAP_FILENAME1 \
+    "doc/images/cwineye/skins/default/device.bmp"
+
+#define CWINEYEMAINWINDOW_BITMAP_FILENAME \
+    "cwineye.bmp"
 
 #if defined(c_NAMESPACE)
 namespace c_NAMESPACE {
