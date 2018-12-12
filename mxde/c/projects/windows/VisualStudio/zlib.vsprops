@@ -28,7 +28,7 @@
 
     <UserMacro
         Name="ZLIB_GROUP"
-        Value="thirdparty/libc/zlib/"
+        Value="thirdparty/lib/libc/zlib/"
     />
     <UserMacro
         Name="ZLIB_NAME"

@@ -28,7 +28,7 @@
 
     <UserMacro
         Name="LIBPNG_GROUP"
-        Value="thirdparty/libc/libpng/"
+        Value="thirdparty/lib/libc/libpng/"
     />
     <UserMacro
         Name="LIBPNG_NAME"
