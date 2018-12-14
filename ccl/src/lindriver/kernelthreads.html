@@ -1,0 +1,465 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML><HEAD><TITLE>Linux: starting and stopping a kernel thread</TITLE>
+<link rel=StyleSheet href="../style.css" type="text/css" media=screen>
+    <link rel=StyleSheet href="../style.css" type="text/css" media=print>
+</head>
+
+<BODY bgcolor="#ffffff">
+
+<H1>Linux Kernel Threads in Device Drivers</H1>
+
+<H2>Purpose</H2>
+This examples shows how to create and stop a kernel 
+thread.<BR>
+The driver is implemented as a loadable module. In the init_module() 
+routine five kernel threads are created. This kernel threads sleep one second, wake 
+up, print a message and fall asleep again. On unload of the module 
+(cleanup_module), the kernel threads are killed.<BR>
+The example has been tested 
+with Linux kernel 2.4.2 on Intel (uni processor only) and Alpha 
+platform (COMPAQ Personal Workstation 500au (uni processor), DS20 and ES40 (SMP).<p>
+A version for the 2.2 kernel can be found <a href="old_example.tar.gz">here</a>.
+Note: depending on the context of the creator of the threads the new threads
+may inherit properties from the parent you do not want to have. The new version
+avoids this by having <code>keventd</code> create the threads. The 2.2. kernel
+do not have a <code>keventd</code>, so this approach is not implementable there.
+
+<H2>Functions in example</H2>
+<UL>
+  <LI><code>start_kthread</code>: creates a new kernel thread. Can be called from any
+  process context but not from interrupt. The functions blocks until
+  the thread started.</li>
+  <LI><code>stop_kthread</code>: stop the thread. Can be called from any process context
+  but the thread to be terminated. Cannot be called from interrupt context.
+  The function blocks until the thread terminated.</li>
+  <LI><code>init_kthread</code>: sets the environment of the new threads. Is to be called out 
+  of the created thread. </li>
+  <LI><code>exit_kthread</code>: needs to be called by the thread to be terminated on exit </LI>
+</UL>
+
+<H2>Creation of new Thread</H2>
+A new thread is created with <code>kernel_thread()</code>. The thread inherits properties
+from its parents. To make sure that we do not get any weired properties,
+we let <code>keventd</code> create the new thread.<BR>
+The new thread is created with <code>start_kthread()</code>. It uses a semaphore 
+to block until the new thread is running. A <code>down()</code> blocks the
+<code>start_kthread()</code>
+routine until the corresponding <code>up()</code> call in <code>init_kthread()</code>
+ is executed. <br>
+The new thread must call <code>init_kthread()</code> in order to let the
+creator continue.
+
+<H2>Stop of new Thread</H2>
+<code>stop_kthread()</code> sets a flag that the thread uses to 
+determine whether do die or not and sends a SIGKILL to the thread. This signal 
+causes the thread to be woken up. On wakeup it will check for the flag and then 
+terminate itself by calling <code>exit_kthread</code> and returning from the thread function.
+With a semaphore the <code>stop_kthread()</code> function blocks until the 
+thread terminated. 
+
+<H2>Initialization of new Thread</H2>
+Within the new created thread, <code>init_kthread()</code> needs 
+to be called. This function sets a signal mask, initialises a wait queue, the 
+termination flag and sets a new name for the thread.
+With a <code>up()</code> call it notifies the creator that the setup is 
+done. 
+
+<H2>Exit of new Thread</H2>
+When the thread receives the notification to 
+terminate itself, is calls the <code>exit_kthread()</code> function.
+It notifies the 
+<code>stop_kthread()</code> function that it terminated with an <code>up()</code> call. 
+
+<H2>The new Thread itself</H2>
+The new thread is implemented in the 
+<code>example_thread()</code> function. It runs an endless loop (<code>for(;;)</code>).
+ In the loop it 
+falls asleep with the <code>interruptible_sleep_on_timeout()</code> function. It comes out of 
+this function either when the timeout expires or when a signal got 
+caught.<BR>
+The "work" in the thread is to print out a message with printk. 
+
+<h2>Kernel Versions</h2>
+The example has been tested on 2.4.2.
+
+<H2>Example Device Driver Code</H2>
+The example consists of four files: kthread.h, kthread.c, thread_drv.c and a
+Makefile
+<h3>kthread.h</h3>
+<pre>
+#ifndef _KTHREAD_H
+#define _KTHREAD_H
+#include &lt;linux/config.h&gt;
+#include &lt;linux/version.h&gt;
+
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/sched.h&gt;
+#include &lt;linux/tqueue.h&gt;
+#include &lt;linux/wait.h&gt;
+
+#include &lt;asm/unistd.h&gt;
+#include &lt;asm/semaphore.h&gt;
+
+/* a structure to store all information we need
+   for our thread */
+typedef struct kthread_struct
+{
+        /* private data */
+
+        /* Linux task structure of thread */
+        struct task_struct *thread;
+        /* Task queue need to launch thread */
+        struct tq_struct tq;
+        /* function to be started as thread */
+        void (*function) (struct kthread_struct *kthread);
+        /* semaphore needed on start and creation of thread. */
+        struct semaphore startstop_sem;
+
+        /* public data */
+
+        /* queue thread is waiting on. Gets initialized by
+           init_kthread, can be used by thread itself.
+        */
+        wait_queue_head_t queue;
+        /* flag to tell thread whether to die or not.
+           When the thread receives a signal, it must check
+           the value of terminate and call exit_kthread and terminate
+           if set.
+        */
+        int terminate;
+        /* additional data to pass to kernel thread */
+        void *arg;
+} kthread_t;
+
+/* prototypes */
+
+/* start new kthread (called by creator) */
+void start_kthread(void (*func)(kthread_t *), kthread_t *kthread);
+
+/* stop a running thread (called by "killer") */
+void stop_kthread(kthread_t *kthread);
+
+/* setup thread environment (called by new thread) */
+void init_kthread(kthread_t *kthread, char *name);
+
+/* cleanup thread environment (called by thread upon receiving termination signal) */
+void exit_kthread(kthread_t *kthread);
+
+#endif
+</pre>
+<h3>kthread.c</h3>
+<pre>
+#include &lt;linux/config.h&gt;
+#include &lt;linux/version.h&gt;
+
+#if defined(MODVERSIONS)
+#include &lt;linux/modversions.h&gt;
+#endif
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/sched.h&gt;
+#include &lt;linux/tqueue.h&gt;
+#include &lt;linux/wait.h&gt;
+#include &lt;linux/signal.h&gt;
+
+#include &lt;asm/semaphore.h&gt;
+#include &lt;asm/smplock.h&gt;
+
+#include "kthread.h"
+
+/* private functions */
+static void kthread_launcher(void *data)
+{
+        kthread_t *kthread = data;
+        kernel_thread((int (*)(void *))kthread-&gt;function, (void *)kthread, 0);
+        
+}
+
+/* public functions */
+
+/* create a new kernel thread. Called by the creator. */
+void start_kthread(void (*func)(kthread_t *), kthread_t *kthread)
+{
+        /* initialize the semaphore:
+           we start with the semaphore locked. The new kernel
+           thread will setup its stuff and unlock it. This
+           control flow (the one that creates the thread) blocks
+           in the down operation below until the thread has reached
+           the up() operation.
+         */
+        init_MUTEX_LOCKED(&amp;kthread-&gt;startstop_sem);
+
+        /* store the function to be executed in the data passed to
+           the launcher */
+        kthread-&gt;function=func;
+        
+        /* create the new thread my running a task through keventd */
+
+        /* initialize the task queue structure */
+        kthread-&gt;tq.sync = 0;
+        INIT_LIST_HEAD(&amp;kthread-&gt;tq.list);
+        kthread-&gt;tq.routine =  kthread_launcher;
+        kthread-&gt;tq.data = kthread;
+
+        /* and schedule it for execution */
+        schedule_task(&amp;kthread-&gt;tq);
+
+        /* wait till it has reached the setup_thread routine */
+        down(&amp;kthread-&gt;startstop_sem);
+               
+}
+
+/* stop a kernel thread. Called by the removing instance */
+void stop_kthread(kthread_t *kthread)
+{
+        if (kthread-&gt;thread == NULL)
+        {
+                printk("stop_kthread: killing non existing thread!\n");
+                return;
+        }
+
+        /* this function needs to be protected with the big
+	   kernel lock (lock_kernel()). The lock must be
+           grabbed before changing the terminate
+	   flag and released after the down() call. */
+        lock_kernel();
+        
+        /* initialize the semaphore. We lock it here, the
+           leave_thread call of the thread to be terminated
+           will unlock it. As soon as we see the semaphore
+           unlocked, we know that the thread has exited.
+	*/
+        init_MUTEX_LOCKED(&amp;kthread-&gt;startstop_sem);
+
+        /* We need to do a memory barrier here to be sure that
+           the flags are visible on all CPUs. 
+        */
+        mb();
+
+        /* set flag to request thread termination */
+        kthread-&gt;terminate = 1;
+
+        /* We need to do a memory barrier here to be sure that
+           the flags are visible on all CPUs. 
+        */
+        mb();
+        kill_proc(kthread-&gt;thread-&gt;pid, SIGKILL, 1);
+       
+        /* block till thread terminated */
+        down(&amp;kthread-&gt;startstop_sem);
+
+        /* release the big kernel lock */
+        unlock_kernel();
+
+        /* now we are sure the thread is in zombie state. We
+           notify keventd to clean the process up.
+        */
+        kill_proc(2, SIGCHLD, 1);
+
+}
+
+/* initialize new created thread. Called by the new thread. */
+void init_kthread(kthread_t *kthread, char *name)
+{
+        /* lock the kernel. A new kernel thread starts without
+           the big kernel lock, regardless of the lock state
+           of the creator (the lock level is *not* inheritated)
+        */
+        lock_kernel();
+
+        /* fill in thread structure */
+        kthread-&gt;thread = current;
+
+        /* set signal mask to what we want to respond */
+        siginitsetinv(&amp;current-&gt;blocked, sigmask(SIGKILL)|sigmask(SIGINT)|sigmask(SIGTERM));
+
+        /* initialise wait queue */
+        init_waitqueue_head(&amp;kthread-&gt;queue);
+
+        /* initialise termination flag */
+        kthread-&gt;terminate = 0;
+
+        /* set name of this process (max 15 chars + 0 !) */
+        sprintf(current-&gt;comm, name);
+        
+        /* let others run */
+        unlock_kernel();
+
+        /* tell the creator that we are ready and let him continue */
+        up(&amp;kthread-&gt;startstop_sem);
+
+}
+
+/* cleanup of thread. Called by the exiting thread. */
+void exit_kthread(kthread_t *kthread)
+{
+        /* we are terminating */
+
+	/* lock the kernel, the exit will unlock it */
+        lock_kernel();
+        kthread-&gt;thread = NULL;
+        mb();
+
+        /* notify the stop_kthread() routine that we are terminating. */
+	up(&amp;kthread-&gt;startstop_sem);
+	/* the kernel_thread that called clone() does a do_exit here. */
+
+	/* there is no race here between execution of the "killer" and real termination
+	   of the thread (race window between up and do_exit), since both the
+	   thread and the "killer" function are running with the kernel lock held.
+	   The kernel lock will be freed after the thread exited, so the code
+	   is really not executed anymore as soon as the unload functions gets
+	   the kernel lock back.
+	   The init process may not have made the cleanup of the process here,
+	   but the cleanup can be done safely with the module unloaded.
+	*/
+
+}
+</pre>
+
+<h3>thread_drv.c</h3>
+<pre>
+#include &lt;linux/config.h&gt;
+#include &lt;linux/version.h&gt;
+
+#include &lt;linux/module.h&gt;
+#if defined(MODVERSIONS)
+#include &lt;linux/modversions.h&gt;
+#endif
+
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/string.h&gt;
+#include &lt;linux/errno.h&gt;
+#include &lt;linux/sched.h&gt;
+
+#include "kthread.h"
+
+#define NTHREADS 5
+
+/* the variable that contains the thread data */
+kthread_t example[NTHREADS];
+
+/* prototype for the example thread */
+static void example_thread(kthread_t *kthread);
+
+/* load the module */
+int init_module(void)
+{
+        int i;
+        
+        /* create new kernel threads */
+	for (i=0; i &lt;NTHREADS; i++)
+                start_kthread(example_thread, &amp;example[i]);
+        
+        return(0);
+}
+
+/* remove the module */
+void cleanup_module(void)
+{
+        int i;
+        
+        /* terminate the kernel threads */
+	for (i=0; i&lt;NTHREADS; i++)
+                stop_kthread(&amp;example[i]);
+        
+        return;
+}
+
+/* this is the thread function that we are executing */
+static void example_thread(kthread_t *kthread)
+{
+        /* setup the thread environment */
+        init_kthread(kthread, "example thread");
+        
+        printk("hi, here is the kernel thread\n");
+        
+        /* an endless loop in which we are doing our work */
+        for(;;)
+        {
+                /* fall asleep for one second */
+                interruptible_sleep_on_timeout(&amp;kthread-&gt;queue, HZ);
+
+                /* We need to do a memory barrier here to be sure that
+                   the flags are visible on all CPUs. 
+                */
+                 mb();
+                
+                /* here we are back from sleep, either due to the timeout
+                   (one second), or because we caught a signal.
+                */
+                if (kthread-&gt;terminate)
+                {
+                        /* we received a request to terminate ourself */
+                        break;    
+                }
+                
+                /* this is normal work to do */
+                printk("example thread: thread woke up\n");
+        }
+        /* here we go only in case of termination of the thread */
+
+        /* cleanup the thread, leave */
+        exit_kthread(kthread);
+
+	/* returning from the thread here calls the exit functions */
+}
+</pre>
+<h3>Makefile</h3>
+<pre>
+# set to your kernel tree
+KERNEL  = /usr/src/linux
+
+# get the Linux architecture. Needed to find proper include file for CFLAGS
+ARCH=$(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/)
+# set default flags to compile module
+CFLAGS = -D__KERNEL__ -DMODULE -I$(KERNEL)/include
+CFLAGS+= -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -fno-strict-aliasing
+
+all:	thread_mod.o
+
+# get configuration of kernel
+include $(KERNEL)/.config
+# modify CFLAGS with architecture specific flags
+include $(KERNEL)/arch/${ARCH}/Makefile
+
+# enable the module versions, if configured in kernel source tree
+ifdef CONFIG_MODVERSIONS
+CFLAGS+= -DMODVERSIONS -include $(KERNEL)/include/linux/modversions.h
+endif
+# enable SMP, if configured in kernel source tree
+ifdef CONFIG_SMP
+CFLAGS+= -D__SMP__
+endif
+
+# note: we are compiling the driver object file and then linking
+# we link it into the module. With just one object file as in
+# this example this is not needed. We can just load the object
+# file produced by gcc 
+# link the thread driver module
+thread_mod.o:     thread_drv.o kthread.o
+	ld -r -o thread_mod.o thread_drv.o kthread.o
+# compile the kthread object file
+kthread.o:	kthread.c kthread.h
+	gcc $(CFLAGS) -c kthread.c
+# compile the thread driver
+thread_drv.o:     thread_drv.c kthread.h
+	gcc $(CFLAGS) -c thread_drv.c
+
+clean:
+	rm -f *.o
+</pre>
+
+<h2>Bugs</h2>
+The code assumes that <code>keventd</code> is running with PID 2.
+
+<H2>Comments, Corrections</H2>
+Please send comments, corrections etc. to the 
+address below. 
+
+<HR>
+
+<A href="mailto:frey@scs.ch"><IMG border=0 
+
+src="mailbox_tr.gif"> <I>frey@scs.ch</I></A> </BODY></HTML>
+

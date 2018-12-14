@@ -1,0 +1,4 @@
+Vendor ID Field:12DE 
+(Hex)Device ID Field:0200 Hex (CS2-200 Device ID)
+0201 Hex (CS2-100 Device ID)
+0203 Hex (CS2-50 Device ID)

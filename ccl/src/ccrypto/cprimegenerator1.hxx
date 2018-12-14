@@ -1,0 +1,479 @@
+/**
+ **********************************************************************
+ * Copyright (c) 1988-2007 $organization$
+ *
+ * This software is provided by the author and contributors ``as is'' 
+ * and any express or implied warranties, including, but not limited to, 
+ * the implied warranties of merchantability and fitness for a particular 
+ * purpose are disclaimed. In no event shall the author or contributors 
+ * be liable for any direct, indirect, incidental, special, exemplary, 
+ * or consequential damages (including, but not limited to, procurement 
+ * of substitute goods or services; loss of use, data, or profits; or 
+ * business interruption) however caused and on any theory of liability, 
+ * whether in contract, strict liability, or tort (including negligence 
+ * or otherwise) arising in any way out of the use of this software, 
+ * even if advised of the possibility of such damage.
+ *
+ *   File: cprimegenerator.hxx
+ *
+ * Author: $author$
+ *   Date: 10/22/2007
+ *
+ **********************************************************************
+ */
+#ifndef _CPRIMEGENERATOR_HXX
+#define _CPRIMEGENERATOR_HXX
+
+#include "cbytestreaminterface.hxx"
+#include "cmillerrabinprimality.hxx"
+#include "cprimereader.hxx"
+
+#define _CRSA_MILLER_RABIN_REPS 25
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST) 
+#include "small_primes.h"
+#define _CRSA_SMALL_PRIME_DIFFERENCE 0x7/*0000000*/
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+
+#if defined(_CRSA_BN)
+/*
+ * BIGNUM implementation
+ */
+#elif defined(_CRSA_MP) 
+/*
+ * MP_INT implementation
+ */
+#else /* defined(_CRSA_BN) */
+/*
+ * Otherwise 
+ */
+#endif /* defined(_CRSA_BN) */
+
+/**
+ **********************************************************************
+ *  Class: cPrimeGenerator
+ *
+ * Author: $author$
+ *   Date: 10/22/2007
+ **********************************************************************
+ */
+class cPrimeGenerator
+: public cPrimeReader
+{
+public:
+    typedef cPrimeReader cIs, cExtends;
+    typedef cPrimeGenerator cAs, cDerives;
+
+    bool m_is_created;
+
+#if defined(_CRSA_BN)
+/*
+ * BIGNUM implementation
+ */
+    BIGNUM *m_temp1,*m_temp2;
+    BN_CTX *m_ctx;
+#elif defined(_CRSA_MP) 
+/*
+ * MP_INT implementation
+ */
+    MP_INT m_temp1,m_temp2;
+#else /* defined(_CRSA_BN) */
+/*
+ * Otherwise 
+ */
+#endif /* defined(_CRSA_BN) */
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST) 
+    long m_moduli[sizeof(g_small_primes)/sizeof(g_small_primes[0])];
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+
+    long m_small_prime_difference;
+    unsigned m_miller_rabin_reps;
+    cMillerRabinPrimality m_miller_rabin;
+
+    /**
+     **********************************************************************
+     * Constructor: cPrimeGenerator
+     *
+     *      Author: $author$
+     *        Date: 10/22/2007
+     **********************************************************************
+     */
+    cPrimeGenerator
+    (cPrimeReaderEventsInterface* events=0,
+     long small_prime_difference=_CRSA_SMALL_PRIME_DIFFERENCE,
+     unsigned miller_rabin_reps=_CRSA_MILLER_RABIN_REPS) 
+    : cExtends(events),
+      m_is_created(false),
+      m_small_prime_difference(small_prime_difference),
+      m_miller_rabin_reps(miller_rabin_reps),
+      m_miller_rabin(events)
+    {
+    }
+    /**
+     **********************************************************************
+     * Destructor: cPrimeGenerator
+     *
+     *     Author: $author$
+     *       Date: 10/22/2007
+     **********************************************************************
+     */
+    virtual ~cPrimeGenerator()
+    {
+        eError error;
+
+        if (m_is_created)
+        if ((error = Destroy()))
+            throw(error);
+    }
+
+    /**
+     **********************************************************************
+     * Function: Destroy
+     *
+     *   Author: $author$
+     *     Date: 10/22/2007
+     **********************************************************************
+     */
+    virtual eError Destroy() 
+    {
+        eError error = e_ERROR_FAILED;
+
+        if (!m_is_created)
+            return e_ERROR_NOT_CREATED;
+
+#if defined(_CRSA_BN)
+/*
+ * BIGNUM implementation
+ */
+        BN_CTX_free(m_ctx);
+        BN_free(m_temp2);
+        BN_free(m_temp1);
+#elif defined(_CRSA_MP) 
+/*
+ * MP_INT implementation
+ */
+        mpz_clear(&m_temp2);
+        mpz_clear(&m_temp1);
+#else /* defined(_CRSA_BN) */
+/*
+ * Otherwise 
+ */
+#endif /* defined(_CRSA_BN) */
+
+
+#if defined(_CRSA_BN) | defined(_CRSA_MP) 
+/*
+ * BIGNUM or MP_INT implementation
+ */
+        if ((error = m_miller_rabin.Destroy()))
+            return error;
+
+        error = e_ERROR_NONE;
+#endif /* defined(_CRSA_BN) | defined(_CRSA_MP)*/
+
+        m_is_created = false;
+        return error;
+    }
+    /**
+     **********************************************************************
+     * Function: Create
+     *
+     *   Author: $author$
+     *     Date: 10/22/2007
+     **********************************************************************
+     */
+    virtual eError Create() 
+    {
+        eError error = e_ERROR_FAILED;
+
+        if (m_is_created)
+            return e_ERROR_ALREADY_CREATED;
+
+#if defined(_CRSA_BN)
+/*
+ * BIGNUM implementation
+ */
+        if ((m_temp1=BN_new()))
+        {
+            if ((m_temp2=BN_new()))
+            {
+                if ((m_ctx=BN_CTX_new()))
+                {
+                    if (!(error = m_miller_rabin.Create()))
+                        return error;
+
+                    error = e_ERROR_FAILED;
+                    BN_CTX_free(m_ctx);
+                }
+                BN_free(m_temp2);
+            }
+            BN_free(m_temp1);
+        }
+#elif defined(_CRSA_MP) 
+/*
+ * MP_INT implementation
+ */
+        mpz_init_set_ui(&m_temp1,0);
+        mpz_init_set_ui(&m_temp2,0);
+
+        if (!(error = m_miller_rabin.Create()))
+            return error;
+
+        error = e_ERROR_FAILED;
+        mpz_clear(&m_temp1);
+        mpz_clear(&m_temp2);
+#else /* defined(_CRSA_BN) */
+/*
+ * Otherwise 
+ */
+#endif /* defined(_CRSA_BN) */
+
+
+#if defined(_CRSA_BN) | defined(_CRSA_MP) 
+/*
+ * BIGNUM or MP_INT implementation
+ */
+#endif /* defined(_CRSA_BN) | defined(_CRSA_MP)*/
+        return error;
+    }
+
+    /**
+     **********************************************************************
+     * Function: Generate
+     *
+     *   Author: $author$
+     *     Date: 10/22/2007
+     **********************************************************************
+     */
+    virtual eError Generate
+    (BIGPRIME *prime, unsigned bytes, 
+     cBYTEStreamInterface& random) 
+    {
+        eError error = e_ERROR_FAILED;
+        bool retry;
+        unsigned bits;
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST) 
+        long difference;
+        unsigned i,num_primes;
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+
+        bits=(bytes<<3);
+        retry=true;
+
+        do
+        {
+            /* Pick a random integer of the appropriate size. 
+             */
+            if ((error = ReadMSB(prime,bytes,random)))
+                return error;
+                 
+#if defined(_CRSA_BN)
+/*
+ * BIGNUM implementation
+ */
+            /* Set the lowest bit to make it odd. 
+             */
+            BN_set_bit(prime,0); 
+            /* Set the highest bit to make it n bits. 
+             */
+            BN_set_bit(prime,(bits-1));
+
+#if defined(_CRSA_SET_TWO_HIGHEST_BITS)
+            BN_set_bit(prime,(bits-2)); 
+#endif /* defined(_CRSA_SET_TWO_HIGHEST_BITS) */
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST) 
+            /* Initialize moduli of the small primes with respect to the
+             * random number. 
+             */
+            if (bits < 16)
+                /* Don't use the table for very small numbers.
+                 */
+                num_primes = 0;
+            else
+            {
+                for (num_primes = 0; g_small_primes[num_primes] != 0; num_primes++)
+                    m_moduli[num_primes]=BN_mod_word(prime,g_small_primes[num_primes]);
+            }
+
+            /* Look for numbers that are not evenly divisible
+             * by any of the small primes. 
+             */
+            for (difference = 0; 
+                 difference <= m_small_prime_difference; 
+                 difference += 2)
+            {
+                /* Check if it is a multiple of any small prime. Note that this
+                 * updates the moduli into negative values as difference grows.
+                 */
+                for (i = 0; i < num_primes; i++)
+                {
+                    while (m_moduli[i] + difference >= (long)g_small_primes[i])
+                        m_moduli[i] -= g_small_primes[i];
+
+                    if (m_moduli[i] + difference == 0)
+                        break;
+                }
+
+                if (i < num_primes)
+                    /* Multiple of a known prime. 
+                     */
+                    continue; 
+
+                /* It passed the small prime test (not divisible by any of them).
+                 * Compute the number in question. 
+                 */
+                BN_add_word(prime,difference);
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+
+                /* Perform the fermat test for witness 2.  This means:
+                 * it is not prime if 2^n mod n != 2. 
+                 */
+                BN_set_word(m_temp1,2);
+                BN_mod_exp(m_temp2,m_temp1,prime,prime,m_ctx);
+
+                if (BN_cmp(m_temp1,m_temp2))
+                    /* Failed the fermat test for witness 2.
+                     */
+                    continue;
+
+                /* Perform the Miller Rabin primality test.
+                 */
+                if ((error=m_miller_rabin.ProbablyPrime
+                    (prime,bytes,m_miller_rabin_reps,random))!=c_ERROR_NONE)
+                    /* Failed the Miller Rabin probable primality test.
+                     */
+                    continue;
+
+                /* Found a (probable) prime.
+                 * Sanity check: does it still have the high bit set
+                 * (we might have wrapped around)? 
+                 */
+                if (BN_is_bit_set(prime,bits-1))
+                    retry=false;
+
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST)
+                break;
+            }
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+#elif defined(_CRSA_MP) 
+/*
+ * MP_INT implementation
+ */
+            /* Set the lowest bit to make it odd. 
+             */
+            mpz_set_ui(&m_temp1,1);
+            mpz_ior(prime,prime,&m_temp1);
+
+            /* Set the highest bit to make it n bits. 
+             */
+            mpz_mul_2exp(&m_temp1,&m_temp1,(bits-1));
+            mpz_ior(prime,prime,&m_temp1); 
+
+#if defined(_CRSA_SET_TWO_HIGHEST_BITS) 
+            mpz_tdiv_q_2exp(&m_temp1,&m_temp1,1);
+            mpz_ior(prime,prime,&m_temp1); 
+#endif /* defined(_CRSA_SET_TWO_HIGHEST_BITS) */
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST)
+            /* Initialize moduli of the small primes with respect to the
+             * random number. 
+             */
+            if (bits < 16)
+                /* Don't use the table for very small numbers.
+                 */
+                num_primes = 0;
+            else
+            {
+                for (num_primes = 0; g_small_primes[num_primes] != 0; num_primes++)
+                {
+                    mpz_mod_ui(&m_temp1, prime, g_small_primes[num_primes]);
+                    m_moduli[num_primes]=mpz_get_ui(&m_temp1);
+                }
+            }
+
+            /* Look for numbers that are not evenly divisible 
+             * by any of the small primes. 
+             */
+            for (difference = 0; 
+                 difference <= m_small_prime_difference; 
+                 difference += 2)
+            {
+                /* Check if it is a multiple of any small prime.  Note that this
+                 * updates the moduli into negative values as difference grows. 
+                 */
+                for (i = 0; i < num_primes; i++)
+                {
+                    while (m_moduli[i] + difference >= (long)g_small_primes[i])
+                        m_moduli[i] -= g_small_primes[i];
+
+                    if (m_moduli[i] + difference == 0)
+                        break;
+                }
+                if (i < num_primes)
+                    /* Multiple of a known prime. 
+                     */
+                    continue; 
+
+                /* It passed the small prime test (not divisible by any of them).
+                 * Compute the number in question. 
+                 */
+                mpz_add_ui(prime,prime,difference);
+
+                OnReadPrime(prime, bytes);
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+
+                /* Perform the fermat test for witness 2.  This means:
+                 * it is not prime if 2^n mod n != 2. 
+                 */
+                mpz_set_ui(&m_temp1,2);
+                mpz_powm(&m_temp2,&m_temp1,prime,prime);
+
+                if (mpz_cmp(&m_temp1,&m_temp2))
+                    /* Failed the fermat test for witness 2.
+                     */
+                    continue;
+
+                /* Perform the Miller Rabin primality test.
+                 */
+                if ((error=m_miller_rabin.ProbablyPrime
+                    (prime,bytes,m_miller_rabin_reps,random)))
+                    /* Failed the Miller Rabin probable primality test.
+                     */
+                    continue;
+
+                /* Found a (probable) prime.
+                 * Sanity check: does it still have the high bit set
+                 * (we might have wrapped around)? 
+                 */
+                mpz_tdiv_q_2exp(&m_temp1, prime, bits-1);
+                if (mpz_get_ui(&m_temp1))
+                    retry = false;
+
+#if !defined(_CRSA_NO_SMALL_PRIME_TEST)
+                break;
+            }
+#endif /* !defined(_CRSA_NO_SMALL_PRIME_TEST) */
+#else /* defined(_CRSA_BN) */
+/*
+ * Otherwise 
+ */
+#endif /* defined(_CRSA_BN) */
+        }
+        while (retry);
+
+
+#if defined(_CRSA_BN) | defined(_CRSA_MP) 
+/*
+ * BIGNUM or MP_INT implementation
+ */
+        error = e_ERROR_NONE;
+#endif /* defined(_CRSA_BN) | defined(_CRSA_MP)*/
+
+        return error;
+    }
+};
+#endif /* _CPRIMEGENERATOR_HXX */
